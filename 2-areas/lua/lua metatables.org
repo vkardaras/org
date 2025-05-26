@@ -1,7 +1,5 @@
 * lua metatables
-:PROPERTIES:
-:CUSTOM_ID: lua-metatables
-:END:
+
 #+begin_src lua
 local vector_mt = {}
 vector_mt.__add = function(left, right)

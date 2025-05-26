@@ -1,7 +1,5 @@
 * neovim goodies
-:PROPERTIES:
-:CUSTOM_ID: neovim-goodies
-:END:
+
 #+begin_src lua
 vim.keymap.set("n", "<space><space>x", "<cmd>source %<CR>")
 vim.keymap.set("n", "<space>x", ":.lua<CR>")
@@ -9,9 +7,7 @@ vim.keymap.set("v", "<space>x", ":lua<CR>")
 #+end_src
 
 ** Autocommands
-:PROPERTIES:
-:CUSTOM_ID: autocommands
-:END:
+
 #+begin_src lua
 -- Highlight when yanking (copying) text
 -- Try it with `yap` in normal mode
@@ -26,9 +22,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 #+end_src
 
 ** Lua help
-:PROPERTIES:
-:CUSTOM_ID: lua-help
-:END:
+
 #+begin_src sh
 :lua = vim
 :lua = vim.api
@@ -37,9 +31,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 #+end_src
 
 ** Lua runtime path
-:PROPERTIES:
-:CUSTOM_ID: lua-runtime-path
-:END:
+
 #+begin_src sh
 :echo nvim_list_runtime_paths()
 #+end_src

@@ -1,7 +1,5 @@
 * lua modules
-:PROPERTIES:
-:CUSTOM_ID: lua-modules
-:END:
+
 There isn't anything special about modules. Modules are just files!
 
 #+begin_src lua

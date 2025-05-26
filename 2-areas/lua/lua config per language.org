@@ -1,11 +1,7 @@
 * lua config per language
-:PROPERTIES:
-:CUSTOM_ID: lua-config-per-language
-:END:
+
 ** Create a =lua= file for the file type you want, e.g. =lua=
-:PROPERTIES:
-:CUSTOM_ID: create-a-lua-file-for-the-file-type-you-want-e.g.-lua
-:END:
+
 - Create a file for language options in =ftplugin= directory. For =lua=
   it is =lua.lua=
 

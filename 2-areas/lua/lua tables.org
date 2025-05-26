@@ -1,11 +1,7 @@
 * lua tables
-:PROPERTIES:
-:CUSTOM_ID: lua-tables
-:END:
+
 ** As list
-:PROPERTIES:
-:CUSTOM_ID: as-list
-:END:
+
 #+begin_src lua
 local list = { "first", 2, false, function() print("Fourth!") end }
 print("Yup, 1-indexed:", list[1])
@@ -13,9 +9,7 @@ print("Fourth is 4 ...:", list[4]())
 #+end_src
 
 ** As a map
-:PROPERTIES:
-:CUSTOM_ID: as-a-map
-:END:
+
 #+begin_src lua
 local t = {
     literal_key = "a string",

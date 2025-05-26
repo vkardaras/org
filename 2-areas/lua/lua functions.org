@@ -1,7 +1,5 @@
 * lua functions
-:PROPERTIES:
-:CUSTOM_ID: lua-functions
-:END:
+
 #+begin_src lua
 local function hello(name)
     print("Hello!", name)
@@ -14,9 +12,7 @@ end
 #+end_src
 
 ** Function calling other function
-:PROPERTIES:
-:CUSTOM_ID: function-calling-other-function
-:END:
+
 #+begin_src lua
 local higher_order = function(value)
     return function(another)
@@ -29,9 +25,7 @@ print("add_one(2) -> ", add_one(2))
 #+end_src
 
 ** Multiple returns
-:PROPERTIES:
-:CUSTOM_ID: multiple-returns
-:END:
+
 #+begin_src lua
 local returns_four_values = function()
     return 1, 2, 3, 4
@@ -46,9 +40,7 @@ print("last:", last)
 #+end_src
 
 *** With parameters
-:PROPERTIES:
-:CUSTOM_ID: with-parameters
-:END:
+
 #+begin_src lua
 local variable_arguments = function( ... )
     local arguments = { ... }
@@ -63,9 +55,7 @@ print("2:", variable_arguments("hello", "world", "!"), "<lost>")
 #+end_src
 
 ** Functions calling
-:PROPERTIES:
-:CUSTOM_ID: functions-calling
-:END:
+
 When there is only one argument you can omit the parenthesis
 
 #+begin_src lua
@@ -79,9 +69,7 @@ print(x, y)
 #+end_src
 
 *** With tables
-:PROPERTIES:
-:CUSTOM_ID: with-tables
-:END:
+
 #+begin_src lua
 local setup = function(opts)
     if opts.default == nil then
@@ -96,9 +84,7 @@ setup { other = true }
 #+end_src
 
 ** Colon functions
-:PROPERTIES:
-:CUSTOM_ID: colon-functions
-:END:
+
 #+begin_src lua
 local MyTable = {}
 

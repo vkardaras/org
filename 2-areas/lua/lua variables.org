@@ -1,7 +1,5 @@
 * lua variables
-:PROPERTIES:
-:CUSTOM_ID: lua-variables
-:END:
+
 #+begin_src lua
 local number = 5
 
