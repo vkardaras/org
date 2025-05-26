@@ -1,12 +1,12 @@
 * lua
 
-** lua comments
-** lua variables
-** lua functions
-** lua tables
-** lua metatables
-** lua control flow
-** lua modules
-** neovim goodies
-** lua config per language
-** lua commands
+** [[file:lua comments.org][lua comments]]
+** [[file:lua variables.org][lua variables]]
+** [[file:lua functions.org][lua functions]]
+** [[file:lua tables.org][lua tables]]
+** [[file:lua metatables.org][lua metatables]]
+** [[file:lua control flow.org][lua control flow]]
+** [[file:lua modules.org][lua modules]]
+** [[file:neovim goodies.org][neovim goodies]]
+** [[file:lua config per language.org][lua config per language]]
+** [[file:lua commands.org][lua commands]]

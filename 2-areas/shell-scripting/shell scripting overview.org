@@ -1,11 +1,7 @@
 * Introducing shell scripts
-:PROPERTIES:
-:CUSTOM_ID: introducing-shell-scripts
-:END:
+
 ** Shell Scripts
-:PROPERTIES:
-:CUSTOM_ID: shell-scripts
-:END:
+
 File containing shell commands
 
 - Automate task
@@ -18,9 +14,7 @@ Complete programming language
 - Functions, etc.
 
 ** Strengths and Weaknesses
-:PROPERTIES:
-:CUSTOM_ID: strengths-and-weaknesses
-:END:
+
 Strengths
 
 - File system operations

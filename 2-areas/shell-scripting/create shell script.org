@@ -1,7 +1,5 @@
 * Creating a first script
-:PROPERTIES:
-:CUSTOM_ID: creating-a-first-script
-:END:
+
 #+begin_src sh
 nano create_report.sh
 #+end_src
@@ -59,9 +57,7 @@ echo Report created.
 #+end_src
 
 ** Making your script executable
-:PROPERTIES:
-:CUSTOM_ID: making-your-script-executable
-:END:
+
 #+begin_src sh
 # Executable for owner only
 chmod u+x filename

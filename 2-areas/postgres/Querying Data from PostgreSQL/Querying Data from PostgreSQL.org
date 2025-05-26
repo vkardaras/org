@@ -1,6 +1,6 @@
 * Querying Data from PostgreSQL
 
-** Selecting Your Data
-** Limiting your results
-** Joining for Further Insight
-** Presenting and Aggregating your results
+** [[file:Selecting Your Data.org][Selecting Your Data]]
+** [[file:Limiting your results.org][Limiting your results]]
+** [[file:Joining for Further Insight.org][Joining for Further Insight]]
+** [[file:Presenting and Aggregating your results.org][Presenting and Aggregating your results]]

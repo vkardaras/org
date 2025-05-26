@@ -1,11 +1,7 @@
 * Shell Scripting
-:PROPERTIES:
-:CUSTOM_ID: shell-scripting
-:END:
-- [[shell scripting overview]]
-- [[Working with shell syntax]]
-- [[create shell script]]
-- [[shell variables]]
-- [[shell conditionals]]
 
-[[Mastering Bash and Z Shell Scripting Syntax]]
+** [[file:shell scripting overview.org][shell scripting overview]]
+** [[file:create shell script.org][create shell script]]
+** [[file:shell-variables/shell variables.org][shell variables]]
+** [[file:shell-conditionals/shell conditionals.org][shell conditionals]]
+** [[file:Mastering Bash and Z Shell Scripting Syntax/Mastering Bash and Z Shell Scripting Syntax.org][Mastering Bash and Z Shell Scripting Syntax]]

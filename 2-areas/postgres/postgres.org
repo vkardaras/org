@@ -1,6 +1,6 @@
 * postgres
 
-** Querying Data from PostgreSQL
-** psql common commands
-** docker postgres
-** delete database tables with constrains
+** [[file:Querying Data from PostgreSQL/Querying Data from PostgreSQL.org][Querying Data from PostgreSQL]]
+** [[file:psql common commands.org][psql common commands]]
+** [[file:docker postgres.org][docker postgres]]
+** [[file:delete database tables with constrains.org][delete database tables with constrains]]
