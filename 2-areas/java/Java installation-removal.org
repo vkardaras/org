@@ -1,0 +1,32 @@
+[[java version|Check java version]]
+
+** ubuntu
+
+#+begin_src sh
+# remove
+sudo apt-get autoremove openjdk-21-jdk
+
+# install
+sudo apt install openjdk-17-jdk -y
+#+end_src
+
+** arch
+
+Check java installations
+
+#+begin_src sh
+# install latest version
+$ sudo pacman -S jdk-openjdk
+
+# install specific version
+$ sudo pacman -S jdk21-openjdk
+
+# check java installations
+$ archlinux-java status
+Available Java environments:
+  java-17-openjdk (default)
+  java-21-openjdk
+
+# change default java version
+archlinux-java set java-21-openjdk
+#+end_src

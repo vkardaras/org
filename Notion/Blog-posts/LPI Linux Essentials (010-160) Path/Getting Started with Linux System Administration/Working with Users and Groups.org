@@ -1,0 +1,105 @@
+** Understanding Linux Users
+:PROPERTIES:
+:CUSTOM_ID: understanding-linux-users
+:END:
+*** Admin Powers: Best Practices
+:PROPERTIES:
+:CUSTOM_ID: admin-powers-best-practices
+:END:
+- Avoid using the root account
+- Create unique accounts for each user
+- Assign only necessary authority to each user
+- Use admin power only view sudo
+
+View encryption passwords of users
+
+#+begin_src shell
+$ sudo less /etc/shadow
+#+end_src
+
+Get users and groups
+
+#+begin_src shell
+$ less /etc/passwd
+#+end_src
+
+Get groups info
+
+#+begin_src shell
+$ less /etc/group
+#+end_src
+
+Get the privileges associated with a specific user
+
+#+begin_src shell
+$ id username
+#+end_src
+
+Get the user that is currently is logged-in
+
+#+begin_src shell
+$ who
+#+end_src
+
+Get the currently logged-in user and his current activity
+
+#+begin_src shell
+$ w
+#+end_src
+
+Get all the system log-ins since the beginning of the month
+
+#+begin_src shell
+$ last
+#+end_src
+
+** Administrating Users and Groups
+:PROPERTIES:
+:CUSTOM_ID: administrating-users-and-groups
+:END:
+Create a new user
+
+#+begin_src shell
+$ sudo useradd -m jane
+#+end_src
+
+The skeleton directory for new users is in =/etc/skel=
+
+Set a temporary password for the new user
+
+#+begin_src shell
+$ sudo passwd jane
+#+end_src
+
+Assign authority over user resources to a group and then add the
+necessary users as members of the group
+
+Create a new direcotry
+
+#+begin_src shell
+$ sudo mkdir /var/secret
+#+end_src
+
+Create a new group
+
+#+begin_src shell
+$ sudo groupadd secret-group
+#+end_src
+
+Change the ownership properties of the directory
+
+#+begin_src shell
+$ sudo chown :secret-group /var/secret/
+#+end_src
+
+Add a user to an existing group
+
+#+begin_src shell
+$ sudo usermod -a -G secret-group jane
+#+end_src
+
+Edit the permissions of the directory to allow the users to edit files
+
+#+begin_src shell
+sudo chmod g+w /var/secret
+#+end_src

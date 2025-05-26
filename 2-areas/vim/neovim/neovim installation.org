@@ -1,0 +1,32 @@
+* neovim installation
+:PROPERTIES:
+:CUSTOM_ID: neovim-installation
+:END:
+*** Install from appImage
+:PROPERTIES:
+:CUSTOM_ID: install-from-appimage
+:END:
+AppImage is a universal package. It works on any Linux distro, whether a
+new or old system and hardware.
+
+#+begin_src sh
+# download neovim
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+
+# add execute permission
+chmod u+x nvim.appimage
+
+# test if running
+./nvim.appimage
+
+# move appimage to /usr/local/bin/nvim folder
+sudo mv nvim.appimage /usr/local/bin/nvim
+#+end_src
+
+*** Remove neovim
+:PROPERTIES:
+:CUSTOM_ID: remove-neovim
+:END:
+#+begin_src sh
+sudo rm -R /usr/local/bin/nvim
+#+end_src

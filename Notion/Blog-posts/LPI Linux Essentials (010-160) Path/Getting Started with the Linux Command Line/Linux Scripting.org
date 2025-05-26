@@ -1,0 +1,177 @@
+** Create a simple calculator script
+:PROPERTIES:
+:CUSTOM_ID: create-a-simple-calculator-script
+:END:
+Create a script
+
+#+begin_src shell
+$ nano myscript.sh
+#+end_src
+
+Add the contents of the script
+
+#+begin_src shell
+#!/bin/bash
+declare -i number1
+declare -i number2
+declare -i total
+echo "What's your favorite number? "
+read number1
+echo "What num do you relly hate? "
+read number2
+total=$number1*$number2
+echo "Aha! They equal " $total
+exit0
+#+end_src
+
+The first line of every script has to tell Linux that it's an executable
+script and which shell interpreter we're going to use.
+
+Make the file exetuble
+
+#+begin_src shell
+$ chmod +x myscript.sh
+#+end_src
+
+Run the script
+
+#+begin_src shell
+$ ./mysript.sh
+#+end_src
+
+** Working with Loops and Flow Controls
+:PROPERTIES:
+:CUSTOM_ID: working-with-loops-and-flow-controls
+:END:
+Create the file
+
+#+begin_src shell
+$ nano theloop.sh
+#+end_src
+
+Add the contents of the script
+
+#+begin_src shell
+#!/bin/bash
+for i in {0..10..2}
+  do
+    echo "We've been through this $i times already!"
+  done
+#+end_src
+
+*** Create a script using files
+:PROPERTIES:
+:CUSTOM_ID: create-a-script-using-files
+:END:
+Create some files
+
+#+begin_src shell
+$ touch file1 file2 file3
+#+end_src
+
+Create the script
+
+#+begin_src shell
+$ nano newloop.sh
+#+end_src
+
+Add contents to the file
+
+#+begin_src shell
+#!/bin/bash
+for filename in file1 file2 file3
+  do
+    echo "Important stuff" >> $filename
+  done
+#+end_src
+
+Check the contents of a file
+
+#+begin_src shell
+$ cat file3
+Important stuff
+#+end_src
+
+*** Control a script process using if
+:PROPERTIES:
+:CUSTOM_ID: control-a-script-process-using-if
+:END:
+Create the script
+
+#+begin_src shell
+$ nano colors.sh
+#+end_src
+
+Add the script
+
+#+begin_src shell
+#!/bin/bash
+echo "What's your favorite color? "
+read text1
+echo "What's your best friend's favorite color? "
+read text2
+
+if test $text1 != $text2; then
+  echo "I guess opposites attract."
+else 
+  echo "You two do think alike!"
+fi
+
+exit 0
+#+end_src
+
+*** Control a script process using while
+:PROPERTIES:
+:CUSTOM_ID: control-a-script-process-using-while
+:END:
+Create the script
+
+#+begin_src shell
+$ nano counter.sh
+#+end_src
+
+Add the script
+
+#+begin_src shell
+#!/bin/bash
+declare -i counter
+counter=10
+
+while [ $counter -gt 2 ]; do
+  echo The counter is $counter
+  counter=counter-1
+done
+
+exit 0
+#+end_src
+
+*** Control a script process using case
+:PROPERTIES:
+:CUSTOM_ID: control-a-script-process-using-case
+:END:
+Create the file
+
+#+begin_src shell
+$ nano weather.sh
+#+end_src
+
+Add the script
+
+#+begin_src shell
+#!/bin/bash
+echo "What's tomorrow's weather going to be like?"
+read weather
+
+case $weather in
+  sunny | warm ) echo "Nice! I love it when it's " $weather
+  ;;
+  cloudy | cool ) echo "Not bad..." $weather" is ok, too"
+  ;;
+  rainy | cold ) echo "Yuk!" $weather" weather is depressing"
+  ;;
+  ,* ) echo "Sorry, I'm not familiar with that weather system."
+  ;;
+esac
+
+exit 0
+#+end_src

@@ -1,0 +1,249 @@
+* editing text with emacs
+:PROPERTIES:
+:CUSTOM_ID: editing-text-with-emacs
+:END:
+** Killing and Deleting
+
+#+begin_src sh
+# Delete character
+C-d
+
+# Delete previous character
+Backspace
+
+# Kill word
+M-d
+C-Backspace
+
+# Kill rest of line
+C-k
+
+# Kill sentence
+M-k
+
+# Kill current line
+C-S-Backspace
+
+# Kill active region
+C-w
+
+# Copy to kill ring
+M-w
+
+# Append kill
+C-M-w
+
+# Cycle through kill ring
+M-y
+#+end_src
+
+** Keys for Yanking
+
+#+begin_src sh
+# Yank last kill
+C-y
+
+# Cycle through the kill ring
+M-y
+#+end_src
+
+** Search and Replace Keys
+
+#+begin_src sh
+# Query regex search and replace
+C-M-%
+M-x query-replace-regexp
+
+# Query search and replace
+M-%
+
+# Search and replace
+M-x replace-string
+
+# Regex search and replace
+M-x replace-regexp
+#+end_src
+
+Queries can be invoked from within a search
+
+*** Query Selection Keys
+
+#+begin_src sh
+# Replace one and continue
+<Space>, y
+
+# Replace one and exit
+.
+
+# Replace and don't move
+,
+
+# Exits without replacing
+<Return>, q
+
+# Replace all matches
+!
+# Move point to previous match
+^
+
+# Undo last and undo all
+u, U
+#+end_src
+
+*** Changing Case
+
+- Change case of text
+- Act on a region or by word(s)
+
+#+begin_src sh
+# Uppercase the region
+C-x C-u
+
+# Lowercase the region
+C-x C-l
+
+# Capitalise the region
+M-x upcase-initials-region
+
+# Capitalise the next word
+M-c
+
+# Uppercase the next word
+M-u
+
+# Lowercase the next word
+M-l
+#+end_src
+
+These key sequences can be combined with a numerical multiplier
+
+** Transposing Text
+
+- Swapping "units" of text
+- Can be used on characters, words, S-expressions, and more
+
+#+begin_src sh
+# Transpose characters
+C-t
+
+# Transpose words
+M-t
+
+# Transpose S-expressions
+C-M-t
+
+# Transpose lines
+C-x C-t
+
+# Transpose paragraphs
+M-x transpose-paragraphs
+
+# Transpose sentences
+M-x transpose-sentences
+#+end_src
+
+** Line Joining and Splitting
+
+- Does not alter your kill ring
+- Point remains at its original location
+
+#+begin_src sh
+# Insert blank line after the point
+C-o
+
+# Delete blank lines after the point
+C-x C-o
+
+# Split line after the point and keep any indentation
+C-M-o
+
+# Joins the line that the point is on with the line above
+M-^
+#+end_src
+
+*** Deleting Lines
+
+- Ignores the current line
+- Works in front of the point
+- Removes whitespace and tab lines
+
+** Working with whitespace
+
+- Useful for some programming languages
+- After copying text into buffers
+
+#+begin_src sh
+# Delete all but one space or tab left and right of the point
+M-<Space>
+
+# Delete whitespace around the point
+M-\
+
+# Cycle through deleting whitespace (one, all, and undo)
+M-x cycle-spacing
+
+# Delete trailing whitespace
+M-x delete-trailing-whitespace
+#+end_src
+
+*** Whitespace Minor Mode
+
+- Shows you whitespace
+- Uses highlights and symbols
+- Can customize the mode
+
+#+begin_src sh
+# Whitespace minor mode
+M-x whitespace-mode
+
+# Toggle menu of whitespace mode options
+M-x whitespace-toggle-options
+
+# Display newline characters
+M-x whitespace-newline-mode
+
+# Automatic cleanup
+M-x whitespace-cleanup
+
+# Automatic cleanup on a region
+M-x whitespace-cleanup-region
+
+# Display whitespace issues
+M-x whitespace-report
+
+# Display whitespace issues on a region
+M-x whitespace-report-region
+#+end_src
+
+** Using Indentation
+
+Indenting Lines
+
+- Insert or adjust whitespaceat beginning of a line
+- Simplest way is to press tab
+- Behavior is determined by major mode
+- Can act on regions
+
+Tab Stops
+
+- By default, tab stop is every eight columns
+- Can be customized
+- In text mode, the position of the first non-whitespace character on
+  preceding line is treated as a tab stop
+
+#+begin_src sh
+# Indent line using major mode indentation command
+TAB
+C-q TAB
+
+# Indent whitespace at the point, up to the next tab stop
+M-i
+
+# Indent all the lines in the region
+C-M-\
+
+# Change indentation of all lines that begin in the region
+C-x TAB
+#+end_src
+
+=C-x TAB= can accept numeric arguments or be interactive

@@ -1,0 +1,178 @@
+- Combining records and data from multiple tables
+- Joining is what makes a database "relational"
+
+** Inner Joins
+:PROPERTIES:
+:CUSTOM_ID: inner-joins
+:END:
+- Returns all rows from two or more tables that meet the join condition
+- Joined fields must exist in both tables
+
+#+begin_src sql
+SELECT customers.*,
+                orders.*
+FROM customers
+INNER JOIN orders
+ON customers.customer_id = orders.custommer_id
+#+end_src
+
+=ON= specifies field to join
+
+It is best to return only specific columns of interest
+
+#+begin_src sql
+        SELECT customers.first_name,
+                        customers.last_name,
+                        orders.order_date,
+                        orders.order_amount
+            FROM customers
+INNER JOIN orders
+                ON customers.customer_id = orders.customer_id;
+#+end_src
+
+Use where to narrow result set
+
+#+begin_src sql
+        SELECT customers.first_name,
+                        customers.last_name,
+                        orders.order_date,
+                        orders.order_amount
+            FROM customers
+INNER JOIN orders
+                ON customers.customer_id = orders.customer_id
+         WHERE customers.last_name = 'Dodd';
+#+end_src
+
+*** Alternative Inner Join Syntax
+:PROPERTIES:
+:CUSTOM_ID: alternative-inner-join-syntax
+:END:
+#+begin_src sql
+        FROM customers
+INNER JOIN orders
+                ON customers.customer_id = orders.customer_id;
+#+end_src
+
+#+begin_src sql
+FROM customers
+JOIN orders
+    ON customers.customer_id = orders.customer_id;
+#+end_src
+
+#+begin_src sql
+ FROM customers,
+          orders
+WHERE customers.customer_id = orders.customer_id;
+#+end_src
+
+To use =ON=, you must have a matching =JOIN= keyword
+
+** Table Aliases
+:PROPERTIES:
+:CUSTOM_ID: table-aliases
+:END:
+- Alias: Temporary label in a query
+
+#+begin_src sql
+        SELECT c.first_name,
+                        c.last_name,
+                        o.order_date,
+                        o.order_amount
+            FROM customers AS c
+INNER JOIN orders AS o
+                ON c.customer_id = o.customer_id;
+#+end_src
+
+=AS= can be omitted
+
+#+begin_src sql
+        FROM customers c
+INNER JOIN orders o
+#+end_src
+
+** Outer Joins
+:PROPERTIES:
+:CUSTOM_ID: outer-joins
+:END:
+- =Lef Join= Returns all records from the left table along with any
+  matching record from the right table
+- =Right Join= Returns all records from the right table along with any
+  matching records from the left table
+
+*** Left Outer Join
+:PROPERTIES:
+:CUSTOM_ID: left-outer-join
+:END:
+#+begin_src sql
+            SELECT c.first_name,
+                                c.last_name,
+                                o.order_date,
+                                o.order_amount
+                     FROM customers c
+LEFT OUTER JOIN orders o
+                         ON c.customer_id = o.customer_id;
+#+end_src
+
+*** Right Outer Join
+:PROPERTIES:
+:CUSTOM_ID: right-outer-join
+:END:
+#+begin_src sql
+              SELECT c.first_name,
+                                 c.last_name,
+                                 o.order_date,
+                                 o.order_amount
+                      FROM customers c
+RIGHT OUTER JOIN orders o
+                          ON c.customer_id = o.customer_id;
+#+end_src
+
+Outer Join Syntax
+
+=LEFT OUTER JOIN= → =LEFT JOIN=
+
+#+begin_src sql
+        SELECT c.first_name,
+                        c.last_name,
+                        o.order_date,
+                        o.order_amount
+            FROM customers c
+RIGHT JOIN orders o
+                ON c.customer_id = o.customer_id;
+#+end_src
+
+*** Left vs. Right
+:PROPERTIES:
+:CUSTOM_ID: left-vs.-right
+:END:
+- Left outer joins are far more prevalent in practice
+- It can be easier to read and interpret
+
+** Full Join
+:PROPERTIES:
+:CUSTOM_ID: full-join
+:END:
+- Returns all rows from two or more tables regardless of whether the
+  join condition is met
+- If there is no match, the missing side will contain null
+
+#+begin_src sql
+            SELECT c.first_name,
+                                c.last_name,
+                                o.order_date,
+                                o.order_amount
+                     FROM customers c
+FULL OUTER JOIN orders o
+                         ON c.customer_id = o.customer_id;
+#+end_src
+
+** Implementing Joins
+:PROPERTIES:
+:CUSTOM_ID: implementing-joins
+:END:
+*** Lookup tables
+:PROPERTIES:
+:CUSTOM_ID: lookup-tables
+:END:
+Database tables that contain data that specify the values for given
+codes

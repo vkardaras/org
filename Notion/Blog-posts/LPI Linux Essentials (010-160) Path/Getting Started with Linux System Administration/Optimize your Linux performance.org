@@ -1,0 +1,204 @@
+** Monitoring system resources
+:PROPERTIES:
+:CUSTOM_ID: monitoring-system-resources
+:END:
+Why Monitor?
+
+- Understand capacity usage
+- Identify (and terminate) rogue precesses
+
+A lot of system information is kept in =/proc= directory
+
+Move to =/proc= directory
+
+#+begin_src shell
+$ cd /proc
+#+end_src
+
+View the capacity and usage of your system memory
+
+#+begin_src shell
+$ less meminfo
+#+end_src
+
+View information about CPU
+
+#+begin_src shell
+$ less cpuinfo
+#+end_src
+
+To view of how your hardware is actually being utilized by the system
+right now, use top
+
+#+begin_src shell
+$ top
+#+end_src
+
+View available system memory
+
+#+begin_src shell
+$ free
+#+end_src
+
+View the results in MB and GB
+
+#+begin_src shell
+$ free -h
+#+end_src
+
+To see the state of all these storage devices currently mounted to your
+system, run =df=
+
+#+begin_src shell
+$ df
+#+end_src
+
+View =ext4= formatted partitions
+
+#+begin_src shell
+$ df -t ext4
+#+end_src
+
+Get the partition in human-readable numbers
+
+#+begin_src shell
+$ df -ht ext4
+#+end_src
+
+*** Networking
+:PROPERTIES:
+:CUSTOM_ID: networking
+:END:
+Install =iftop=
+
+#+begin_src shell
+$ sudo apt update
+$ sudo apt install iftop
+#+end_src
+
+Check ethernet connection
+
+#+begin_src shell
+$ sudo iftop -i eth0
+#+end_src
+
+** Managing System Processes - Part One
+:PROPERTIES:
+:CUSTOM_ID: managing-system-processes---part-one
+:END:
+View processes running in current shell
+
+#+begin_src shell
+$ ps
+#+end_src
+
+Print information on every active process across your entire system
+
+#+begin_src shell
+$ ps aux
+#+end_src
+
+Filter processes with grep
+
+#+begin_src shell
+$ ps aux | grep sshd
+#+end_src
+
+View logs with journald
+
+#+begin_src shell
+$ journalctl --since "10 minutes ago"
+#+end_src
+
+Alternatively, view log messages in =/var/log= directory
+
+#+begin_src shell
+$ cd /var/log
+$ cat syslog
+#+end_src
+
+** Managing System Processes - Part One
+:PROPERTIES:
+:CUSTOM_ID: managing-system-processes---part-one-1
+:END:
+Another tool for keeping track of running processes is =dmesg=
+
+#+begin_src shell
+$ dmesg
+#+end_src
+
+Create a new process
+
+#+begin_src shell
+$ yes > /dev/null &
+20167
+#+end_src
+
+Check that it is running
+
+#+begin_src shell
+$ ps
+PID TTY          TIME CMD
+17946 pts/0    00:00:00 zsh
+20167 pts/0    00:00:25 yes
+20192 pts/0    00:00:00 ps
+#+end_src
+
+Kill a process by its process id
+
+#+begin_src shell
+$ kill 20167
+[1]  + 20167 terminated  yes > /dev/null
+#+end_src
+
+Kill all processes with a specific name
+
+#+begin_src shell
+$ killall yes
+#+end_src
+
+Check the state of a process
+
+#+begin_src shell
+$ sudo systemctl status apache2
+#+end_src
+
+Disable a process to load on boot
+
+#+begin_src shell
+$ sudo systemctl disable apache2
+#+end_src
+
+Enable a process to load on boot
+
+#+begin_src shell
+$ sudo systemctl enable apache2
+#+end_src
+
+Use =systemctl= to start or stop a process
+
+#+begin_src shell
+$ sudo systemctl start apache2
+#+end_src
+
+*** Managing processes priorities
+:PROPERTIES:
+:CUSTOM_ID: managing-processes-priorities
+:END:
+Set the priority of a new process with nice
+
+#+begin_src shell
+$ nice -19 yes > /dev/null &
+#+end_src
+
+Check the priority with =top=
+
+#+begin_src shell
+$ top
+#+end_src
+
+Reset the priority of a process with =renice= using its process id
+
+#+begin_src shell
+$ renice 15 -p 20167
+#+end_src

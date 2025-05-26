@@ -1,0 +1,33 @@
+* 12 factor app
+:PROPERTIES:
+:CUSTOM_ID: factor-app
+:END:
+
+Build software applications that are scalable, resilient and easy to
+manage
+
+The 12-Factor App is a methodology for building software-as-a-service
+applications that are scalable, resilient, and easy to manage. It was
+created by Heroku and is widely adopted in the cloud-native community.
+
+It provides us with a set of best practices for building applications
+that meet these requirements.
+
+** 12 factor principles
+
+- Codebase
+- Dependencies
+- Config
+- Backing Services
+- Build, release, run
+- Processes
+- Port Binding
+- Concurrency
+- Disposability
+- Dev/prod parity
+- Logs
+- Admin Processes
+
+*** Codebase
+
+Multiple apps sharing the same code is a violation of twelve-factor

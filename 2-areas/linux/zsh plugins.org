@@ -1,0 +1,54 @@
+* zsh plugins
+:PROPERTIES:
+:CUSTOM_ID: zsh-plugins
+:END:
+#+begin_src sh
+# export 'XDG_CONFIG_HOME' in .zshrc
+export XDG_CONFIG_HOME="$HOME/.config/"
+#+end_src
+
+** zsh-syntax-highlighting
+:PROPERTIES:
+:CUSTOM_ID: zsh-syntax-highlighting
+:END:
+#+begin_src sh
+# install fast-syntax-highlighting
+git clone https://github.com/z-shell/F-Sy-H ~/.config/zsh/plugins/f-sy-h
+# add the following in .zshrc
+source "${XDG_CONFIG_HOME}/zsh/plugins/f-sy-h/F-Sy-H.plugin.zsh"
+
+github.com/zsh-users/zsh-syntax-highlighting
+#+end_src
+
+** zsh-autosuggestions
+:PROPERTIES:
+:CUSTOM_ID: zsh-autosuggestions
+:END:
+#+begin_src sh
+# install zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.config/zsh/plugins/zsh-autosuggestions
+# add the following in .zshrc
+source "${XDG_CONFIG_HOME}/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+#+end_src
+
+** zsh-history-substring-search
+:PROPERTIES:
+:CUSTOM_ID: zsh-history-substring-search
+:END:
+#+begin_src sh
+# install history-substring-search
+git clone https://github.com/zsh-users/zsh-history-substring-search ~/.config/zsh/plugins/zsh-history-substring-search
+# add the following in .zshrc
+source "${XDG_CONFIG_HOME}/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"
+#+end_src
+
+** zsh-vi-mode
+:PROPERTIES:
+:CUSTOM_ID: zsh-vi-mode
+:END:
+#+begin_src sh
+# install zsh-vi-mode
+git clone https://github.com/jeffreytse/zsh-vi-mode.git ~/.config/zsh/plugins/.zsh-vi-mode
+# add the following in .zshrc
+source "${XDG_CONFIG_HOME}/zsh/plugins/.zsh-vi-mode/zsh-vi-mode.plugin.zsh"
+#+end_src

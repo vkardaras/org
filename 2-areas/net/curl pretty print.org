@@ -1,0 +1,3 @@
+#+begin_src shell
+curl https://jsonplaceholder.typicode.com/users | jq .
+#+end_src

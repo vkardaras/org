@@ -1,0 +1,14 @@
+* vim folding
+:PROPERTIES:
+:CUSTOM_ID: vim-folding
+:END:
+#+begin_src sh
+# close all folds
+zM
+# open all folds
+zR
+# toggle fold under cursor
+za
+# toggle fold in the whole block under cursor
+zA
+#+end_src

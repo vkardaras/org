@@ -1,0 +1,120 @@
+* Introduction conditionals
+:PROPERTIES:
+:CUSTOM_ID: introduction-conditionals
+:END:
+** Create a conditional in command line
+:PROPERTIES:
+:CUSTOM_ID: create-a-conditional-in-command-line
+:END:
+#+begin_src sh
+$ if mkdir a; then echo "ok"; else echo "error"; fi
+ok
+
+$ if mkdir a; then echo "ok"; else echo "error"; fi
+mkdir: cannot create directory ‘a’: File exists
+error
+#+end_src
+
+** Use conditional in a script
+:PROPERTIES:
+:CUSTOM_ID: use-conditional-in-a-script
+:END:
+#+begin_src sh
+#!/bin/bash
+
+# Create a report file for a single shipping container
+# Author: vkardaras
+
+if [[ ! $1 ]]; then
+    echo "Error: missing parameter: container name"
+    exit
+fi
+
+container="$1"
+directory="$2"
+
+mkdir -p -- "$directory"
+grep -- "$container" "$input_file" > "$directory/${container}_report.csv"
+
+echo "Wrote report $directory/${container}_report.csv"
+#+end_src
+
+Run the script without arguments
+
+#+begin_src sh
+$ create_report.sh
+Error: missing parameter: container name
+#+end_src
+
+Return the status of a script after exit
+
+- 0 means success
+- any other means error. Return 1 in this case if there is an error
+
+#+begin_src sh
+#!/bin/bash
+
+# Create a report file for a single shipping container
+# Author: vkardaras
+
+if [[ ! $1 ]]; then
+    echo "Error: missing parameter: container name"
+    exit 1
+fi
+
+container="$1"
+directory="$2"
+
+mkdir -p -- "$directory"
+grep -- "$container" "$input_file" > "$directory/${container}_report.csv"
+
+echo "Wrote report $directory/${container}_report.csv"
+#+end_src
+
+Check the script in the command-line without arguments
+
+#+begin_src sh
+$ if create_report.sh; then echo "Success"; else echo "Error"; fi
+Error: missing parameter: container name
+Error
+#+end_src
+
+Check the script in the command-line with arguments
+
+#+begin_src sh
+$ if create_report.sh U2 ~/reports; then echo "Success"; else echo "Error"; fi
+Wrote report /home/vasilis/reports/U2_report.csv
+Success
+#+end_src
+
+Add the conditional in the script
+
+#+begin_src sh
+#!/bin/bash
+
+# Create a report file for a single shipping container
+# Author: vkardaras
+
+if [[ ! $1 ]]; then
+    echo "Error: missing parameter: container name"
+    exit 1
+fi
+
+container="$1"
+directory="$2"
+
+mkdir -p -- "$directory"
+if grep -- "$container" "$input_file" > "$directory/${container}_report.csv"
+then
+    echo "Wrote report $directory/${container}_report.csv"
+else
+    echo "Container $container not found in $input_file"
+fi
+#+end_src
+
+Call the script without an existing container
+
+#+begin_src sh
+$ create_report.sh XX ~/reports
+create_report.sh XX ~/reports
+#+end_src

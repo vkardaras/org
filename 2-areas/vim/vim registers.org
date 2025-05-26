@@ -1,0 +1,33 @@
+* vim registers
+:PROPERTIES:
+:CUSTOM_ID: vim-registers
+:END:
+** View help for registers
+:PROPERTIES:
+:CUSTOM_ID: view-help-for-registers
+:END:
+#+begin_src sh
+:h registers
+#+end_src
+
+** Using registers
+:PROPERTIES:
+:CUSTOM_ID: using-registers
+:END:
+To copy to a register use double quote and a letter from a - z
+
+#+begin_src sh
+# copy to a register 3 lines
+"ay2j
+
+# paste the contents of a register
+"ap
+#+end_src
+
+*** View the contents of all the registers
+:PROPERTIES:
+:CUSTOM_ID: view-the-contents-of-all-the-registers
+:END:
+#+begin_src sh
+:reg
+#+end_src

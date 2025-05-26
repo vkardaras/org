@@ -1,0 +1,36 @@
+* maven basic info
+
+#+begin_src xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.vasiliskardaras.maven</groupId>
+    <artifactId>maven-examples</artifactId>
+    <version>1.0</version>
+
+    <name>Maven Examples</name>
+    <description>This is a project to demonstrate maven principles</description>
+    <url>http://optimalcodedev.com</url>
+
+    <licenses>
+        <license>
+            <name>Apache License</name>
+            <comments>We are pretty good about sharing</comments>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>Optimal Code Development</name>
+        <url>http://optimalcodedev.com</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <name>Vasilis Kardaras</name>
+            <email>vasiliskardaras@gmail.com</email>
+        </developer>
+    </developers>
+</project>
+#+end_src

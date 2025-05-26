@@ -1,0 +1,4 @@
+* New Note
+:PROPERTIES:
+:CUSTOM_ID: new-note
+:END:

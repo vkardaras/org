@@ -1,0 +1,10 @@
+Ignore a =Scenario= or =Feature= with the =@ignore= tag
+
+#+begin_src gherkin
+Feature: Test products
+
+    @ignore  
+    Scenario: Get all products  Given path 'product'  
+        When method get  
+        Then status 200
+#+end_src

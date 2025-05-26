@@ -1,0 +1,209 @@
+** Working with files and directories
+:PROPERTIES:
+:CUSTOM_ID: working-with-files-and-directories
+:END:
+Create a file using the editor
+
+#+begin_src shell
+$ nano file1
+#+end_src
+
+Create a file without using an editor
+
+#+begin_src shell
+$ touch file2
+#+end_src
+
+Copy a file to a directory
+
+#+begin_src shell
+$ cp file1 newdir/
+#+end_src
+
+Copy multiple file to a directory
+
+#+begin_src shell
+$ cp file* newdir/
+#+end_src
+
+Remove all files starting with a string
+
+#+begin_src shell
+$ rm file*
+#+end_src
+
+Remove all files starting with a string and have one more character
+
+#+begin_src shell
+$ rm file?
+#+end_src
+
+Remove all files in a directory
+
+#+begin_src shell
+$ rm *
+#+end_src
+
+Remove an empty directory
+
+#+begin_src shell
+$ rmdir newdir/
+#+end_src
+
+** Searching the Linux file system
+:PROPERTIES:
+:CUSTOM_ID: searching-the-linux-file-system
+:END:
+Find a file using locate
+
+#+begin_src shell
+$ locate adduser
+#+end_src
+
+Filter results with grep
+
+#+begin_src shell
+$ cat /etc/group | grep ubuntu
+#+end_src
+
+Redirect output to a file
+
+#+begin_src shell
+$ cat /etc/group | grep ubuntu >> newfile
+#+end_src
+
+Redirect output to an existing file and override its content
+
+#+begin_src shell
+$ cat /etc/group | grep ubuntu > newfile
+#+end_src
+
+Redirect output to an existing file and append to its content
+
+#+begin_src shell
+$ cat /etc/group | grep ubuntu >> newfile
+#+end_src
+
+Print only the first 10 lines of a file
+
+#+begin_src shell
+$ head /etc/group
+#+end_src
+
+Print only the last 10 lines of a file
+
+#+begin_src shell
+$ tail /etc/group
+#+end_src
+
+Use a column delimiter for each row with =-d:=
+
+Use =-f3= to process the contents of the third field
+
+#+begin_src shell
+$ cut -d: -f3 /etc/group
+#+end_src
+
+Print the results in ascending order
+
+#+begin_src shell
+$ cut -d: -f3 /etc/group | sort -n
+#+end_src
+
+Print the results in descending order
+
+#+begin_src shell
+$ cut -d: -f3 /etc/group | sort -rn
+#+end_src
+
+Count the number of lines, words and characters in a file
+
+#+begin_src shell
+$ wc /etc/group
+76   76 1135 /etc/group
+#+end_src
+
+** Working with archives
+:PROPERTIES:
+:CUSTOM_ID: working-with-archives
+:END:
+Extract files from an archive
+
+#+begin_src shell
+$ tar xzf latest.tar.gz
+#+end_src
+
+- =x= is for the file to be extracted
+- =z= indicates that it is a compressed file
+- =f= specifies that the filename will follow
+
+Compress a directory
+
+#+begin_src shell
+$ tar czf newarchive.tar.gz wordpress/
+#+end_src
+
+- =c= stands for create
+
+Create a tar file without compression
+
+#+begin_src shell
+$ tar cf largerarchive.tar wordpress/
+#+end_src
+
+Compress a tar file
+
+#+begin_src shell
+$ gzip largerarchive.tar
+#+end_src
+
+Extract a zipped file
+
+#+begin_src shell
+$ unzip akismet.4.1.zip
+#+end_src
+
+Create a zip file
+
+#+begin_src shell
+$ zip newname.zip *
+#+end_src
+
+** Linux kernel modules and peripherals
+:PROPERTIES:
+:CUSTOM_ID: linux-kernel-modules-and-peripherals
+:END:
+Troubleshooting peripherals
+
+- Step one. Is the device recognized by the system?
+- Step two. Is the appropriate kernel module loaded?
+
+List USB devices
+
+#+begin_src shell
+$ lsusb
+#+end_src
+
+List the devices connected in PCI slots
+
+#+begin_src shell
+$ lspci
+#+end_src
+
+Get all the connected hardware
+
+#+begin_src shell
+$ sudo lshw
+#+end_src
+
+List all the modules that are currently loaded
+
+#+begin_src shell
+$ lsmod | grep sound
+#+end_src
+
+Load a module
+
+#+begin_src shell
+$ modprobe soundcore
+#+end_src

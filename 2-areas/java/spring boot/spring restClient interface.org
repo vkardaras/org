@@ -1,0 +1,30 @@
+* spring restClient
+
+** Configure rest client
+
+Create a component to configure rest client
+
+#+begin_src java
+@Component
+public class RestClientConfig {
+
+    @Bean
+    InventoryClient inventoryClient() {
+        RestClient client = RestClient.create("http://localhost:8082");
+        HttpServiceProxyFactory factory = HttpServiceProxyFactory
+                .builderFor(RestClientAdapter.create(client))
+                .build();
+        return factory.createClient(InventoryClient.class);
+    }
+}
+#+end_src
+
+** Create an interface to make the calls
+
+#+begin_src java
+public interface InventoryClient {
+
+    @GetExchange("/api/inventory")
+    boolean isInStock(@RequestParam String skuCode, @RequestParam Integer quantity);
+}
+#+end_src

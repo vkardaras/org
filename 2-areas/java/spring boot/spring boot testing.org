@@ -1,0 +1,5 @@
+* spring boot testing
+:PROPERTIES:
+:CUSTOM_ID: spring-boot-testing
+:END:
+** [[file:~/Documents/org/2-areas/testing/spring/spring testing demo.org][spring testing demo]]

@@ -1,0 +1,23 @@
+* spring testing demo
+
+** Download the repo
+
+#+begin_src sh
+https://github.com/rieckpil/testing-spring-boot-applications-masterclass
+#+end_src
+
+** Run docker compose
+
+#+begin_src sh
+docker compose up -d
+#+end_src
+
+** Start the application
+
+#+begin_src sh
+mvn clean spring-boot:run
+#+end_src
+
+** View the demo application
+
+Go to =localhost:8080=

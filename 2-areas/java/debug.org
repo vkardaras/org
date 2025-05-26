@@ -1,0 +1,9 @@
+* debug
+
+** Debug Mode via CLI
+
+Pass the --debug flag to the java CLI to enable debug mode.
+
+#+begin_src sh
+java -jar springapp.jar --debug
+#+end_src

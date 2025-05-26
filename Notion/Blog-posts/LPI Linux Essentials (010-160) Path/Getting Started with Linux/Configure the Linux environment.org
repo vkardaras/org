@@ -1,0 +1,198 @@
+** Root-level directories
+:PROPERTIES:
+:CUSTOM_ID: root-level-directories
+:END:
+- =/bin= Binary files for single-user mode commands
+- =/sbin= Binary files for multi-user commands
+- =/boot= Linux images and boot configuration files
+- =/dev= Pseudo files representing devices
+- =/etc= Configuration files
+- =/home= User files
+- =/lib= Software library dependencies
+- =/root= Root user files
+- =/usr= Additional binaries
+- =/var= Updating files (logs, app data, cache)
+
+** Pseudo file directories
+:PROPERTIES:
+:CUSTOM_ID: pseudo-file-directories
+:END:
+- =/proc= Files representing running system processes
+- =/dev= Pseudo files representing devices
+- =/sys= Data on system and kernel resources
+
+** Managing Linux environments
+:PROPERTIES:
+:CUSTOM_ID: managing-linux-environments
+:END:
+*** Manage geographic locations
+:PROPERTIES:
+:CUSTOM_ID: manage-geographic-locations
+:END:
+#+begin_src shell
+$ locale
+#+end_src
+
+Locale settings are stored in this directory
+
+#+begin_src shell
+$ cd /usr/share/i18n/locales/
+#+end_src
+
+Another place is =localectl status= to edit and view locale settings
+
+List available locales with the following command
+
+#+begin_src shell
+$ localectl list-locales
+#+end_src
+
+Change system locale using the following command
+
+#+begin_src shell
+$ localectl set-locale LANG=en_CA.utf8
+#+end_src
+
+*** Get current directory
+:PROPERTIES:
+:CUSTOM_ID: get-current-directory
+:END:
+#+begin_src shell
+$ pwd
+$ echo $PWD
+#+end_src
+
+View all shell variables
+
+#+begin_src shell
+$ env
+#+end_src
+
+Create my variable
+
+#+begin_src shell
+$ myval=5
+$ echo $myval
+5
+#+end_src
+
+Open a shell within an existing shell
+
+#+begin_src shell
+$ bash
+#+end_src
+
+Export a value to all other child shells
+
+#+begin_src shell
+$ export myval
+#+end_src
+
+View the history of commands
+
+#+begin_src shell
+$ history
+#+end_src
+
+Use the =type= command to tell how a specified word would be interpreted
+by Bash
+
+#+begin_src shell
+$ type wget
+#+end_src
+
+Display current timezone settings using =timedatectl=
+
+List timezones
+
+#+begin_src shell
+$ timedatectl list-timezones
+#+end_src
+
+Filter the results of a command using =grep=
+
+#+begin_src shell
+$ timedatectl list-timezones | grep -i america
+#+end_src
+
+Change the timezone
+
+#+begin_src shell
+$ timedatectl set-timezone Europe/Athens
+#+end_src
+
+** Managing system hardware
+:PROPERTIES:
+:CUSTOM_ID: managing-system-hardware
+:END:
+Display all the block devices currently mounted on your system along
+with their size and their mount point.
+
+#+begin_src shell
+$ df -ht ext4
+#+end_src
+
+To see all the block devices attached to your physical system, you can
+run =lsblk=
+
+Limit the output of the command
+
+#+begin_src shell
+$ lsblk | grep sd
+#+end_src
+
+Running =dmesg= will display messages relating to the kernel ring
+buffer, which in practical terms can tell you a lot about how the system
+understands its physical environment.
+
+Limit the messages to those that are relevant to wireless devices
+
+#+begin_src shell
+$ dmesg | grep wl
+#+end_src
+
+Install =lshw=
+
+#+begin_src shell
+apt install lshw
+#+end_src
+
+Generate a comprehensive review of your hardware environment
+
+#+begin_src shell
+$ sudo lshw | less
+#+end_src
+
+View the repository information the app system will need
+
+#+begin_src shell
+$ cd /etc/apt
+$ less sources.list
+#+end_src
+
+Third‑party repositories are added to files in the =sources.list.d=
+directory
+
+View the number of software that is freely available to Linux users
+
+#+begin_src shell
+$ apt list --all-versions | wc
+#+end_src
+
+Search for a package
+
+#+begin_src shell
+$ apt search business card | less
+#+end_src
+
+Get more information about a package
+
+#+begin_src shell
+$ apt show glabels
+#+end_src
+
+Install a package
+
+#+begin_src shell
+$ sudo apt install glabels
+#+end_src

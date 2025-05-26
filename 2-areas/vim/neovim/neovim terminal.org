@@ -1,0 +1,73 @@
+* neovim terminal
+:PROPERTIES:
+:CUSTOM_ID: neovim-terminal
+:END:
+** Terminal commands
+:PROPERTIES:
+:CUSTOM_ID: terminal-commands
+:END:
+#+begin_src sh
+# show help
+:help :term
+
+# open terminal
+:term
+
+# go to insert mode
+i
+
+# go to normal mode
+<C-\><C-n>
+#+end_src
+
+** Specify terminal options with autocommand
+:PROPERTIES:
+:CUSTOM_ID: specify-terminal-options-with-autocommand
+:END:
+#+begin_src lua
+vim.api.nvim_create_autocmd("TermOpen", {
+    desc = "Specify options for terminal",
+    group = vim.api.nvim_create_augroup("custom-term-open", { clear = true }),
+    callback = function()
+        vim.opt.number = false
+        vim.opt.relativenumber = false
+    end,
+})
+#+end_src
+
+** keymaps for terminal
+:PROPERTIES:
+:CUSTOM_ID: keymaps-for-terminal
+:END:
+*** Open terminal
+:PROPERTIES:
+:CUSTOM_ID: open-terminal
+:END:
+#+begin_src lua
+vim.keymap.set("n", "<leader>st", function()
+    vim.cmd.vnew()
+    vim.cmd.term()
+    vim.cmd.wincmd("J")
+    vim.api.nvim_win_set_height(0, 15)
+end)
+#+end_src
+
+*** Send command to terminal
+:PROPERTIES:
+:CUSTOM_ID: send-command-to-terminal
+:END:
+#+begin_src lua
+local job_id = 0
+vim.keymap.set("n", "<leader>st", function()
+    vim.cmd.vnew()
+    vim.cmd.term()
+    vim.cmd.wincmd("J")
+    vim.api.nvim_win_set_height(0, 15)
+
+    job_id = vim.bo.channel
+end)
+
+vim.keymap.set("n", "<leader>example", function()
+    vim.fn.chansend(job_id, { "ls -al\r\n" })
+end)
+#+end_src

@@ -1,0 +1,302 @@
+* Introducing While Loops
+:PROPERTIES:
+:CUSTOM_ID: introducing-while-loops
+:END:
+*** Loops
+:PROPERTIES:
+:CUSTOM_ID: loops
+:END:
+Looping structures allow quick iteration though a list of group of items
+very efficiently. A very simple loop could create 12 users that need
+similar properties. The code only needs to be written once, and it runs
+across each user in the list.
+
+*** While / Until
+:PROPERTIES:
+:CUSTOM_ID: while-until
+:END:
+The first loop structure we look at are while and until loops, looping
+while a condition is true or until the condition becomes true.
+
+*** WHILE
+:PROPERTIES:
+:CUSTOM_ID: while
+:END:
+The loop block will iterate while the test condition is true
+
+#+begin_src shell
+$ declare -i x=10
+
+$ while (( x > 0 )) ; do
+> echo $x
+> x=x-1
+> done
+#+end_src
+
+UNTIL
+
+The loop block will iterate until the test condition becomes true
+
+#+begin_src shell
+$ declare -i x=10
+
+$ until (( x == 0 )) ; do
+> echo $x
+> x=x-1
+> done
+#+end_src
+
+* Understanding For Loops
+:PROPERTIES:
+:CUSTOM_ID: understanding-for-loops
+:END:
+*** C-style Loop
+:PROPERTIES:
+:CUSTOM_ID: c-style-loop
+:END:
+The C-style loop takes 3 expressions:
+
+- Initiate the variable
+- Test the variable
+- Increment or decrement variable
+
+#+begin_src shell
+$ for ((i=0 ; i<5 ; i++)); do
+> echo $i
+> done
+
+$ for ((i=5 ; i>0 ; i--)); do echo $i; done
+#+end_src
+
+*** Iterating an Array
+:PROPERTIES:
+:CUSTOM_ID: iterating-an-array
+:END:
+To loop through each item in the array, we can use a C-style for loop.
+
+We can declare the elements of the array for the test condition.
+
+#+begin_src shell
+# declare the array
+$ declare -a users=("bob" "joe" "sue")
+
+# print the array
+$ declare -p users
+
+# count array elements
+$ echo ${\#users[*]}
+
+# loop through the array
+$ for ((i=0; i<${\#users[*]}; i++)) do 
+> sudo useradd ${users[$i]};
+> done
+#+end_src
+
+*** Classic for loop
+:PROPERTIES:
+:CUSTOM_ID: classic-for-loop
+:END:
+The list referred to with the in keyword can be static or dynamic as
+shown here.
+
+#+begin_src shell
+$ for f in $(ls); do stat -c "%n %F" $f ; done
+
+$ for f in (*); do stat -c "%n %F" $f ; done
+#+end_src
+
+* Working with For Loops
+:PROPERTIES:
+:CUSTOM_ID: working-with-for-loops
+:END:
+#+begin_src shell
+# create a directory to work
+$ mkdir play
+
+# move to the directory
+# esc + will bring the last argument of the previous command
+$ cd play
+
+# create files
+$ for ((i=1; i<10; i++)); do 
+> touch file$1
+> done
+
+# remove the files
+$ for ((i=9; i>0; i--)); do rm file$i; done
+#+end_src
+
+Create some files in the directory
+
+#+begin_src shell
+$ mkdir dir1
+$ touch file1
+$ touch file2
+$ mkdir dir2
+
+$ ls
+dir1  dir2  file1  file2
+#+end_src
+
+Get information about a file
+
+#+begin_src shell
+# get full information
+$ stat file1
+  File: file1
+  Size: 0           Blocks: 0          IO Block: 4096   regular empty file
+Device: 259,1   Inode: 23991547    Links: 1
+Access: (0644/-rw-r--r--)  Uid: ( 1000/ vasilis)   Gid: ( 1000/ vasilis)
+Access: 2024-03-07 00:07:36.974808371 +0200
+Modify: 2024-03-07 00:07:36.974808371 +0200
+Change: 2024-03-07 00:07:36.974808371 +0200
+ Birth: 2024-03-07 00:07:36.974808371 +0200
+
+
+# get the filetype
+$ stat file1 -c %F
+
+# get the name of the file
+$ stat file1 -c %n
+#+end_src
+
+Get filtered information of files with a for-loop
+
+#+begin_src shell
+$ for file in $(ls); do stat -c "%n %F" $file; done
+dir1 directory
+dir2 directory
+file1 regular empty file
+file2 regular empty file
+#+end_src
+
+* Working with Continue and Break
+:PROPERTIES:
+:CUSTOM_ID: working-with-continue-and-break
+:END:
+*** Continue / Break
+:PROPERTIES:
+:CUSTOM_ID: continue-break
+:END:
+Additional tests may be needed to filter elments.
+
+- =continue= ignore current element and process next
+- =break= exit the loop
+
+*** List files, not directories
+:PROPERTIES:
+:CUSTOM_ID: list-files-not-directories
+:END:
+We can test the file type, and if it is a directory ignore the item by
+using continue.
+
+#+begin_src shell
+$ for file in $(ls); do 
+> if [[ -d $file ]]; then
+> continue
+> fi
+> echo $file
+> done
+#+end_src
+
+#+begin_src shell
+# print information only for files
+$ for file in $(ls); do if [[ -d $file ]]; then continue; fi; stat -c "%n %F" $file; done
+file1 regular empty file
+file2 regular empty file
+
+# print information only for directories
+$ for file in $(ls); do if [[ -f $file ]]; then continue; fi; stat -c "%n %F" $file; done
+dir1 directory
+dir2 directory
+#+end_src
+
+* Working with Foreach Loops
+:PROPERTIES:
+:CUSTOM_ID: working-with-foreach-loops
+:END:
+*** ZSH Foreach
+:PROPERTIES:
+:CUSTOM_ID: zsh-foreach
+:END:
+The foreach loop forgoes the in keyword and do starting the block.
+
+The keyword end is used instead of done.
+
+Change to zsh shell
+
+#+begin_src shell
+$ zsh
+#+end_src
+
+Use foreach
+
+#+begin_src shell
+$ foreach f (*)
+> echo $f
+> end
+#+end_src
+
+* Building Menus
+:PROPERTIES:
+:CUSTOM_ID: building-menus
+:END:
+Create a script =menu.sh=
+
+#+begin_src shell
+$ vim menu.sh
+#+end_src
+
+Add the script to the file
+
+#+begin_src shell
+#!/bin/bash
+function create_directory () {
+    declare -l directory
+    read -p "Enter a directory name: " directory
+    mkdir $directory
+}
+
+while true ; do
+    clear
+    echo "Choose 1 2 or 3"
+    echo "1: list users"
+    echo "2: create directory"
+    echo "3: quit"
+    read -sn1
+    case "$REPLY" in
+        1) who;;
+        2) create_directory;;
+        3) exit 0;;
+    esac
+    read -n1 -p "Press any key"
+done
+#+end_src
+
+Make the script executable
+
+#+begin_src shell
+$ chmod u+x menu.sh
+#+end_src
+
+Run the script
+
+#+begin_src shell
+$ ./menu.sh
+#+end_src
+
+** Configure zsh
+:PROPERTIES:
+:CUSTOM_ID: configure-zsh
+:END:
+Check current shell
+
+#+begin_src sh
+echo $SHELL
+#+end_src
+
+Change to zsh shell
+
+#+begin_src sh
+chsh -s $(which zsh)
+#+end_src

@@ -1,0 +1,24 @@
+---
+id: nerd fonts
+aliases:
+  - nerd fonts
+tags:
+  - neovim
+---
+
+# nerd fonts
+
+## Installation
+
+1. Go to the NerdFonts website in the download section, then choose the font that you want to install.
+2. Right-click on the download button and Copy the link address menu (depends on what browser you are using, the point is to get the font link)
+3. Open your terminal
+4. Copy this command then update the font link with the link that you just copied.
+
+```bash
+wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip \
+&& cd ~/.local/share/fonts \
+&& unzip JetBrainsMono.zip \
+&& rm JetBrainsMono.zip \
+&& fc-cache -fv
+```

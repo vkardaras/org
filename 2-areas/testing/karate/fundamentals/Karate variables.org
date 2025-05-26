@@ -1,0 +1,8 @@
+* Karate variables
+:PROPERTIES:
+:CUSTOM_ID: karate-variables
+:END:
+#+begin_src sh
+# get a variable or a default in not exist
+,* def auditProcessId = karate.get('auditProcessId', 1)
+#+end_src

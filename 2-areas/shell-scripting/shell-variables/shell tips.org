@@ -1,0 +1,60 @@
+* shell tips
+:PROPERTIES:
+:CUSTOM_ID: shell-tips
+:END:
+** End of options
+:PROPERTIES:
+:CUSTOM_ID: end-of-options
+:END:
+Use =--= to declare the end of the options of a command
+
+#+begin_src sh
+#!/bin/bash
+
+# Create a report file for a single shipping container
+# Author: vkardaras
+
+container="$1"
+directory="$2"
+
+mkdir -p -- "$directory"
+grep -- "$container" shipments.csv > "$directory/$container.csv"
+
+echo "Wrote report $directory/$container.csv"
+#+end_src
+
+** Use =printf= instead of =echo=
+:PROPERTIES:
+:CUSTOM_ID: use-printf-instead-of-echo
+:END:
+#+begin_src sh
+$ echo -- $USER
+-- johndoe
+
+$ printf "%s\n" $USER
+johndoe
+
+$ printf "I am %s and my shell is %s\n" $USER $SHELL
+I am johndoe and my shell is /bin/bash
+#+end_src
+
+** Braces
+:PROPERTIES:
+:CUSTOM_ID: braces
+:END:
+Use braces to separate a variable in a string
+
+#+begin_src sh
+#!/bin/bash
+
+# Create a report file for a single shipping container
+# Author: vkardaras
+
+container="$1"
+directory="$2"
+
+mkdir -p -- "$directory"
+grep -- "$container" shipments.csv > "$directory/${container}_report.csv"
+
+echo "Wrote report $directory/${container}_report.csv"
+#+end_src

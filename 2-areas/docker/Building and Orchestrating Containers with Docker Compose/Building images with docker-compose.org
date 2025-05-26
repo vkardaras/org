@@ -1,0 +1,168 @@
+* Building images with docker-compose
+
+** Key docker-compose build properties
+
+- context
+- dockerfile
+- args
+- image
+
+** Using docker-compose build properties
+
+Suppose that we have the following Dockerfile.
+
+#+begin_src yaml
+FROM        node:alpine
+
+LABEL       author="Dan Wahlin"
+
+ARG         buildversion
+
+ENV         NODE_ENF=PRODUCTION
+ENV         PORT=3000
+ENV         build=$buildversion
+
+WORKDIR     /var/www
+COPY        package*.json ./
+RUN         npm install
+
+COPY        . ./
+EXPOSE      $PORT
+
+RUN         echo "Build version: $build"
+
+ENTRYPOINT  ["npm", "start"]
+#+end_src
+
+In the docker-compose file you can create an arg e.g. buildversion, that
+is used to pass a value in the Dockerfile. You can also add runtime
+environments in compose file.
+
+If you want to pass arguments at build time you should use args
+
+#+begin_src yaml
+services:
+  node:
+    container_name: nodeapp
+    image: nodeapp
+    build:
+      context: .
+      dockerfile: node.dockerfile
+      args:
+        buildversion: 1
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - build=1
+    ports:
+      - "3000:3000"
+      
+#+end_src
+
+Build a docker-compose file
+
+#+begin_src yaml
+docker-compose build
+#+end_src
+
+** Build multiple images
+
+Download the code from this github repo
+
+#+begin_src yaml
+https://github.com/DanWahlin/CodeWithDanDockerServices
+#+end_src
+
+Set the following environments
+
+#+begin_src yaml
+# for linux and mac
+export APP_ENV=development or export APP_ENV=production
+export DOCKER_ACCT=codewithdan
+
+# For the standard Windows DOS command shell use `set` instead of `export` for environment variables.
+# For Windows Powershell use `$env:APP_ENV = "value"`.
+
+$env:APP_ENV="development" or $env:APP_ENV="production"
+$env:DOCKER_ACCT="codewithdan"
+#+end_src
+
+Use the variables in the docker-compose file
+
+#+begin_src yaml
+version: "3.7"
+ 
+services:
+    nginx:
+      container_name: nginx
+      image: ${DOCKER_ACCT}/nginx
+      build: 
+        context: .
+        dockerfile: .docker/nginx.${APP_ENV}.dockerfile
+      depends_on: 
+        - node
+      restart: on-failure
+      ports:
+        - "80:80"
+        - "443:443"
+      networks:
+        - codewithdan-network
+        
+    node:
+      image: ${DOCKER_ACCT}/node-codewithdan
+      build: 
+        context: .
+        dockerfile: .docker/node-codewithdan.${APP_ENV}.dockerfile
+      ports:
+      - "8080"
+      working_dir: /var/www/codewithdan
+      env_file:
+        - ./.docker/env/app.${APP_ENV}.env
+      depends_on:
+        - mongo
+        - redis
+      # scale: 3
+      deploy: 
+        replicas: 3
+      networks:
+        - codewithdan-network
+            
+    mongo:
+      container_name: mongo
+      image: ${DOCKER_ACCT}/mongo
+      build:
+        context: .
+        dockerfile: .docker/mongo.dockerfile
+      ports:
+      - "27017:27017"
+      env_file:
+        - ./.docker/env/mongo.${APP_ENV}.env
+      networks:
+        - codewithdan-network
+        
+    redis:
+      container_name: redis
+      image: ${DOCKER_ACCT}/redis
+      build: 
+        context: .
+        dockerfile: .docker/redis.${APP_ENV}.dockerfile
+      ports:
+        - "6379:6379"
+      networks:
+        - codewithdan-network
+        
+networks:
+    codewithdan-network:
+      driver: bridge
+#+end_src
+
+** Push images to a registry
+
+#+begin_src shell
+
+# push all the services in the docker-compose file
+docker-compose push
+
+# if you want to push specific services
+docker-compose push [service...]
+#+end_src

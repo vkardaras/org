@@ -1,0 +1,18 @@
+* maven custom project for legacy projects
+
+** Create a custom directory =src/nonstandard/java=
+
+** Add the following under the =project= tag in =pom.xml=
+
+#+begin_src xml
+<build>
+    <sourceDirectory>src/nonstandard/java</sourceDirectory>
+    <directory>myTarget</directory>
+</build>
+#+end_src
+
+** Compile the project
+
+#+begin_src sh
+mvn compile
+#+end_src

@@ -1,0 +1,67 @@
+* Configuring logging for containerized applications
+
+** Logging drivers
+
+- json-file (default). Default logging driver that stores logs locally
+  in JSON format
+- local. Flexible, more performant file-based logging solution
+- journald. Logs sent to 'journald service' running on the Docker host
+
+** Configure logging for individual containers
+
+System-wide logging can be overridden for individual containers
+
+#+begin_src sh
+$ docker run -it --name todo --log-driver local --log-opt max-file=3
+#+end_src
+
+Inspect the container to determine the driver set for logging purposes
+
+#+begin_src sh
+$ docker inspect --format '{{.HostConfig.LogConfig.Type}}' todo
+local
+#+end_src
+
+** Inspecting a container's logs
+
+The Docker CLI command used to inspect the logs produced by all
+containers is =docker logs=
+
+*** Inspecting container's logs using the Docker CLI
+
+#+begin_src sh
+$ docker logs todo
+#+end_src
+
+** Customize log output
+
+- =--details= Display additional info from tag
+- =--follow= Follow the output of the logs
+- =--tail= Show last /n/ lines of log output
+- =--since= Show log output since a point in time
+- =--until= Show log output up to a point in time
+- =--timestamps= Annotate logs with a timestamp
+
+** Inspecting application logs using the Docker CLI
+
+Get the configuration of the docker deamon, including the configured
+logging driver, which the default is =json-file=
+
+#+begin_src sh
+$ docker info
+
+$ docker info -f '{{.LoggingDriver}}'
+json-file
+#+end_src
+
+View docker deamon configuration.
+
+#+begin_src sh
+$ cat /etc/docker/deamon.json
+#+end_src
+
+Restart docker deamon
+
+#+begin_src sh
+$ sudo systemctl restart docker.service
+#+end_src

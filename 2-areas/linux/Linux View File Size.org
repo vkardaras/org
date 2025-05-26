@@ -1,0 +1,15 @@
+* Linux View File Size
+:PROPERTIES:
+:CUSTOM_ID: linux-view-file-size
+:END:
+#+begin_src sh
+# inspect the size of a file
+du test.img
+du -sk test.img
+
+# inspect the size of a file in a human readable format
+du -sh test.img
+
+# list files including their size
+ls -lh
+#+end_src

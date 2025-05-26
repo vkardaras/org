@@ -1,0 +1,35 @@
+Add a tag above a =Scenario= or =Feature=
+
+#+begin_src gherkin
+Feature: Test products
+
+    @debug  
+    Scenario: Get all products  Given path 'product'  
+        When method get  
+        Then status 200
+#+end_src
+
+You can specify more than one tag above a =Scenario= or =Feature=
+
+#+begin_src gherkin
+Feature: Test products
+
+    @debug @stable
+    Scenario: Get all products  Given path 'product'  
+        When method get  
+        Then status 200
+#+end_src
+
+Run only tests with the specified tags
+
+#+begin_src shell
+mvn test -Dkarate.options="--tags @debug"
+#+end_src
+
+Exclude the tests with the specified tag
+
+#+begin_src shell
+mvn test -Dkarate.options="--tags ~@debug"
+#+end_src
+
+[[Karate ignore tag]]

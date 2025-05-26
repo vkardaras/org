@@ -1,0 +1,74 @@
+* Debugging and Error Handling
+
+** @ControllerAdvice
+
+- A class is annotated and marked as an advice for controllers
+- A single advice can be used globally or throughout the app
+- Domain-level advice can be created to handle specific exceptions
+
+*** example
+
+#+begin_src java
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    
+    @ExceptionHandler(IOException.class)
+    public String handle(IOException e) {
+        return "IOException";
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler
+    public String handleAll(Exception e) {
+        return "Oops";
+    }
+}
+#+end_src
+
+** Spring provides 2 annotations
+
+- =@ControllerAdvice=
+- =@RestControllerAdvice=
+
+** Configure =@RestControllerAdvice= to handle specific package
+
+#+begin_src java
+@RestControllerAdvice(basePackages = "com.example.people")
+#+end_src
+
+** Configure =@RestControllerAdvice= to handle specific controllers
+
+#+begin_src java
+@RestControllerAdvice(assignableTypes = { PeopleController.class })
+#+end_src
+
+** ProblemDetail
+
+#+begin_src java
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    
+    @ExceptionHandler({ Exception.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ProblemDetail handleAllException(HttpServletRequest request, Exception e) {
+        var pd = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
+        pd.setTitle("Exception occurred");
+        pd.setType(URI.create("https://www.someurl.com/erros/bad-request"));
+        // Add custom properties
+        pd.setProperty("key", "value");
+        return pd;
+    }
+}
+#+end_src
+
+Response
+
+#+begin_src json
+{
+    "type": "https://www.someurl.com/erros/bad-request",
+    "title": "Exception occurred",
+    "status": 400,
+    "detail": "The API is not yet ready",
+    "instance": "/role"
+}
+#+end_src

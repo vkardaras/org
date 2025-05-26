@@ -1,0 +1,7 @@
+- [ ] Spring Security
+- [ ] Testing
+- [ ] OAuth 2
+- [ ] Maven
+- [ ] Docker
+- [ ] Kubernetes
+- [ ] User stories

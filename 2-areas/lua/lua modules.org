@@ -1,0 +1,18 @@
+* lua modules
+:PROPERTIES:
+:CUSTOM_ID: lua-modules
+:END:
+There isn't anything special about modules. Modules are just files!
+
+#+begin_src lua
+-- foo.lua
+local M = {}
+M.cool_function = function() end
+return M
+#+end_src
+
+#+begin_src lua
+-- bar.lua
+local foo = require('foo')
+foo.cool_function()
+#+end_src

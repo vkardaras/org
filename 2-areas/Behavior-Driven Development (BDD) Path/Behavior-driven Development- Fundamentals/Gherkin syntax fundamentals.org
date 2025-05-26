@@ -1,0 +1,19 @@
+*** Introduction to Gherkin
+:PROPERTIES:
+:CUSTOM_ID: introduction-to-gherkin
+:END:
+- The language of BDD
+
+- Plain English syntax
+
+- Structure & predictability
+
+- A documentation tool ### Gherkin language Components
+
+- Feature
+
+- Scenario
+
+- Steps
+
+- Keywords

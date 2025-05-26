@@ -1,0 +1,7 @@
+* spring gateway auth
+
+** [[file:spring authorization server.org][spring authorization server]]
+
+** [[file:spring resource server.org][spring resource server]]
+
+** [[file:spring gateway.org][spring gateway]]

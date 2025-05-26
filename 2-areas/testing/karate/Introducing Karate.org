@@ -1,0 +1,41 @@
+https://app.pluralsight.com/library/courses/karate-fundamentals/table-of-contents
+
+- check [[java version]]
+- check [[maven version]]
+
+** Core Features of Karate
+:PROPERTIES:
+:CUSTOM_ID: core-features-of-karate
+:END:
+- API Automation Testing
+- API Performance Testing
+- API Mocking
+- UI Test Automation
+
+** Overview of Behavior-Driven Development
+:PROPERTIES:
+:CUSTOM_ID: overview-of-behavior-driven-development
+:END:
+*** Test-Driven Development
+:PROPERTIES:
+:CUSTOM_ID: test-driven-development
+:END:
+- Geared towards developers
+- People with technical knowledge
+- Only tests small parts of code
+
+Goal of Behavior-Driven Development: > To reduce misunderstandings
+between those who define software requirements, and those who implement
+the software
+
+*** Gherkin Syntax
+:PROPERTIES:
+:CUSTOM_ID: gherkin-syntax
+:END:
+- Uses special "keywords"
+- Gives structure and meaning to specifications
+- Readable in natural language
+
+![[Gherkin Syntax - Basic Example]]
+
+[[Karate Example projects]]

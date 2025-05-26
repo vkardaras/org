@@ -1,0 +1,11 @@
+* Shell variables
+:PROPERTIES:
+:CUSTOM_ID: shell-variables
+:END:
+- [[using shell variables]]
+- [[shell debugging]]
+- [[shell command-line arguments]]
+- [[shell tips]]
+- [[shell best practices]]
+- [[export variables]]
+- [[shell variables from file]]

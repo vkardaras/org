@@ -1,0 +1,178 @@
+* spring authorization server
+
+** Add dependency
+
+#+begin_src xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-oauth2-authorization-server</artifactId>
+</dependency>
+#+end_src
+
+** Set the port to 9000
+
+#+begin_src properties
+server.port=9000
+#+end_src
+
+** Add =SecurityConfig.java=
+
+#+begin_src java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    @Order(1)
+    public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
+            throws Exception {
+        OAuth2AuthorizationServerConfigurer authorizationServerConfigurer =
+                OAuth2AuthorizationServerConfigurer.authorizationServer();
+
+        http
+                .securityMatcher(authorizationServerConfigurer.getEndpointsMatcher())
+                .with(authorizationServerConfigurer, (authorizationServer) ->
+                        authorizationServer
+                                .oidc(Customizer.withDefaults())    // Enable OpenID Connect 1.0
+                )
+                // Redirect to the login page when not authenticated from the
+                // authorization endpoint
+                .exceptionHandling((exceptions) -> exceptions
+                        .defaultAuthenticationEntryPointFor(
+                                new LoginUrlAuthenticationEntryPoint("/login"),
+                                new MediaTypeRequestMatcher(MediaType.TEXT_HTML)
+                        )
+                );
+        return http.build();
+    }
+
+    @Bean
+    @Order(2)
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
+            throws Exception {
+        http
+                .authorizeHttpRequests((authorize) -> authorize
+                        .anyRequest().authenticated()
+                )
+                // Form login handles the redirect to the login page from the
+                // authorization server filter chain
+                .formLogin(Customizer.withDefaults());
+
+        return http.build();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails userDetails = User.withDefaultPasswordEncoder()
+                .username("user")
+                .password("password")
+                .roles("USER")
+                .build();
+
+        return new InMemoryUserDetailsManager(userDetails);
+    }
+
+    @Bean
+    public RegisteredClientRepository registeredClientRepository() {
+        RegisteredClient oidcClient = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("oidc-client")
+                .clientSecret("{noop}secret")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/oidc-client")
+                .postLogoutRedirectUri("http://127.0.0.1:8080/")
+                .scope(OidcScopes.OPENID)
+                .scope(OidcScopes.PROFILE)
+                .scope("user.read")
+                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
+                .build();
+
+        return new InMemoryRegisteredClientRepository(oidcClient);
+    }
+
+    @Bean
+    public JWKSource<SecurityContext> jwkSource() {
+        KeyPair keyPair = generateRsaKey();
+        RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
+        RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
+        RSAKey rsaKey = new RSAKey.Builder(publicKey)
+                .privateKey(privateKey)
+                .keyID(UUID.randomUUID().toString())
+                .build();
+        JWKSet jwkSet = new JWKSet(rsaKey);
+        return new ImmutableJWKSet<>(jwkSet);
+    }
+
+    private static KeyPair generateRsaKey() {
+        KeyPair keyPair;
+        try {
+            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+            keyPairGenerator.initialize(2048);
+            keyPair = keyPairGenerator.generateKeyPair();
+        }
+        catch (Exception ex) {
+            throw new IllegalStateException(ex);
+        }
+        return keyPair;
+    }
+
+    @Bean
+    public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
+        return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
+    }
+
+    @Bean
+    public AuthorizationServerSettings authorizationServerSettings() {
+        return AuthorizationServerSettings.builder().build();
+    }
+}
+#+end_src
+
+** Test authorization server
+
+#+begin_src sh
+http -f POST :9000/oauth2/token grant_type=client_credentials scope='openid' -a oidc-client:secret
+#+end_src
+
+*Response:*
+
+#+begin_src sh
+HTTP/1.1 200
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Connection: keep-alive
+Content-Type: application/json;charset=UTF-8
+Date: Sun, 01 Dec 2024 09:04:24 GMT
+Expires: 0
+Keep-Alive: timeout=60
+Pragma: no-cache
+Transfer-Encoding: chunked
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 0
+
+{
+    "access_token": "eyJraWQiOiI5MWQxOGFmZi0yMTE1LTQ5MzYtYWIzNS0yYTQ0ZmI3MzY2MWMiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJvaWRjLWNsaWVudCIsImF1ZCI6Im9pZGMtY2xpZW50IiwibmJmIjoxNzMzMDQzODY0LCJzY29wZSI6WyJvcGVuaWQiXSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgxIiwiZXhwIjoxNzMzMDQ0MTY0LCJpYXQiOjE3MzMwNDM4NjQsImp0aSI6ImI1ODFjNWE0LTM5YjEtNGIzNC05YTk0LWZkY2Q2MDJkMjU4NyJ9.mbKUToJsncSh6f1zpQ7emKIsX0SFdZoBMabmR3rDSh0vFwyeRFmhiv2YSjFFu_1jjgyuWbZAA_y7YCtsDr-yO65XokELdPlMk7-zyxO9p1xLypLdTGs2LPa9H_yDwlpRj6fKLW_RbHZwg8jQbLHYKQEZMFXMNx408YnD1fouIX6yL5bl2dW8gsnelZXPM4HzpgmZWpjkKmaGKGDmZ9Eobfx-1EJxasBKGS6uk5zTEJS1uoHGskKPC9mt6Hd2eV0UkpV_WetvWDK9gOYKOY_Ny5ntyfaRIcShtqU916eUwDEQPBjEZPSDAeHGZA9-nCf6H3ZU0fSNarb2BaMXK7Hrsg",
+    "expires_in": 299,
+    "scope": "openid",
+    "token_type": "Bearer"
+}
+#+end_src
+
+*Get the token with jq*
+
+#+begin_src sh
+http -f POST :9000/oauth2/token grant_type=client_credentials scope='openid' -a oidc-client:secret | jq -r ".access_token"
+#+end_src
+
+*Add the token to a variable*
+
+#+begin_src sh
+TOKEN=$(http -f POST :9000/oauth2/token grant_type=client_credentials scope='openid' -a oidc-client:secret | jq -r ".access_token")
+#+end_src
+
+*Introspect the token*
+
+#+begin_src sh
+http -f POST :9000/oauth2/introspect token=$TOKEN -a oidc-client:secret
+#+end_src

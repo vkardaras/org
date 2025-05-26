@@ -1,0 +1,328 @@
+* Creating Scenarios with Gherkin
+
+[[file:Gherkin syntax fundamentals.org][Gherkin syntax fundamentals]]
+
+** Each component has a purpose
+
+*** Feature
+
+- Describe a software feature
+- offers a broader context of the feature
+- use the keyword: =Feature:= to initiate
+- Sets the foundation for associated scenarios
+
+*** Scenarios in Gherkin
+
+Represent specific user journeys of use-cases.
+
+- Scenario: Begins with this keyword
+- Series of steps that detail the actions and outcomes
+- Tests or use-cases. Testable units that validate functionality
+
+*** Steps & Keywords in Gherkin
+
+- =Given= Establishes the context of the initial state
+- =When= Describes the action or interaction
+- =Then= Specifies the expected result or assertion
+- =And / But= Useful for adding more details or exceptions to any of the
+  above steps
+
+*** Why Boring is better in Gherkin
+
+- Consistency aids comprehension
+- Avoids over-complication
+- Makes automation easier
+- Predictability fosters collaboration
+
+*** Benefits of Simple Syntax
+
+- Short learning curve
+- Enhances communication between roles
+- Less room for misinterpretation
+- Focus on actual requirements
+
+*** Gherkin's Practical Application
+
+- Writing Clear Features and Scenarios
+- Embrace the "Boring" Approach
+
+[[file:Gherkin Example.org][Gherkin Example]]
+
+** Scenario Structure
+
+*** Scenario Structure in BDD
+
+- Gherkin and it's importance
+- The Role of Scenario Structure in BDD
+- Components of Scenario Structure
+- Readability and understandability
+- Foundations for Effective BDD
+
+*** Gherkin keywords
+
+- Syntax and structure are a bridge
+- Helps in crafting automation scripts
+- Data drive, parameterized testing
+- Gherkin keywords help automate script development
+
+*** Comments
+
+- utilized for Clarification
+- Syntax: Beginning with =#=
+- Purpose: Readability and Context
+- Non-executable: ignored during Test Runs
+
+#+begin_src gherkin
+# This is a feature for managing user profiles in a web application
+Feature: User Profile Management
+    # Background setups are common steps to be executed before each scenario
+    Background:
+        Given The user is logged into the web application
+    # This scenario is about changing the user's email address
+        Scenario: Changing user email address
+            Given the user is on the profile update page
+            # User updates their email address
+            When they enter a new valid email address
+#+end_src
+
+[[file:Gherkin Tags.org][Gherkin Tags]]
+
+*** Tables
+
+- Definition: Structured Data within Scenarios
+- Syntax: Utilizes =|= to define Columns
+- Purpose: Data-Driven Testing, Enhanced Readability
+- Implementation: Associated with Steps
+- Efficiency: Eliminates Redundancy in Scenarios
+
+#+begin_src gherkin
+Feature: Bulk User Registration
+
+Scenario: Registering multiple users at once 
+    Given the user registration form is open
+    When I input the following user details:
+        | Firstname | Lastname | Email           |
+        | Alice     | Smith    | alice@email.com | 
+        | Bob       | Johnson  | bob@email.com   |
+    Then the users should be registered successfully. 
+#+end_src
+
+[[file:Scenario Outline.org][Scenario Outline]]
+
+*** Examples
+
+- Utilization: Paired with Scenario Outlines
+- Objective: Define Datesets for Parameterization
+- Tabular format
+- Role: Drives Data-Driven Scenarios
+- Importance: Validating Multiple Data Combinations
+
+#+begin_src gherkin
+Feature: User password update
+
+Scenario Outline: Changing a user's password
+    Given I am logged in as a user with username "<Username>" and password 
+    "<OldPassword>"
+    When I change the password to "<NewPassword>"
+    Then I should be able to log in with username "<Username>" and password
+    "<NewPassword>"
+    
+Examples:
+    | Username | OldPassword | NewPassword |
+    | Alice    | oldpass1    | newpass1    |
+#+end_src
+
+[[file:Background.org][Background]]
+
+** Best Practices for Scenario Creation
+
+*** Scenario Best Practices
+
+- Crafting high-quality scenarios
+- Clarity and consistency
+- Gherkin is a communication tool
+
+*** Importance of Effective Scenarios
+
+- Ensure clear requirements
+- Streamlines the testing process
+- Reduces misunderstandings
+- Easier development or automation
+
+*** Keep it simple
+
+- Focus on one behavior per scenario
+- Avoid complex logic and conditions
+- Simplify data and steps
+
+*** Use Descriptive Titles
+
+- Title is the first point of contact
+- Make it clear and descriptive
+- Avoid generic phrases
+
+*** Prioritize Business Language
+
+- Use terms that stakeholders understand
+- Avoid technical jargon
+- promote collaboration through understanding
+
+*** Use Background Sparingly
+
+- Avoid overloading background
+- Use only for common steps
+- Scenario independence reduces defect risk
+
+*** Utilize Scenario Outlines for Data-driven Tests
+
+- Perfect for repetitive scenarios
+- Avoids scenario duplication
+- Enhances test coverage
+
+*** Consistent Formatting and Style
+
+A uniformly formatted Gherkin document is easier to read
+
+- Standardize scenario structures. This provides a coherent and
+  predictable format
+- Use a consistent tense. Use present tense for consistent Gherkin
+  scenarios
+- Promote readability and clarity. Consistent tense reduces ambiguity
+  and enhances clarity
+
+*** Active Collaboration with Stakeholders
+
+- Involve product owners, testers, and developers
+- Gather feedback regularly
+- Gherkin is a plain-language collaboration tool
+
+*** Poorly Written Scenario
+
+- Vague title
+- Steps are too general
+- Lack of specific context or data
+- use of generic words like "details" and "message."
+
+#+begin_src gherkin
+Feature: User login
+
+Scenario: Logging in
+    Given I visit the website
+    And I see the homepage
+    When I provide my details
+    And I click the button
+    Then I am logged in 
+    And I see a message
+#+end_src
+
+*** Refined Scenario
+
+- Descriptive title
+- Specific context and data provided
+- Clear actions and expectations
+- Elimination of ambiguous phrases
+
+#+begin_src gherkin
+Feature: User Login System
+    Scenario: Successful login with valid credentials
+    Given I am on the Bethan's Pie Shop homepage
+    When I enter the username "bethany" and password "securePie123"
+    And I click on the "Login" button
+    Then I am redirected to the dashboard page
+    And I see the welcome message "Hello, Bethany!"
+#+end_src
+
+** Demo: Writing Scenarios
+
+*** Setting the Stage
+
+- The pie shop: Online pie ordering system
+
+*** Feature Definition
+
+- Define the feature
+- Understand the importance of a clear feature description
+
+*** Scenario: Viewing Available Pies
+
+- This is a basic scenario where the user wants to view the pies
+  available for ordering.
+- Notice the clarity and simplicity
+- Title indicates what's being tested
+
+#+begin_src gherkin
+Feature: Pie Ordering System
+    Scenario: Displaying available pies to the user
+    Given I am on the Bethany's pie Shop homepage
+    When I click on the "View Pies" button
+    Then I see a list of pies available for ordering
+#+end_src
+
+*** Scenario: Placing an Order
+
+- Focusing on the core functionality of placing an order
+- Scenario is designed to test the process of selecting a pie and
+  ordering in
+- Clear steps and expected outcomes
+
+#+begin_src gherkin
+Feature: Pie Ordering System
+
+Scenario: Successfully placing an order for a pie
+    Given I have selected the "Apple Pie."
+    When I click on the "Order Now" button
+    And I provide delivery details
+    Then I receive a confirmation message "Your Apple Pie order has been placed!"
+#+end_src
+
+*** Scenario: Placing an Order Extended
+
+- Scenario is still designed to test the process of selecting a pie and
+  ordering it
+- We have incorporated comments to make it clearer
+- We have added a table for different pie options
+
+#+begin_src gherkin
+Feature: Pie Ordering System
+    # This feature allows users to order pies and receive confirmation messages
+
+    # User places an order for a specific pie type
+    Scenario: Successfully placing an order for a pie
+        Given I have the following pies available:
+            | Pie Name   | Price |
+            | Apple Pie  | $10   |
+            | Cherry Pie | $12   |
+        # User selects their desired pie
+        When I click the "Apple Pie
+        And I click on the "Order Now" button
+        # User provides necessary delivery details
+        And I provide delivery details
+        # User receives a confirmation message for their order
+        Then I receive a confirmation message "Your Apple Pie order has been placed!"
+#+end_src
+
+*** Introducing a Negative Scenario
+
+Importance of testing negative cases
+
+Enhancing System Resilience
+
+- Tests system's response to out-of-stock items
+- System provides a clear, user-friendly message
+
+#+begin_src gherkin
+Feature: Pie Ordering System
+
+Scenario: Placing an order for a pie that's out of stock
+    Given I have selected the "Blueberry Pie."
+    But the "Blueberry Pie" is out of stock
+    When I click on the "Order Now" button
+    And I provide delivery details
+    Then I see a warning message "Sorry, Blueberry Pie is currently out of stock."
+#+end_src
+
+*** Recap and Key Takeaways
+
+- The importance of clear scenario titles
+- Using Given, When, Then
+- The value of both positive and negative scenarios

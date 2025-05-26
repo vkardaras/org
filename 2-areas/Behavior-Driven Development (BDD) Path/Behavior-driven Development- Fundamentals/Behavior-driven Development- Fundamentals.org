@@ -1,0 +1,16 @@
+* Behavior-driven Development- Fundamentals
+
+#+begin_quote
+[!info]
+
+https://app.pluralsight.com/library/courses/behavior-driven-development-fundamentals/table-of-contents
+
+#+end_quote
+
+** [[file:Introduction to Behavior-Driven Development (BDD).org][Introduction to Behavior-Driven Development (BDD)]]
+
+** [[file:Collaboration and Criteria.org][Collaboration and Criteria]]
+
+** [[file:Creating Scenarios with Gherkin.org][Creating Scenarios with Gherkin]]
+
+** [[file:Implementing Behavior with BDD Frameworks.org][Implementing Behavior with BDD Frameworks]]

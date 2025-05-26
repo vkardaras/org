@@ -1,0 +1,37 @@
+* Kubernetes services
+
+Service Types
+
+- NodePort
+- ClusterIP
+- LoadBalancer
+
+** Service definition
+
+#+begin_src yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30004
+  selector:
+    app: myapp
+#+end_src
+
+** Service commands
+
+#+begin_src sh
+# create Service
+kubectl create -f service-definition.yml
+
+# get services
+kubectl get service
+
+# get url of a service in minikube
+minikube service myapp-service --url
+#+end_src

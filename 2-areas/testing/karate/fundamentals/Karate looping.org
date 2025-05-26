@@ -1,0 +1,37 @@
+Create the file =PrintMessageWithParam.feature= in =java/helpers= folder
+
+#+begin_src gherkin
+Feature: Example of printing message from other file
+
+    Scenario: Pring message
+
+        ,* print 'Example message from other file and param is ' + param
+#+end_src
+
+Call the feature in a loop from other feature
+
+#+begin_src gherkin
+Feature: Test Looping
+
+    Background:
+
+        ,* url apiUrl
+
+    Scenario: Get categories
+
+        Given path 'category'
+        When method get
+        Then status 200
+                
+        ,* def fun = 
+        """
+            function() {
+                for (var i=0; i<response.length; i++) {
+                    karate.log('Loop interation: ' + response[i].id); 
+                    karate.call('classpath:helpers/PrintMessageWithParam.feature', { param: response[i].name})
+                }    
+            }
+        """
+
+        ,* call fun
+#+end_src

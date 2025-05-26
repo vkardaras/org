@@ -1,0 +1,43 @@
+* maven war plugin
+
+** Generate a web application
+
+#+begin_src sh
+mvn archetype:generate
+
+# apply a filter of an archetype to use
+maven-archetype-webapp
+
+# specify the properties of the archetype
+#+end_src
+
+** Package the project
+
+Create a =war= file for the application
+
+#+begin_src sh
+mvn package
+#+end_src
+
+** Specify =war= properties in the =pom.xml= file
+
+Add the following part inside the =<project>= tag
+
+#+begin_src xml
+<project>
+    ...
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <warName>mavenWeb</warName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+#+end_src

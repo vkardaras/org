@@ -1,0 +1,59 @@
+Search and replace in file
+
+#+begin_src sh
+# search
+/searchterm
+
+# search and replace
+:%s/search/replace/gc
+
+# search and replace in line
+:s/search/replace/gc
+#+end_src
+
+- =%= Search the current buffer
+- =g= Search for all occurrences
+- =c= Ask for confirmation on each match
+
+Search commands
+
+#+begin_src sh
+# search forward
+/
+# search backwords
+?
+# go to next match
+n
+# go to previous match
+N
+# search for the word under cursor forward
+,*
+# search for the word under cursor backword
+#
+# search for next partial match
+g*
+# search for previous partial match
+g#
+#+end_src
+
+Search character
+
+#+begin_src sh
+# search for character forward
+f <char>
+
+# search for character backward
+F <char>
+
+# search before character forward
+t <char>
+
+# search before character backward
+T <char>
+
+# search next
+;
+
+# search previews
+,
+#+end_src

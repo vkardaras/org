@@ -1,0 +1,27 @@
+* docker postgres
+:PROPERTIES:
+:CUSTOM_ID: docker-postgres
+:END:
+** example file
+:PROPERTIES:
+:CUSTOM_ID: example-file
+:END:
+#+begin_src yml
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    hostname: localhost
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: test-db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+#+end_src

@@ -1,0 +1,15 @@
+* starship
+:PROPERTIES:
+:CUSTOM_ID: starship
+:END:
+Install starship
+
+#+begin_src sh
+curl -sS https://starship.rs/install.sh | sh
+#+end_src
+
+Add the init script to the zsh shell config file
+
+#+begin_src sh
+eval "$(starship init zsh)"
+#+end_src

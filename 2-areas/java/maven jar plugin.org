@@ -1,0 +1,49 @@
+* maven jar plugin
+
+** jar plugin
+
+Invoke it with the following command
+
+#+begin_src sh
+mvn package
+# or
+mvn jar:jar
+#+end_src
+
+*** Specify parameters during the creation of a jar file
+
+#+begin_src sh
+mvn jar:jar -Djar.finalName=test -Djar.forceCreation=true
+#+end_src
+
+*** Specify parameters in =pom.xml= file
+
+#+begin_src xml
+<project>
+    ...
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.4</version>
+                    <configuration>
+                        <finalName>pomTest</finalName>
+                        <forceCreation>true</forceCreation>
+                        <excludes>
+                            <exclude>**/ExcludeMe.class</exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
+#+end_src
+
+Compile the project
+
+#+begin_src sh
+mvn clean compile jar:jat
+#+end_src

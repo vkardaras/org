@@ -1,0 +1,37 @@
+* shell debugging
+:PROPERTIES:
+:CUSTOM_ID: shell-debugging
+:END:
+** Debugging with =-x=
+:PROPERTIES:
+:CUSTOM_ID: debugging-with--x
+:END:
+Print each line of the script by adding =-v= after the declaration of
+the shell
+
+#+begin_src sh
+#!/bin/bash -v
+#+end_src
+
+Print the result of each line of the script by adding =-x= after the
+declaration of the shell=.=
+
+#+begin_src sh
+#!/bin/bash -x
+#+end_src
+
+** Check a shell script
+:PROPERTIES:
+:CUSTOM_ID: check-a-shell-script
+:END:
+Install shellcheck
+
+#+begin_src sh
+sudo apt install shellcheck
+#+end_src
+
+Check a script with shellcheck
+
+#+begin_src sh
+shellcheck create_report.sh
+#+end_src

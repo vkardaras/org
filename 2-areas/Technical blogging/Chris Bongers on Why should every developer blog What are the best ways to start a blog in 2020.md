@@ -1,0 +1,17 @@
+## Why every developer should blog?
+
+- Stay on top of your game
+- Improve your reading
+- Improve your writing
+- Time management
+- Learn in public
+- Promote yourself
+
+### What are the best ways to start a blog?
+
+1. Define a topic
+2. Define your consistency
+3. Pick a platform
+4. Publish
+5. Have fun
+6. Learn and improve

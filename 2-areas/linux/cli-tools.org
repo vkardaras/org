@@ -1,0 +1,12 @@
+* CLI tools
+:PROPERTIES:
+:CUSTOM_ID: cli-tools
+:END:
+- [[tmux]]
+- [[stow]]
+- [[httpie]]
+- [[xclip]]
+- [[grep]]
+- [[yazi]]
+- [[starship]]
+- [[fzf]]

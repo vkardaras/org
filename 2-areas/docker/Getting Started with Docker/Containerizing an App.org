@@ -1,0 +1,104 @@
+* Containerizing an App
+
+Clone the repo [[https://github.com/nigelpoulton/gsd/tree/main]]
+
+#+begin_src shell
+git clone https://github.com/nigelpoulton/gsd.git
+#+end_src
+
+Move to app directory
+
+#+begin_src shell
+cd gsd/container
+#+end_src
+
+Build image
+
+#+begin_src shell
+docker image build -t vkardaras/gsd:ctr2024 .
+#+end_src
+
+Login to dockerhub with the following command
+
+#+begin_src shell
+docker login
+#+end_src
+
+Push image to dockerhub
+
+#+begin_src shell
+docker image push vkardaras/gsd:ctr2024
+#+end_src
+
+You can also build an image for different architectures and push it at
+the same time
+
+#+begin_src shell
+docker buildx build \
+--platform linux/arm64/v8,linux/amd64 \
+--push --tag vkardaras/gsd:ctr2024 .
+#+end_src
+
+** Get an image from dockerhub and run the container
+
+First, delete the local image that you created previously.
+
+#+begin_src shell
+docker image rm vkardaras/gsd:ctr2024
+#+end_src
+
+Then, run a container based on the image from dockerhub
+
+#+begin_src shell
+docker container run -d --name web -p 8000:8080 vkardaras/gsd:ctr2024
+#+end_src
+
+Check the running container.
+
+#+begin_src shell
+localhost:8000
+#+end_src
+
+** Manage a Containerized App
+
+Check the running containers
+
+#+begin_src shell
+docker container ls
+#+end_src
+
+Stop the container with the following command.
+
+#+begin_src shell
+docker container stop web
+#+end_src
+
+Start the container with the following command
+
+#+begin_src shell
+docker container start web
+#+end_src
+
+Delete a container that is stopped
+
+#+begin_src shell
+docker container rm web
+#+end_src
+
+Run a container in interactive mode and access its shell
+
+#+begin_src shell
+docker container run -it --name test alpine sh
+#+end_src
+
+Exit container shell without stopping it
+
+#+begin_src shell
+Ctrl+P+Q
+#+end_src
+
+Delete running container
+
+#+begin_src javascript
+docker container ls -a
+#+end_src

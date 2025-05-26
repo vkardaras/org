@@ -1,0 +1,35 @@
+** What is Karate
+:PROPERTIES:
+:CUSTOM_ID: what-is-karate
+:END:
+
+#+begin_quote
+Karate is an open-source unified test automation platform combining API
+testing, API performance testing, API mocks & UI testing
+
+#+end_quote
+
+*** Features
+:PROPERTIES:
+:CUSTOM_ID: features
+:END:
+- Simplified Syntax
+- Built-in Test Doubles
+- Data-Driven Testing
+- Powerful Assertions
+- Parallel Execution
+
+*** Tech Stack
+:PROPERTIES:
+:CUSTOM_ID: tech-stack
+:END:
+- Built using Java
+- Cucumber-JVM
+- Apache HttpClient
+- JSON and XML Support
+- Gradle and Maven
+- JavaScript Engine ## Preparing Your Environment
+
+![[demo project for karate testing]]
+
+[[Karate for demo project]]

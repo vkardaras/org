@@ -1,0 +1,7 @@
+* install zen on arch
+:PROPERTIES:
+:CUSTOM_ID: install-zen-on-arch
+:END:
+#+begin_src sh
+yay -S zen-browser-avx2-bin
+#+end_src

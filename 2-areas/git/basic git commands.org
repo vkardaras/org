@@ -1,0 +1,21 @@
+* basic git commands
+
+#+begin_src sh
+# add global name and email
+git config --global user.name "Mona Lisa"
+git config --global user.email test@email.com
+
+# change origin
+git remote -v
+# View existing remotes
+# origin  https://github.com/user/repo.git (fetch)
+# origin  https://github.com/user/repo.git (push)
+
+git remote set-url origin https://github.com/user/repo2.git
+# Change the 'origin' remote's URL
+
+git remote -v
+# Verify new remote URL
+# origin  https://github.com/user/repo2.git (fetch)
+# origin  https://github.com/user/repo2.git (push)
+#+end_src

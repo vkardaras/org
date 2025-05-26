@@ -1,0 +1,107 @@
+* neovim separate config
+:PROPERTIES:
+:CUSTOM_ID: neovim-separate-config
+:END:
+#+begin_src sh
+NVIM_APPNAME=nvimexample nvim
+#+end_src
+
+** Make a new directory
+:PROPERTIES:
+:CUSTOM_ID: make-a-new-directory
+:END:
+#+begin_src sh
+mkdir -p .config/nvimexample
+#+end_src
+
+** Make an init file
+:PROPERTIES:
+:CUSTOM_ID: make-an-init-file
+:END:
+#+begin_src sh
+NVIM_APPNAME=nvimexample nvim init.lua
+#+end_src
+
+** Add some text and exit
+:PROPERTIES:
+:CUSTOM_ID: add-some-text-and-exit
+:END:
+#+begin_src lua
+print("advent of neovim")
+#+end_src
+
+** Reopen the file and see the printed text
+:PROPERTIES:
+:CUSTOM_ID: reopen-the-file-and-see-the-printed-text
+:END:
+#+begin_src sh
+NVIM_APPNAME=nvimexample nvim init.lua
+#+end_src
+
+** View messages
+:PROPERTIES:
+:CUSTOM_ID: view-messages
+:END:
+#+begin_src sh
+:messages
+#+end_src
+
+** Run the current file
+:PROPERTIES:
+:CUSTOM_ID: run-the-current-file
+:END:
+#+begin_src sh
+:source %
+#+end_src
+
+** Run the selected text
+:PROPERTIES:
+:CUSTOM_ID: run-the-selected-text
+:END:
+Select the text you want to run and execute the following command
+
+#+begin_src sh
+lua
+#+end_src
+
+** Example for LazyVim
+:PROPERTIES:
+:CUSTOM_ID: example-for-lazyvim
+:END:
+*** clone the repository
+:PROPERTIES:
+:CUSTOM_ID: clone-the-repository
+:END:
+#+begin_src sh
+git clone https://github.com/LazyVim/starter ~/.config/LazyVim
+#+end_src
+
+*** update =.zshrc= file
+:PROPERTIES:
+:CUSTOM_ID: update-.zshrc-file
+:END:
+#+begin_src sh
+alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
+
+function nvims() {
+    items=("default", "LazyVim")
+    config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
+    if [[ -z $config ]]; then
+        echo "Nothing selected"
+        return 0
+    elif [[ $config == "default" ]]; then
+        config=""
+    fi
+    NVIM_APPNAME=$config nvim $@
+}
+
+bindkey -s ^a "nvims\n"
+#+end_src
+
+*** source shell config file
+:PROPERTIES:
+:CUSTOM_ID: source-shell-config-file
+:END:
+#+begin_src sh
+source .zshrc
+#+end_src

@@ -1,0 +1,4 @@
+- https://notes.nicolevanderhoeven.com/Fork+My+Brain#Fork+My+Brain
+- https://nicolevanderhoeven.com/
+- https://github.com/0atman/noboilerplate/blob/main/scripts/29-obsidian.md
+- https://github.com/ChristianLempa/cheat-sheets/tree/main

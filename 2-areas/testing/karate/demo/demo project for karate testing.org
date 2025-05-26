@@ -1,0 +1,5 @@
+Clone the project for testing from this repository
+[[https://github.com/vkardaras/events-api][events-api]] #### Endpoints
+after running the project - [[http://localhost:8082][h2 database]] -
+JDBC URL: =jdbc:h2:~/test= - User Name: =sa= - Password: `` -
+[[http://localhost:8080/swagger-ui/index.html][swagger]]

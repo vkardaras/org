@@ -1,0 +1,14 @@
+* date goes here
+:PROPERTIES:
+:CUSTOM_ID: date-goes-here
+:END:
+- Mood:
+- Productivity:
+- Sleep/Wake-up-time:
+- Reading:
+
+Planned Highlight of the Day:
+
+I am Grateful For:
+
+To-Dos: - [ ]

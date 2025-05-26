@@ -1,0 +1,74 @@
+* Managing application logs with Docker
+
+** Docker logging model
+
+*** Docker Logs Command
+
+#+begin_src sh
+docker compose logs [OPTIONS] [SERVICE...]
+#+end_src
+
+- =--details= Show extra details pfovided to logs
+- =--folow, -f= Follow log output
+- =--since= Show logs since timestamp (2021-01-01T00:00:00Z) or relative
+  (10m)
+- =-tail, -n= Number of lines to show from the end of the logs
+- =--timestamps, -t= Show timestamps
+- =--until= Show logs before a timestamp (2021-01-01T00:00:00Z) or
+  relative (10m)
+
+*** Using the docker logs command
+
+Configure the Fluentd logging driver
+
+#+begin_src xml
+<source>
+  @type forward
+</source>
+
+<label @FLUENT_LOG>
+  <match *.**>
+    @type stdout
+  </match>
+</label>
+
+<match *.**>
+  @type stdout
+</match>
+#+end_src
+
+Run fluentd
+
+#+begin_src sh
+$ docker run -it --rm \
+> -p 24224:24224 \
+> -v ${PWD}:/fluentd/etc/ \
+> -e FLUENTD_CONF=fluent.conf \
+> fluent/fluentd:v1.15
+#+end_src
+
+Run another container using fluentd
+
+#+begin_src sh
+$ docker run -it --rm \
+> -p 8080:8080 \
+> --log-driver=fluentd \
+> --log-opt tag="{{.Name}}.{{.ImageName}}" \
+> --name api my-app-log
+#+end_src
+
+** Solutions for the multiple log problem
+
+*** Two solutions
+
+- Format log messages as a single line
+- Forward log messages to a log aggregator/shipper that can handle them
+
+*** Log Shippers / Log Aggregators with multiline support
+
+- Amazon CloudWatch
+- Fluentd
+- Logstash
+- Rsyslog
+- NXLog
+- Datadog Agent

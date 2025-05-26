@@ -1,0 +1,34 @@
+https://app.pluralsight.com/ilx/video-courses/9a5727c5-039d-44a7-ae7c-a6e61e08a862/0ce0f406-6c86-4d0c-81f5-7d45cf5001b3/e57c7d48-1f4d-4a07-9591-84ca1bc79baf
+
+Create the file =PrintMessage.feature= in =java/helpers= folder
+
+#+begin_src gherkin
+Feature: Example of printing message from other file
+
+    Scenario: Pring message
+
+        ,* print 'Example message from other file'
+#+end_src
+
+Call the feature in a conditional from other feature
+
+#+begin_src gherkin
+Feature: Test Conditional Hooks
+
+    Background:
+
+        ,* url apiUrl
+
+    Scenario: Get single category
+
+        Given path 'category', 1
+        When method get
+        Then status 200
+
+        ,* def slug = response.slug
+        ,* if (slug == 'babies-toys') karate.log('Slug is babies-toys')
+        ,* def checkSlug = slug == 'babies-toys' ? 'Slug is expected' : 'NOT expected'
+        ,* print checkSlug
+
+        ,* if (responseStatus == 200) karate.call('classpath:helpers/PrintMessage.feature')
+#+end_src

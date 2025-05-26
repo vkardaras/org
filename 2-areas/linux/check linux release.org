@@ -1,0 +1,7 @@
+* check linux release
+:PROPERTIES:
+:CUSTOM_ID: check-linux-release
+:END:
+#+begin_src sh
+cat /etc/*release*
+#+end_src

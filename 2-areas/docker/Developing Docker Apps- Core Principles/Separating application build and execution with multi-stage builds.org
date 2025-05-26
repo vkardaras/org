@@ -1,0 +1,149 @@
+* Separating application build and execution with multi-stage builds
+
+** Example Dockerfile of a compiled language
+
+#+begin_src shell
+FROM golang
+
+# Create app directory
+WORKDIR /app
+
+# Coply dependency definitions (go.mod & go sum)
+COPY go.??? ./
+
+# Install app dependencies
+RUN go mod download
+
+# Copy source
+COPY . .
+
+# Build app binary
+RUN go build -o mini .
+
+# Specify what container executes
+ENTRYPOINT ["./mini"]
+#+end_src
+
+** Problems with compiled languages
+
+- Increased complexity. Not trivial to code and hot reload with a bind
+  mount
+- Larger image size. Development tools captured inside the container
+  image
+
+** Splitting a Dockerfile for the Builder Pattern
+
+Create a Dockerfile to build the image
+
+#+begin_src shell
+FROM golang:1.20
+
+WORKDIR /app
+
+COPY go.??? ./
+
+RUN go mod download
+
+ENTRYPOINT ["go", "build", "-o", "mini", "."]
+#+end_src
+
+Build the image
+
+#+begin_src shell
+docker build -t mini-builder:1.0 -f Dockerfile.build .
+#+end_src
+
+Run the image
+
+#+begin_src shell
+docker run --rm -it -v $(pwd):/app mini-builder:1.0
+#+end_src
+
+Create a Dockerlfile to run the image
+
+#+begin_src shell
+FROM alpine:3
+
+COPY mini .
+
+ENTRYPOINT ["./mini"]
+#+end_src
+
+Build the image to execute the app
+
+#+begin_src shell
+docker build -t mini:1.0 .
+#+end_src
+
+Run the image
+
+#+begin_src shell
+docker run --rm -it -v $(pwd)/mini.go:/mini.go mini:1.0 mini.go
+#+end_src
+
+** Multi-stage Dockerfiles
+
+Benefits of multi-stage Dockerfiles
+
+- Smaller image sizes attained by selective inclusion of content
+- Smaller surface area open to intentional or accidental compromise
+- Logical separation of different build steps according to purpose
+- Easier and more reliable maintenance of Dockerfile instructions
+
+*** Constructing a multi-stage Dockerfile
+
+- Stage functions. Establish the purpose of the different stages
+- Shared content. Identify any common stage content
+- Size matters. Optimize for size, but maintain readability
+
+*** Stage planning
+
+#+begin_src shell
+FROM golang:1.20 AS lint
+
+<snip>
+
+FROM golang:1.20 AS build
+
+<snip>
+
+FROM alpine
+
+<snip>
+#+end_src
+
+Example of stage planning
+
+#+begin_src shell
+# Base stage
+FROM golang:1.20 AS base
+
+# Base stage
+FROM base AS ling
+COPY golangci-lint /go/bin/
+WORKDIR /app
+CMD ["golangci-lint", "run"]
+
+# Build stage
+FROM base AS build
+WORKDIR /app
+COPY go.??? ./
+RUN go mod download
+COPY *.go ./
+RUN go build -o mini .
+
+# Execution stage
+FROM alpine
+COPY --from=build /app/mini /
+ENTRYPOINT ["./mini"]
+#+end_src
+
+*** Building an image for the Lint Stage
+
+- An image used only for lining can be built using the =--target= option
+- A derived container can lint the code using a bind mount
+
+#+begin_src shell
+$ docker build -t mini-lint:1.0 --target lint .
+$ docker run -it --rm -v $(pwd):/app mini-lint:1.0
+#+end_src

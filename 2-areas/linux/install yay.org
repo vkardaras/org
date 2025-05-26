@@ -1,0 +1,13 @@
+* install yay
+:PROPERTIES:
+:CUSTOM_ID: install-yay
+:END:
+#+begin_src sh
+sudo pacman -S --needed git base-devel
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+
+# or all commands together
+sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
+#+end_src

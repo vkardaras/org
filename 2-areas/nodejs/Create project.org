@@ -1,0 +1,23 @@
+Initialize a project
+
+#+begin_src javascript
+npm init
+#+end_src
+
+Install a package
+
+#+begin_src javascript
+npm install <packageName>
+#+end_src
+
+Uninstall a package
+
+#+begin_src javascript
+npm uninstall <packageName>
+#+end_src
+
+Install express
+
+#+begin_src javascript
+npm install express
+#+end_src

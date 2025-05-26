@@ -1,0 +1,109 @@
+* maven lifecycle and plugins
+
+** maven build in lifecycles
+
+- =default=
+- =clean=
+- =site=
+
+Every lifecycle has its particular faces
+
+*** View help for a face
+
+#+begin_src sh
+# clean face of the clean lifecycle
+mvn help:describe -Dcmd=clean
+
+# deploy face of the default lifecycle
+mvn help:describe -Dcmd=deploy
+#+end_src
+
+** Most important faces of the =default= lifecycle
+
+The =default= lifecycle has 23 faces. The most important are the
+following:
+
+- =compile=: Compile the source code of the project
+- =test-compile=: Compile the test source code into the test destination
+  directory
+- =test=: Run tests using a suitable unit testing framework. These tests
+  should not require the code be packaged or deployed
+- =package=: Take the compiled code and package it in its distributable
+  format, such as a JAR
+- =install=: Install the package into the local repository, for use as a
+  dependency in other projects locally
+- =deploy=: Done in an integration or release environment, copies the
+  final package to the remote repository for sharing with other
+  developers and projects
+
+** Plugins and Goals
+
+Example of a plugin and a goal
+
+#+begin_src sh
+mvn compiler:compile
+# compiler is a plugin
+# compile is one of its goals
+#+end_src
+
+*** View description of a plugin
+
+#+begin_src sh
+mvn help:describe -Dplugin=compiler
+#+end_src
+
+*** View help of a plugin and a goal
+
+#+begin_src sh
+mvn compiler:help -Ddetail=true -Dgoal=compile
+#+end_src
+
+** Plugin properties
+
+Change the behavior of a plugin goal by specifying some arguments of
+goal properties
+
+*** View the different properties of a particular plugin goal
+
+#+begin_src sh
+mvn help:describe -Dcmd=compiler:compile -Ddetail
+#+end_src
+
+*** Specify a goal property in an mvn command
+
+#+begin_src sh
+mvn compiler:compile -Dmaven.compiler.verbose=true
+#+end_src
+
+*** Specify a goal property in the =pom.xml= of a project
+
+Inside the =<project>= tag of the =pom.xml= add the following part
+
+#+begin_src xml
+<project>
+    ...
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.2</version>
+                    <configuration>
+                        <verbose>true</verbose>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
+#+end_src
+
+** Custom plugin
+
+Create a custom plugin with the following command
+
+#+begin_src sh
+mvn archetype:create -DgroupId=com.vasiliskardaras.maven -DartifactId=first-custom -DarchetypeArtifactId=maven-archetype-mojo -DarchetypeGroupId=org.apache.maven.archetypes
+#+end_src

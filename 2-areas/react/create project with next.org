@@ -1,0 +1,19 @@
+* create project with next
+:PROPERTIES:
+:CUSTOM_ID: create-project-with-next
+:END:
+** Create project
+:PROPERTIES:
+:CUSTOM_ID: create-project
+:END:
+#+begin_src sh
+npx create-next-app globomantics
+#+end_src
+
+** Run the project
+:PROPERTIES:
+:CUSTOM_ID: run-the-project
+:END:
+#+begin_src sh
+npm run dev
+#+end_src

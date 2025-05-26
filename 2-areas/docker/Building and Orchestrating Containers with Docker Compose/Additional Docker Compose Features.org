@@ -1,0 +1,71 @@
+* Additional Docker Compose Features
+
+** View container logs
+
+View logs from all containers
+
+#+begin_src yaml
+docker-compose logs
+#+end_src
+
+View the logs for specific services
+
+#+begin_src yaml
+docker-compose logs [service...]
+#+end_src
+
+View the last five lines of the service logs
+
+#+begin_src yaml
+docker-compose logs --tail=5
+#+end_src
+
+Follow the log output
+
+#+begin_src yaml
+docker-compose logs --follow
+#+end_src
+
+Show timestamps in logs
+
+#+begin_src yaml
+docker-compose logs -t
+#+end_src
+
+** Shell into a container
+
+Shell into a container with Docker Compose
+
+#+begin_src yaml
+docker-compose exec <serviceName> <shell>
+
+docker-compose exec node sh
+#+end_src
+
+** Scale containers
+
+#+begin_src yaml
+docker-compose up -d --scale api=4
+#+end_src
+
+Do NOT define a host port if you are going to scale a service or a
+container name.
+
+You can also define a deploy property for scaling.
+
+#+begin_src yaml
+services:
+  api:
+    ...
+    deploy:
+      replicas: 2
+      restart_policy: 
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+#+end_src
+
+For more info on restart policy view the following link
+
+[[https://docs.docker.com/compose/compose-file/compose-file-v3/#restart_policy]]

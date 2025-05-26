@@ -1,0 +1,19 @@
+* maven project archetype
+
+** General archetype
+
+#+begin_src sh
+mvn archetype:generate
+#+end_src
+
+** Make a maven eclipse project from a general maven project
+
+1. Move to the project generated with the general archetype
+2. Enter the following command
+
+#+begin_src sh
+mvn eclipse:eclipse
+#+end_src
+
+** Create karate project
+[[file:~/Documents/org/2-areas/testing/karate/maven project archetype for Karate.org][maven project archetype for Karate]]

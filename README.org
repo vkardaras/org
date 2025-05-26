@@ -1,0 +1,5 @@
+* MyVault
+:PROPERTIES:
+:CUSTOM_ID: myvault
+:END:
+** This is my obsidian vault for managing my notes

@@ -1,0 +1,59 @@
+* maven dependency management
+
+** Specify additional repository
+
+- Move to =settings.xml= in =maven/conf/= directory
+- Add the following in profiles tag
+
+#+begin_src xml
+<profiles>
+    <profile>
+        <id>spring_remote</id>
+        <repositories>
+            <repository>
+                <id>spring_repository</id>
+                <url>http://repo.spring.io/release/</url>
+            </repository>
+        </repositories>
+    </profile>
+
+</profiles>
+#+end_src
+
+*** After the =profiles= tag activate the repository
+
+#+begin_src xml
+<activeProfiles>
+    <activeProfile>spring_remote</activeProfile>
+</activeProfiles>
+#+end_src
+
+** Dependency scope
+
+- =compile=. Default scope is =compile=. Dependencies with this scope
+  are available during the =build=, =test= and =run= faces of a project
+- =test=. The =test= scope is executed only during the test face of a
+  project
+- =provided=. Dependencies with this scope are provided from the jdk or
+  the container of the environment. They are executed during the =build=
+  and =test= faces of a project
+- =runtime=. Dependencies with this scope are executed during =test= and
+  =run= faces of a project
+
+** Conflict resolution
+
+*** Exclude a transitive dependency from a dependency
+
+#+begin_src xml
+<dependency>
+    <groupId>com.test.maven</groupId>
+    <artifactId>maven-conflict-example</artifactId>
+    <version>1.0</version>
+    <exclutions>
+        <exclution>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </exclution>
+    </exclutions>
+</dependency>
+#+end_src

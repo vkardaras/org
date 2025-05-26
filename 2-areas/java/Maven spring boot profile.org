@@ -1,0 +1,12 @@
+* Maven spring boot profile
+
+#+begin_src sh
+mvn spring-boot:run -Dspring-boot.run.profiles=dev
+#+end_src
+
+** Run with environment arguments
+
+#+begin_src sh
+mvn  spring-boot:run \
+ -Dspring-boot.run.arguments="--demo-host=https://demo.api --demo-api-key=all56"
+#+end_src

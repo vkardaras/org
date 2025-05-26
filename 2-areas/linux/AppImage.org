@@ -1,0 +1,59 @@
+* AppImage
+:PROPERTIES:
+:CUSTOM_ID: appimage
+:END:
+- Download the AppImage (example.AppImage)
+- Make it executabla
+
+#+begin_src sh
+chmod u+x example.AppImage
+#+end_src
+
+- Run it from the command
+
+#+begin_src sh
+./example.AppImage
+#+end_src
+
+- Extract the AppImage
+
+#+begin_src sh
+./example.AppImage --appimage-extract
+#+end_src
+
+This will create a new folder called squashfs-root
+
+- Move the folder to =/ops= directory
+
+#+begin_src sh
+sudo mv squashfs-root /opt/example
+#+end_src
+
+- Create a Desktop Application Entry
+
+If the =example.desktop= does not exist in the folder create it
+
+#+begin_src sh
+cd ~ && touch example.desktop
+```bash
+[Desktop Entry]
+Name=Example
+Type=Application
+Categories=Graphics;
+MimeType=image/svg+xml;
+Exec=/opt/example/AppRun %F
+Icon=/opt/example/example.svg
+Terminal=false
+StartupNotify=true
+#+end_src
+
+- Install and add to application favourites This is better than simply
+  copying the pasting the file to the /usr/share/applications directory
+  as the file will be validated in the process and the application cache
+  will be refreshed.
+
+#+begin_src sh
+sudo desktop-file-install example.desktop
+#+end_src
+
+[[AppImage Obsidian]]

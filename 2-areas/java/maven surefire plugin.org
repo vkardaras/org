@@ -1,0 +1,36 @@
+* maven surefire plugin
+
+** Execute maven tests
+
+#+begin_src sh
+mvn test
+#+end_src
+
+** Skip tests during installations
+
+#+begin_src sh
+mvn install -Dmaven.test.skip=true
+#+end_src
+
+** Configure =pom.xml= to ignore failing test
+
+#+begin_src xml
+<project>
+    ...
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.18.1</version>
+                    <configuration>
+                        <testFailureIgnore>true</testFailureIgnore>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
+#+end_src

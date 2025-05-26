@@ -1,0 +1,68 @@
+** Understanding the Docker ecosystem
+:PROPERTIES:
+:CUSTOM_ID: understanding-the-docker-ecosystem
+:END:
+A sample Dockerfile
+
+#+begin_src shell
+FROM ubunty:latest
+
+RUN apt-get update
+RUN apt-get install -y apache2
+RUN echo "Welcome to my website" > /var/www/html/index.html
+EXPOSE 80
+#+end_src
+
+Run ubuntu in Docker
+
+#+begin_src shell
+$ sudo docker run -it ubuntu bash
+#+end_src
+
+** Building a customized Docker image
+:PROPERTIES:
+:CUSTOM_ID: building-a-customized-docker-image
+:END:
+Create a Dockerfile
+
+#+begin_src shell
+FROM ubuntu:latest
+
+RUN apt-get update
+RUN apt-get install -y apache2
+RUN echo "Welcome to my website" > /var/www/html/index.html
+CMD /usr/sbin/apache2ctl -D FOREGROUND
+EXPOSE 80
+#+end_src
+
+Build the image
+
+#+begin_src shell
+$ sudo docker build -t webserver .
+#+end_src
+
+Run a container from image
+
+#+begin_src shell
+$ sudo docker run -d -p 80:80 webserver
+#+end_src
+
+Check the running container
+
+#+begin_src shell
+$ curl localhost
+#+end_src
+
+Search for images on dockerhub
+
+#+begin_src shell
+$ docker search nextcloud
+#+end_src
+
+Push an image to dockerhub
+
+#+begin_src shell
+$ docker tag webserver vkardaras/webserver
+
+$ docker push vkardaras/webserver
+#+end_src

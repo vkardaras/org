@@ -1,0 +1,25 @@
+* Karate Retry
+:PROPERTIES:
+:CUSTOM_ID: karate-retry
+:END:
+#+begin_src gherkin
+,* configure retry = { count: 10, interval: 5000 }
+#+end_src
+
+Example
+
+#+begin_src gherkin
+Feature: Get email
+
+    Background:
+        ,* url apiUrl
+
+    Scenario: Get email with header
+
+        ,* configure retry = { count: 10, interval: 5000 }
+
+        Given path 'latest'
+        And retry until response.subject = 'Submit apology'
+        When method get
+        Then status 200
+#+end_src

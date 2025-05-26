@@ -1,0 +1,23 @@
+** Using Linux Containers
+:PROPERTIES:
+:CUSTOM_ID: using-linux-containers
+:END:
+Install lxd
+
+#+begin_src shell
+$ sudo snap install lxd
+#+end_src
+
+Initialize lxd environment
+
+#+begin_src shell
+$ sudo lxd init
+#+end_src
+
+Install nextcloud
+
+#+begin_src shell
+$ snap install nextcloud
+#+end_src
+
+[[Linux Command Line Basics]]

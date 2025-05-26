@@ -1,0 +1,33 @@
+* spring environment variables
+
+** Specify a variable in application properties
+
+#+begin_src properties
+app.api.key=${MY_API_KEY}
+#+end_src
+
+*** Specify a default value for variable if not exists
+
+#+begin_src properties
+app.database.url=${DB_URL:jdbc:postgresql://localhost:5432/mydb}
+#+end_src
+
+** Specify environment variable
+
+*** specify variable in intellj
+
+- Goto to =Edit Configurations...=
+- Add a variable to =Environment Variables= field
+  (e.g. MY_API_KEY=12345)
+
+*** export a shell variable
+
+#+begin_src sh
+export MY_API_KEY=12345432
+#+end_src
+
+*** pass variable at runtime
+
+#+begin_src sh
+java -jar target/ev-0.0.1-SNAPSHOT.jar --MY_API_KEY=63456456
+#+end_src

@@ -1,0 +1,89 @@
+* spring boot email
+
+** Add dependency
+
+#+begin_src xml
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-mail</artifactId>
+</dependency>
+#+end_src
+
+** Configure application properties
+
+#+begin_src properties
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=your-email@example.com
+spring.mail.password=your-email-password
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+#+end_src
+
+The above example is for gmail account
+
+** Create EmailSender Class
+
+#+begin_src java
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
+
+public class EmailSender {
+
+    @Value("${spring.mail.username}")
+    private String username;
+
+    private JavaMailSender mailSender;
+
+    public EmailSender(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
+
+    public void sendEmail(String email, String subject, String content) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom(username, "Your Name");
+        helper.setTo(email);
+
+        helper.setSubject(subject);
+        helper.setText(content, true);
+
+        mailSender.send(message);
+    }
+}
+#+end_src
+
+** Create a controller to send an email
+
+#+begin_src java
+@RestController
+public class EmailController {
+
+    private final EmailSender emailSender;
+
+    public EmailController(EmailSender emailSender) {
+        this.emailSender = emailSender;
+    }
+
+    @PostMapping("/sendEmail")
+    public String sendEmail(@RequestBody Map<String, String> request) {
+
+        // Call the sendEmail method to send an email
+        String recipientEmail = request.get("email");;
+        String subject = "Hello from Spring Boot";
+        String content = "<p>Hello,</p><p>This is a test email sent from Spring Boot.</p>";
+
+        try {
+            emailSender.sendEmail(recipientEmail, subject, content);
+            return "Email sent successfully.";
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            return "Failed to send email. Error: " + e.getMessage();
+        }
+    }
+}
+#+end_src

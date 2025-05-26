@@ -1,0 +1,315 @@
+* Implementing Behavior with BDD Frameworks
+
+** Introduction to BDD Frameworks
+
+*** What is a BDD framework
+
+A BDD framework is a tool
+
+- Bridges business and development
+- Supports automation of acceptance criteria
+
+*** Why BDD frameworks?
+
+- Encourages collaboration across roles
+- Enables early bug detection
+- offers clear documentation of intended behavior
+- Supports automation, fostering agile development
+
+*** Cucumber Overview
+
+- Software testing tool developed in Ruby
+- Interprets executable specifications
+- Cross-platform support - Java, .NET, Javascript
+- Cucumber is designed for BDD
+- Compatible with popular tools - Selenium, Appium, etc
+- Gherkin Syntax - Given When Then
+
+*** SpecFlow Overview
+
+- .NET's counterpart to Cucumber
+- Integrates with Visual Studio
+- uses Gherkin language
+
+*** JdBehave Overview
+
+- Java-based BDD framework
+- Supports JUnitt
+- Emphasizes stories as a central unit
+
+*** Framework Architecture & Components
+
+Feature files
+
+- Gherkin-described behavior
+
+Step Definitions
+
+- Code for Gherkin steps
+
+Runner
+
+- Directs test execution
+
+Hooks
+
+- Pre/post scenario or step events
+
+Report Generators
+
+- Creates readable test reports
+
+Integrations
+
+- Connects with external tools
+
+** Step Definitions
+
+*** From Gherkin to Execution
+
+- Gherkin phrases in user-oriented language
+- Mapping process links phrases to step definitions
+- Execution engine runs the associated code
+- Feedback loop to understand test outcomes
+
+*** Understanding Step Definitions
+
+- Bridge between Gherkin scenarios and code
+- Transform human-readable scenarios into executable code
+- Enable automation of acceptance criteria
+
+*** What's Inside a Step Definition
+
+Annotations
+
+- Marking the step type
+
+Pattern Matching
+
+- Linking Gherkin to code
+
+Method Signature
+
+- Parameters & context
+
+Method Body
+
+- Executable code
+
+*** Dissecting a Step Definition
+
+- Given I am on the "Homepage" page
+
+#+begin_src gherkin
+# Gherkin 
+Given I am on the "Homepage" page
+
+# Cucumber (ruby)
+Given(/^I am on the "(.*?)" page$/) do
+|page_name|
+    visit page_name
+end
+#+end_src
+
+Given serves as a directive that indicates this step sets up a
+condition. The =^I am on the "(.*?)" page$= matches specific Gherkin
+phrases.
+
+The block parameter
+
+=|page_name|=
+
+captures values from the Gherkin step.
+
+In the method body, the =visit page_name= is the executable Ruby code
+tied to the step.
+
+*** Importance of Clarity
+
+- Clear step definitions improve collaboration
+- Aid non-developers in understanding the test
+- Enhance maintainability
+
+*** Keep in Dry
+
+- Don't Repeat Yourself (DRY)
+- Reuse step definitions across scenarios
+- Avoid redundancy
+- Enhance efficiency
+
+*** Parameterize When Possible
+
+- Use parameters to make step definitions versatile
+- Avoid hardcoding values
+- Reuse and reduce the number of step definitions
+
+*** Avoid Overly Technical Language
+
+- Keep it understandable for all stakeholders
+- Avoid overly technical jargon
+- Aim for a shared understanding
+
+*** Regular Expressions - Use Wisely
+
+- Regex offers flexibility
+- Match with one pattern
+- Avoid overly complex
+- Be explicit rather than implicit
+- Clarity over cleverness
+- Regularly review and refine
+
+*** Stay Consistent
+
+- Consistency is key
+- Avoids confusion
+- Aids in easier navigation and understanding
+
+*** Step Definition Context
+
+- Understand the context in which a step is used
+- Avoid ambiguities
+- Fosters clearer collaboration
+
+** Mapping Steps to Code
+
+*** Parameter Usage and Importance
+
+Dynamic Scenarios
+
+- Versatility in step definitions
+
+Capture Groups
+
+- Extracting values from Gherkin
+- in a step definition pattern like =I have (\d+) apples?$=, the =(\d+)=
+  captures a numerical value from the Gherkin step
+
+Enhanced Reusability
+
+- less redundancy, more clarity
+
+*** Step Hooks (Before & After)
+
+- Hooks are code blocks that run before or after Gherkin steps
+- Use cases are for test setup and teardown
+- Advantages are consistency, cleanliness, and clarity
+
+*** Example shown is for browser session management and uses Selenium
+
+#+begin_src gherkin
+# This hook will run before each scenario
+
+Before do
+    # Code to start a new browser session
+    @browser = Selenium::WebDriver.for :chrome
+    @browser.navigate.to 'http://example.com'
+end
+
+# This hook will run after each scenario
+
+After do
+    # Code to close the browser session
+    @browser.quit
+end
+#+end_src
+
+*** Data Tables and Doc Strings
+
+- Used to handle complex data inputs
+- Data Tables for inputting rows of data
+- Doc Strings can handle large text blocks
+- Cucumber can map these into step definition
+
+*** Data Tables and Doc Strings Gherkin example
+
+#+begin_src gherkin
+Scenario: Creating multiple articles with content
+
+Given the following articles exist:
+    | Title          | Author |
+    | First Article  | Alice  |
+    | Second Article | Bob    |
+    
+When I set the content for "First Article" to:
+    """
+    This is the content of the first article.
+    It
+    spans multiple lines.
+    ""
+#+end_src
+
+*** Tips & Tricks
+
+- Component Reusability
+- Conditional Logic
+- Error Handling
+- Logging
+
+*** Best Practices
+
+- Consistency in Naming
+- Don't repeat yourself
+- Parameterize Where Possible
+- Regular Expressions
+- Maintain Documentation
+- Avoid overly Technical Language
+
+** Demo: Showing an example for Bethany's Application
+
+*** The Gherkin scenario for Bethany's Pie Shop
+
+An example from our pie ordering scenario.
+
+Written by the product owner
+
+#+begin_src gherkin
+Feature: Pie Ordering System
+    # This feature allows users to order pies and receive confirmation messages
+    
+    # User places an order for a specific pie type
+    Scenario: Successfully placing an order for a pie
+        Given I have the following pies available:
+         | Pie Name   | Price |
+         | Apple Pie  | $10   |
+         | Cherry Pie | $12   |
+        # User selects their desired pie
+        When I select "Apple Pie"
+        And I click on the "Order Now" button
+        # User provides necessary delivery details
+        And I provide delivery details
+        # User receives a confirmation message for their order
+        Then I receive a confirmation message "Your Apple Pie order has been placed!
+    
+#+end_src
+
+*** This example now users Scenario outline and Examples written by qa and developers
+
+- We are using a table so more than one type can be tested
+- We can select for more than one type
+- This example has When, And, And also Then
+
+The =And= keyword makes the scenarios more natural to read
+
+#+begin_src gherkin
+Feature: Pie Ordering System
+
+Scenario Outline: Successfully placing an order for a pie
+
+    Given I have the following pies available:
+     | Pie Name   | Price |
+     | Apple Pie  | $10   |
+     | Cherry Pie | $12   |
+     
+    When I select "<PieType>" pie
+    
+    And I click on the "Order Now" button
+    
+    And I provide delivery details
+    
+    Then I receive a confirmation message "Your <PieType> order has been placed!
+    
+    Examples:
+     | PieType    |
+     | Apple Pie  |
+     | Cherry Pie |
+#+end_src

@@ -1,0 +1,29 @@
+* pom inheritance
+
+** View entire pom of a project
+
+#+begin_src sh
+mvn help:effective-pom
+#+end_src
+
+** Inherit from another project
+
+Add the details of the parent project in the =pom.xml=, under the
+=<project>= tag
+
+#+begin_src xml
+<project>
+    ...
+    <parent>
+        <groupId>com.vasiliskardaras.maven</groupId>
+        <artifactId>maven-examples</artifactId>
+        <version>1.0</version>
+    </parent>
+</project>
+#+end_src
+
+** Install the parent project
+
+#+begin_src sh
+mvn install
+#+end_src

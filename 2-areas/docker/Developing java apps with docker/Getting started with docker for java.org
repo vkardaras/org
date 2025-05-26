@@ -1,0 +1,39 @@
+* Getting started with docker for java
+
+Create a Hello.java program
+
+#+begin_src shell
+$ vi Hello.java
+#+end_src
+
+#+begin_src java
+public class Hello {
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
+}
+#+end_src
+
+Compile the program with docker
+
+#+begin_src shell
+$ docker run -v $(pwd):/hello -w /hello amazoncorretto:17.0.6-al2 javac Hello.java
+#+end_src
+
+Run the program with docker
+
+#+begin_src shell
+$ docker run -v $(pwd):/hello -w /hello amazoncorretto:17.0.6-al2 java Hello.java
+#+end_src
+
+Run the program with docker with a different Java version.
+
+#+begin_src shell
+$ docker run -v $(pwd):/hello -w /hello amazoncorretto:19 java Hello.java
+#+end_src
+
+Delete all stopped containers
+
+#+begin_src shell
+$ docker system prune -a
+#+end_src

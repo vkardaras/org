@@ -1,0 +1,201 @@
+* Kubernetes Concepts - Pods, ReplicaSets, Deployments
+
+** YAML in Kubernetes
+
+Define pod file =pod-definition.yml=
+
+#+begin_src yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  containers:
+   - name: nginx-container
+     image: nginx
+#+end_src
+
+Create pod
+
+#+begin_src sh
+kubectl create -f pod-definition.yml
+#+end_src
+
+*** Definition kinds
+
+| Kind       | Version |
+|------------+---------|
+| POD        | v1      |
+| Service    | v1      |
+| ReplicaSet | apps/v1 |
+| Deployment | apps/v1 |
+
+*** Commands
+
+#+begin_src sh
+# get pods
+kubectl get pods
+
+# get pods with more details
+kubectl get pods -o wide
+
+# create pod
+kubectl run nginx --image=nginx
+
+# get pod details
+kubectl describe pod myapp-pod
+
+# delete pod
+kubectl delete pod webapp
+
+# create pod using a pod definition YAML file
+kubectl run redis --image=redis --dry-run=client -o yaml > redis.yaml
+kubectl create -f redis.yaml
+
+# apply changes of a yaml file to pod
+kubectl apply -f redis.yaml
+#+end_src
+
+*** Demo
+
+Create the file =pod.yaml=
+
+#+begin_src yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+    tier: frontend
+spec:
+  containers:
+   - name: nginx
+     image: nginx
+#+end_src
+
+Create the pod
+
+#+begin_src sh
+kubectl apply -f pod.yaml
+#+end_src
+
+** Replication Controllers and ReplicaSets
+
+*** Define ReplicaSet
+
+#+begin_src yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels:
+    app: myapp
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+  replicas: 3
+  template:
+    metadata:
+      name: nginx-2
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+#+end_src
+
+*** ReplicaSet commands
+
+#+begin_src sh
+# create replicalset
+kubectl create -f replicalset.yaml
+
+# get ReplicaSets
+kubectl get replicalset
+
+# get info of replicalset
+kubectl describe replicalset myapp-replicaset
+
+# edit replicalset
+kubectl edit replicalset myapp-replicaset
+
+# scale replicalset
+kubectl scale replicalset myapp-replicaset --replicas=2
+
+# delete replicalset
+kubectl delete replicaset replicaset-1
+
+# get help for replicalset
+kubectl explain replicalset
+#+end_src
+
+** Deployments
+
+*** Deployment definition
+
+#+begin_src yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  selector:
+    matchLabels:
+      type: front-end
+  replicas: 3
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+#+end_src
+
+*** Deployment commands
+
+#+begin_src sh
+# get help fro deployment
+kubectl create deployment --help
+
+# create Deployment
+kubectl create -f deployment-definition.yml
+kubectl create deployment httpd-frontend --image=httpd:2.4-alpine --replicas=3
+
+# get deployments
+kubectl get deployments
+
+# get deployment info
+kubectl describe deployment myapp-deployment
+
+# get replicalsets
+kubectl get replicalset
+
+# get all created objects
+kubectl get all
+
+# update a deployment
+kubectl apply -f deployment-definition.yml
+kubectl set image deploy myapp-deployment=nginx:1.9.1
+
+# get the status of a rollout
+kubectl rollout status deployment/myapp-deployment
+
+# get revisions and history of rollout
+kubectl rollout history deployment/myapp-deployment
+
+# rollback a deployment
+kubectl rollout undo deployment/myapp-deployment
+#+end_src

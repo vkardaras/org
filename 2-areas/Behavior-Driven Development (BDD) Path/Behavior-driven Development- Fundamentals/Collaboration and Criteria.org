@@ -1,0 +1,272 @@
+* Collaboration and Criteria
+
+** BDD Workflow and Team Collaboration
+
+*** Understanding BDD Workflow
+
+- Desired behaviors of a system
+- Collaboration at its core
+- Behavior-first approach
+
+*** BDD Primary Roles - Three Amigo's
+
+- Product owner
+- Developer
+- Tester
+
+*** The Product Owner in BDD
+
+- Shares the product vision
+- Defines features and behaviors
+- Prioritizes scenarios
+
+*** The BDD Team
+
+- Developers, Testers, and Business Analysts
+- All work together
+
+*** Developers in BDD
+
+- Have a broader role
+- Collaborate on scenario creation
+
+*** Testers in BDD
+
+- Check implemented behaviors
+- Collaborate on scenario writing
+
+*** Business Analysts in BDD
+
+- Bridge between business and tech
+- Co-create scenarios
+- Ensure business objectives are met
+
+*** BDD Workflow
+
+- Product Owner's Vision
+- Analyst, Tester, and Developer work together
+- From Story Acceptance to Development
+- Iterative Testing and Feedback
+- Completion: Validated and aligned
+
+*** Collaboration is Key
+
+- Constant feedback loops
+- Joint scenario writing sessions
+- Shared ownership of product quality
+
+** Identify User Roles in BDD
+
+*** Agile Roles Overview
+
+- Product Owner
+- Scrum Master
+- Development Team
+
+*** BDD Primary Roles - Three Amigo's
+
+- Product owner
+- Developer
+- Tester
+
+*** Product Owner Responsibilities
+
+- Business Representative
+- Business or the end-user's perspective
+- Responsible for the creation of user stories
+- Brings clarity about what the business needs and why
+
+*** Developer Responsibilities
+
+- Understands the described behavior and implements it in code
+- Ensure the technical feasibility of the requirements
+- Might suggest alternative approaches
+- Translates desired behaviors into functional software
+
+*** Tester Responsibilities
+
+- Validate the implemented behaviors meet the acceptance criteria
+- Find edge cases, pitfalls, and other scenarios to ensure robustness
+- Collaborate closely with others
+- Clarify ambiguities
+- Ensures correct behavior across scenarios, catching issues before
+  production
+
+*** Not Just Scrum and Collaboration
+
+- Different Core Purposes
+- Behavior-centric Specification
+- Extension of TDD
+- Deep-dive Collaboration
+- Emphasis on Tools & Automation
+- Tightened Feedback Loops
+
+*** It's Not Really Fixed
+
+- The roles collaborate
+- Discuss and refine
+- Could be other stakeholders
+- Goal is shared understanding
+- The lines often blur
+- Others can provide input
+
+*** BDD's Emphasis on Collaboration
+
+- Similar to Agile
+- Focus on collaboration
+- Stakeholder participation
+- Collaborative scenario creation
+- Feedback loops
+
+*** Scrum Master Still Has a Role
+
+- Facilitates collaboration
+- Facilitate clear communication
+- Brides gaps between stakeholders
+
+*** The Power of Role Synergy
+
+- Combined expertise
+- Shared responsibility
+- Correct features
+- Expected behavior
+- improves product quality
+
+*** Roles Seem Like Agile
+
+- Agile roles extended with behavior focus
+- Together, they ensure product alignment and quality
+
+** BDD User Stories
+
+*** What are User Stories?
+
+- Brief, informal descriptions
+- They capture product functionality
+- Are from the user's perspective
+- An effective bridge between stakeholders
+
+*** Anatomy of a BDD User Story
+
+- Title: A concise descriptor
+- Role: Who is the user
+- Feature: What do they want
+- Benefit: Why do they want it
+
+*** Example
+
+*Title*: Online Pie Ordering
+
+*Role*: As a pie lover
+
+*Feature*: I want to order pies online
+
+*Benefit*: So I can enjoy Bethany's pies without visiting the shop
+
+*** Collaboration in BDD
+
+- Involves all stakeholders
+- Ensures shared understanding
+- Transforms user stories into validated experiences
+
+** Acceptance Criteria Fundamentals
+
+*** Linking User Stories & Criteria
+
+- A story is a concise description of a feature
+- User Stories are what we want to achieve
+- Acceptance criteria are how we know it's achieved
+
+*** The Role of Acceptance Criteria
+
+- Ensure clear understanding
+- Reduce ambiguities
+- Set clear boundaries for completion
+
+*** Key Acceptance Criteria Traits
+
+- Clear and concise
+- Testable and focused on outcomes
+- Relevant to the user story
+
+*** Good vs. Bad Acceptance Criteria
+
+*Bad Acceptance Criteria*
+
+- Ambiguous or vague
+- Not directly testable
+- Unrelated to the core user story
+- Overly detailed or verbose
+
+*Good Acceptance Criteria*
+
+- Specific and clear
+- Testable and measurable
+- Relevant to the user story
+- Concise, not overly complex
+
+*** User Story: "As a user, I want to reset my password if I forget it."
+
+*Bad Acceptance Criteria*
+
+"There should be some way for users to get back into their accounts if
+they can't remember their password."
+
+*Good Acceptance Criteria*
+
+"A link titled 'Forgot Password?' is visible on the login page. When
+clicked, it redirects to a page where the user can enter their
+registered email. After submitting, a reset link is sent to the email
+within 5 minutes."
+
+*** Example
+
+*User Story*: "As a customer, I want to order a pie online."
+
+*Acceptance Criteria*
+
+- Users can view a list of available pies
+- Users can select a pie and add it to the cart
+- Users can checkout and make a payment online
+- Users receive a confirmation email after placing an order
+
+*** Key Takeaways
+
+- Acceptance criteria: a roadmap for success
+- Ensures user stories fulfill their promise
+- Robust acceptance criteria is important
+- A tool for collaboration and understanding
+
+** Demo
+
+*** Let's put it together
+
+- Identify roles
+- Craft a user story
+- Derive acceptance criteria
+- Show a page mockup
+
+*** Identifying Roles
+
+- Product owner: Bethany
+- Developer: The web design team
+- Tester: The quality assurance team
+
+*** The User Story
+
+- Product owner: "As a customer, I want to view the pie menu online so
+  that I can make a selection."
+- Developer: "We should show the pie names."
+- Tester: "We should be able to filter filter based on type or
+  ingredients."
+
+*** It Evolves
+
+- Product Owner: "We also need to show prices."
+- Tester: "We should also have photos of the pies."
+
+*** Deriving Acceptance Criteria
+
+- View a list of pies with images and descriptions
+- Display pie prices
+- Filter pies based on type or ingredients

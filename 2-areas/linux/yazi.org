@@ -1,0 +1,102 @@
+* yazi
+:PROPERTIES:
+:CUSTOM_ID: yazi
+:END:
+** Instalation
+:PROPERTIES:
+:CUSTOM_ID: instalation
+:END:
+#+begin_src sh
+# arch
+sudo pacman -S yazi
+
+# macOS
+brew install yazi --HEAD
+
+# windows
+scoop install yazi
+winget install sxyazi.yazi
+#+end_src
+
+** Yazi core features
+:PROPERTIES:
+:CUSTOM_ID: yazi-core-features
+:END:
+#+begin_src sh
+# run yazi
+yazi
+
+# view help menu
+~ or F1
+
+# open a hew tab
+t
+
+# switch tabs
+number keys or []
+
+# select file
+space
+
+# enter visual mode
+v
+
+# copy file
+y
+
+# paste file
+p
+
+# rename file
+r
+
+# delete file
+d
+
+# delete file permanently
+D
+
+# create a new file or directory
+a
+#+end_src
+
+** Yazi advanced features
+:PROPERTIES:
+:CUSTOM_ID: yazi-advanced-features
+:END:
+#+begin_src sh
+# filter files by name
+f
+
+# search files by name
+search
+
+# search file contents with ripgrep
+S
+
+# scroll throw file contents
+shift+j shift+k
+
+# check progress with the task manager
+w
+
+# run shell commands
+: or ;
+#+end_src
+
+** Yazi plugins
+:PROPERTIES:
+:CUSTOM_ID: yazi-plugins
+:END:
+#+begin_src sh
+# clone the repo for the tokyonight theme
+git clone https://github.com/BennyOe/tokyo-night.yazi.git ~/.config/yazi/flavors/tokyo-night.yazi
+
+# edit the file '.config/yazi/theme.toml'
+nvim ~/.config/yazi/theme.toml
+
+# add the following to the file
+[flavor]
+dark = "tokionight-night"
+light = "tokionight-night"
+#+end_src

@@ -1,0 +1,10 @@
+#+begin_src gherkin
+Feature: Online Pie Ordering at Bethany’s Shop
+
+    Scenario: A user orders a blueberry pie
+
+        Given a user is on the pie selection page
+        When they select the blueberry pie
+        And add it to their cart
+        Then the cart should have 1 blueberry pie
+#+end_src

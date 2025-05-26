@@ -1,0 +1,9 @@
+* fzf
+:PROPERTIES:
+:CUSTOM_ID: fzf
+:END:
+#+begin_src sh
+# start fzf
+fzf
+<c-tab>
+#+end_src

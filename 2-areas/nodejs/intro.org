@@ -1,0 +1,21 @@
+Update node
+
+#+begin_src yaml
+npm install npm --global
+#+end_src
+
+Demo project
+
+#+begin_src javascript
+var http = require('http');
+http.createServer(function(req, res) {
+    res.write("Hello World! Welcome to this tutorial");
+    res.end();
+}).listen(8080);
+#+end_src
+
+Run the program
+
+#+begin_src javascript
+node demo1.js
+#+end_src

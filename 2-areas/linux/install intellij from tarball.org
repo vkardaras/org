@@ -1,0 +1,19 @@
+** Example for intellij
+:PROPERTIES:
+:CUSTOM_ID: example-for-intellij
+:END:
+- Download the tarball from here
+  https://www.jetbrains.com/idea/download/other.html
+- Extract the tarball to the =opt/= directory
+
+#+begin_src sh
+sudo tar -xzf ideaC-2024.2.tar.gz -C /opt
+#+end_src
+
+Open the extracted directory and execute the =./bin/idea.sh= script.
+
+** Create a desktop entry
+:PROPERTIES:
+:CUSTOM_ID: create-a-desktop-entry
+:END:
+In the main menu, go to Tools | Create Desktop Entry.

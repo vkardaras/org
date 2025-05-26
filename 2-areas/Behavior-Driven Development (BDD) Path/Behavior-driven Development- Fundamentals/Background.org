@@ -1,0 +1,24 @@
+* BDD Backround
+- Definition: Context Provider for Scenarios
+- Role: Sets up the base state before each Scenario
+- Usage: Executed before every Scenario in a Feature
+- Objective: Reducing Duplication of Steps
+- Importance: Enhances Readability and Maintainability
+
+* Example
+
+#+begin_src gherkin
+Feature: Posting a tweet on Twitter
+
+Background:
+    Given I am logged in as "@user123"
+    And I am on the home page
+
+Scenario: Posting a short tweet
+    When I post a tweet, "Hello, World!"
+    Then the tweet should appear in my timeline.
+    
+Scenario: Posting a tweet with an image
+    When I post a tweet with "Enjoying the sunset" and an attached image
+    Then the tweet with the image should appear in my timeline
+#+end_src

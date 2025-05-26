@@ -1,0 +1,8 @@
+* zsh
+:PROPERTIES:
+:CUSTOM_ID: zsh
+:END:
+- [[Configure zsh]]
+- [[zsh tricks]]
+- [[zsh plugins]]
+- [[starship]]

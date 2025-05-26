@@ -1,0 +1,34 @@
+* tmux Sessions
+:PROPERTIES:
+:CUSTOM_ID: tmux-sessions
+:END:
+#+begin_src sh
+# create a new session
+tmux
+
+# create a new session with name
+tmux new -s my-session
+
+# list sessions when outside of tmux
+tmux ls
+
+# list sessions when inside of tmux
+<leader>s
+
+# preview windows of sessios
+<leader>w
+
+# detach from session
+<leader>d
+
+# attach when outside of session to most resent session
+tmux attach
+tmux a
+
+# attach to a specific session
+tmux attach -t my-session
+
+# switch sessions
+<leader>(
+<leader>)
+#+end_src

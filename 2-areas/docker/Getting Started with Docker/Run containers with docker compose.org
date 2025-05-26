@@ -1,0 +1,219 @@
+* Run containers with docker compose
+
+Clone the repo [[https://github.com/nigelpoulton/gsd/tree/main]]
+
+#+begin_src shell
+git clone https://github.com/nigelpoulton/gsd.git
+#+end_src
+
+Move to app directory
+
+#+begin_src shell
+cd gsd/compose
+#+end_src
+
+Run docker compose
+
+#+begin_src shell
+docker compose up --detach
+#+end_src
+
+Stop containers and clear volumes
+
+#+begin_src shell
+docker compose down --volumes
+#+end_src
+
+Install multipass from here
+
+#+begin_src shell
+https://multipass.run/install
+#+end_src
+
+Running 5 containers with the Docker blueprint in Multipass
+
+#+begin_src shell
+multipass launch docker --name node1
+...
+multipass launch docker --name node5
+#+end_src
+
+List multipass VMs
+
+#+begin_src shell
+multipass list
+#+end_src
+
+Get info of VM
+
+#+begin_src shell
+multipass info node1
+#+end_src
+
+You will get something similar to this
+
+#+begin_src shell
+Name:           node1
+State:          Running
+Snapshots:      0
+IPv4:           10.249.252.41
+                172.17.0.1
+Release:        Ubuntu 22.04.3 LTS
+Image hash:     6d6af17f28c8 (Ubuntu 22.04 LTS)
+CPU(s):         2
+Load:           0.00 0.01 0.01
+Disk usage:     2.6GiB out of 38.7GiB
+Memory usage:   269.6MiB out of 3.8GiB
+Mounts:         /home/vasilis/multipass/node1 => node1
+                    UID map: 1000:default
+                    GID map: 1000:default
+#+end_src
+
+Check the IPv4 from the node info
+
+Get into node1
+
+#+begin_src shell
+multipass shell node1
+#+end_src
+
+Initialize swarm
+
+#+begin_src shell
+docker swarm init --advertise-addr 10.249.252.41
+#+end_src
+
+Add a manager to swarm
+
+#+begin_src shell
+docker swarm join-token manager
+#+end_src
+
+You will get something similar to this
+
+#+begin_src shell
+To add a manager to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-0r2mq0xrecagzucdrwz6uvewcicc6256ldr9mvyr4357q8uyln-ctaypc9pvnbbyhn49xg4k5zx9 10.249.252.41:2377
+#+end_src
+
+Save the token to use it on other nodes
+
+Get into node2
+
+#+begin_src shell
+multipass shell node2
+#+end_src
+
+Add a manager to existing swarm
+
+#+begin_src shell
+docker swarm join --token SWMTKN-1-0r2mq0xrecagzucdrwz6uvewcicc6256ldr9mvyr4357q8uyln-ctaypc9pvnbbyhn49xg4k5zx9 10.249.252.41:2377
+#+end_src
+
+Do the same for node3
+
+List docker nodes
+
+#+begin_src shell
+docker node ls
+#+end_src
+
+You will get something similar to this
+
+#+begin_src shell
+ID                            HOSTNAME   STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+wn5gy5sqyfgcdxdcd9po9d39m     node1      Ready     Active         Leader           25.0.0
+8bd715pcfb5g8ysvkh3udj32k     node2      Ready     Active         Reachable        25.0.0
+vjazt3y401zbahc1hkr4e7mgl *   node3      Ready     Active         Reachable        25.0.0
+#+end_src
+
+Get token for swarm workers
+
+#+begin_src shell
+docker swarm join-token worker
+#+end_src
+
+You will get something similar to this
+
+#+begin_src shell
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-0r2mq0xrecagzucdrwz6uvewcicc6256ldr9mvyr4357q8uyln-aucqanoh7r1g1qgscu71c783e 10.249.252.179:2377
+#+end_src
+
+Exit and get into node4
+
+#+begin_src shell
+multipass shell node4
+#+end_src
+
+Add a swarm worker
+
+#+begin_src shell
+docker swarm join --token SWMTKN-1-0r2mq0xrecagzucdrwz6uvewcicc6256ldr9mvyr4357q8uyln-aucqanoh7r1g1qgscu71c783e 10.249.252.179:2377
+#+end_src
+
+Do the same for node5
+
+Get into node1
+
+Run the following command to stop business apps scheduled to managers
+
+#+begin_src shell
+docker node update --availability drain node1
+docker node update --availability drain node2
+docker node update --availability drain node3
+#+end_src
+
+** Working with Docker Swarm
+
+Get into node1
+
+#+begin_src shell
+multipass shell node1
+#+end_src
+
+Create a service with 3 replicas
+
+#+begin_src shell
+docker service create --name web -p 8080:8080 --replicas 3 vkardaras/gsd:ctr2024
+#+end_src
+
+List services
+
+#+begin_src shell
+docker service ls
+#+end_src
+
+Check replicas of services
+
+#+begin_src shell
+docker service ps web
+#+end_src
+
+Scale replicas to a certain number
+
+#+begin_src shell
+docker service scale web=10
+#+end_src
+
+Remove containers
+
+#+begin_src shell
+docker container rm <name1> <name2>
+#+end_src
+
+Remove a service
+
+#+begin_src shell
+docker service rm web
+#+end_src
+
+Remove all services
+
+#+begin_src shell
+docker service rm $(docker service ls -q)
+#+end_src
+
+Multi-container Apps with Docker Swarm

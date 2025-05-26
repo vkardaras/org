@@ -1,0 +1,22 @@
+---
+id: nvim configuration
+aliases:
+  - nvim configuration
+tags: []
+---
+
+# nvim configuration
+
+Create the file `~/.config/nvim/init.lua` and add the following requirements
+ ```lua
+require("config.vim-options")
+require("config.lazy")
+require("config.keymaps")
+```
+
+Create the folder `~/.config/nvim/lua/config/` to add the files for the configuration of neovim
+
+Create the files for configuration in `config/` folder
+- [[vim-options]]
+- [[lazy]]
+- [[keymaps]]

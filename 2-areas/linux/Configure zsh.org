@@ -1,0 +1,15 @@
+** Configure zsh
+:PROPERTIES:
+:CUSTOM_ID: configure-zsh
+:END:
+Check current shell
+
+#+begin_src sh
+echo $SHELL
+#+end_src
+
+Change to zsh shell
+
+#+begin_src sh
+chsh -s $(which zsh)
+#+end_src

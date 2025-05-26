@@ -1,0 +1,12 @@
+---
+tags:
+  - curl
+---
+
+
+```shell
+curl https://reqbin.com/echo
+   -H "Cache-Control: must-revalidate"
+   -H "Pragma: no-cache"
+   -H "Expires: 0"
+```

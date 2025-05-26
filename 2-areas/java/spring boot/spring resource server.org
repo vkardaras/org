@@ -1,0 +1,80 @@
+* spring resource server
+
+** Add dependencies
+
+#+begin_src xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+#+end_src
+
+** Add =issuer-uri= to application properties
+
+#+begin_src properties
+spring.security.oauth2.resourceserver.jwt.issuer-uri=http://localhost:9000
+#+end_src
+
+** Add rest controller
+
+#+begin_src java
+@RestController
+public class GreetingsController {
+
+    @GetMapping("/hello")
+    Map<String, String> hello(@AuthenticationPrincipal Jwt jwt) {
+        return Map.of("message", "Hello " + jwt.getSubject());
+    }
+
+    @PreAuthorize("hasAuthority('SCOPE_user.read')")
+    @GetMapping("/read")
+    Map<String, String> read(@AuthenticationPrincipal Jwt jwt) {
+        return Map.of("message", "Hello " + jwt.getSubject());
+    }
+}
+#+end_src
+
+** Test resource-server
+
+*Get token*
+
+#+begin_src sh
+TOKEN=$(http -f POST :9000/oauth2/token grant_type=client_credentials scope='openid' -a oidc-client:secret | jq -r ".access_token")
+#+end_src
+
+*Call endpoint*
+
+#+begin_src sh
+https -A bearer -a $TOKEN http://localhost:8081/hello
+#+end_src
+
+** Enable method security for the application
+
+#+begin_src java
+@EnableMethodSecurity
+@SpringBootApplication
+public class ResourceServerApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(ResourceServerApplication.class, args);
+    }
+}
+#+end_src
+
+** Test scoped controller
+
+*Get token with scope =user.read=*
+
+#+begin_src sh
+TOKEN=$(http -f POST :9000/oauth2/token grant_type=client_credentials scope='user.read'  -a oidc-client:secret | jq -r ".access_token")
+#+end_src
+
+*Call scoped endpoint*
+
+#+begin_src sh
+https -A bearer -a $TOKEN http://localhost:8081/read
+#+end_src

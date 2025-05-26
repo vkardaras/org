@@ -1,0 +1,39 @@
+* maven install and deploy plugins
+
+** maven install
+
+Install a project to the local repository
+
+#+begin_src sh
+mvn install
+#+end_src
+
+** maven deploy
+
+Go to this site: [https://jfrog.com/artifactory/] to set up a custom
+repository
+
+*** Specify repository details in the =pom.xml= file
+
+Add repository details inside the =<project>= tag
+
+#+begin_src xml
+<project>
+    ...
+
+    <distributionManagement>
+        <repository>
+            <id>kbrowsersox</id>
+            <name>kbrowsersox-releases</name>
+            <url>http://kbrowsersox.artifactoryonline.com/kbrowsersox/ext-releases-local</url>
+        </repository>
+    </distributionManagement>
+
+</project>
+#+end_src
+
+*** deploy the project
+
+#+begin_src sh
+mvn deploy
+#+end_src

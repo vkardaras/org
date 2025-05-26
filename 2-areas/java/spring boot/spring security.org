@@ -1,0 +1,19 @@
+* spring security
+:PROPERTIES:
+:CUSTOM_ID: spring-security
+:END:
+*** dependency
+:PROPERTIES:
+:CUSTOM_ID: dependency
+:END:
+#+begin_src xml
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+</dependencies>
+#+end_src
+
+** [[file:spring security jwt rsa.org][spring security jwt rsa]]
+** [[file:spring asymmetric keys.org][spring asymmetric keys]]

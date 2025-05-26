@@ -1,0 +1,13 @@
+* install spring boot cli
+
+** Install sdkman
+
+[[file:~/Documents/org/2-areas/java/sdkman.org][sdkman]]
+
+** Install springboot cli
+
+Paste and run the following in a terminal
+
+#+begin_src sh
+sdk install springboot
+#+end_src

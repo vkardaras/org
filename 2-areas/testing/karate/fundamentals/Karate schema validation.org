@@ -1,0 +1,72 @@
+Validate with json schema in feature
+
+#+begin_src gherkin
+Feature: Test on the Globomantics Products API
+
+    Background:
+        ,* url apiUrl
+
+    Scenario: Get all products
+        Given path 'product'
+        When method get
+        Then status 200
+
+        # Schema validation
+        And match each response ==
+        """
+          {
+            "id": '#number',
+            "name": "#string",
+            "slug": "#string",
+            "description": "#string",
+            "price": "#string",
+            "categoryId": "#string",
+            "createdAt": "#string",
+            "updatedAt": "#string",
+            "inStock": "#boolean"
+          }
+        """
+#+end_src
+
+Validate with json schema in another feature file for re-usability
+
+Create the file =productFeature.feature= in =/helpers= folder
+
+#+begin_src gherkin
+Feature: Product Schema
+
+    Scenario: Product Schema
+
+        ,* def productSchema =    
+        """
+            {
+                "id": '#number',
+                "name": "#string",
+                "slug": "#string",
+                "description": "#string",
+                "price": "#string",
+                "categoryId": "#string",
+                "createdAt": "#string",
+                "updatedAt": "#string",
+                "inStock": "#boolean"
+            }
+        """
+#+end_src
+
+Call feature for schema from another schema
+
+#+begin_src gherkin
+Feature: Test on the Globomantics Products API
+
+    Background:
+        ,* url apiUrl
+        ,* callonce read('classpath:helpers/productSchema.feature')
+
+    Scenario: Get all products
+        Given path 'product'
+        When method get
+        Then status 200
+
+        # Schema validation
+        And match each response == productSchema
+#+end_src

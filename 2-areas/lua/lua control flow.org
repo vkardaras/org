@@ -1,0 +1,50 @@
+* lua control flow
+:PROPERTIES:
+:CUSTOM_ID: lua-control-flow
+:END:
+** =for=
+:PROPERTIES:
+:CUSTOM_ID: for
+:END:
+#+begin_src lua
+local favorite_accounts = { "teej_dv", "Theprimeagen", "terminaldotshop"}
+for index = 1, #favorite_accounts do
+    print(index, favorite_accounts[index])
+end
+
+for index, value in ipairs(favorite_accounts) do
+    print(index, value)
+end
+#+end_src
+
+With table maps we can use =pairs=
+
+#+begin_src lua
+local reading_scores = { teej_dv = 9.5, Theprimeagen = "N/A" }
+for index, value in pairs(reading_scores) do
+    print(index, value)
+end
+#+end_src
+
+** =if=
+:PROPERTIES:
+:CUSTOM_ID: if
+:END:
+#+begin_src lua
+local function action(loves_coffee)
+    if loves_coffee then
+        print("Check out `ssh terminal.shop` - it's coll!")
+    else
+        print("Check out `ssh terminal.shop` - it's still coll!")
+    end
+end
+
+-- "falsey": nil, false
+action() -- Same as: action(nil)
+action(false)
+
+-- Everything else is "truthy"
+action(true)
+action(0)
+action({})
+#+end_src

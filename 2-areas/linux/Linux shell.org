@@ -1,0 +1,69 @@
+* Linux shell
+:PROPERTIES:
+:CUSTOM_ID: linux-shell
+:END:
+** General
+:PROPERTIES:
+:CUSTOM_ID: general
+:END:
+Check the current shell
+
+#+begin_src sh
+echo $SHELL
+#+end_src
+
+Change your current shell
+
+#+begin_src sh
+chsh
+
+# change default shell to zsh
+chsh -s $(which zsh)
+#+end_src
+
+Make an alias for a command
+
+#+begin_src sh
+alias dt=date
+#+end_src
+
+View command history
+
+#+begin_src sh
+history
+#+end_src
+
+Get a list of all environment variables
+
+#+begin_src sh
+env ter we
+#+end_src
+
+Set an environment variable
+
+#+begin_src sh
+ecport OFFICE=calestop
+#+end_src
+
+To make a variable persistent add it to your =~/.profile= or equivalent
+file
+
+Check the location of a command
+
+#+begin_src sh
+which obs-studio
+#+end_src
+
+Add a program to the path variable
+
+#+begin_src sh
+export PATH=$PATH:/opt/obs/bin
+#+end_src
+
+Install ohMyZsh
+
+#+begin_src sh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+#+end_src
+
+[[zsh]]

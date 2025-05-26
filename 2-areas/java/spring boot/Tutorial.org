@@ -1,0 +1,97 @@
+* Tutorial
+
+** Connect to a database in a container
+
+#+begin_src sh
+docker exec -it postgres bash
+#+end_src
+
+** Connect to the database.
+
+#+begin_src sh
+psql -d postgres -U user
+#+end_src
+
+Create database
+
+#+begin_src sh
+CREATE DATABASE demo;
+#+end_src
+
+Select database
+
+#+begin_src sh
+\c demo
+#+end_src
+
+** application.properties
+
+#+begin_src sh
+spring.datasource.url=jdbc:postgresql://localhost:5432/demo
+spring.datasource.username=user
+spring.datasource.password=password
+#+end_src
+
+** Create a docker file
+
+#+begin_src yml
+services:
+  postgres:
+    image: "postgres:latest"
+    environment:
+      - "POSTGRES_DB=demo"
+      - "POSTGRES_USER=user"
+      - "POSTGRES_PASSWORD=password"
+    ports:
+      - "5432:5432"
+#+end_src
+
+** Create the users table
+
+#+begin_src sql
+CREATE TABLE IF NOT EXISTS users(
+ id SERIAL NOT NULL PRIMARY KEY,
+ username TEXT NOT NULL,
+ password TEXT NOT NULL
+ );
+#+end_src
+
+** Insert a record into the users table.
+
+#+begin_src sql
+INSERT INTO users (username, password)
+VALUES ('bill', '12345');
+#+end_src
+
+Create the authorities table
+
+#+begin_src sql
+CREATE TABLE IF NOT EXISTS authorities(
+ id SERIAL NOT NULL PRIMARY KEY,
+ name TEXT NOT NULL
+ );
+#+end_src
+
+Insert a record into the authorities table.
+
+#+begin_src sql
+INSERT INTO authorities (name)
+VALUES ('read');
+#+end_src
+
+Create the user_authorities table
+
+#+begin_src sql
+CREATE TABLE IF NOT EXISTS users_authorities(
+ user_id INT NOT NULL REFERENCES users (id) ON DELETE CASCADE,
+ authority_id INT NOT NULL REFERENCES authorities (id) ON DELETE CASCADE,
+ PRIMARY KEY (user_id, authority_id)
+ );
+#+end_src
+
+Insert a record into the users_authorities table.
+
+#+begin_src sql
+INSERT INTO users_authorities (user_id, authority_id)
+VALUES (1, 1);
+#+end_src

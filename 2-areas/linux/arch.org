@@ -1,0 +1,20 @@
+* arch
+:PROPERTIES:
+:CUSTOM_ID: arch
+:END:
+** Install
+:PROPERTIES:
+:CUSTOM_ID: install
+:END:
+#+begin_src sh
+archinstall
+#+end_src
+
+[[arch pacman]]
+
+[[qemu-kvm]]
+
+[[install programs from script]]
+
+[[install yay]] [[install zen on arch]] [[instal printer-scanner on
+arch]]

@@ -1,0 +1,44 @@
+---
+tags:
+  - karate
+  - configuration
+  - environment
+---
+In file `karate.config.js` specify parameters for each environment
+
+```javascript
+    if (env == 'dev') {
+        config.adminUsername = 'admin'
+        config.adminPassword = 'admin'
+    } else if (env == 'prod') {
+        config.adminUsername = 'prod-user'
+        config.adminPassword = 'prod-password'
+    }
+
+```
+
+Add parameters to feature
+
+```gherkin
+Feature: Create Authentication Token
+
+    Scenario: Create Token
+
+        * url apiUrl
+
+        Given path 'authenticate'
+        # And request '{"username": "admin", "password": "admin"}'
+        And request {"username": "#(adminUsername)", "password": "#(adminPassword)"}
+        And header Content-Type = 'application/json'
+        When method post
+        Then status 200
+        * def token = response.token
+        * print 'Value of the token: ' + token
+
+```
+
+Run tests with specific environment
+
+```shell
+mvn test -Dkarate.env="prod"
+```

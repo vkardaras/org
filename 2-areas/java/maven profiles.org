@@ -1,0 +1,55 @@
+* maven profiles
+
+** Add the profiles under the =<project>= tag
+
+#+begin_src xml
+<project>
+    ...
+    <build>
+        <directory>~/test-project/artifact-destination/development/</directory>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>production</id>
+            <build>
+                <directory>~/test-project/artifact-destination/production/</directory>
+            </build>
+        </profile>
+    </profiles>
+</project>
+#+end_src
+
+** Package the project
+
+#+begin_src sh
+# with the default profile
+mvn package
+
+# with specific profile
+mvn -Pproduction package
+#+end_src
+
+** Activate profile by property
+
+Add a variable to the system
+
+#+begin_src sh
+PACKAGE_ENV=PROD
+#+end_src
+
+Specify the activation property in the profile
+
+#+begin_src xml
+<profiles>
+    <profile>
+        <id>production</id>
+        <activation>
+            <name>env.PACKAGE_ENV</name>
+            <value>PROD</value>
+        </activation>
+    </profile>
+</profiles>
+#+end_src
+
+=mvn package= will package the product for the =production= environment

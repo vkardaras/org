@@ -1,0 +1,41 @@
+* Best practices for optimizing docker images
+
+** Content-creating Dockerfile instructions
+
+- COPY Instruction. Used to copy content from the build context into the
+  image
+- ADD Instruction. Like COPY instruction but can retrieve remote content
+- RUN Instruction. Executes commands to generate additional image
+  content
+
+** Sequencing Dockerfile instructions
+
+*** Before
+
+#+begin_src shell
+<snip>
+
+WORKDIR /app
+
+COPY . .
+
+RUN yarn install
+
+<snip>
+#+end_src
+
+*** After
+
+#+begin_src shell
+<snip>
+
+WORKDIR /app
+
+COPY package.json yarn.lock ./
+
+RUN yarn install
+
+COPY spec src ./
+
+<snip>
+#+end_src

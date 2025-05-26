@@ -1,0 +1,24 @@
+* maven archetypes
+
+** Generate an archetype
+
+#+begin_src sh
+mvn archetype:generate
+
+# specify a filter for spring data
+spring-data-basic
+#+end_src
+
+** Build an archetype
+
+#+begin_src sh
+mvn archetype:generate
+
+# accept the default and specify the properties of the project
+#+end_src
+
+** Add any configuration you want and create the archetype
+
+#+begin_src sh
+mvn archetype:create-from-project
+#+end_src

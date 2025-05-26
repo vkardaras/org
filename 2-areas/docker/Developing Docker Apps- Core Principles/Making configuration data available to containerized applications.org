@@ -1,0 +1,265 @@
+* Making configuration data available to containerized applications
+
+** Examples of configuration
+
+- Database server URL for an app's back end
+- Port the app to listen for client requests
+- Logging level for debugging purposes
+- Versions of app or API served by the environment
+
+** Benefits of configuration in the environment
+
+- No leakage of sensitive information hard-coded in software
+  applications
+- Straightforward onboarding of new environments to host software
+  applications
+- No need to re-test software applications due to changes to the
+  configuration
+- Configuration defined in env vars is agnostic concerning languages and
+  operating systems
+
+** ENV Dockerfile instruction
+
+- Variable definition. Used to define configuration items in the
+  environment
+- Available for builds. Variables can be used by other Dockerfile
+  instructions
+- Persists to container. Variables are present in containers derived
+  from image
+
+*** Using the ENV instruction
+
+Method 1
+
+#+begin_src shell
+<snip>
+
+ENV REDIS_HOST "redis_server"
+
+<snip>
+#+end_src
+
+Method 2. Allows to define more than one variable to a single ENV
+instruction. It is recommended over method 1
+
+#+begin_src shell
+<snip>
+
+ENV REDIS_HOST="redis_server" \
+    REDIS_PORT="6379
+#+end_src
+
+*** Build the image
+
+#+begin_src shell
+$ docker build -t redis .
+#+end_src
+
+Print an variable
+
+#+begin_src shell
+$ docker run --rm redis printenv REDIS_HOST
+redis_server
+#+end_src
+
+** Using variables in image builds
+
+#+begin_src shell
+<snip>
+
+ENV URL="https://nginx.org/download" \
+    VERSION="1.23.0"
+
+RUN wget -q "${URL}/nginx=${VERSION}.tar.gz" && \
+    wget -q "${URL}/nginx=${VERSION}.tar.gz.asc"
+
+<snip>
+#+end_src
+
+** Build arguments
+
+- Arguments are provided on the command line when an image build is
+  initiated with a Dockerfile
+- A corresponding variable is defined in the image's Dockerfile using
+  the ARG instruction
+- the value provided for the variable on the command line is substituted
+  into the Dockerfile
+
+*** Using the ARG instruction
+
+#+begin_src shell
+<snip>
+
+ARG VERSION="1.18.0"
+
+ENV URL="https://nginx.org/download"
+
+RUN wget -q "${URL}/nginx=${VERSION}.tar.gz" && \
+    wget -q "${URL}/nginx=${VERSION}.tar.gz.asc"
+
+<snip>
+#+end_src
+
+*** Building images with build arguments
+
+Value of variable in image is provided by build argument on the command
+line
+
+#+begin_src shell
+$ docker build --build-arg VERSION="1.19.5
+#+end_src
+
+** ARG instruction or ENV instruction
+
+*** ARG instruction
+
+- For values only known at build time
+- Useful for variables required for builds
+- Scoped from line in which it is defined
+
+*** ENV instruction
+
+- Generally used for defining variables
+- Useful for persisting variables in image
+- ENV variables trump ARG variables
+- Visible in image's configuration
+
+** Persisting a build argument variable
+
+#+begin_src shell
+<snip>
+
+ENV URL="https://nginx.org/download"
+    VERSION="${VERSION:-1.18.0}"
+
+RUN wget -q "${URL}/nginx=${VERSION}.tar.gz" && \
+    wget -q "${URL}/nginx=${VERSION}.tar.gz.asc"
+
+<snip>
+#+end_src
+
+** Consuming configuration from within a container
+
+Starting Dockerfile
+
+#+begin_src shell
+FORM node:18-alpine AS base
+
+FROM base AS deps
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install
+
+FROM base
+WORKDIR /app
+COPY . .
+COPY --from=deps /app/node_modules ./node_modules
+CMD ["node", "src/index.js"]
+#+end_src
+
+Docker file with arguments
+
+#+begin_src shell
+FORM node:18-alpine AS base
+ARG NODE_ENV=production
+
+FROM base AS deps
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install
+
+FROM base
+WORKDIR /app
+COPY . .
+COPY --from=deps /app/node_modules ./node_modules
+CMD ["node", "src/index.js"]
+#+end_src
+
+Build the image
+
+#+begin_src shell
+$ docker build -t todo-prod .
+#+end_src
+
+Build the image for development
+
+#+begin_src shell
+$ docker build --build-arg NODE_ENV=development -t todo-dev .
+#+end_src
+
+Specify a script for build command
+
+#+begin_src shell
+#!/bin/sh
+
+set -e
+
+if [ -n "$NODE_ENV" ] && [ "$NODE_ENV" = 'development' ]; then
+    exec env PATH="/app/node_modules/.bin:$PATH" nodemon src/index.js
+fi
+
+exec node src/index.js
+#+end_src
+
+Modify the Dockerfile to include the script
+
+#+begin_src shell
+FORM node:18-alpine AS base
+ARG NODE_ENV
+ENV NODE_ENV "${NODE_ENV:-production}"
+
+FROM base AS deps
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install
+
+FROM base
+WORKDIR /app
+COPY . .
+COPY --from=deps /app/node_modules ./node_modules
+CMD ["/app/docker-entrypoint.sh"]
+#+end_src
+
+** Setting variables at runtime
+
+- Configuration as environment variables can be set using the =-e= ,
+  =--env= CLI optio
+- if already defined in the Dockerfile, the CLI definition overrides the
+  set values
+
+#+begin_src shell
+$ docker run --rm --env REDIS_HOST=redis_server -- REDIS_PORT=6379 redis
+#+end_src
+
+*** Using exported variables at runtime
+
+Values for variables exported in the environment can also be provided to
+a container
+
+#+begin_src shell
+$ export REDIS_HOST=redis_server REDIS_PORT=6379
+$ docker run --rm --env REDIS_HOST -- REDIS_PORT redis
+#+end_src
+
+*** Reading environment variables from a file
+
+#+begin_src shell
+REDIS_HOST=redis_server 
+REDIS_PORT=6379
+#+end_src
+
+Use the file during the run of a container
+
+#+begin_src shell
+$ docker run --rm --env-file $(pwd)/redis.env redis printenv REDIS_HOST REDIS_PORT
+REDIS_HOST=redis_server 
+REDIS_PORT=6379
+#+end_src
+
+** Setting configuration at runtime
+
+Change the app's defined port using the Docker CLI
+
+#+begin_src shell
+$ docker run --rm -it --env PORT=9000 -p 9000:9000 todo-app
+#+end_src

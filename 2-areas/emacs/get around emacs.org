@@ -1,0 +1,317 @@
+* get around emacs
+:PROPERTIES:
+:CUSTOM_ID: get-around-emacs
+:END:
+** Find file
+
+#+begin_src sh
+C-x C-f
+#+end_src
+
+** Major Mode Detection
+
+File-local variables
+
+- Header or footer to load a mode and variables
+
+Program loader directives
+
+- Shebangs (e.g. =#!/bin/bash=)
+
+Magic mode detection
+
+- Uses the variable =magic-mode-alist= for pattern matching
+
+Automatic mode detection
+
+- How most modes are applied
+- Uses filename extensions, names, and file paths
+
+** Writing to files
+
+#+begin_src sh
+# save current buffer
+C-x C-s
+
+# write to a new file
+C-x C-w
+
+# save all buffers
+C-x s
+#+end_src
+
+** Basic navigation
+
+#+begin_src sh
+# Forward by character
+C-f
+
+# Backward by character
+C-b
+
+# Forward by word
+M-f
+
+# Backward by word
+M-b
+
+# Move to beginning of line
+C-a
+
+# Move to end of line
+C-e
+
+# Moves to the first non-whitespace character
+M-m
+
+# previous line
+C-p
+
+# Next line
+C-n
+
+# Forward by S-expression
+C-M-f
+
+# Backward by S-expression
+C-M-b
+
+# Scroll down a screen
+C-v
+
+# Scroll up a screen
+M-v
+
+# Move to the beginning of the buffer
+M-<
+
+# Move to the end of the buffer
+M->
+#+end_src
+
+S-expressions cover commands that operate on balanced expressions.
+e.g. Brackets are considered balanced expressions in most major modes.
+
+** Buffer Switching, Killing, and Undoing
+
+#+begin_src sh
+# Switch to another buffer
+C-x b
+
+# List all buffers
+C-x C-b
+
+# Kill the current buffer
+C-x k
+#+end_src
+
+*** Return to Normal
+
+=Esc Esc Esc=
+
+- Useful if you are stuck.
+- Deletes all Windows (hides them).
+- Prompts are exited.
+- Pre-fix keys are cancelled.
+
+*** Undoing
+
+#+begin_src sh
+C-/
+C-_
+C-x u
+#+end_src
+
+** Window Management
+
+#+begin_src sh
+# Split window horizontally
+C-x 2
+
+# Split window vertically
+C-x 3
+
+# Delete the active window
+C-x 0
+
+# Delete all the other windows
+C-x 1
+
+# Switch between windows
+C-x o
+#+end_src
+
+*** The "Other" Window
+
+The window immediately after the current window one if you run =C-x o=
+
+#+begin_src sh
+# find files in the other window
+C-x 4 C-f
+
+# display a buffer in the other window
+C-x 4 C-o
+
+# switch buffer in other window and make it current
+C-x 4 b
+
+# kill the current window
+C-x 4 0
+#+end_src
+
+** Selecting Text
+
+*** Setting the Mark
+
+#+begin_src sh
+# set the mark and activate or deactivate the region
+C-SPC
+
+# interchange the mark and point
+C-x C-x
+
+# similar to selecting in other windows
+S + arrow keys
+
+# set the point and mark around the text you move across
+Mouse-1 + <drag>
+
+# set the mark to where the point is and then move point to where you click
+Mouse-3
+#+end_src
+
+*** The Mark Ring
+
+Overview
+
+- Similar to the undo ring
+- Each buffer has its own mark ring
+- Configure the number of entries to keep in the mark ring
+- =C-u C-SPC= jumps to the mark
+
+Global Mark Ring
+
+- Records a sequence of visited buffers and, for each buffer, where you
+  placed a mark
+
+*** Marking Textual Objects
+
+Words, Buffers, Pages, and Paragraphs
+
+#+begin_src sh
+# set the mark after end of the next word
+M-@
+
+# mark the next paragraph
+M-h
+
+# mark the entire buffer
+C-x h
+
+# mark the current page
+C-x C-p
+#+end_src
+
+** Searching in Emacs
+
+Incremental search
+
+#+begin_src sh
+# Forward incremental search
+C-s
+
+# Backward incremental search
+C-r
+
+# Regex forward incremental search
+C-M-s
+
+# Regex backward incremental search
+C-M-r
+
+# Quit the search
+C-g
+
+# Incremental word search
+M-s w
+
+# Next item in search history
+M-n
+
+# Previous item in search history
+M-p
+#+end_src
+
+Non-incremental search
+
+#+begin_src sh
+# Forward non-incremental search
+C-s <RETURN>
+
+# Backward non-incremental search
+C-r <RETURN>
+
+# Regex forward non-incremental search
+C-M-s <RETURN>
+
+# Regex backward non-incremental search
+C-M-r <RETURN>
+
+# Quit the search
+C-g
+
+# Non-incremental word search
+M-s w <RETURN>
+#+end_src
+
+*** Emacs Occur
+
+- Uses regex for searching
+- Provides a list of lines with matches
+- Can activate on current incremental search string
+
+#+begin_src sh
+# Occur mode
+M-x o
+
+# Start occur mode inside incremental search
+M-x o
+
+# Next occurrence
+M-n
+
+# Previous occurrence
+M-p
+
+# Quit occur mode
+q
+
+# Edit mode
+e
+
+# Exit and apply changes
+C-c C-c
+#+end_src
+
+*** Emacs Grep
+
+- Use to search unopened files
+- Provides a list of files and lines with matches
+- Can open files into buffers for editing
+
+#+begin_src sh
+# Prompt for grep arguments
+M-x grep
+
+# Prompt for arguments for grep and find
+M-x grep-find
+
+# User-friendly and interactive local grep
+M-x lgrep
+
+# User-friendly and interactive recursive grep
+M-x rgrep
+
+# Like rgrep for gzip files
+M-x rzgrep
+#+end_src

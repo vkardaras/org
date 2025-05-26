@@ -1,0 +1,10 @@
+---
+tags:
+  - curl
+---
+[[curl get]]
+[[curl send headers]]
+[[curl get only headers]]
+[[curl get json]]
+[[curl basic authentication]]
+[[curl pretty print]]

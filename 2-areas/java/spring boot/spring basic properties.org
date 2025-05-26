@@ -1,0 +1,13 @@
+* spring basic properties
+
+application.properties
+
+#+begin_src sh
+# define application name
+spring.application.name=app-name
+
+# define server port
+server.port=8081
+#+end_src
+
+** [[file:spring security properties.org][spring security properties]]

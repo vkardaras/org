@@ -1,0 +1,59 @@
+* Working with shell syntax
+:PROPERTIES:
+:CUSTOM_ID: working-with-shell-syntax
+:END:
+** Check your operating system
+:PROPERTIES:
+:CUSTOM_ID: check-your-operating-system
+:END:
+#+begin_src sh
+$ hostnamectl
+ Static hostname: vasilis-pc
+       Icon name: computer-desktop
+         Chassis: desktop 🖥️
+      Machine ID: 4d2710cb5d2c4362ba887d596b9f62ab
+         Boot ID: f562b4809a6a4b7998600506be108f1a
+Operating System: Debian GNU/Linux 12 (bookworm)  
+          Kernel: Linux 6.1.0-18-amd64
+    Architecture: x86-64
+ Hardware Vendor: ASUSTeK COMPUTER INC.
+  Hardware Model: PRIME B450M-A
+Firmware Version: 2006
+#+end_src
+
+** Check the shell you are running. In the following case it is =zsh=
+:PROPERTIES:
+:CUSTOM_ID: check-the-shell-you-are-running.-in-the-following-case-it-is-zsh
+:END:
+#+begin_src sh
+$ ps
+    PID TTY          TIME CMD
+  28627 pts/0    00:00:00 zsh
+  29082 pts/0    00:00:00 ps
+#+end_src
+
+** Clear the screen
+:PROPERTIES:
+:CUSTOM_ID: clear-the-screen
+:END:
+=ctrl+l=
+
+** Search for a package to install
+:PROPERTIES:
+:CUSTOM_ID: search-for-a-package-to-install
+:END:
+#+begin_src sh
+$ sudo apt search ^zsh$
+Sorting... Done
+Full Text Search... Done
+zsh/stable,now 5.9-4+b2 amd64 [installed]
+  shell with lots of features
+#+end_src
+
+** Get info details about a package
+:PROPERTIES:
+:CUSTOM_ID: get-info-details-about-a-package
+:END:
+#+begin_src sh
+sudo apt show zsh
+#+end_src

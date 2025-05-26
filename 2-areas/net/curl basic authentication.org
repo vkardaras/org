@@ -1,0 +1,3 @@
+#+begin_src shell
+curl -u 'apiuser:apipwd' https://jsonplaceholder.typicode.com/users
+#+end_src

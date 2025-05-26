@@ -1,0 +1,29 @@
+** Call hook after feature
+:PROPERTIES:
+:CUSTOM_ID: call-hook-after-feature
+:END:
+Create the feature to call after the completion of another feature
+
+#+begin_src gherkin
+Feature: Example of printing message from other file
+
+    Scenario: Pring message
+
+        ,* print 'Example message from other file'
+#+end_src
+
+Call the feature from another feature
+
+#+begin_src gherkin
+Feature: Test hooks
+
+    Background:
+        ,* url apiUrl
+
+        ,* configure afterFeature = 
+        """
+            function() {
+                karate.log('Feature completed')
+            }
+        """
+#+end_src

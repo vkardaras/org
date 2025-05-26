@@ -1,0 +1,31 @@
+**  Horizontal
+:PROPERTIES:
+:CUSTOM_ID: horizontal
+:END:
+- =_= Move to the beginning of the text
+- =0= Move to the beginning of the line
+- =f+<char>= Move to the first character found in the line
+- =t+<char>= Move before the first character found in the line
+  - =;= Repeat forward
+  - =,= Repeat backward
+- =F+<char>= Move to the first character found in the line backwards
+- =T+<char>= Move before the first character found in the line backwards
+- =df+<char>= Delete from position to the character in line
+- =dt+<char>= Delete from position to before the character in line
+- =yf+<char>= Yank from position to the character in line
+- =yt+<char>= Yank from position to before the character in line
+- =I= Move to the beginning of the text in insert mode
+- =A= Move to the end of the text in line in insert mode
+
+** Vertical
+:PROPERTIES:
+:CUSTOM_ID: vertical
+:END:
+- ={= Move one paragraph up
+- =}= Move one paragraph down
+- =ctrl+d= Move half page down
+- =ctrl+u= Move half page up
+- =gg= Move to the top of the file
+- =G= Move to the end of the file
+- =*= Search for the current word forward
+- =#= Search for the current word backwards

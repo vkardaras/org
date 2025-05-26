@@ -1,0 +1,10 @@
+* shell variables from file
+:PROPERTIES:
+:CUSTOM_ID: shell-variables-from-file
+:END:
+#+begin_src sh
+#!/bin/bash
+set -a
+. ./env.txt
+set +a
+#+end_src

@@ -1,0 +1,9 @@
+* maven basics
+
+** [[file:maven project archetype.org][maven project archetype]]
+** [[file:maven basic info.org][maven basic info]]
+** [[file:maven site.org][maven site]]
+** [[file:maven custom project for legacy projects.org][maven custom project for legacy projects]]
+** [[file:pom inheritance.org][pom inheritance]]
+** [[file:maven profiles.org][maven profiles]]
+** [[file:maven debug.org][maven debug]]

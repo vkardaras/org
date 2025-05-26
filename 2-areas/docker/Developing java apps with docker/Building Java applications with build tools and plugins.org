@@ -1,0 +1,73 @@
+* Building Java applications with build tools and plugins
+
+** Layered deployment with Spring Boot
+
+Layers most likely to change
+
+- Application dependencies
+- Other resources and classes
+- Application code
+
+** Spring boot JAR structure
+
+#+begin_src shell
+BOOT-INF
+  - classes
+  - lib
+META-INF
+  - MANIFEST.MF
+ort
+  - springframework
+    - boot
+      - loader
+#+end_src
+
+** Spring Boot 2.3 and Above
+
+- Buildpacks.
+- Layered JARS
+
+*** Buildpacks
+
+Generate images that follow the OCI image format specification without a
+dockerfile
+
+#+begin_src shell
+mvn spring-boot:build-image
+#+end_src
+
+#+begin_src shell
+gradle bootBuildImage
+#+end_src
+
+*** Layer tools JAR Mode
+
+#+begin_src shell
+java -Djarmode=layertools -jar my-app.jar command
+#+end_src
+
+Available commands
+
+- list. List layers from
+- extract. Extracts layers from the jar for image creation
+- help. Help about any command
+
+** Demo
+
+Create an image with gradle
+
+#+begin_src shell
+$ ./gradlew bootBuildImage --imageName=layers-gradle
+#+end_src
+
+Run the image
+
+#+begin_src shell
+$ run -it --rm -p 9030:8080 layers-gradle
+#+end_src
+
+List the layers of the application
+
+#+begin_src shell
+$ java -Djarmode=layertools -jar build/libs/api.jar list
+#+end_src

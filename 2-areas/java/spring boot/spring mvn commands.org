@@ -1,0 +1,12 @@
+* spring mvn commands
+
+#+begin_src sh
+# clean and install
+mvn clean install
+
+# package application
+mvn clean package
+
+# package application and skip tests
+mvn clean package -DskipTests
+#+end_src

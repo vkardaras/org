@@ -1,0 +1,101 @@
+*** Connect to the database
+:PROPERTIES:
+:CUSTOM_ID: connect-to-the-database
+:END:
+#+begin_src sql
+psql -d postgres -U postgres
+#+end_src
+
+- =-d= specifies the database to connect
+- =U= specifies the username of the database
+
+Check postgres version
+
+#+begin_src sql
+SELECT VERSION();
+#+end_src
+
+List all databases
+
+#+begin_src sql
+\l
+#+end_src
+
+Access/switch a database
+
+#+begin_src sql
+\c postgres_db
+#+end_src
+
+List all available tables
+
+#+begin_src sql
+\dt;
+#+end_src
+
+Describe all tables
+
+#+begin_src sql
+\d
+#+end_src
+
+Describe a specific table
+
+#+begin_src sql
+\d product
+#+end_src
+
+*** Create a new database
+:PROPERTIES:
+:CUSTOM_ID: create-a-new-database
+:END:
+#+begin_src sql
+CREATE DATABASE postgres_db;
+#+end_src
+
+*** Create a table
+:PROPERTIES:
+:CUSTOM_ID: create-a-table
+:END:
+#+begin_src sql
+CREATE TABLE [IF NOT EXISTS] table_name (
+ column1 data_type col_contraint,
+ column2 data_type col_contraint,
+ …
+ table_constraints
+ );
+#+end_src
+
+- =CREATE TABLE= creates a new table.
+- =[IF NOT EXISTS]= is optional and ensures the table will be created
+  only if not exist.
+- =table_name= represents the name of the table.
+- =column1, column2= are the names of the columns
+- =data_type= represents any valid data type, such as int, float, text,
+  etc.
+- =col_contraint= represents column constraints like a PRIMARY KEY, NOT
+  NULL, etc.
+- =table_constraints= indicates the table rules/constraints, such as
+  PRIMARY KEY, FOREIGN KEY, etc.
+
+#+begin_src sql
+CREATE TABLE IF NOT EXISTS product(
+ id INT PRIMARY KEY,
+ name TEXT,
+ weight SMALLINT,
+ product_type TEXT
+ );
+#+end_src
+
+*** Create a table with auto-increment id
+:PROPERTIES:
+:CUSTOM_ID: create-a-table-with-auto-increment-id
+:END:
+#+begin_src sql
+CREATE TABLE IF NOT EXISTS product(
+ id SERIAL NOT NULL PRIMARY KEY,
+ name TEXT,
+ weight SMALLINT,
+ product_type TEXT
+ );
+#+end_src

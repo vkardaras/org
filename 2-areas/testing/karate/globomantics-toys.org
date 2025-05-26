@@ -1,0 +1,14 @@
+*** Globomantics project to test the endpoints
+:PROPERTIES:
+:CUSTOM_ID: globomantics-project-to-test-the-endpoints
+:END:
+Project to test the endpoints
+[[https://github.com/vkardaras/globomantics-toys][globomantics toys]]
+
+*** Karate project
+:PROPERTIES:
+:CUSTOM_ID: karate-project
+:END:
+Karate project to test the endpoint of the globomantics toys
+[[https://github.com/vkardaras/karate-fundamentals][karate
+fundamentals]]

@@ -1,0 +1,9 @@
+* Maven
+
+** [[file:maven version.org][maven version]]
+** [[file:maven basics.org][maven basics]]
+** [[file:maven dependency management.org][maven dependency management]]
+** [[file:maven lifecycle and plugins.org][maven lifecycle and plugins]]
+** [[file:maven goals and plugins.org][maven goals and plugins]]
+** [[file:maven archetypes.org][maven archetypes]]
+** [[file:Maven spring boot profile.org][Maven spring boot profile]]

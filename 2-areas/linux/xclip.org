@@ -1,0 +1,19 @@
+* xclip
+:PROPERTIES:
+:CUSTOM_ID: xclip
+:END:
+** Install xclip
+:PROPERTIES:
+:CUSTOM_ID: install-xclip
+:END:
+#+begin_src sh
+sudo pacman -S xclip
+#+end_src
+
+** Copy command output to the clipboard
+:PROPERTIES:
+:CUSTOM_ID: copy-command-output-to-the-clipboard
+:END:
+#+begin_src sh
+spring encodepassword secret | xclip -selection clipboard
+#+end_src

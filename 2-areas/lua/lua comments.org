@@ -1,0 +1,12 @@
+* lua comments
+:PROPERTIES:
+:CUSTOM_ID: lua-comments
+:END:
+#+begin_src lua
+-- This is a comment. It starts with two dashes
+--[[ This is also
+      a comment.
+
+      But it spans multiple lines
+--]]
+#+end_src

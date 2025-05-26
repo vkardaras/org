@@ -1,0 +1,6 @@
+https://app.pluralsight.com/library/courses/karate-api-testing-application/table-of-contents
+
+* [[Introduction to Karate and API Testing Fundamentals]]
+:PROPERTIES:
+:CUSTOM_ID: introduction-to-karate-and-api-testing-fundamentals
+:END:

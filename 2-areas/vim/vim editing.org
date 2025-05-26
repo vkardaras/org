@@ -1,0 +1,37 @@
+* vim editing
+:PROPERTIES:
+:CUSTOM_ID: vim-editing
+:END:
+[[vim Precision Insertion]]
+
+[[vim Change Words]]
+
+** Select text
+:PROPERTIES:
+:CUSTOM_ID: select-text
+:END:
+#+begin_src sh
+# move to the start of a sentence
+(
+
+# move to the end of a sentence
+)
+
+# move to the start of a paragraph
+{
+
+# move to the end of a paragraph
+}
+
+# bounce between matching brackets
+%
+#+end_src
+
+** Visual mode
+:PROPERTIES:
+:CUSTOM_ID: visual-mode
+:END:
+#+begin_src sh
+# toggle position of cursor in selection
+o
+#+end_src

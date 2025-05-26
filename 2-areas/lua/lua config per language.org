@@ -1,0 +1,19 @@
+* lua config per language
+:PROPERTIES:
+:CUSTOM_ID: lua-config-per-language
+:END:
+** Create a =lua= file for the file type you want, e.g. =lua=
+:PROPERTIES:
+:CUSTOM_ID: create-a-lua-file-for-the-file-type-you-want-e.g.-lua
+:END:
+- Create a file for language options in =ftplugin= directory. For =lua=
+  it is =lua.lua=
+
+#+begin_src lua
+local set = vim.opt_local
+
+set.shiftwidth = 2
+set.shiftwidth = 2 -- number of spaces inserted for each indentation level
+set.tabstop = 2 -- number of spaces inserted for tab character
+set.softtabstop = 2 -- number of spaces inserted for <Tab> key
+#+end_src

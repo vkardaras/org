@@ -1,0 +1,125 @@
+* Orchestrating Containers with Docker Compose
+
+** Docker compose properties
+
+Docker compose workflow
+
+- Build services
+- Start up services
+- Tear down services
+
+Docker compose container properties
+
+- image
+- context
+- dockerfile
+- args
+- ports
+- volumes
+- environment
+- networks
+
+** Define ports and volumes
+
+#+begin_src yaml
+services:
+  node:
+    ...
+    ports:
+      - "3000:3000"
+#+end_src
+
+** Define ports and volumes
+
+#+begin_src yaml
+services:
+  node:
+    ...
+    volumes:
+      - ./logs:/var/www/logs
+#+end_src
+
+** Define environment environments
+
+#+begin_src yaml
+services:
+  node:
+    ...
+    environment:
+      - NODE_ENV=production
+      - APP_VERSION=1.0
+#+end_src
+
+** Pull in environment variables from files and make them available to the container
+
+#+begin_src yaml
+services:
+  node:
+    ...
+    env_file:
+      - ./common.env
+      - ./settings.env
+#+end_src
+
+** Create a Bridge Network
+
+#+begin_src yaml
+services:
+  node:
+    ...
+    networks:
+      - nodeapp-network
+
+networks:
+  nodeapp-network:
+    driver: bridge
+#+end_src
+
+** Start and stop containers
+
+Run a docker-compose file in detached mode
+
+#+begin_src yaml
+docker-compose up -d
+#+end_src
+
+Depend a service on another service
+
+#+begin_src yaml
+services:
+  node:
+    ...
+    depends_on:
+      - mongodb
+#+end_src
+
+Do not recreate services that the service depends on
+
+#+begin_src yaml
+docker-compose up -d --no-deps [service]
+#+end_src
+
+List running containers
+
+#+begin_src yaml
+docker-compose ps
+#+end_src
+
+Stop a specific service in the docker-compose file
+
+#+begin_src yaml
+docker-compose stop node
+#+end_src
+
+Start a specific service in the docker-compose file
+
+#+begin_src yaml
+docker-compose start node
+#+end_src
+
+Create a container from a service in a docker-compose file without
+recreating its running dependencies
+
+#+begin_src yaml
+docker-compose up -d --no-deps node
+#+end_src

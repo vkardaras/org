@@ -1,0 +1,30 @@
+
+# Introducing shell scripts
+
+## Shell Scripts
+
+File containing shell commands
+
+- Automate task
+
+Complete programming language
+
+- If statements
+- Loops
+- Variables
+- Functions, etc.
+
+## Strengths and Weaknesses
+
+Strengths
+
+- File system operations
+- Managing processes
+- Working with text
+- (Remote) system administration
+
+Weaknesses
+
+- Complex calculations
+- Complex (binary) data
+- Graphical user interface

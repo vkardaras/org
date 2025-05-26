@@ -1,0 +1,9 @@
+Internal or Built-in Commands
+`echo, cd, pwd, set etc`
+
+External Commands
+`mv, date, uptime, cp, uptime etc`
+
+Check the type of the command
+`type echo`
+`type mv`

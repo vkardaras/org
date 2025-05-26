@@ -1,0 +1,23 @@
+* What Is Spring Data and JDBC 3.0
+
+** What is Spring JDBC
+
+- JDBC framework
+- pattern-based
+- Injected resources
+- ORM
+- Existing databases
+
+** The Problem
+
+- Complexity
+- Design
+- Portability
+- Business Focus
+
+** The Solution
+
+- Configuration
+- Focus
+- Testing
+- Dependency Injection

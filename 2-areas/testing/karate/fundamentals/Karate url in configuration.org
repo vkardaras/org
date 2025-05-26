@@ -1,0 +1,21 @@
+In =karate-config.js= declare a =apiUrl= variable in =config= object
+
+#+begin_src javascript
+var config = {  
+  env: env,  
+  apiUrl: 'http://localhost:8080/api/'  
+}
+#+end_src
+
+Set configuration parameter in =Feature=
+
+#+begin_src gherkin
+Feature: Test products
+  Background:  
+    ,* url apiUrl  
+  
+  Scenario: Get all products    
+    Given path 'product'  
+    When method get  
+    Then status 200
+#+end_src

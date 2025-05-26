@@ -1,0 +1,45 @@
+* Neovim
+:PROPERTIES:
+:CUSTOM_ID: neovim
+:END:
+** Requirements
+:PROPERTIES:
+:CUSTOM_ID: requirements
+:END:
+[[neovim requirements]]
+
+** Installation
+:PROPERTIES:
+:CUSTOM_ID: installation
+:END:
+[[neovim installation]]
+
+** configuration
+:PROPERTIES:
+:CUSTOM_ID: configuration
+:END:
+- [[nvim configuration]]
+
+** Plugins
+:PROPERTIES:
+:CUSTOM_ID: plugins
+:END:
+[[neovim plugins]]
+
+** Quickfix
+:PROPERTIES:
+:CUSTOM_ID: quickfix
+:END:
+[[neovim quickfix]]
+
+** Terminal
+:PROPERTIES:
+:CUSTOM_ID: terminal
+:END:
+[[neovim terminal]]
+
+** Separate config
+:PROPERTIES:
+:CUSTOM_ID: separate-config
+:END:
+[[neovim separate config]]

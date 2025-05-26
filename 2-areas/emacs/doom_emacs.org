@@ -1,0 +1,36 @@
+* Doom Emacs
+:PROPERTIES:
+:CUSTOM_ID: doom-emacs
+:END:
+** Run Emacs
+
+#+begin_src sh
+# add emacs to PATH
+export PATH="$HOME/.config/emacs/bin:$PATH"
+
+# reload emacs
+SPC h r r
+#+end_src
+
+** [[file:Bookmarks, Buffers and Windows in Doom Emacs.org][Bookmarks, Buffers and Windows in Doom Emacs]]
+
+** Projects with Projectile, File Explorer with Treemacs & EShel
+
+#+begin_src sh
+# discover projects in directory
+M-x projecttile-discover-projects-in-directory
+
+# select project
+SPC p p
+
+# find files in configuration
+SPC f p
+
+# open shell
+SPC o e
+
+# list recent files
+SPC f r
+#+end_src
+
+** [[file:doom emacs org mode.org][Org Mode]]

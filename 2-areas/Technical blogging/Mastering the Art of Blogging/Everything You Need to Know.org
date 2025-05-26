@@ -1,0 +1,14 @@
+** Structure of a blog
+:PROPERTIES:
+:CUSTOM_ID: structure-of-a-blog
+:END:
+- Title
+- introduction
+- Body
+- Subheadings
+- Media
+- Conclusion
+- Call to Action (CTA)
+- Author Bio
+- Comments Section
+- SEO Elements

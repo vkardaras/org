@@ -1,0 +1,34 @@
+* vim marks
+:PROPERTIES:
+:CUSTOM_ID: vim-marks
+:END:
+#+begin_src sh
+# mark a position in a document, m+letter
+ma
+
+# jump to exact line and column, `+letter
+# jump to beginning of marked line only, '+letter
+#+end_src
+
+- Lowercase marks are file-specific
+- Uppercase marks are global
+
+#+begin_src sh
+# delete from current position to mark t
+d't
+#+end_src
+
+** vim's marks
+:PROPERTIES:
+:CUSTOM_ID: vims-marks
+:END:
+#+begin_src sh
+# the location of the cursor when you last exited Vim (`0 is most recent)
+`0-`9
+
+# the position of the cursor before the latest jump
+'' ``
+
+# location of the last edit
+'. `.
+#+end_src

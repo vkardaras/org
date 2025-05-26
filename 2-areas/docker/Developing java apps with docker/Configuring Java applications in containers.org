@@ -1,0 +1,458 @@
+* Configuring Java applications in containers
+
+** Introduction
+
+*** What can we use for configuration
+
+- Properties Files
+- Environment Variables
+- System Properties
+
+*** Sample configuration approach
+
+1. Read configuration from a general properties file
+2. Override configuration with a properties file for a particular
+   environment
+3. Override particular settings with environment variables / command
+   line options
+
+*** Spring Boot configuration priority
+
+1. Config data files (e.g., application.properties)
+2. OS environment variables
+3. Java system properties
+4. Properties from SPRING_APPLICATION_JSON
+5. Command-line arguments
+
+** Using Environment Variables
+
+*** Dockerfile
+
+ENV instruction
+
+#+begin_src shell
+FROM eclipse-temurin
+
+ENV VERSION=1
+ENV FILE="my file.txt"
+ENV LABEL=MY\ LABEL
+ENV DIR=/config LEVEL=INFO
+ENV DB MySQL
+
+LABEL $LABEL
+WORKDIR ${DIR}
+#+end_src
+
+*** docker run command
+
+Setting environment variables with =-e= and =--env=
+
+#+begin_src shell
+docker run -e FILE="my file.txt" my-image
+docker run --env DB my-image
+#+end_src
+
+*** Load variables from a file
+
+Setting environment variables from a file with =--env-file=
+
+#+begin_src shell
+VERSION=1
+DIR
+#+end_src
+
+#+begin_src shell
+$ docker run --env-file env.dev my-image
+#+end_src
+
+*** Docker Compose
+
+Setting environment variables with the environment section
+
+#+begin_src shell
+# List
+environment:
+  - VERSION=1
+  - ENABLED='true'
+  - DIR
+
+# Dictionary
+environment:
+  VERSION: 1
+  ENABLED: 'true'
+  DIR:
+#+end_src
+
+Setting environment variables from a file with the env_file section
+
+#+begin_src shell
+env_file:
+  - ./env.dev
+  - ./web/env.web
+#+end_src
+
+Alternatively, place a .env file in the project directory (usually the
+current directory)
+
+*** Demo
+
+#+begin_src shell
+server.port=8081
+environment.label=DEV
+#+end_src
+
+#+begin_src shell
+server.port=8082
+environment.label=TEST
+#+end_src
+
+Compile the application
+
+#+begin_src shell
+$ ./mvnw package
+#+end_src
+
+Run the application without specifying a profile
+
+#+begin_src shell
+$ java -jar target/api.jar
+#+end_src
+
+The application runs on port 8080 and there is no environment selected
+
+#+begin_src shell
+$ localhost:8080/env
+NO_ENVIRONMENT
+#+end_src
+
+*** Set a profile using a dockerfile
+
+#+begin_src shell
+FROM gradle:8.0-jdk17 as build
+WORKDIR /app
+RUN chown -R gradle:gradle /app
+USER gradle
+COPY buld.gradle .
+COPY src src
+RUN gradle build
+
+FROM eclipse-temurin:17
+WORKDIR /app
+COPY --form=build /app/build/libs/api.jar app.jar
+EXPOSE 8080
+ENV SPRING_PROFILES_ACTIVE=dev
+ENTRYPOINT ["java", "-jar", "app.jar"]
+#+end_src
+
+Build the image with the above Dockerfile
+
+#+begin_src shell
+$ docker build -f api-env.Dockerfile -t api-app-dev .
+#+end_src
+
+Run a container from this image
+
+#+begin_src shell
+$ docker run -it --rm -p 8081:8081 api-app-dev
+#+end_src
+
+The application is running with the dev profile
+
+#+begin_src shell
+$ localhost:8081/env
+DEV
+#+end_src
+
+Override the environment property using the run command
+
+#+begin_src shell
+$ docker run -it --rm \
+> -e SPRING_PROFILES_ACTIVE=test \
+> -p 8082:8082 \
+> api-app-dev
+#+end_src
+
+The application is running with the test profile
+
+#+begin_src shell
+$ localhost:8082/env
+TEST
+#+end_src
+
+Use a command line option to do the same. Execute the command when the
+container starts or you want to override a CMD instruction, you can pass
+the command after the image name
+
+#+begin_src shell
+$ docker run -it --rm \
+> -p 8082:8082 \
+> api-app-dev --spring.profiles.active=test
+#+end_src
+
+*** ENTRYPOINT Instruction
+
+- Exec form
+
+#+begin_src shell
+ENTRYPOINT ["executable", "param1", "param2"]
+#+end_src
+
+- Shell form. Allows variable substitution
+
+#+begin_src shell
+ENTRYPOINT executable param1 param2
+#+end_src
+
+*** CMD Instruction
+
+- Exec form
+
+#+begin_src shell
+CMD ["executable", "param1", "param2"]
+#+end_src
+
+- Shell form
+
+#+begin_src shell
+CMD executable param1 param2
+#+end_src
+
+- As parameters of ENTRYPOINT (both would be specified)
+
+#+begin_src shell
+CMD ["param1", "param2"]
+#+end_src
+
+*** Rules for CMD and ENTRYPOINT
+
+- At least one must be specified
+- ENTRYPOINT should be defined when using the container as an executable
+- CMD would be used for defining default arguments for ENTRYPOINT or for
+  executing an ad-hoc command
+- CMD will be overridden when running the container with other arguments
+
+*** docker run Command Sundax
+
+#+begin_src shell
+docker run [OPTIONS] IMAGE[:TAG] [COMMAND] [ARG...]
+#+end_src
+
+Overriding CMD
+
+#+begin_src shell
+ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD --server.port=8081
+
+docker run my-image --server.port=8082
+
+java -jar app.jar --server.port=8082
+#+end_src
+
+*** Overriding ENTRYPOINT with the docker run Command
+
+Use the option =--entrypoint=
+
+#+begin_src shell
+docker run --entrypoint /bin/bash my-image
+#+end_src
+
+*** Defining Java System Properties
+
+#+begin_src shell
+ENTRYPOINT ["java", "-Dserver.port=8081", "-jar", "app.jar"]
+#+end_src
+
+#+begin_src shell
+ENV JAVA_OPTS
+
+ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar app.jar ${0} ${@}"]
+#+end_src
+
+*** Using Java system properties and command-line options
+
+#+begin_src shell
+FROM gradle:8.0-jdk17 as build
+WORKDIR /app
+RUN chown -R gradle:gradle /app
+USER gradle
+COPY buld.gradle .
+COPY src src
+RUN gradle build
+
+FROM eclipse-temurin:17
+WORKDIR /app
+COPY --form=build /app/build/libs/api.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar app.jar ${0} ${@}"]
+#+end_src
+
+Build the image
+
+#+begin_src shell
+$ docker build -f api-shell.Dockerfile -t api-app-shell .
+#+end_src
+
+Run a container setting the test profile using the JAVA_OPS variable
+
+#+begin_src shell
+$ docker run --rm -it \
+> -e JAVA_OPTS=Dspring.profiles.active=test \
+> -p 8082:8082 api-app-shell
+#+end_src
+
+In addition to =JAVA_OPTS= you can override the environment label
+property with a command-line option
+
+#+begin_src shell
+$ docker run --rm -it \
+> -e JAVA_OPTS=Dspring.profiles.active=test \
+> -p 8082:8082 api-app-shell 
+> --environment.label=HI
+#+end_src
+
+Pass another property
+
+#+begin_src shell
+$ docker run --rm -it \
+> -e JAVA_OPTS=Dspring.profiles.active=test \
+> -p 8082:8082 api-app-shell 
+> --environment.label=HI
+> --spring.main.banner-mode=console
+#+end_src
+
+** Mounting external properties files
+
+Spring Boot options for reading properties files from the filesystem
+
+#+begin_src shell
+# To replace default properties file
+spring.config.location=/config/my.properties # File
+spring.config.location=/config/ # Directory
+#+end_src
+
+By default, spring boot will look for files with extensions
+=.properties= or =.yml= which can be changed with the following property
+
+#+begin_src shell
+spring.config.name=my,dev
+#+end_src
+
+Configure additional files rather than replacing them
+
+#+begin_src shell
+# To add additional properties files
+spring.config.additional-location=/config/dev.yaml # File
+spring.config.additional-location=/config/ # Directory
+#+end_src
+
+When used as environment variables, replace the dots with underscores
+
+#+begin_src shell
+spring_config_location # Or SPRING_CONFIG_LOCATION
+spring_config_name # Or SPRING_CONFIG_NAME
+spring_config_additional-location # Or SPRING_CONFIG_ADDITIONAL-LOCATION
+#+end_src
+
+*** Bind mount an external properties file
+
+#+begin_src shell
+server.port=8083
+environment.label=EXTERNAL
+#+end_src
+
+Build an image using the Dockerfile that doesn't set the dev profile
+with an environment variable
+
+#+begin_src shell
+$ docker build -f api.Dockerfile -t api-app-external .
+#+end_src
+
+With the docker run command set the environment variable using the file
+
+#+begin_src shell
+$ docker run -it --rm \
+> -p 8083:8083 \
+> -e spring_config_additional-location=/config/ext_application.properties
+> api-app-external
+#+end_src
+
+** Overriding Docker Compose configuration files
+
+Overriding Docker Compose files
+
+#+begin_src shell
+docekr compose -f docker-compose.yml -f docker-compose-dev.yml up
+#+end_src
+
+#+begin_src shell
+services:
+  api:
+    image: api-app
+#+end_src
+
+#+begin_src shell
+services:
+  api:
+    environment:
+      - PROFILE=dev
+#+end_src
+
+*** Demo
+
+#+begin_src shell
+services:
+  api:
+    image: api-app
+#+end_src
+
+Create the image using the Dockerfile
+
+#+begin_src shell
+$ docker build -f api.Dockerfile -t api-app .
+#+end_src
+
+Create the docker-compose file for the dev profile
+
+#+begin_src shell
+services:
+  api:
+    ports:
+      - 8081:8081
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+#+end_src
+
+Validate the whole configuration
+
+#+begin_src shell
+$ docekr compose -f docker-compose.yml -f docker-compose-dev.yml config
+#+end_src
+
+Create the docker-compose file for the test profile
+
+#+begin_src shell
+services:
+  api:
+    ports:
+      - 80812:8082
+    environment:
+      - SPRING_PROFILES_ACTIVE=test
+#+end_src
+
+Validate the whole configuration
+
+#+begin_src shell
+$ docekr compose -f docker-compose.yml -f docker-compose-test.yml config
+#+end_src
+
+Start a container for the dev profile with the up command
+
+#+begin_src shell
+$ docekr compose -f docker-compose.yml -f docker-compose-dev.yml up
+#+end_src
+
+Specify the name of the project with the flag =-p=
+
+#+begin_src shell
+$ docekr compose -f docker-compose.yml -f docker-compose-test.yml -p api-test up
+#+end_src

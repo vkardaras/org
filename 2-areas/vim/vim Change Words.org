@@ -1,0 +1,44 @@
+* vim Change Words
+:PROPERTIES:
+:CUSTOM_ID: vim-change-words
+:END:
+** Change words
+:PROPERTIES:
+:CUSTOM_ID: change-words
+:END:
+#+begin_src sh
+# change: delete words and switch to insert mode
+c
+
+# three words. also trw W for larger serctions of code
+3W
+
+# delete a character
+x
+
+# delete a line
+dd or D
+
+# yank (copy) a line
+yy or Y
+
+# change a line (delete and enter insert mode)
+cc or C
+
+# join 2 lines
+J
+
+# join x lines
+xJ
+
+# join 2 lines without leaving empty space between
+gJ
+
+# ident code: 2<<  2>>
+
+# ident code in insert mode right
+ctrl-t
+
+# ident code in insert mode left
+ctrl-d
+#+end_src

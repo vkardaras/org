@@ -1,0 +1,47 @@
+* shell command-line arguments
+:PROPERTIES:
+:CUSTOM_ID: shell-command-line-arguments
+:END:
+** Read the output directory from a command-line argument
+:PROPERTIES:
+:CUSTOM_ID: read-the-output-directory-from-a-command-line-argument
+:END:
+#+begin_src sh
+#!/bin/bash
+
+# Create a report file for a single shipping container
+# Author: vkardaras
+
+container=$1
+directory=$2
+
+mkdir -p $directory
+grep $container shipments.csv > $directory/$container.csv
+
+echo Wrote report $directory/$container.csv
+#+end_src
+
+Execute the script
+
+#+begin_src sh
+./create_reportk.sh X1 work
+#+end_src
+
+Use quotes with variables to handle spaces for values
+
+```bash #!/bin/bash
+
+* Create a report file for a single shipping container
+:PROPERTIES:
+:CUSTOM_ID: create-a-report-file-for-a-single-shipping-container
+:END:
+* Author: vkardaras
+:PROPERTIES:
+:CUSTOM_ID: author-vkardaras
+:END:
+container="$1" directory="$2"
+
+mkdir -p "\(directory"
+grep "\)container" shipments.csv > "\(directory/\)container.csv"
+
+echo "Wrote report \(directory/\)container.csv"

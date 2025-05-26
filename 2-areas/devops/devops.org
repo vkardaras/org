@@ -1,0 +1,6 @@
+* DevOps
+:PROPERTIES:
+:CUSTOM_ID: devops
+:END:
+
+** [[file:12 factor app.org][12 factor app]]

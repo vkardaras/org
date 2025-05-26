@@ -1,0 +1,12 @@
+** Call hook after each scenario
+:PROPERTIES:
+:CUSTOM_ID: call-hook-after-each-scenario
+:END:
+#+begin_src gherkin
+Feature: Test hooks
+
+    Background:
+        ,* url apiUrl
+
+        ,* configure afterScenario = functio() { karate.log('Scenario complete') }
+#+end_src

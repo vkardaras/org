@@ -1,0 +1,4 @@
+* springboot cli
+
+** [[file:install spring boot cli.org][install spring boot cli]]
+** [[file:spring boot cli encodepassword.org][spring boot cli encodepassword]]

@@ -1,0 +1,247 @@
+* Exploring Gherkin Syntax and Fundamentals
+
+** Overview of Gherkin
+
+Gherkin is a plain and easy-to-understand language used for writing
+scenarios that describe the behavior of software from a user's
+perspective.
+
+*** Gherkin Scenario
+
+Given-When-Then pattern
+
+#+begin_src gherkin
+Scenario: Add two numbers
+    Given I have entered the number 10 into the calculator
+    When I press the add button
+    And I have entered another number 5 into the calculator
+    Then the result displayed should be 15
+#+end_src
+
+Reordered Given-When-Then pattern
+
+#+begin_src gherkin
+Scenario: Add two numbers
+    Given I have entered the number 10 into the calculator
+    And I have entered another number 5 into the calculator
+    When I press the add button
+    Then the result displayed should be 15
+#+end_src
+
+*** Role of Gherkin in Behavior-driven Development (BDD)
+
+BDD is a collaborative approach to software development that focuses on
+behavior description and verification
+
+*** Behavior-driven Development (BDD)
+
+- Brings business and engineering teams together
+- fosters cooperation and common comprehension
+- Allows quick incremental development for early input and insights
+- Complements modern, flexible workflows
+- Core practices: Discovery, Formulation, Automation
+
+*** Discovery
+
+- Collaborative discussions and workshops with stakeholders
+- Focus on practical examples and use cases
+- Joint discovery and mutual understanding
+- Clarifying user objectives and application boundaries
+- Defining the boundaries of the project
+
+*** Formulation
+
+- Translating needs into testable definitions
+- Employing the Gherkin format for living documentation
+- Building a common vocabulary for communication
+- Validating understanding of the application
+- Setting a clear path for implementation
+
+*** Automation
+
+- Developing features through auto-validated definitions
+- Crafting tests in code formats
+- Utilizing available tools
+- Adaptive specifications and safety checks
+- Informing builds and confirming intended functions
+
+*** Example
+
+*Discovery*: Simple worded user story
+
+#+begin_src gherkin
+As a user, I want to be able to add two numbers in any order 
+so that I can easily perform addition problems.
+
+Acceptance Criteria:
+    The calculator should allow me to enter the first number, press add, 
+    then enter the second number
+#+end_src
+
+*Formulation*: Gherkin to write executable specifications
+
+#+begin_src gherkin
+Scenario: Add two numbers
+    Given I have entered the number 10 into the calculator
+    When I press the add button
+    And I have entered another number 5 into the calculator
+    Then the result displayed should be 15
+#+end_src
+
+*Automation*: Testing framework to execute the automated tests using
+step definitions
+
+#+begin_src gherkin
+Success: 9 Test(s)
+Failure: 2 Test(s)
+#+end_src
+
+** Benefits of Using Gherkin in BDD
+
+- Improved communication
+- Enhanced collaboration
+- Dynamic documentation (living documentation)
+- Test automation
+
+** Understanding the Gherkin Structure
+
+*** Gherkin File Structure
+
+#+begin_src gherkin
+@calculator
+Feature: Calculator Functionality
+@addition
+    Scenario: Adding two numbers
+        Given I have entered the number 10 into the calculator
+        When I press the add button
+        And I have entered another number 5 into the calculator
+        Then the result displayed should be 15
+        # This is just one scenario
+#+end_src
+
+** Exploring Gherkin Keywords
+
+*** Gherkin Feature File Keywords
+
+#+begin_src gherkin
+@calculator
+Feature: Calculator Functionality
+    Background:
+        Given I have a calculator
+        
+@addition
+    Scenario: Adding two numbers
+        Given I have entered the number 10 into the calculator
+        When I press the add button
+        And I have entered another number 5 into the calculator
+        Then the result displayed should be 15
+#+end_src
+
+Scenario Outline
+
+#+begin_src gherkin
+Feature: Calculator Functionality
+    Scenario Outline: Adding two numbers
+        Given I have entered the number <num1> into the calculator
+        When I press the add button
+        And I have entered another number <num2> into the calculator
+        Then the result displayed should be <result>
+        Examples:
+            | num1 | num2 | result |
+            | 20   | 30   | 50     |
+            | 15   | 25   | 40     |
+#+end_src
+
+** Demo: Writing your First Gherkin Scenario
+
+Genera the project
+
+#+begin_src gherkin
+mvn archetype:generate "-DarchetypeGroupId=io.cucumber" \
+"-DarchetypeArtifactId=cucumber-archetype" \
+"-DarchetypeVersion=7.12.1" \
+"-DgroupId=calc" "-DartifactId=calc" "-Dpackage=calc" \
+"-Dversion=1.0.0-SNAPSHOP" "-DinteractiveMode=false"
+#+end_src
+
+** Best Practices
+
+- Clear and descriptive titles
+- Use given-when-then patter
+- Utilize scenario outline
+- Meaningful step definitions
+- Regular review and maintenance
+
+** Gherkin Syntax fundamentals
+
+*** Introduction to Gherkin
+
+- The language of BDD
+- Plain English syntax
+- Structure & predictability
+- A documentation tool
+
+*** Gherkin language Components
+
+- Feature
+- Scenario
+- Steps
+- Keywords
+
+Each component has a purpose
+
+*** Feature
+
+- Describe a software feature
+- offers a broader context of the feature
+- use the keyword: =Feature:= to initiate
+- Sets the foundation for associated scenarios
+
+*** Scenarios in Gherkin
+
+Represent specific user journeys of use-cases.
+
+- Scenario: Begins with this keyword
+- Series of steps that detail the actions and outcomes
+- Tests or use-cases. Testable units that validate functionality
+
+*** Steps & Keywords in Gherkin
+
+- =Given= Establishes the context of the initial state
+- =When= Describes the action or interaction
+- =Then= Specifies the expected result or assertion
+- =And / But= Useful for adding more details or exceptions to any of the
+  above steps
+
+*** Why Boring is better in Gherkin
+
+- Consistency aids comprehension
+- Avoids over-complication
+- Makes automation easier
+- Predictability fosters collaboration
+
+*** Benefits of Simple Syntax
+
+- Short learning curve
+- Enhances communication between roles
+- Less room for misinterpretation
+- Focus on actual requirements
+
+*** Gherkin's Practical Application
+
+- Writing Clear Features and Scenarios
+- Embrace the "Boring" Approach
+
+*** Gherkin Example
+
+*Feature*: Online Pie Ordering at Bethany's Shop
+
+*Scenario*: A user orders a blueberry pie
+
+=Given= a user is on the pie selection page
+
+=When= they select the blueberry pie
+
+=And= add it to their cart
+
+=Then=, the cart should have 1 blueberry pie

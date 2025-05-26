@@ -1,0 +1,28 @@
+---
+id: tmux panes
+aliases: []
+tags: []
+---
+
+Panes
+
+```bash
+# maximaze/restore current pane
+<leader>z
+
+# swap panes
+<leader>{
+<leader>}
+
+# show number in the center of the pane
+<leader>q
+
+# turn a pane into a window
+<leader>!
+
+# close a pane
+<leader>x
+
+# kill pane
+<leader>x
+```

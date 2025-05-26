@@ -1,0 +1,20 @@
+* httpie
+:PROPERTIES:
+:CUSTOM_ID: httpie
+:END:
+#+begin_src sh
+# call endpoint
+https httpie.io/hello
+#+end_src
+
+** Authentication
+:PROPERTIES:
+:CUSTOM_ID: authentication
+:END:
+#+begin_src sh
+# basic
+http -a username:password pie.dev/basic-auth/username/password
+
+# bearer
+https -A bearer -a token pie.dev/bearer
+#+end_src

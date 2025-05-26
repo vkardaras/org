@@ -1,0 +1,7 @@
+* sdkman
+
+Paste and run the following in a terminal
+
+#+begin_src sh
+curl -s "https://get.sdkman.io" | bash
+#+end_src

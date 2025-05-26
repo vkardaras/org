@@ -1,0 +1,31 @@
+* dotfile
+:PROPERTIES:
+:CUSTOM_ID: dotfile
+:END:
+** Programs to install
+:PROPERTIES:
+:CUSTOM_ID: programs-to-install
+:END:
+- zsh and ohmyzsh
+- tmux and tpm
+- neovim
+- neofetch
+- wezterm
+- starship
+
+** dotfiles
+:PROPERTIES:
+:CUSTOM_ID: dotfiles
+:END:
+- .zshrc
+- .tmux.conf
+- .config/nvim
+- .wezterm.lua
+- .config/starship.toml
+
+** dotfiles on windows
+:PROPERTIES:
+:CUSTOM_ID: dotfiles-on-windows
+:END:
+- .config/wezterm/wezterm.lua
+- .config/starship.toml

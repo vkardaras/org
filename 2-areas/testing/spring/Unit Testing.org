@@ -1,0 +1,19 @@
+* Unit Testing
+
+** Mock security context
+
+#+begin_src java
+private void setSecurityContext(String authority) {
+
+    Collection<GrantedAuthority> authorities = Set.of("ROLE_ADMIN").stream()
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
+
+    SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+    Authentication authentication = Mockito.mock(Authentication.class);
+    Mockito.lenient().when(authentication.getName()).thenReturn("user@iknowhow.com");
+    Mockito.lenient().when(authentication.getAuthorities()).thenAnswer(permissions -> authorities);
+    Mockito.lenient().when(securityContext.getAuthentication()).thenReturn(authentication);
+    SecurityContextHolder.setContext(securityContext);
+}
+#+end_src

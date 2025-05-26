@@ -1,0 +1,19 @@
+** Run postgres
+
+:CUSTOM_ID: run-postgres
+:END:
+#+begin_src sh
+docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+#+end_src
+
+** Example with postgres
+
+#+begin_src sh
+docker run -itd -e POSTGRES_USER=user -e POSTGRES_PASSWORD=password -p 5432:5432 -v /data:/var/lib/postgresql/data --name postgresql postgres
+#+end_src
+
+** Example with db2
+
+#+begin_src sh
+docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+#+end_src

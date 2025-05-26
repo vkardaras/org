@@ -1,0 +1,30 @@
+* basic docker commands
+
+#+begin_src sh
+# pull a container
+docker pull nginx
+
+# run a container
+docker run nginx
+
+# run a container in detouched mode
+docker run nginx -d
+
+# stop a container
+docker stop container_name
+
+# remove a container
+docker rm container_name
+
+# view running containers
+docker ps
+
+#view all containers
+docker ps -a
+
+# execute a command in a container
+docker exec container_name cat /etc/hosts
+
+# enter to a container
+docker run -it centos bash
+#+end_src

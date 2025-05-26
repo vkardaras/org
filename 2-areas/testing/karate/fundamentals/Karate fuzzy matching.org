@@ -1,0 +1,11 @@
+- =#null=
+- =#notnull=
+- =#present=
+- =#notpresent=
+- =#array=
+- =#object=
+- =#boolean=
+- =#number=
+- =#string=
+- =#uuid=
+- =#regex=

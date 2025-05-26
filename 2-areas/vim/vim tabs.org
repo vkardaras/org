@@ -1,0 +1,20 @@
+#+begin_src sh
+# open a new tab
+:tabnew
+<leader>to
+
+# cloase a tab
+:tabclose
+<leader>tx
+
+# next tab
+:tabn
+<leader>tn
+
+# previous tab
+:tabp
+<leader>tp
+
+# flip tabs
+gt
+#+end_src

@@ -1,0 +1,98 @@
+* emacs getting started
+:PROPERTIES:
+:CUSTOM_ID: emacs-getting-started
+:END:
+** Installing and running Emacs
+
+#+begin_src sh
+sudo pacman -S emacs
+#+end_src
+
+*** Install from source
+
+#+begin_src sh
+
+# get emacs
+wget http://ftp.gnu.org/pub/gnu/emacs/emacs-28.2.tar.xz
+
+# extract tarball
+tar -axvf emacs-28.2.tar.xz
+
+# build package
+cd emacs-28.2
+./configure
+make
+
+# install package
+make install
+#+end_src
+
+** Run emacs
+
+#+begin_src sh
+
+# run gui emacs
+emacs
+
+# run emacs in terminal
+emacs -nw
+
+# exit emacs
+C-x C-c
+#+end_src
+
+** Key modifiers
+
+| Modifier | Name                             |
+|----------+----------------------------------|
+| C-       | Control                          |
+| M-       | Meta (alt key on most keyboards) |
+| S-       | Shift                            |
+| ESC-     | Escape (can be used as Meta)     |
+
+** Getting help
+
+| Key sequence | Description                   |
+|--------------+-------------------------------|
+| C-h C-h      | Help for help                 |
+| C-h t        | Emacs tutorial                |
+| C-x 1 or q   | Close help window             |
+| C-h a        | Apropos command               |
+| C- i         | Info manual                   |
+| C-h d        | Apropos documentation command |
+| C-h k        | Describe keys                 |
+
+** Configuring Emacs
+
+*** Customize interface
+
+#+begin_src sh
+# customize or bring up interactive menu
+M-x customize
+
+# customize specific option
+M-x customize-face
+#+end_src
+
+*** Package manager
+
+#+begin_src sh
+# list installed and available packages
+M-x package-list-packages
+
+# install package
+M-x package-install
+
+# remove package
+M-x package-delete
+#+end_src
+
+*** Evaluate Elisp code
+
+#+begin_src sh
+# evaluate a region
+M-x eval-region
+
+# evaluate contents of a buffer
+M-x eval-buffer
+#+end_src

@@ -1,0 +1,82 @@
+* vim navigation
+:PROPERTIES:
+:CUSTOM_ID: vim-navigation
+:END:
+#+begin_src sh
+# move to the middle of the line
+gm
+
+# find next character in line
+f<char>
+
+# find previous character in line
+F<char>
+
+# repeat find character
+;
+
+# repeat find character backwards
+,
+
+# jump to the middle of the screen
+M
+
+# jump to the top of the screen
+H
+
+# jump to the bottom of the screen
+L
+
+# scroll one screen forward
+Ctrl-f
+
+# scroll one screen backwards
+Ctrl-b
+
+# scroll half screen forward
+Ctrl-d
+
+# scroll half screen backwards
+Ctro-u
+
+# scroll one line forward
+Ctrl-e
+
+# scroll one line backwards
+Ctrl-y
+
+# scroll current line to the top of the screen
+zt
+
+# scroll current line to the bottom of the screen
+zb
+
+# scroll current line to the middle of the screen
+zz
+
+# move to specific line e.g.42
+42G
+42gg
+
+# move to the first line
+gg
+
+# move to the last line
+G
+#+end_src
+
+** vim navigation by number
+:PROPERTIES:
+:CUSTOM_ID: vim-navigation-by-number
+:END:
+#+begin_src sh
+# Go to line 12
+12G
+12gg
+
+# Go to the top of the file
+gg 
+
+# Go to the end of the file
+G 
+#+end_src

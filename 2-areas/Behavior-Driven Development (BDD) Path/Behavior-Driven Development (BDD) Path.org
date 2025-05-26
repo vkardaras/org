@@ -1,0 +1,12 @@
+* Behavior-Driven Development
+
+#+begin_quote
+[!info] Sign In | Pluralsight
+
+[[https://app.pluralsight.com/paths/skills/behavior-driven-development]]
+
+#+end_quote
+
+[[file:Behavior-driven Development- Fundamentals/Behavior-driven Development- Fundamentals.org][Behavior-driven Development- Fundamentals]]
+
+[[file:Gherkin Fundamentals/Gherkin Fundamentals.org][Gherkin Fundamentals]]

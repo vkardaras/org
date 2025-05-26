@@ -1,0 +1,151 @@
+* Working with variables
+:PROPERTIES:
+:CUSTOM_ID: working-with-variables
+:END:
+** Understanding variables
+:PROPERTIES:
+:CUSTOM_ID: understanding-variables
+:END:
+*** Variable scope
+:PROPERTIES:
+:CUSTOM_ID: variable-scope
+:END:
+The scope of a variable defines its effective boundaries.
+
+Variables may be scoped as:
+
+- Local
+- Environment
+- Command
+
+** Working with the declare command
+:PROPERTIES:
+:CUSTOM_ID: working-with-the-declare-command
+:END:
+Declare a variable
+
+#+begin_src sh
+EDITOR=vim
+#+end_src
+
+View different types of variable
+
+#+begin_src sh
+declare -p EDITOR
+typeset EDITOR=vim
+#+end_src
+
+Export a variable
+
+#+begin_src sh
+declare -x EDITOR
+declare -p EDITOR
+export EDITOR=vim
+#+end_src
+
+Print all the environments
+
+#+begin_src sh
+env
+#+end_src
+
+Remove a variable from the environment
+
+#+begin_src sh
+declare +x EDITOR
+#+end_src
+
+** Understanding special variable cases
+:PROPERTIES:
+:CUSTOM_ID: understanding-special-variable-cases
+:END:
+*** Change to bash shell
+:PROPERTIES:
+:CUSTOM_ID: change-to-bash-shell
+:END:
+#+begin_src sh
+bash
+#+end_src
+
+*** Constants
+:PROPERTIES:
+:CUSTOM_ID: constants
+:END:
+Declare a constant
+
+#+begin_src sh
+$ declare -r name=bob
+$ name=fred
+bash: name: readonly variable
+#+end_src
+
+*** Integer values
+:PROPERTIES:
+:CUSTOM_ID: integer-values
+:END:
+Example
+
+#+begin_src sh
+declare -i days=30
+days=Monday
+declare -p days
+declare -i days="0"
+#+end_src
+
+*** Arrays
+:PROPERTIES:
+:CUSTOM_ID: arrays
+:END:
+Example
+
+#+begin_src sh
+declare -a user_name
+user_name[0]=bob ; user_name[1]=smith
+declare -p user_name
+declare -a user_name=([0]="bob" [1]="smith")
+#+end_src
+
+If you use echo for the variable you will get the first index
+
+#+begin_src sh
+echo $user_name
+bob
+#+end_src
+
+To get all the values from an array variable use the following syntax
+
+#+begin_src sh
+$ echo ${user_name[@]}
+bob smith
+#+end_src
+
+You can also get a separate value from an array
+
+#+begin_src sh
+echo ${user_name[0]}
+bob
+echo ${user_name[1]}
+smith
+#+end_src
+
+Unset a variable
+
+#+begin_src sh
+unset user_name
+#+end_src
+
+Declare an associative array
+
+#+begin_src sh
+declare -A user_name
+user_name[first]=bob ; user_name[last]=smith
+#+end_src
+
+Get the values of an associative array
+
+#+begin_src sh
+echo ${user_name[first]}
+bob
+echo ${user_name[last]}
+smith
+#+end_src

@@ -1,0 +1,20 @@
+- Syntax: Prefixed with =@=
+- Function: Organize and Categorize Scenarios
+- Applications: Running Specific Groups of Scenarios
+- Flexibility: Multiple Tags per Scenario
+- Can be placed above a Feature or Scenario.
+
+
+#+begin_example
+@UserProfile
+Feature: Profile Management
+
+    @View
+    Scenario: View profile
+        Given user is on the profile page
+        Then they see profile details
+
+    @UpdateEmail
+    Scenario: Update email
+        Given user is on the edit page
+#+end_example

@@ -1,0 +1,116 @@
+** Applying Object permissions
+:PROPERTIES:
+:CUSTOM_ID: applying-object-permissions
+:END:
+Connect with a different user
+
+#+begin_src shell
+$ su jane
+#+end_src
+
+Create a file
+
+#+begin_src shell
+$ touch data.txt
+#+end_src
+
+Jane cannot add contents to another directory
+
+#+begin_src shell
+$ touch /var/log/stuff
+touch: cannot touch '/var/log/stuff': Permission denied
+#+end_src
+
+List the files in a directory with its attributes
+
+#+begin_src shell
+$ ls -l
+#+end_src
+
+List the attributes of the current directory
+
+#+begin_src shell
+$ ls -dl
+#+end_src
+
+Permissions: Numeric Notation
+
+| Read    | r | 4 |
+| Write   | w | 2 |
+| Execute | x | 1 |
+
+** Extending object usability
+:PROPERTIES:
+:CUSTOM_ID: extending-object-usability
+:END:
+Make members of groups delete only their own files and not other users
+
+Check the directory permissions
+
+#+begin_src shell
+$ ls -dl
+drwxrwxr-x 2 root secret-group 4096 Φεβ  13 00:17
+#+end_src
+
+Change the permissions by adding a sticky bit
+
+#+begin_src shell
+$ sudo chmod +t .
+#+end_src
+
+Check the permissions again
+
+#+begin_src shell
+$ ls -dl
+drwxrwxr-t 2 root secret-group 4096 Φεβ  13 00:17 .
+#+end_src
+
+*** Symbolic links
+:PROPERTIES:
+:CUSTOM_ID: symbolic-links
+:END:
+Create a script
+
+#+begin_src shell
+$ nano /home/johndoe/scripts/myscript.sh
+#+end_src
+
+Create a symbolic link to the file
+
+#+begin_src shell
+$ sudo ln -s /home/johndoe/scripts/myscript.sh /var/secret
+#+end_src
+
+** Hardening your server
+:PROPERTIES:
+:CUSTOM_ID: hardening-your-server
+:END:
+*** Software updates
+:PROPERTIES:
+:CUSTOM_ID: software-updates
+:END:
+#+begin_src shell
+# apt update
+# apt upgrade
+
+# dnv update
+#+end_src
+
+*** Service access controls
+:PROPERTIES:
+:CUSTOM_ID: service-access-controls
+:END:
+- Service hardening
+- Port control
+- Firewall rules
+
+Figure out what software is actually running so you can shut it down
+
+#+begin_src shell
+$ nmap -v -sT localhost
+#+end_src
+
+** Data encryption
+:PROPERTIES:
+:CUSTOM_ID: data-encryption
+:END:

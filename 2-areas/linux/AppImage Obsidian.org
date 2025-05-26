@@ -1,0 +1,41 @@
+* AppImage Obsidian
+:PROPERTIES:
+:CUSTOM_ID: appimage-obsidian
+:END:
+** Download the AppImage (example.AppImage)
+:PROPERTIES:
+:CUSTOM_ID: download-the-appimage-example.appimage
+:END:
+** Make it executabla
+:PROPERTIES:
+:CUSTOM_ID: make-it-executabla
+:END:
+#+begin_src sh
+chmod u+x Obsidian-1.7.5.AppImage
+#+end_src
+
+** Extract the AppImage
+:PROPERTIES:
+:CUSTOM_ID: extract-the-appimage
+:END:
+#+begin_src sh
+./Obsidian-1.7.5.AppImage --appimage-extract
+#+end_src
+
+This will create a new folder called squashfs-root
+
+** Move the folder to =/opt= directory
+:PROPERTIES:
+:CUSTOM_ID: move-the-folder-to-opt-directory
+:END:
+#+begin_src sh
+sudo mv squashfs-root /opt/obsidian
+#+end_src
+
+** Install the desktop application
+:PROPERTIES:
+:CUSTOM_ID: install-the-desktop-application
+:END:
+#+begin_src sh
+sudo desktop-file-install obsidian.desktop
+#+end_src

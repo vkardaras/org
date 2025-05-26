@@ -1,0 +1,13 @@
+* spring boot webflux
+
+** Create a project with the following dependencies
+
+- Spring Reactive Web
+- Spring Data Reactive MongoDB
+- Lombok
+
+** Run MongoDB in docker
+
+#+begin_src sh
+docker run --name mongodb -p 27017:27017 -d mongo:4.2.24
+#+end_src

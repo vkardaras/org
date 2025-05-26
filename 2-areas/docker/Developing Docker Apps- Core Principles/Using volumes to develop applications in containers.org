@@ -1,0 +1,104 @@
+* Using volumes to develop applications in containers
+
+** Dockerfile example
+
+#+begin_src javascript
+FROM node
+
+# Create app directory
+WORKDIR /app
+
+# Coply app source from build context
+COPY . .
+
+# Install app dependencies
+RUN npm install
+
+# Port app listens on
+EXPOSE 3000
+
+\#Specify container's default command
+CMD ["node", "src/index.js"]
+#+end_src
+
+** Creating a named volume
+
+#+begin_src javascript
+# Created explicitly with 'volume' sub-command
+docker volume create code-volume
+
+# Implicit creation achieved using the '--volumen' flag
+docker run --volume code-volume:/app ...
+#+end_src
+
+Volumes can be listed ('ls'), inspected ('inspect'), removed ('rm') and
+so on
+
+#+begin_src javascript
+docker volume ls
+#+end_src
+
+** Using bind mounts
+
+A better approach is to use bind mounts.
+
+- Host location mounted into the container when the container is invoked
+- Directory paths must be absolute paths rather than relative paths
+
+#+begin_src shell
+docker run --volume /path/on/host:/path/in/container
+#+end_src
+
+** Invoking an image build
+
+#+begin_src shell
+docker build -t myapp:1.0 .
+#+end_src
+
+** Coding inside a container
+
+Mount host directory with source code into container
+
+#+begin_src shell
+$ pwd
+/home/vkardaras/myapp
+$ docker run -itd -p 3000:3000 --volume $(pwd):/app myapp:1.0 nodemon src/index.js
+#+end_src
+
+** Managing file ownership problems
+
+There are different user and group ids between the host and the
+container
+
+The solution is to create a user in a container image
+
+#+begin_src shell
+FROM debian
+
+# Add a group and user to match the user on the host
+RUN groupadd -r --gid 1000 user \
+    && useradd -r --uid 1000 -g user user
+#+end_src
+
+#+begin_src shell
+$ docker run --volume $(pwd):/src --user user myapp touch /src/created_in_container
+#+end_src
+
+*** Create the Dockerfile using build arguments.
+
+#+begin_src shell
+FROM debian
+
+ARG UID=1000
+ARG GID=1000
+
+# Add a group and user to match the user on the host
+RUN groupadd -r --gid $GID user \
+    && useradd -r --uid $UID -g user user
+#+end_src
+
+Build the image with different user and group id
+
+#+begin_src shell
+$ docker build --build-arg UID=1001 --build-arg GID=1001 -t myapp .
+#+end_src

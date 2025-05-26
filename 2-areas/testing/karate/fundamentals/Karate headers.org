@@ -1,0 +1,64 @@
+Pass one header each time
+
+#+begin_src gherkin
+Feature: Get all products
+
+    Background:
+
+        ,* url apiUrl
+
+    Scenario: Get products
+
+        Given path 'products'
+        And header Authorization = 'Bearer ' + token
+        And header Content-Type = 'application/json'
+        When method get
+        Then status 200
+#+end_src
+
+Pass headers in object
+
+#+begin_src gherkin
+Feature: Get all products
+
+    Background:
+
+        ,* url apiUrl
+
+    Scenario: Get products
+
+        ,* def request_headers =
+          """
+              {
+                  Authorization: 'Bearer ' + token,
+                  Content-Type: 'application/json'
+              }
+          """
+        Given path 'products'
+        And headers request_headers
+        When method get
+        Then status 200
+#+end_src
+
+Pass headers with =configure=
+
+#+begin_src gherkin
+Feature: Get all products
+
+    Background:
+
+        ,* url apiUrl
+
+    Scenario: Get products
+
+        ,* configure headers =
+          """
+              {
+                  Authorization: 'Bearer ' + token,
+                  Content-Type: 'application/json'
+              }
+          """
+        Given path 'products'
+        When method get
+        Then status 200
+#+end_src

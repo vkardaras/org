@@ -1,0 +1,8 @@
+* lua commands
+:PROPERTIES:
+:CUSTOM_ID: lua-commands
+:END:
+#+begin_src lua
+-- get current working directory
+:lua =vim.uv.cwd()
+#+end_src

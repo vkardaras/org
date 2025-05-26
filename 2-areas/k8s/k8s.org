@@ -1,0 +1,18 @@
+* k8s
+
+** kubectl
+
+#+begin_src sh
+# deploy an application to cluster
+kubectl run hello-minikube
+
+# view information about cluster
+kubectl cluster-info
+
+# get nodes of a cluster
+kubectl get nodes
+#+end_src
+
+** [[file:minikube.org][minikube]]
+** [[file:Kubernetes Concepts - Pods, ReplicaSets, Deployments.org][Kubernetes Concepts - Pods, ReplicaSets, Deployments]]
+** [[file:Kubernetes services.org][Kubernetes services]]

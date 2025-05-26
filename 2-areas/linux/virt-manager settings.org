@@ -1,0 +1,33 @@
+* virt-manager settings
+:PROPERTIES:
+:CUSTOM_ID: virt-manager-settings
+:END:
+** New VM
+:PROPERTIES:
+:CUSTOM_ID: new-vm
+:END:
+- Check =Customize configuration before install=
+
+*** Settings
+:PROPERTIES:
+:CUSTOM_ID: settings
+:END:
+- Display Spice -> Listen type: None
+- Display Spice -> OpenGL: [x]
+- Video QXL -> Model: Virtio
+- Video QXL -> 3D acceleration: [x]
+
+*** Additional settings for Arch
+:PROPERTIES:
+:CUSTOM_ID: additional-settings-for-arch
+:END:
+- Run =sudo pacman -S spice-vdagent= on vm
+
+*** Additional settings for windows 11
+:PROPERTIES:
+:CUSTOM_ID: additional-settings-for-windows-11
+:END:
+- Overview -> Firmware: UEFI
+  x86_64:/usr/share/edk2/ovmf/OVMF_CODE.secboot.fd
+- TPM vNone -> Advanced options -> Version: 2.0 (Add TPM vNone from "Add
+  Hardware")

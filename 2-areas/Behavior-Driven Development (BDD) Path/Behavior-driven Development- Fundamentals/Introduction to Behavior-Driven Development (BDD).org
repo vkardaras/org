@@ -1,0 +1,71 @@
+* Introduction to Behavior-Driven Development (BDD)
+
+** What is BDD?
+
+*** Definition of BDD
+
+- A software development process
+- Evolved from Test Driven Development
+- Focuses on the behavior of an application
+
+*** Why BDD?
+
+- Bridges the communication gap between tech and non-tech roles
+- Focuses on user's perspective
+- Drives development with clear examples
+
+*** BDD vs. TDD
+
+- Test Driven Development (TDD): Write tests before code
+- Behavior Driven Development (BDD): Write specifications before tests
+- BDD provides context - TDD provides structure
+
+*** Main Components of BDD
+
+- Collaboration
+- Requirements through real-world examples
+- leveraging Automation
+
+** What are the benefits of using BDD?
+
+*** Improved Communication
+
+- Bridging the tech and non-tech gap
+- Clearer, more precise discussions
+- A shared understanding across roles
+
+*Enhanced Collaboration*
+
+- Involves all stakeholders early on
+- Collective ownership ensures user-centric solutions
+
+*User-centric Development*
+
+- Focus on user outcomes, not just features
+- Ensure the product fits the market need
+- Aligns team with user expectations
+
+*Reduced Ambiguity*
+
+Clear specifications minimize misinterpretation and reduce errors and
+rework.
+
+*** Faster Feedback
+
+- It enables quicker feedback loops
+- Clearer scenarios and automation speeds up validation
+- Teams detect issues earlier
+- Encourages agile, iterative development
+
+*** Enhanced Customer Satisfaction
+
+- Ensures software meets user needs
+- Minimizes production bugs
+- Enhances end-user trust
+
+*** Continuous improvement
+
+- A mindset encouraging improvement
+- Facilitates iterative development
+- Encourages regular feedback
+- Teams constantly refine and improve

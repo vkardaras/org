@@ -1,0 +1,64 @@
+* spring gateway
+
+** Add dependencies
+
+#+begin_src xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-oauth2-client</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-gateway</artifactId>
+</dependency>
+#+end_src
+
+** Add properties in =application.yml= file
+
+#+begin_src yml
+spring.application.name: api-gateway
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          spring:
+            provider: spring
+            client-id: oidc-client
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            client-authentication-method: client_secret_basic
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid,profile,user.read
+        provider:
+          spring:
+            issuer-uri: http://localhost:9000
+#+end_src
+
+** Add routes
+
+#+begin_src java
+@Configuration
+public class Routes {
+
+    @Bean
+    RouteLocator gateway(RouteLocatorBuilder rlb) {
+        return rlb
+                .routes()
+                .route(rs -> rs
+                        .path("/hello")
+                        .filters(GatewayFilterSpec::tokenRelay)
+                        .uri("http://localhost:8081/hello"))
+                .build();
+    }
+}
+#+end_src
+
+** Test endpoint
+
+Open a browser and call the following url
+
+#+begin_src link
+http://127.0.0.1:8080/hello
+#+end_src

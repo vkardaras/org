@@ -1,0 +1,6 @@
+* Shell Conditionals
+:PROPERTIES:
+:CUSTOM_ID: shell-conditionals
+:END:
+- [[shell conditionals introduction]]
+- [[shell if-then-else]]

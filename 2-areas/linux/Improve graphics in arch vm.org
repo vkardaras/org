@@ -1,0 +1,7 @@
+* Improve graphics in arch vm
+:PROPERTIES:
+:CUSTOM_ID: improve-graphics-in-arch-vm
+:END:
+#+begin_src sh
+sudo pacman -S xf86-video-qxl
+#+end_src

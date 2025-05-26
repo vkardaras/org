@@ -1,0 +1,72 @@
+* emacs shells
+:PROPERTIES:
+:CUSTOM_ID: emacs-shells
+:END:
+** emacs shells
+
+- Pass single command lines to a shell subprocess
+- Outputs to a buffer (special or current)
+- Synchronous and asynchronous
+
+#+begin_src sh
+# Call shell command and print output
+M-!
+
+# Call sell command and insert output into the buffer
+C-u M-!
+
+# Asynchronous version of M-!
+M-&
+
+# Asynchronous version of C-u M-!
+C-u M-&
+
+# Pipe region to shell command
+M-|
+
+# Pipe region to shell command and replace region
+C-u M-|
+#+end_src
+
+*** Types of Shells in Emacs
+
+- Shell mode
+- Emacs shell
+- Terminal emulator
+
+All take advantage of Emacs buffers
+
+**** Shell Mode
+
+- Runs an external shell (system default shell)
+- Displayed in a new window
+- Interactive programs won't run properly
+- Started by =M-x shell=
+
+#+begin_src sh
+# Cycles shell history
+M-p, M-n
+
+# Reverse history search
+M-r
+
+# Save output to a file
+C-c C-s
+
+# Deletes last command output
+C-c C-o
+#+end_src
+
+**** Emacs Shell (A Shell Built in Lisp)
+
+- Bash-like features, but it is its own shell
+- Portability between platforms
+- Use built-in commands or call system commands
+- Started by =M-x eshell=
+
+**** Terminal Emulator (Run Interactive Programs)
+
+- Acts like a regular terminal emulator
+- Can be slow
+- Line and character modes
+- Started by =M-x ansi-term=

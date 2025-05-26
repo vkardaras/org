@@ -1,0 +1,5 @@
+* spring asymmetric keys
+
+Create the folder =cers= under =resources= and move to it
+
+Create [[file:RSA keys with openssl.org][RSA keys with openssl]]

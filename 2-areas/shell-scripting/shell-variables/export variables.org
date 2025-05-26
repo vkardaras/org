@@ -1,0 +1,78 @@
+* export variables
+:PROPERTIES:
+:CUSTOM_ID: export-variables
+:END:
+Use a shell variable in the script =$input_file=
+
+#+begin_src sh
+#!/bin/bash
+
+# Create a report file for a single shipping container
+# Author: vkardaras
+
+container="$1"
+directory="$2"
+
+mkdir -p -- "$directory"
+grep -- "$container" "$input_file" > "$directory/${container}_report.csv"
+
+echo "Wrote report $directory/${container}_report.csv"
+#+end_src
+
+Create a variable
+
+#+begin_src sh
+inpt_file=shipments.csv
+#+end_src
+
+Export the variable to make it available to child processes
+
+#+begin_src sh
+export input_file
+#+end_src
+
+** Save the variable to one of init files like =.bashrc= or =.zshrc=
+:PROPERTIES:
+:CUSTOM_ID: save-the-variable-to-one-of-init-files-like-.bashrc-or-.zshrc
+:END:
+#+begin_src sh
+nano .bashrc
+#+end_src
+
+#+begin_src sh
+export PATH="$HOME/bin/:$PATH"
+export input_file="$HOME/shipments.csv"
+#+end_src
+
+Examine path
+
+#+begin_src sh
+echo $PATH
+#+end_src
+
+View the value of the variable
+
+#+begin_src sh
+echo $input_file
+#+end_src
+
+Move the script into the =~/bin= directory to make it available from
+everywhere
+
+#+begin_src sh
+mv create_report.sh ~/bin/
+#+end_src
+
+** Review export
+:PROPERTIES:
+:CUSTOM_ID: review-export
+:END:
+Variables are local to your script
+
+- Or terminal session
+
+Export a variabe
+
+- To make it available to subprocesses
+- export var
+- export var=”value”

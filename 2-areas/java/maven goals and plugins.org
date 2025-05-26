@@ -1,0 +1,7 @@
+* maven goals and plugins
+
+** [[file:maven jar plugin.org][maven jar plugin]]
+** [[file:maven javadoc plugin.org][maven javadoc plugin]]
+** [[file:maven install and deploy plugins.org][maven install and deploy plugins]]
+** [[file:maven surefire plugin.org][maven surefire plugin]]
+** [[file:maven war plugin.org][maven war plugin]]

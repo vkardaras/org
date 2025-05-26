@@ -1,0 +1,20 @@
+- Definition: Template for Scenarios
+- Syntax: Users placeholders =<>= for variables
+- Association: Works with Examples
+- Purpose: Enables Data-Driven Testing
+- Advantage: Reduces Redundancy and Improves Readability
+
+#+begin_src gherkin
+Feature: User login attempts
+
+Scenario Outline: Logging in with different credentials 
+    Given I am on the login page
+    When I try to log in with username "<Username>" and password "<Password>"
+    Then I should see the message "<outcome>"
+    
+Examples:
+    | Username | Password | Outcome                        |
+    | Alice    | correct1 | Login successful               | 
+    | Bob      | wrong2   | Invalid credentials, try again |
+    | Charlie  | correct3 | Login successful               |
+#+end_src

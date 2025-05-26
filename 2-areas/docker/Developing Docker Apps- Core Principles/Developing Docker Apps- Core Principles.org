@@ -1,0 +1,13 @@
+* Developing Docker Apps- Core Principles
+
+** [[file:Using volumes to develop applications in containers.org][Using volumes to develop applications in containers]]
+
+** [[file:Separating application build and execution with multi-stage builds.org][Separating application build and execution with multi-stage builds]]
+
+** [[file:Best practices for optimizing docker images.org][Best practices for optimizing docker images]]
+
+** [[file:Making configuration data available to containerized applications.org][Making configuration data available to containerized applications]]
+
+** [[file:Configuring logging for containerized applications.org][Configuring logging for containerized applications]]
+
+** [[file:Debugging containerized applications using an IDE.org][Debugging containerized applications using an IDE]]

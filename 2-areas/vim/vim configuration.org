@@ -1,0 +1,60 @@
+* vim configuration
+:PROPERTIES:
+:CUSTOM_ID: vim-configuration
+:END:
+** Important configuration files
+:PROPERTIES:
+:CUSTOM_ID: important-configuration-files
+:END:
+- =~/.vimrc= Most settings go here. Sheared terminal and graphical
+  options
+- =~/.gvimrc= Graphic-only settings (font, window size)
+- =~/.vim/= Plugins, language-specific options, color schemes.
+
+*** Set, Show, Reset
+:PROPERTIES:
+:CUSTOM_ID: set-show-reset
+:END:
+Boolean options
+
+#+begin_src sh
+# turn a boolean value on
+:set list
+
+# turn a boolean value off
+:set nolist
+
+# show current value
+:set list?
+
+# reset to default value
+:set list&
+#+end_src
+
+Numeric options
+
+#+begin_src sh
+# set a value
+:set softtabstop=2
+
+# show a value
+:set softtabstop
+:set softtabstop?
+
+# reset to default value
+:set softtabstop&
+#+end_src
+
+Run =:h softtabstop= for help
+
+Find where an options has been set
+
+#+begin_src sh
+:verbose set wildmode?
+#+end_src
+
+Find what options are available
+
+#+begin_src sh
+:options
+#+end_src

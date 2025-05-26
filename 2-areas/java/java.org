@@ -1,0 +1,15 @@
+* Java
+
+** General
+
+- [[file:Maven.org][Maven]]
+- [[file:Java installation-removal.org][Java installation-removal]]
+- [[file:debug.org][debug]]
+
+** Frameworks
+
+- [[file:spring boot/spring boot.org][spring boot]]
+
+** Tools
+
+- [[file:sdkman.org][sdkman]]

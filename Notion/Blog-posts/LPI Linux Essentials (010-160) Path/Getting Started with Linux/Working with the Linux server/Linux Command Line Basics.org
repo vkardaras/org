@@ -1,0 +1,48 @@
+** Using Linux help resources
+:PROPERTIES:
+:CUSTOM_ID: using-linux-help-resources
+:END:
+#+begin_src shell
+$ man wget
+#+end_src
+
+Install info
+
+#+begin_src shell
+$ sudo apt install info
+#+end_src
+
+Run info
+
+#+begin_src shell
+$ info
+#+end_src
+
+Move to a specific part of info for a package
+
+#+begin_src shell
+$ info wget examples simple
+#+end_src
+
+Get help for a package
+
+#+begin_src shell
+$ wget --help
+#+end_src
+
+Get how a word is interpreted by bash
+
+#+begin_src shell
+$ type wget
+#+end_src
+
+Get the default shell of a particular user.
+
+#+begin_src shell
+$ cat /etc/passwd
+#+end_src
+
+** Linux command syntax patterns and shortcuts
+:PROPERTIES:
+:CUSTOM_ID: linux-command-syntax-patterns-and-shortcuts
+:END:

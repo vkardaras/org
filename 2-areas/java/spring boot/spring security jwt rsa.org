@@ -1,0 +1,255 @@
+* spring security jwt rsa
+
+** Dependencies
+
+#+begin_src xml
+<dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
+    </dependency>
+</dependencies>
+#+end_src
+
+** Add a demo controller
+
+#+begin_src java
+@RestController
+public class HomeController {
+
+    @GetMapping
+    public String home() {
+        return "Hello, JWT";
+    }
+}
+#+end_src
+
+** Add the security configuration
+
+#+begin_src java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().authenticated()
+                )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .httpBasic(Customizer.withDefaults())
+                .build();
+    }
+
+    @Bean
+    public InMemoryUserDetailsManager users() {
+        return new InMemoryUserDetailsManager(
+                User.withUsername("bill")
+                        .password("{noop}password")
+                        .authorities("read")
+                        .build()
+        );
+    }
+}
+#+end_src
+
+** Create Asymmetric keys
+
+[[spring asymmetric keys]]
+
+** Create a record for keys
+
+#+begin_src java
+@ConfigurationProperties(prefix = "rsa")
+public record RsaKeyProperties(RSAPublicKey publicKey, RSAPrivateKey privateKey) {
+}
+#+end_src
+
+** Enable configuration properties for the project
+
+#+begin_src java
+@EnableConfigurationProperties(RsaKeyProperties.class)
+@SpringBootApplication
+public class SpringSecurityJwtApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringSecurityJwtApplication.class, args);
+    }
+}
+#+end_src
+
+** Build the project
+
+#+begin_src sh
+mvn clean package
+#+end_src
+
+** Add the properties to the =application.properties= file
+
+#+begin_src properties
+rsa.private-key=classpath:certs/private.pem
+rsa.public-key=classpath:certs/public.pem
+#+end_src
+
+** Add encoder and decoder to =SecurityConfig.java=
+
+#+begin_src java
+public class SecurityConfig {
+
+    private final RsaKeyProperties rsaKeys;
+
+    @Bean
+    JwtDecoder jwtDecoder() {
+        return NimbusJwtDecoder.withPublicKey(rsaKeys.publicKey()).build();
+    }
+
+    @Bean
+    JwtEncoder jwtEncoder() {
+        JWK jwk = new RSAKey.Builder(rsaKeys.publicKey()).privateKey(rsaKeys.privateKey()).build();
+        JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
+        return new NimbusJwtEncoder(jwks);
+    }
+}
+#+end_src
+
+*** Final SecurityConfig.java
+
+#+begin_src java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    private final RsaKeyProperties rsaKeys;
+
+    public SecurityConfig(RsaKeyProperties rsaKeys) {
+        this.rsaKeys = rsaKeys;
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().authenticated()
+                )
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .httpBasic(Customizer.withDefaults())
+                .build();
+    }
+
+    @Bean
+    public InMemoryUserDetailsManager users() {
+        return new InMemoryUserDetailsManager(
+                User.withUsername("bill")
+                        .password("{noop}password")
+                        .authorities("read")
+                        .build()
+        );
+    }
+
+    @Bean
+    JwtDecoder jwtDecoder() {
+        return NimbusJwtDecoder.withPublicKey(rsaKeys.publicKey()).build();
+    }
+
+    @Bean
+    JwtEncoder jwtEncoder() {
+        JWK jwk = new RSAKey.Builder(rsaKeys.publicKey()).privateKey(rsaKeys.privateKey()).build();
+        JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
+        return new NimbusJwtEncoder(jwks);
+    }
+}
+#+end_src
+
+** Create the =TokenService.java= class to get the token
+
+#+begin_src java
+@Service
+public class TokenService {
+
+    private final JwtEncoder encoder;
+
+    public TokenService(JwtEncoder encoder) {
+        this.encoder = encoder;
+    }
+
+    public String genetateToken(Authentication authentication) {
+        Instant now = Instant.now();
+        String scope = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(" "));
+        JwtClaimsSet claims = JwtClaimsSet.builder()
+                .issuer("self")
+                .issuedAt(now)
+                .expiresAt(now.plus(1, ChronoUnit.HOURS))
+                .subject(authentication.getName())
+                .claim("scope", scope)
+                .build();
+        return this.encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+    }
+}
+#+end_src
+
+** Create =AuthController.java=
+
+#+begin_src java
+@RestController
+public class AuthController {
+
+    private static final Logger LOG = LoggerFactory.getLogger(AuthController.class);
+
+    private final TokenService tokenService;
+
+    public AuthController(TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
+
+    @PostMapping("/token")
+    public String token(Authentication authentication) {
+        LOG.debug("Token requested for user: {}", authentication.getName());
+        String token = tokenService.genetateToken(authentication);
+        LOG.debug("Token granted {}", token);
+        return token;
+    }
+}
+#+end_src
+
+** Test the application with httpie
+
+*** Get the token
+
+#+begin_src sh
+http POST :8080/token --auth bill:password -v
+#+end_src
+
+*** Test protected endpoint using the token
+
+#+begin_src sh
+http :8080 'Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiYmlsbCIsImV4cCI6MTczMjk3MDMzNywiaWF0IjoxNzMyOTY2NzM3LCJzY29wZSI6InJlYWQifQ.O-3vcSwemuoG14HxD9LpGlW0rDd5T83Rgh6dr7QaTStA5tB0ImgGO5owWEAZCP3cy8lopImEAHb8m8FutJHInM5m_6LKd-J5tGUsa6D4TFTGypi4aMbS5VnD9QCKGNMfkz3gxj29-l8ei9DJlLtnHb2wK2B5iyoslQbgalW6FAYFtZUi1hGK-q-OekdNirRc11lZkWn8ScmuR_4C0KNJDCpWuvI0zHwS2autnzrw_HBJVT9oFqLWxESv129FqYvJtcmKPPr2vl6pmzt_5dOUSR2RgWQY56I4m-m78mbJfh3LI3xeKSfJwOmAa9TtnTdC-u97rwpcrV9HB433UV1ZhQ'
+#+end_src
+
+** Add a test
+
+*** Add the dependency for security test
+
+#+begin_src xml
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-test</artifactId>
+</dependency>
+#+end_src
+
+*** Add a test for =HomeController.java=

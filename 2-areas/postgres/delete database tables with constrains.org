@@ -1,0 +1,14 @@
+* delete database tables with constrains
+:PROPERTIES:
+:CUSTOM_ID: delete-database-tables-with-constrains
+:END:
+#+begin_src sql
+DO $$
+BEGIN
+    EXECUTE (
+        SELECT string_agg('DROP TABLE IF EXISTS "' || tablename || '" CASCADE;', ' ')
+        FROM pg_tables
+        WHERE schemaname = 'public'
+    );
+END $$;
+#+end_src
