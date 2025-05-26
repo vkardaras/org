@@ -139,7 +139,7 @@ You will get something similar to this
 #+begin_src shell
 To add a worker to this swarm, run the following command:
 
-    docker swarm join --token SWMTKN-1-0r2mq0xrecagzucdrwz6uvewcicc6256ldr9mvyr4357q8uyln-aucqanoh7r1g1qgscu71c783e 10.249.252.179:2377
+    docker swarm join --token <TOKEN>
 #+end_src
 
 Exit and get into node4
@@ -151,7 +151,7 @@ multipass shell node4
 Add a swarm worker
 
 #+begin_src shell
-docker swarm join --token SWMTKN-1-0r2mq0xrecagzucdrwz6uvewcicc6256ldr9mvyr4357q8uyln-aucqanoh7r1g1qgscu71c783e 10.249.252.179:2377
+docker swarm join --token <TOKEN>
 #+end_src
 
 Do the same for node5
