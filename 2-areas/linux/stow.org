@@ -1,11 +1,7 @@
 * stow
-:PROPERTIES:
-:CUSTOM_ID: stow
-:END:
+
 ** Installation
-:PROPERTIES:
-:CUSTOM_ID: installation
-:END:
+
 #+begin_src sh
 # debian
 sudo apt install stow
@@ -15,9 +11,7 @@ sudo pacman -Ss stow
 #+end_src
 
 ** Initialization
-:PROPERTIES:
-:CUSTOM_ID: initialization
-:END:
+
 1. Create the folder =~/dotfiles/=
 2. Add files to the directory
 
@@ -45,9 +39,7 @@ stow --adapt .
 #+end_src
 
 *** Clear all symlinks
-:PROPERTIES:
-:CUSTOM_ID: clear-all-symlinks
-:END:
+
 #+begin_src sh
 stow -D .
 #+end_src

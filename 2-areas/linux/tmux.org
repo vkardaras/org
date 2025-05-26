@@ -1,7 +1,5 @@
 * tmux
-:PROPERTIES:
-:CUSTOM_ID: tmux
-:END:
+
 General
 
 #+begin_src sh
@@ -23,8 +21,6 @@ https://github.com/tmux-plugins/tpm
 tmux source-file ~/.tmux.conf
 #+end_src
 
-[[tmux windows]]
-
-[[tmux panes]]
-
-[[tmux sessions]]
+** [[file:tmux windows.org][tmux windows]]
+** [[file:tmux panes.org][tmux panes]]
+** [[file:tmux sessions.org][tmux sessions]]

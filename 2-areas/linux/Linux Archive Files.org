@@ -1,7 +1,5 @@
 * Linux Archive Files
-:PROPERTIES:
-:CUSTOM_ID: linux-archive-files
-:END:
+
 Archive files
 
 #+begin_src sh

@@ -1,9 +1,7 @@
 * qemu-kvm
-:PROPERTIES:
-:CUSTOM_ID: qemu-kvm
-:END:
-- [[linux check virtualization]]
-- [[virt-manager settings]]
-- [[Copy-Paste between host and vm in arch]]
-- [[Improve graphics in arch vm]]
-- [[install qemu-kvm in arch]]
+
+** [[file:linux check virtualization.org][linux check virtualization]]
+** [[file:virt-manager settings.org][virt-manager settings]]
+** [[file:Copy-Paste between host and vm in arch.org][Copy-Paste between host and vm in arch]]
+** [[file:Improve graphics in arch vm.org][Improve graphics in arch vm]]
+** [[file:install qemu-kvm in arch.org][install qemu-kvm in arch]]

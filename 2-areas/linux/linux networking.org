@@ -1,11 +1,7 @@
 * linux networking
-:PROPERTIES:
-:CUSTOM_ID: linux-networking
-:END:
+
 ** Show used ports with processes
-:PROPERTIES:
-:CUSTOM_ID: show-used-ports-with-processes
-:END:
+
 #+begin_src sh
 sudo lsof -i -P -n | grep LISTEN
 #+end_src

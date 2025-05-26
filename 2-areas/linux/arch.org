@@ -1,20 +1,14 @@
 * arch
-:PROPERTIES:
-:CUSTOM_ID: arch
-:END:
+
 ** Install
-:PROPERTIES:
-:CUSTOM_ID: install
-:END:
+
 #+begin_src sh
 archinstall
 #+end_src
 
-[[arch pacman]]
-
-[[qemu-kvm]]
-
-[[install programs from script]]
-
-[[install yay]] [[install zen on arch]] [[instal printer-scanner on
-arch]]
+** [[file:arch pacman.org][arch pacman]]
+** [[file:qemu-kvm.org][qemu-kvm]]
+** [[file:install programs from script.org][install programs from script]]
+** [[file:install yay.org][install yay]]
+** [[file:install zen on arch.org][install zen on arch]]
+** [[file:instal printer-scanner on arch.org][instal printer-scanner on arch]]

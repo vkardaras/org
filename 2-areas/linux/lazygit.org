@@ -1,11 +1,7 @@
 * lazygit
-:PROPERTIES:
-:CUSTOM_ID: lazygit
-:END:
+
 ** navigation
-:PROPERTIES:
-:CUSTOM_ID: navigation
-:END:
+
 #+begin_src sh
 # navigate between panes
 tab or the number of the pane
@@ -15,18 +11,14 @@ tab or the number of the pane
 #+end_src
 
 ** prune remote branches
-:PROPERTIES:
-:CUSTOM_ID: prune-remote-branches
-:END:
+
 #+begin_src sh
 # add following to git config
 git config --global fetch.prune true
 #+end_src
 
 ** make push request
-:PROPERTIES:
-:CUSTOM_ID: make-push-request
-:END:
+
 #+begin_src sh
 # Open in browser for pull request
 o

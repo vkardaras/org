@@ -1,7 +1,5 @@
 * AppImage
-:PROPERTIES:
-:CUSTOM_ID: appimage
-:END:
+
 - Download the AppImage (example.AppImage)
 - Make it executabla
 
@@ -56,4 +54,4 @@ StartupNotify=true
 sudo desktop-file-install example.desktop
 #+end_src
 
-[[AppImage Obsidian]]
+[[file:AppImage Obsidian.org][AppImage Obsidian]]

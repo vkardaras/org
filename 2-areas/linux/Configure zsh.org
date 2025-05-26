@@ -1,7 +1,5 @@
 ** Configure zsh
-:PROPERTIES:
-:CUSTOM_ID: configure-zsh
-:END:
+
 Check current shell
 
 #+begin_src sh

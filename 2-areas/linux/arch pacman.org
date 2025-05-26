@@ -1,7 +1,5 @@
 * arch pacman
-:PROPERTIES:
-:CUSTOM_ID: arch-pacman
-:END:
+
 #+begin_src sh
 # install a package
 sudo pacman -S package-name

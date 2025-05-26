@@ -1,7 +1,5 @@
 * instal printer-scanner on arch
-:PROPERTIES:
-:CUSTOM_ID: instal-printer-scanner-on-arch
-:END:
+
 #+begin_src sh
 # Install cups, sane and hplip
 sudo pacman -S cups sane hplip

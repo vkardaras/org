@@ -1,7 +1,5 @@
 * install yay
-:PROPERTIES:
-:CUSTOM_ID: install-yay
-:END:
+
 #+begin_src sh
 sudo pacman -S --needed git base-devel
 git clone https://aur.archlinux.org/yay.git

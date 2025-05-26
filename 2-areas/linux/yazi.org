@@ -1,11 +1,7 @@
 * yazi
-:PROPERTIES:
-:CUSTOM_ID: yazi
-:END:
+
 ** Instalation
-:PROPERTIES:
-:CUSTOM_ID: instalation
-:END:
+
 #+begin_src sh
 # arch
 sudo pacman -S yazi
@@ -19,9 +15,7 @@ winget install sxyazi.yazi
 #+end_src
 
 ** Yazi core features
-:PROPERTIES:
-:CUSTOM_ID: yazi-core-features
-:END:
+
 #+begin_src sh
 # run yazi
 yazi
@@ -61,9 +55,7 @@ a
 #+end_src
 
 ** Yazi advanced features
-:PROPERTIES:
-:CUSTOM_ID: yazi-advanced-features
-:END:
+
 #+begin_src sh
 # filter files by name
 f
@@ -85,9 +77,7 @@ w
 #+end_src
 
 ** Yazi plugins
-:PROPERTIES:
-:CUSTOM_ID: yazi-plugins
-:END:
+
 #+begin_src sh
 # clone the repo for the tokyonight theme
 git clone https://github.com/BennyOe/tokyo-night.yazi.git ~/.config/yazi/flavors/tokyo-night.yazi

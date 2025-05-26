@@ -1,19 +1,13 @@
 * linux graphics
-:PROPERTIES:
-:CUSTOM_ID: linux-graphics
-:END:
+
 ** Check display manager
-:PROPERTIES:
-:CUSTOM_ID: check-display-manager
-:END:
+
 #+begin_src sh
 echo $XDG_SESSION_TYPE
 #+end_src
 
 ** Disable wayland
-:PROPERTIES:
-:CUSTOM_ID: disable-wayland
-:END:
+
 #+begin_src sh
 # move to this file
 sudo nvim /etc/gdm3/daemon.conf

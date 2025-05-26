@@ -1,7 +1,5 @@
 * install qemu-kvm in arch
-:PROPERTIES:
-:CUSTOM_ID: install-qemu-kvm-in-arch
-:END:
+
 #+begin_src sh
 # synchronize repositories
 sudo pacman -Syy

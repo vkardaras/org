@@ -1,19 +1,10 @@
-- [[check linux release]]
+* Linux basics
 
-- [[Command types]]
-
-- [[Basic Linux Commands]]
-
-- [[Help in Linux]]
-
-- [[Linux shell]]
-
-- [[Linux shell 2]]
-
-- [[Linux change owner]]
-
-- [[Linux Kernel]]
-
-- [[qemu-kvm]]
-
-- [X] this is it
+** [[file:check linux release.org][check linux release]]
+** [[file:Command types.org][Command types]]
+** [[file:Basic Linux Commands.org][Basic Linux Commands]]
+** [[file:Help in Linux.org][Help in Linux]]
+** [[file:Linux shell.org][Linux shell]]
+** [[file:Linux change owner.org][Linux change owner]]
+** [[file:Linux Kernel.org][Linux Kernel]]
+** [[file:qemu-kvm.org][qemu-kvm]]

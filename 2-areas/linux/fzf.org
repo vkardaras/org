@@ -1,7 +1,5 @@
 * fzf
-:PROPERTIES:
-:CUSTOM_ID: fzf
-:END:
+
 #+begin_src sh
 # start fzf
 fzf

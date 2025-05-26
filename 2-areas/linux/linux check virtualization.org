@@ -1,11 +1,7 @@
 * linux check virtualization
-:PROPERTIES:
-:CUSTOM_ID: linux-check-virtualization
-:END:
+
 ** Check if the system supports virtualization
-:PROPERTIES:
-:CUSTOM_ID: check-if-the-system-supports-virtualization
-:END:
+
 #+begin_src sh
 egrep -c '(vmx|svm)' /proc/cpuinfo
 #+end_src

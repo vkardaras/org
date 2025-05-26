@@ -1,19 +1,13 @@
 * linux processes
-:PROPERTIES:
-:CUSTOM_ID: linux-processes
-:END:
+
 ** View running processes
-:PROPERTIES:
-:CUSTOM_ID: view-running-processes
-:END:
+
 #+begin_src sh
 top
 #+end_src
 
 *** View running processes of a program
-:PROPERTIES:
-:CUSTOM_ID: view-running-processes-of-a-program
-:END:
+
 #+begin_src sh
 ps aux | grep chrome
 #+end_src
@@ -25,9 +19,7 @@ The aux options are as follows:
 - =x= = also show processes not attached to a terminal
 
 ** Kill a process
-:PROPERTIES:
-:CUSTOM_ID: kill-a-process
-:END:
+
 #+begin_src sh
 # kill by process id
 kill -9 3827

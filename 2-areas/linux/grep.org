@@ -1,84 +1,62 @@
 * grep
-:PROPERTIES:
-:CUSTOM_ID: grep
-:END:
+
 ** Search for a word in a file
-:PROPERTIES:
-:CUSTOM_ID: search-for-a-word-in-a-file
-:END:
+
 #+begin_src sh
 grep someword fake_logs.txt
 #+end_src
 
 ** Pipe output to grep
-:PROPERTIES:
-:CUSTOM_ID: pipe-output-to-grep
-:END:
+
 #+begin_src sh
 cat fake_logs.txt | grep someword
 #+end_src
 
 ** Search for a word in multiple files
-:PROPERTIES:
-:CUSTOM_ID: search-for-a-word-in-multiple-files
-:END:
+
 #+begin_src sh
 grep div *.html
 #+end_src
 
 ** Count occurrences of a word in multiple files
-:PROPERTIES:
-:CUSTOM_ID: count-occurrences-of-a-word-in-multiple-files
-:END:
+
 #+begin_src sh
 grep div *.html -c
 #+end_src
 
 ** Grep with case insensitive
-:PROPERTIES:
-:CUSTOM_ID: grep-with-case-insensitive
-:END:
+
 #+begin_src sh
 grep div *.html -i
 #+end_src
 
 ** Show lines that do not match
-:PROPERTIES:
-:CUSTOM_ID: show-lines-that-do-not-match
-:END:
+
 #+begin_src sh
 grep div *.html -v
 #+end_src
 
 ** Much for hole lines
-:PROPERTIES:
-:CUSTOM_ID: much-for-hole-lines
-:END:
+
 #+begin_src sh
 grep -x "</html>" *.html
 #+end_src
 
 ** Much for hole word
-:PROPERTIES:
-:CUSTOM_ID: much-for-hole-word
-:END:
+
 #+begin_src sh
 grep -w iv *.html
 #+end_src
 
 ** Much flags in man pages
-:PROPERTIES:
-:CUSTOM_ID: much-flags-in-man-pages
-:END:
+
 #+begin_src sh
 man lsof | grep -- '-a'
 man lsof | grep -e '-a'
 #+end_src
 
 ** Print lines before and after much
-:PROPERTIES:
-:CUSTOM_ID: print-lines-before-and-after-much
-:END:
+
 #+begin_src sh
 # print 3 lines before much 'iv'
 grep -w -B 3 iv *.html
@@ -88,9 +66,7 @@ grep -w -A 3 iv *.html
 #+end_src
 
 ** Grep with regex
-:PROPERTIES:
-:CUSTOM_ID: grep-with-regex
-:END:
+
 #+begin_src sh
 # much a line starting with matching word
 cat dockerfile | grep '^FROM'

@@ -24,7 +24,7 @@ cat > test.txt
 ctrl-d
 #+end_src
 
-[[Linux Archive Files]]
+[[file:Linux Archive Files.org][Linux Archive Files]]
 
 List files
 

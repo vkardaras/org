@@ -1,11 +1,7 @@
 * linux tips
-:PROPERTIES:
-:CUSTOM_ID: linux-tips
-:END:
+
 ** Copy text from neovim to clipboard
-:PROPERTIES:
-:CUSTOM_ID: copy-text-from-neovim-to-clipboard
-:END:
+
 #+begin_src sh
 sudo apt install xclip
 #+end_src

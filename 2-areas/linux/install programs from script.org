@@ -1,13 +1,11 @@
 * install programs from script
-:PROPERTIES:
-:CUSTOM_ID: install-programs-from-script
-:END:
+
 Create the file =install.sh=
 
 #+begin_src sh
 #!/bin/bash
 
-pkgs=(networkmanager curl wget git tmux ttf-jetbrains-mono-nerd zsh wezterm starship thefuck eza fzf bat neovim neofetch starship ripgrep jdk21-openjdk nodejs npm maven jq kitty imagemagick zip unzip xclip lazygit ghostty jdk21-openjdk nodejs npm zoxide lazygit fuse2)
+pkgs=(networkmanager curl wget git tmux ttf-jetbrains-mono-nerd zsh wezterm starship thefuck eza fzf bat neovim neofetch starship ripgrep jdk21-openjdk nodejs npm maven jq kitty imagemagick zip unzip xclip lazygit ghostty jdk21-openjdk nodejs npm zoxide lazygit fuse2 gcc pandoc)
 sudo pacman -S --noconfirm "${pkgs[@]}"
 
 # enable and start the NetworkManager service

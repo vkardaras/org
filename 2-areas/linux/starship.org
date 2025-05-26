@@ -1,7 +1,5 @@
 * starship
-:PROPERTIES:
-:CUSTOM_ID: starship
-:END:
+
 Install starship
 
 #+begin_src sh

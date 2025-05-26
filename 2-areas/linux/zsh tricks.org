@@ -1,7 +1,5 @@
 ** Cursor Navigation and Line Editing
-:PROPERTIES:
-:CUSTOM_ID: cursor-navigation-and-line-editing
-:END:
+
 Zsh provides powerful shortcuts for efficient cursor movement and text
 manipulation ### Cursor Movement
 
@@ -14,9 +12,7 @@ Ctrl + e
 #+end_src
 
 *** Text Deletion
-:PROPERTIES:
-:CUSTOM_ID: text-deletion
-:END:
+
 #+begin_src sh
 # Delete from cursor to start of line
 Ctrl + u
@@ -32,9 +28,7 @@ Alt + D
 #+end_src
 
 *** Text manipulation
-:PROPERTIES:
-:CUSTOM_ID: text-manipulation
-:END:
+
 #+begin_src sh
 # Paste (yank) previously cut text
 Ctrl + y
@@ -47,9 +41,7 @@ Ctrl + xt
 #+end_src
 
 *** Command Editing
-:PROPERTIES:
-:CUSTOM_ID: command-editing
-:END:
+
 #+begin_src sh
 # Edit current command in default editor 
 Ctrl + xe
@@ -62,15 +54,11 @@ Ctrl + q
 #+end_src
 
 ** Globbing
-:PROPERTIES:
-:CUSTOM_ID: globbing
-:END:
+
 Zsh provides powerful globbing features for flexible file matching
 
 *** Standard Globbing
-:PROPERTIES:
-:CUSTOM_ID: standard-globbing
-:END:
+
 #+begin_src sh
 # Match all .txt files in the current directory
 ,*.txt
@@ -79,9 +67,7 @@ ls *.md
 #+end_src
 
 *** Recursive Globbing
-:PROPERTIES:
-:CUSTOM_ID: recursive-globbing
-:END:
+
 #+begin_src sh
 # Match all .txt files recursively within directories
 ,**/*.txt
@@ -90,9 +76,7 @@ ls **/*.java
 #+end_src
 
 *** Extended Globbing
-:PROPERTIES:
-:CUSTOM_ID: extended-globbing
-:END:
+
 Enable extended globbing for more advanced pattern matching:
 =setopt EXTENDED_GLOB=
 
@@ -105,16 +89,12 @@ ls *(/)
 #+end_src
 
 ** Command History and Expansion
-:PROPERTIES:
-:CUSTOM_ID: command-history-and-expansion
-:END:
+
 Zsh offers powerful features for recalling and manipulating previous
 commands
 
 *** History Recall
-:PROPERTIES:
-:CUSTOM_ID: history-recall
-:END:
+
 #+begin_src sh
 # Insert last argument of previous command
 !$
@@ -127,9 +107,7 @@ commands
 #+end_src
 
 *** History Modification
-:PROPERTIES:
-:CUSTOM_ID: history-modification
-:END:
+
 #+begin_src sh
 # Substitute 'x' with 'y' in the previous command
 !!:s/x/y
@@ -142,9 +120,7 @@ find . -type f -name '*.txt' -execa chmod sudo 600 {} +
 #+end_src
 
 *** Current Command Expansion
-:PROPERTIES:
-:CUSTOM_ID: current-command-expansion
-:END:
+
 #+begin_src sh
 # Execute previous command 
 !!
@@ -160,9 +136,7 @@ sudo !!
 #+end_src
 
 *** Quick Fixes
-:PROPERTIES:
-:CUSTOM_ID: quick-fixes
-:END:
+
 #+begin_src sh
 # Fix command: opens last command in editor
 fc
@@ -172,16 +146,12 @@ r
 #+end_src
 
 ** Parameter Expansion and Shell Variables
-:PROPERTIES:
-:CUSTOM_ID: parameter-expansion-and-shell-variables
-:END:
+
 Zsh provides powerful features for working with parameters and shell
 variables
 
 *** Positional Parameters
-:PROPERTIES:
-:CUSTOM_ID: positional-parameters
-:END:
+
 #+begin_src sh
 # Number of positional parameters passed to the script or function
 $#
@@ -194,9 +164,7 @@ $*
 #+end_src
 
 *** Special Variables
-:PROPERTIES:
-:CUSTOM_ID: special-variables
-:END:
+
 #+begin_src sh
 # Exit status of the last executed command
 $?
@@ -206,15 +174,11 @@ $_
 #+end_src
 
 ** Path and Filename Operations
-:PROPERTIES:
-:CUSTOM_ID: path-and-filename-operations
-:END:
+
 Zsh provides various shortcuts for working with file paths and filenames
 
 *** Path Expansion
-:PROPERTIES:
-:CUSTOM_ID: path-expansion
-:END:
+
 #+begin_src sh
 # Quick path expansion (e.g., expands to /usr/local/bin)
 /u/lo/b<Tab>
@@ -223,9 +187,7 @@ ls /u/lo/b<Tab>
 #+end_src
 
 *** Filename Manipulation
-:PROPERTIES:
-:CUSTOM_ID: filename-manipulation
-:END:
+
 #+begin_src sh
 # set a file variabla
 file=demo.sh
@@ -244,15 +206,11 @@ echo $file:u
 #+end_src
 
 ** Brace and Range Expansions
-:PROPERTIES:
-:CUSTOM_ID: brace-and-range-expansions
-:END:
+
 Zsh offers powerful features for generating sequences and sets of items
 
 *** Brace Expansion
-:PROPERTIES:
-:CUSTOM_ID: brace-expansion
-:END:
+
 #+begin_src sh
 # Expand to multiple terms
 mkdir -p {apple,banana,cherry}
@@ -264,9 +222,7 @@ mkdir -p {apple,banana,cherry}
 #+end_src
 
 ** Directory Navigation Techniques
-:PROPERTIES:
-:CUSTOM_ID: directory-navigation-techniques
-:END:
+
 Efficient directory navigation is crucial for command-line productivity
 ​### Directory Shortcuts
 
@@ -282,23 +238,17 @@ These shortcuts streamline directory navigation, making in easier to
 move between frequently used directories
 
 ** Custom commands and Key Bindings
-:PROPERTIES:
-:CUSTOM_ID: custom-commands-and-key-bindings
-:END:
+
 Zsh allows for the creation of custom commands and key bindings to
 further enhance your workflow
 
 *** Understanding =BUFFER= and =zle=
-:PROPERTIES:
-:CUSTOM_ID: understanding-buffer-and-zle
-:END:
+
 - =BUFFER= - Represents the current command line content
 - =zle= - Zsh Line Editor, used to manipulate the command line
 
 *** Custom Command Example
-:PROPERTIES:
-:CUSTOM_ID: custom-command-example
-:END:
+
 To create a custom command to copy teh entire command line to the
 clipboard
 
@@ -313,9 +263,7 @@ This function uses =xclip= to copy the content of =BUFFER= (the current
 command line) to the clipboard.
 
 *** Adding Custom Key Bindings
-:PROPERTIES:
-:CUSTOM_ID: adding-custom-key-bindings
-:END:
+
 Bind custom functions or existing ZLE commands to specific key sequences
 
 #+begin_src sh

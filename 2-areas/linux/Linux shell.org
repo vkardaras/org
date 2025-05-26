@@ -1,11 +1,7 @@
 * Linux shell
-:PROPERTIES:
-:CUSTOM_ID: linux-shell
-:END:
+
 ** General
-:PROPERTIES:
-:CUSTOM_ID: general
-:END:
+
 Check the current shell
 
 #+begin_src sh
@@ -66,4 +62,6 @@ Install ohMyZsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 #+end_src
 
-[[zsh]]
+** [[file:zsh.org][zsh]]
+** [[file:Linux View File Size.org][Linux View File Size]]
+** [[file:Linux Archive Files.org][Linux Archive Files]]

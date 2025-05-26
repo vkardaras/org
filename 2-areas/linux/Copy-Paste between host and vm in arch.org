@@ -1,7 +1,5 @@
 * Paste between host and vm in arch
-:PROPERTIES:
-:CUSTOM_ID: paste-between-host-and-vm-in-arch
-:END:
+
 #+begin_src sh
 sudo pacman -S spice-vdagent
 #+end_src
