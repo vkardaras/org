@@ -1,35 +1,25 @@
 * python virtual environment
-:PROPERTIES:
-:CUSTOM_ID: python-virtual-environment
-:END:
+
 ** Move to python project and add a virtual environment
-:PROPERTIES:
-:CUSTOM_ID: move-to-python-project-and-add-a-virtual-environment
-:END:
+
 #+begin_src sh
 python3 -m venv venv
 #+end_src
 
 ** Activate the virtual environment
-:PROPERTIES:
-:CUSTOM_ID: activate-the-virtual-environment
-:END:
+
 #+begin_src sh
 sourc venv/bin/activate
 #+end_src
 
 ** Install any python library
-:PROPERTIES:
-:CUSTOM_ID: install-any-python-library
-:END:
+
 #+begin_src sh
 pip3 install requests
 #+end_src
 
 ** Deactivate virtual environment
-:PROPERTIES:
-:CUSTOM_ID: deactivate-virtual-environment
-:END:
+
 #+begin_src sh
 deactivate
 #+end_src

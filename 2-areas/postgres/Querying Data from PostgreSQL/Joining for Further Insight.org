@@ -2,9 +2,7 @@
 - Joining is what makes a database "relational"
 
 ** Inner Joins
-:PROPERTIES:
-:CUSTOM_ID: inner-joins
-:END:
+
 - Returns all rows from two or more tables that meet the join condition
 - Joined fields must exist in both tables
 
@@ -44,9 +42,7 @@ INNER JOIN orders
 #+end_src
 
 *** Alternative Inner Join Syntax
-:PROPERTIES:
-:CUSTOM_ID: alternative-inner-join-syntax
-:END:
+
 #+begin_src sql
         FROM customers
 INNER JOIN orders
@@ -68,9 +64,7 @@ WHERE customers.customer_id = orders.customer_id;
 To use =ON=, you must have a matching =JOIN= keyword
 
 ** Table Aliases
-:PROPERTIES:
-:CUSTOM_ID: table-aliases
-:END:
+
 - Alias: Temporary label in a query
 
 #+begin_src sql
@@ -91,18 +85,14 @@ INNER JOIN orders o
 #+end_src
 
 ** Outer Joins
-:PROPERTIES:
-:CUSTOM_ID: outer-joins
-:END:
+
 - =Lef Join= Returns all records from the left table along with any
   matching record from the right table
 - =Right Join= Returns all records from the right table along with any
   matching records from the left table
 
 *** Left Outer Join
-:PROPERTIES:
-:CUSTOM_ID: left-outer-join
-:END:
+
 #+begin_src sql
             SELECT c.first_name,
                                 c.last_name,
@@ -114,9 +104,7 @@ LEFT OUTER JOIN orders o
 #+end_src
 
 *** Right Outer Join
-:PROPERTIES:
-:CUSTOM_ID: right-outer-join
-:END:
+
 #+begin_src sql
               SELECT c.first_name,
                                  c.last_name,
@@ -142,16 +130,12 @@ RIGHT JOIN orders o
 #+end_src
 
 *** Left vs. Right
-:PROPERTIES:
-:CUSTOM_ID: left-vs.-right
-:END:
+
 - Left outer joins are far more prevalent in practice
 - It can be easier to read and interpret
 
 ** Full Join
-:PROPERTIES:
-:CUSTOM_ID: full-join
-:END:
+
 - Returns all rows from two or more tables regardless of whether the
   join condition is met
 - If there is no match, the missing side will contain null
@@ -167,12 +151,8 @@ FULL OUTER JOIN orders o
 #+end_src
 
 ** Implementing Joins
-:PROPERTIES:
-:CUSTOM_ID: implementing-joins
-:END:
+
 *** Lookup tables
-:PROPERTIES:
-:CUSTOM_ID: lookup-tables
-:END:
+
 Database tables that contain data that specify the values for given
 codes

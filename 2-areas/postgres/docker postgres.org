@@ -1,11 +1,7 @@
 * docker postgres
-:PROPERTIES:
-:CUSTOM_ID: docker-postgres
-:END:
+
 ** example file
-:PROPERTIES:
-:CUSTOM_ID: example-file
-:END:
+
 #+begin_src yml
 services:
   postgres:

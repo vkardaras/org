@@ -1,19 +1,13 @@
 ** Overview
-:PROPERTIES:
-:CUSTOM_ID: overview
-:END:
+
 *** Formatting SQL Queries
-:PROPERTIES:
-:CUSTOM_ID: formatting-sql-queries
-:END:
+
 - Strive for consistent formatting
 - Emphasis on readability
 - Use UPPERCASE for SQL keywords
 
 *** Select can perform calculations
-:PROPERTIES:
-:CUSTOM_ID: select-can-perform-calculations
-:END:
+
 #+begin_src sql
 > SELECT 2+2;
 4
@@ -26,9 +20,7 @@ SELECT * FROM tablename
 #+end_src
 
 ** Explicit Selection
-:PROPERTIES:
-:CUSTOM_ID: explicit-selection
-:END:
+
 - Explicitly list specific columns of interest
 - Increases readability
 - makes code easier to troubleshoot
@@ -52,9 +44,7 @@ SELECT mkt_carrier AS airline,
 #+end_src
 
 ** Selecting distinct values
-:PROPERTIES:
-:CUSTOM_ID: selecting-distinct-values
-:END:
+
 Distinct keyword returns unique values from a column
 
 #+begin_src sql

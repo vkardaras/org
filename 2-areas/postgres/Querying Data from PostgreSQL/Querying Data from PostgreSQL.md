@@ -1,7 +1,0 @@
-[[Selecting Your Data]]
-
-[[Limiting your results]]
-
-[[Joining for Further Insight]]
-
-[[Presenting and Aggregating your results]]

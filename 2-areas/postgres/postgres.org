@@ -1,10 +1,6 @@
-[[Querying Data from PostgreSQL]]
+* postgres
 
-[[psql common commands]]
-
-![[docker postgres]]
-
-[[delete database tables with constrains]]
-
-#+caption: This is a remote image
-[[https://gist.ro/s/remote.png]]
+** Querying Data from PostgreSQL
+** psql common commands
+** docker postgres
+** delete database tables with constrains

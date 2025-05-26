@@ -1,11 +1,7 @@
 ** Sort Order
-:PROPERTIES:
-:CUSTOM_ID: sort-order
-:END:
+
 *** Querying Residency
-:PROPERTIES:
-:CUSTOM_ID: querying-residency
-:END:
+
 #+begin_src sql
     SELECT name, state
         FROM residency
@@ -15,9 +11,7 @@ ORDER BY name;
 If we do not list a sorting direction, ascending is the default order.
 
 *** Specifying Sort Order
-:PROPERTIES:
-:CUSTOM_ID: specifying-sort-order
-:END:
+
 =Ascending= Smallest to largest
 
 #+begin_src sql
@@ -31,9 +25,7 @@ SORT BY DESC
 #+end_src
 
 *** Sort with more than one column
-:PROPERTIES:
-:CUSTOM_ID: sort-with-more-than-one-column
-:END:
+
 #+begin_src sql
     SELECT name, state
         FROM residency
@@ -41,9 +33,7 @@ ORDER BY state, name;
 #+end_src
 
 *** Sort in both orders
-:PROPERTIES:
-:CUSTOM_ID: sort-in-both-orders
-:END:
+
 #+begin_src sql
     SELECT name, state
         FROM residency
@@ -51,13 +41,9 @@ ORDER BY state DESC, name ASC;
 #+end_src
 
 ** Introduction to Aggregate Functions
-:PROPERTIES:
-:CUSTOM_ID: introduction-to-aggregate-functions
-:END:
+
 *** Aggregate Functions
-:PROPERTIES:
-:CUSTOM_ID: aggregate-functions
-:END:
+
 - =COUNT= counts rows in a specified table or view
 - =SUM= calculates the sum of a given set of values
 - =AVG= calculates the average of a set of values
@@ -79,9 +65,7 @@ SELECT AVG(age) AS avg_age
 #+end_src
 
 *** Analyzing Groups
-:PROPERTIES:
-:CUSTOM_ID: analyzing-groups
-:END:
+
 - Aggregate functions can be used for more sophisticated analysis
 - What is our average age by grade level?
 - GROUP BY keyword is used to specify groups
@@ -94,9 +78,7 @@ GROUP BY grade_lvl;
 #+end_src
 
 *** Using GROUP BY with Aggregation
-:PROPERTIES:
-:CUSTOM_ID: using-group-by-with-aggregation
-:END:
+
 Incorrect
 
 #+begin_src sql
@@ -167,9 +149,7 @@ ORDER BY AVG(p.dep_delay_new);
 #+end_src
 
 ** Filtering Aggregate Results
-:PROPERTIES:
-:CUSTOM_ID: filtering-aggregate-results
-:END:
+
 - =WHERE= Filter single rows
 - =HAVING= Filter aggregate results
 

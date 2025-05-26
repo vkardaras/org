@@ -1,7 +1,6 @@
-[[Selecting Your Data]]
+* Querying Data from PostgreSQL
 
-[[Limiting your results]]
-
-[[Joining for Further Insight]]
-
-[[Presenting and Aggregating your results]]
+** Selecting Your Data
+** Limiting your results
+** Joining for Further Insight
+** Presenting and Aggregating your results

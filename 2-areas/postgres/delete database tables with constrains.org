@@ -1,7 +1,5 @@
 * delete database tables with constrains
-:PROPERTIES:
-:CUSTOM_ID: delete-database-tables-with-constrains
-:END:
+
 #+begin_src sql
 DO $$
 BEGIN
