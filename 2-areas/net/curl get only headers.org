@@ -1,3 +1,0 @@
-#+begin_src shell
-curl -I https://jsonplaceholder.typicode.com/users
-#+end_src

@@ -1,8 +1,0 @@
-* curl
-
-** [[file:curl get.org][curl get]]
-** [[file:curl send headers.org][curl send headers]]
-** [[file:curl get only headers.org][curl get only headers]]
-** [[file:curl get json.org][curl get json]]
-** [[file:curl basic authentication.org][curl basic authentication]]
-** [[file:curl pretty print.org][curl pretty print]]

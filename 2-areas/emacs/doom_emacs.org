@@ -12,7 +12,24 @@ export PATH="$HOME/.config/emacs/bin:$PATH"
 SPC h r r
 #+end_src
 
-** [[file:Bookmarks, Buffers and Windows in Doom Emacs.org][Bookmarks, Buffers and Windows in Doom Emacs]]
+** Emacs general
+
+#+begin_src sh
+# zoom in
+C-x C+
+
+# zoom out
+C-x C-
+
+# open file
+SPC .
+
+# create or open bookmark
+SPC RET
+
+# open a project
+SPC p p
+#+end_src
 
 ** Projects with Projectile, File Explorer with Treemacs & EShel
 
@@ -32,5 +49,9 @@ SPC o e
 # list recent files
 SPC f r
 #+end_src
+
+** [[file:dired.org][Dired]]
+
+** [[file:Bookmarks, Buffers and Windows in Doom Emacs.org][Bookmarks, Buffers and Windows in Doom Emacs]]
 
 ** [[file:doom emacs org mode.org][Org Mode]]

@@ -1,0 +1,41 @@
+* curl
+
+** [[file:curl get.org][curl get]]
+
+#+begin_src shell
+curl https://jsonplaceholder.typicode.com/users
+#+end_src
+
+** [[file:curl send headers.org][curl send headers]]
+
+#+begin_src shell
+curl https://reqbin.com/echo
+   -H "Cache-Control: must-revalidate"
+   -H "Pragma: no-cache"
+   -H "Expires: 0"
+#+end_src
+
+** [[file:curl get only headers.org][curl get only headers]]
+
+#+begin_src shell
+curl -I https://jsonplaceholder.typicode.com/users
+#+end_src
+
+** [[file:curl get json.org][curl get json]]
+
+#+begin_src shell
+curl https://reqbin.com/echo/get/json /
+   -H "Accept: application/json"
+#+end_src
+
+** [[file:curl basic authentication.org][curl basic authentication]]
+
+#+begin_src shell
+curl -u 'apiuser:apipwd' https://jsonplaceholder.typicode.com/users
+#+end_src
+
+** [[file:curl pretty print.org][curl pretty print]]
+
+#+begin_src shell
+curl https://jsonplaceholder.typicode.com/users | jq .
+#+end_src

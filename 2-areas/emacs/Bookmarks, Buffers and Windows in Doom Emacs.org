@@ -1,25 +1,4 @@
 * Bookmarks, Buffers and Windows in Doom Emacs
-:PROPERTIES:
-:CUSTOM_ID: bookmarks-buffers-and-windows-in-doom-emacs
-:END:
-** Emacs general
-
-#+begin_src sh
-# zoom in
-C-x C+
-
-# zoom out
-C-x C-
-
-# open file
-SPC .
-
-# create or open bookmark
-SPC RET
-
-# open a project
-SPC p p
-#+end_src
 
 ** Emacs Windows
 
@@ -49,15 +28,20 @@ SPC w =
 #+begin_src sh
 # list buffers in workspace
 SPC b b
+SPC ,
 
 # list all buffers
 SPC b B
+SPC S ,
 
 # create a new buffer
 SPC b N
 
 # kill a buffer
 SPC b k
+
+# save a buffer
+SPC b s
 #+end_src
 
 ** Emacs Help

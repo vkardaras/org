@@ -1,5 +1,0 @@
-* check linux release
-
-#+begin_src sh
-cat /etc/*release*
-#+end_src
