@@ -1,11 +1,7 @@
 * Understanding simple tests
-:PROPERTIES:
-:CUSTOM_ID: understanding-simple-tests
-:END:
+
 *** Simple AND / OR statements
-:PROPERTIES:
-:CUSTOM_ID: simple-and-or-statements
-:END:
+
 #+begin_src shell
 $ echo hello || echo bye
 hello
@@ -18,9 +14,7 @@ bye
 #+end_src
 
 * Working with simple tests
-:PROPERTIES:
-:CUSTOM_ID: working-with-simple-tests
-:END:
+
 Run a command and test if it succeded
 
 #+begin_src shell
@@ -87,17 +81,13 @@ $ !r
 #+end_src
 
 *** Complex if statement
-:PROPERTIES:
-:CUSTOM_ID: complex-if-statement
-:END:
+
 #+begin_src shell
 $ if (( days < 1 )) ; then echo "Enter a numeric value" ; elif (( days > 30 )) then echo "Enter a value to be less than 31" ; else echo "The days are $days"; fi
 #+end_src
 
 * Testing Strings and Regular Expressions
-:PROPERTIES:
-:CUSTOM_ID: testing-strings-and-regular-expressions
-:END:
+
 #+begin_src shell
 # declare a string variable and convert it to lowercase
 $ declare -l user_name
@@ -111,9 +101,7 @@ $ [ $user_name == 'bob' ] && echo "user is bob"
 #+end_src
 
 ** Testing partial string values
-:PROPERTIES:
-:CUSTOM_ID: testing-partial-string-values
-:END:
+
 #+begin_src shell
 $ declare -l browser
 $ read browser
@@ -124,9 +112,7 @@ The browser's Firefox
 #+end_src
 
 ** Testing regular expressions
-:PROPERTIES:
-:CUSTOM_ID: testing-regular-expressions
-:END:
+
 #+begin_src shell
 $ declare -l test_var
 $ read test_var
@@ -136,13 +122,9 @@ $ [[ $test_var =~ colou?r ]] && echo "${BASH_REMATCH[0]}"
 #+end_src
 
 * Understanding file attributes
-:PROPERTIES:
-:CUSTOM_ID: understanding-file-attributes
-:END:
+
 ** Testing file attributes
-:PROPERTIES:
-:CUSTOM_ID: testing-file-attributes
-:END:
+
 We can test to see if a file is of a specific type. Here we check for a
 regular file.
 
@@ -164,9 +146,7 @@ $ [[ -f /etc/hosts ]] && echo YES
   =[[ -s /bin/passwd ]]=
 
 *** Detect what type of command something is
-:PROPERTIES:
-:CUSTOM_ID: detect-what-type-of-command-something-is
-:END:
+
 Use the command =type=
 
 #+begin_src shell
@@ -196,9 +176,7 @@ $ echo $?
 #+end_src
 
 * Creating scripts with test conditions
-:PROPERTIES:
-:CUSTOM_ID: creating-scripts-with-test-conditions
-:END:
+
 Create a file
 
 #+begin_src shell
@@ -254,9 +232,7 @@ $ echo $?
 #+end_src
 
 * Working with case statement
-:PROPERTIES:
-:CUSTOM_ID: working-with-case-statement
-:END:
+
 Return the short form of a month
 
 #+begin_src shell

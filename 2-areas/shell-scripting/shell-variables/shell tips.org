@@ -1,11 +1,7 @@
 * shell tips
-:PROPERTIES:
-:CUSTOM_ID: shell-tips
-:END:
+
 ** End of options
-:PROPERTIES:
-:CUSTOM_ID: end-of-options
-:END:
+
 Use =--= to declare the end of the options of a command
 
 #+begin_src sh
@@ -24,9 +20,7 @@ echo "Wrote report $directory/$container.csv"
 #+end_src
 
 ** Use =printf= instead of =echo=
-:PROPERTIES:
-:CUSTOM_ID: use-printf-instead-of-echo
-:END:
+
 #+begin_src sh
 $ echo -- $USER
 -- johndoe
@@ -39,9 +33,7 @@ I am johndoe and my shell is /bin/bash
 #+end_src
 
 ** Braces
-:PROPERTIES:
-:CUSTOM_ID: braces
-:END:
+
 Use braces to separate a variable in a string
 
 #+begin_src sh

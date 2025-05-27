@@ -1,38 +1,26 @@
 ** Causes of writer's block
-:PROPERTIES:
-:CUSTOM_ID: causes-of-writers-block
-:END:
+
 *** Self-doubt and criticism
-:PROPERTIES:
-:CUSTOM_ID: self-doubt-and-criticism
-:END:
+
 - Impostor syndrome
 - Run out of ideas
 
 *** Burnout
-:PROPERTIES:
-:CUSTOM_ID: burnout
-:END:
+
 - Physical/mental fatigue from other works
 - Loss of appeal in writing pattern
 
 *** Perfectionism
-:PROPERTIES:
-:CUSTOM_ID: perfectionism
-:END:
+
 - Wanting the perfect draft, topic, or content
 
 *** Lack of motivation
-:PROPERTIES:
-:CUSTOM_ID: lack-of-motivation
-:END:
+
 - Low internal motivation eg loss of desire to tell your story
 - Lack of external motivation like attention and praise
 
 *** Are these questions familiar?
-:PROPERTIES:
-:CUSTOM_ID: are-these-questions-familiar
-:END:
+
 - Oh, my last post did not even get interactions!
 - X writes so well, I could never do that!
 - "New topic idea", "starts intro", oh mehn I have lost this skill, look

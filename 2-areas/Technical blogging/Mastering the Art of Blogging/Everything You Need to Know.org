@@ -1,7 +1,5 @@
 ** Structure of a blog
-:PROPERTIES:
-:CUSTOM_ID: structure-of-a-blog
-:END:
+
 - Title
 - introduction
 - Body

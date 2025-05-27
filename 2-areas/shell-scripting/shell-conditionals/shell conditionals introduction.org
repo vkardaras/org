@@ -1,11 +1,7 @@
 * Introduction conditionals
-:PROPERTIES:
-:CUSTOM_ID: introduction-conditionals
-:END:
+
 ** Create a conditional in command line
-:PROPERTIES:
-:CUSTOM_ID: create-a-conditional-in-command-line
-:END:
+
 #+begin_src sh
 $ if mkdir a; then echo "ok"; else echo "error"; fi
 ok
@@ -16,9 +12,7 @@ error
 #+end_src
 
 ** Use conditional in a script
-:PROPERTIES:
-:CUSTOM_ID: use-conditional-in-a-script
-:END:
+
 #+begin_src sh
 #!/bin/bash
 

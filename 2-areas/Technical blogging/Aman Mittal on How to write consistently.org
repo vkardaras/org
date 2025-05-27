@@ -1,15 +1,11 @@
 *** Writing that blog post
-:PROPERTIES:
-:CUSTOM_ID: writing-that-blog-post
-:END:
+
 - The initial step of a blog post is to write it
 - It is not easy
 - Combination of idea, time, energy
 
 *** Writing consistently
-:PROPERTIES:
-:CUSTOM_ID: writing-consistently
-:END:
+
 - Doing it again
 - How to do that?
 - What is consistency?
@@ -19,9 +15,7 @@
 - Blogging is a low barrier to explain
 
 *** Things to do
-:PROPERTIES:
-:CUSTOM_ID: things-to-do
-:END:
+
 - Keep your topics consistent
 - Draft your posts in advance
 - Have a list of post ideas
@@ -31,9 +25,7 @@
   creators
 
 *** Things to avoid
-:PROPERTIES:
-:CUSTOM_ID: things-to-avoid
-:END:
+
 - Don't be aggressive when it comes to publishing posts
 - Rabbit hole of creating a blog using shiny technologies
 - Worrying about the primary language you write the blog post in
@@ -41,9 +33,7 @@
 - Don't wait for that awesome idea
 
 *** One more word
-:PROPERTIES:
-:CUSTOM_ID: one-more-word
-:END:
+
 - Share everything, everywhere
 - Where?
   - Community platforms: Hashnode, Dev.to

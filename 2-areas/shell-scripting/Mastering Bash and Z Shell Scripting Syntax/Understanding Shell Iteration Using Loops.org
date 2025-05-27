@@ -1,27 +1,19 @@
 * Introducing While Loops
-:PROPERTIES:
-:CUSTOM_ID: introducing-while-loops
-:END:
+
 *** Loops
-:PROPERTIES:
-:CUSTOM_ID: loops
-:END:
+
 Looping structures allow quick iteration though a list of group of items
 very efficiently. A very simple loop could create 12 users that need
 similar properties. The code only needs to be written once, and it runs
 across each user in the list.
 
 *** While / Until
-:PROPERTIES:
-:CUSTOM_ID: while-until
-:END:
+
 The first loop structure we look at are while and until loops, looping
 while a condition is true or until the condition becomes true.
 
 *** WHILE
-:PROPERTIES:
-:CUSTOM_ID: while
-:END:
+
 The loop block will iterate while the test condition is true
 
 #+begin_src shell
@@ -47,13 +39,9 @@ $ until (( x == 0 )) ; do
 #+end_src
 
 * Understanding For Loops
-:PROPERTIES:
-:CUSTOM_ID: understanding-for-loops
-:END:
+
 *** C-style Loop
-:PROPERTIES:
-:CUSTOM_ID: c-style-loop
-:END:
+
 The C-style loop takes 3 expressions:
 
 - Initiate the variable
@@ -69,9 +57,7 @@ $ for ((i=5 ; i>0 ; i--)); do echo $i; done
 #+end_src
 
 *** Iterating an Array
-:PROPERTIES:
-:CUSTOM_ID: iterating-an-array
-:END:
+
 To loop through each item in the array, we can use a C-style for loop.
 
 We can declare the elements of the array for the test condition.
@@ -93,9 +79,7 @@ $ for ((i=0; i<${\#users[*]}; i++)) do
 #+end_src
 
 *** Classic for loop
-:PROPERTIES:
-:CUSTOM_ID: classic-for-loop
-:END:
+
 The list referred to with the in keyword can be static or dynamic as
 shown here.
 
@@ -106,9 +90,7 @@ $ for f in (*); do stat -c "%n %F" $f ; done
 #+end_src
 
 * Working with For Loops
-:PROPERTIES:
-:CUSTOM_ID: working-with-for-loops
-:END:
+
 #+begin_src shell
 # create a directory to work
 $ mkdir play
@@ -171,22 +153,16 @@ file2 regular empty file
 #+end_src
 
 * Working with Continue and Break
-:PROPERTIES:
-:CUSTOM_ID: working-with-continue-and-break
-:END:
+
 *** Continue / Break
-:PROPERTIES:
-:CUSTOM_ID: continue-break
-:END:
+
 Additional tests may be needed to filter elments.
 
 - =continue= ignore current element and process next
 - =break= exit the loop
 
 *** List files, not directories
-:PROPERTIES:
-:CUSTOM_ID: list-files-not-directories
-:END:
+
 We can test the file type, and if it is a directory ignore the item by
 using continue.
 
@@ -212,13 +188,9 @@ dir2 directory
 #+end_src
 
 * Working with Foreach Loops
-:PROPERTIES:
-:CUSTOM_ID: working-with-foreach-loops
-:END:
+
 *** ZSH Foreach
-:PROPERTIES:
-:CUSTOM_ID: zsh-foreach
-:END:
+
 The foreach loop forgoes the in keyword and do starting the block.
 
 The keyword end is used instead of done.
@@ -238,9 +210,7 @@ $ foreach f (*)
 #+end_src
 
 * Building Menus
-:PROPERTIES:
-:CUSTOM_ID: building-menus
-:END:
+
 Create a script =menu.sh=
 
 #+begin_src shell
@@ -286,9 +256,7 @@ $ ./menu.sh
 #+end_src
 
 ** Configure zsh
-:PROPERTIES:
-:CUSTOM_ID: configure-zsh
-:END:
+
 Check current shell
 
 #+begin_src sh

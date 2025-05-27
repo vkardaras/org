@@ -1,7 +1,5 @@
 * Using shell variables
-:PROPERTIES:
-:CUSTOM_ID: using-shell-variables
-:END:
+
 Create a script with a variable and a parameter
 
 #+begin_src sh
@@ -25,9 +23,7 @@ Execute the script by passing the parameter.
 #+end_src
 
 ** Naming variables
-:PROPERTIES:
-:CUSTOM_ID: naming-variables
-:END:
+
 - Use letters, numbers, underscore
 - First character: a letter or underscore
 - Case-sensitive

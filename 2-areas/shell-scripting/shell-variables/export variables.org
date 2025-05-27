@@ -1,7 +1,5 @@
 * export variables
-:PROPERTIES:
-:CUSTOM_ID: export-variables
-:END:
+
 Use a shell variable in the script =$input_file=
 
 #+begin_src sh
@@ -32,9 +30,7 @@ export input_file
 #+end_src
 
 ** Save the variable to one of init files like =.bashrc= or =.zshrc=
-:PROPERTIES:
-:CUSTOM_ID: save-the-variable-to-one-of-init-files-like-.bashrc-or-.zshrc
-:END:
+
 #+begin_src sh
 nano .bashrc
 #+end_src
@@ -64,9 +60,7 @@ mv create_report.sh ~/bin/
 #+end_src
 
 ** Review export
-:PROPERTIES:
-:CUSTOM_ID: review-export
-:END:
+
 Variables are local to your script
 
 - Or terminal session

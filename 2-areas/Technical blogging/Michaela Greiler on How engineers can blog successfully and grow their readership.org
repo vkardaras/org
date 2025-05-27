@@ -1,7 +1,5 @@
 *** Why do you (want to) blog?
-:PROPERTIES:
-:CUSTOM_ID: why-do-you-want-to-blog
-:END:
+
 - Enforcing your own learning
 - Improving your ability to express yourself
 - Demonstrating your skills and knowledge

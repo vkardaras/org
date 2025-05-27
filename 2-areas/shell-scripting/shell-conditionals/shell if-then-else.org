@@ -1,11 +1,7 @@
 * shell if-then-else
-:PROPERTIES:
-:CUSTOM_ID: shell-if-then-else
-:END:
+
 ** Conditional Expressions
-:PROPERTIES:
-:CUSTOM_ID: conditional-expressions
-:END:
+
 #+begin_src sh
 # Test for return value of command
 if touch /tmp/x; then ...
@@ -32,9 +28,7 @@ Examples
 #+end_src
 
 ** And, Or, Not
-:PROPERTIES:
-:CUSTOM_ID: and-or-not
-:END:
+
 #+begin_src sh
 [[ ! -e $file ]] # File does NOT exist
 [[ ! $1 ]] # Argument empty

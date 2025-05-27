@@ -1,18 +1,12 @@
 * Creating Functions
-:PROPERTIES:
-:CUSTOM_ID: creating-functions
-:END:
+
 *** Functions
-:PROPERTIES:
-:CUSTOM_ID: functions
-:END:
+
 Shell functions encapsulate blocks of code in named elements that can be
 executed or called from scripts or directly at the CLI
 
 *** Very simple function
-:PROPERTIES:
-:CUSTOM_ID: very-simple-function
-:END:
+
 Functions are named elements that encapsulate modular blocks of code.
 The function here is named say_hello.
 
@@ -28,9 +22,7 @@ hello
 #+end_src
 
 *** List functions
-:PROPERTIES:
-:CUSTOM_ID: list-functions
-:END:
+
 #+begin_src shell
 $ declare -f
 #+end_src
@@ -52,9 +44,7 @@ say_hello ()
 #+end_src
 
 * Exporting Functions
-:PROPERTIES:
-:CUSTOM_ID: exporting-functions
-:END:
+
 Export a function
 
 #+begin_src shell
@@ -62,13 +52,9 @@ $ declare -xf say_hello
 #+end_src
 
 * Working with Arguments and Returns
-:PROPERTIES:
-:CUSTOM_ID: working-with-arguments-and-returns
-:END:
+
 *** Passing arguments
-:PROPERTIES:
-:CUSTOM_ID: passing-arguments
-:END:
+
 Functions can accept arguments in a similar way to script.
 
 #+begin_src shell
@@ -77,9 +63,7 @@ $ create_user tux
 #+end_src
 
 *** Return Values
-:PROPERTIES:
-:CUSTOM_ID: return-values
-:END:
+
 Using the command return in a similar way to exit in conditional
 statements. The value acts as an exit code to the function, and the
 return command will quit the function without further code execution.
@@ -88,9 +72,7 @@ return command will quit the function without further code execution.
 - return 0 (on success)
 
 *** Putting it all together
-:PROPERTIES:
-:CUSTOM_ID: putting-it-all-together
-:END:
+
 Create the function
 
 #+begin_src shell
@@ -120,21 +102,15 @@ Creating new user tux
 #+end_src
 
 * Best Practice
-:PROPERTIES:
-:CUSTOM_ID: best-practice
-:END:
+
 *** Best Practices
-:PROPERTIES:
-:CUSTOM_ID: best-practices
-:END:
+
 Functions should be standalone and not dependent on other elements such
 as variables from the master script. This limits how much the function
 can be used in other scripts.
 
 *** Bad vs Good
-:PROPERTIES:
-:CUSTOM_ID: bad-vs-good
-:END:
+
 The first example relies on the $are variable being set in the shell.
 
 The second example takes the value as an argument, setting the variable

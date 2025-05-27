@@ -1,11 +1,7 @@
 * shell debugging
-:PROPERTIES:
-:CUSTOM_ID: shell-debugging
-:END:
+
 ** Debugging with =-x=
-:PROPERTIES:
-:CUSTOM_ID: debugging-with--x
-:END:
+
 Print each line of the script by adding =-v= after the declaration of
 the shell
 
@@ -21,9 +17,7 @@ declaration of the shell=.=
 #+end_src
 
 ** Check a shell script
-:PROPERTIES:
-:CUSTOM_ID: check-a-shell-script
-:END:
+
 Install shellcheck
 
 #+begin_src sh

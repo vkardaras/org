@@ -1,7 +1,0 @@
-[https://www.youtube.com/playlist?list=PLDmvslp_VR0wN8uQXyqJl8AiLBLo8PTsP](https://www.youtube.com/playlist?list=PLDmvslp_VR0wN8uQXyqJl8AiLBLo8PTsP)
-
-[[Everything You Need to Know]]
-
-  
-
-[[Mastering Headlines, Introductions, and Tools for Content Creation]]

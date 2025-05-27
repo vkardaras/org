@@ -1,17 +1,9 @@
-[[Chris Bongers on Why should every developer blog What are the best
-ways to start a blog in 2020]]
-
-[[Ruth Ikegah on How to overcome writer's block as a beginner dev
-blogger]]
-
-[[Aman Mittal on How to write consistently]]
-
-[[Anna McDougall on Getting Started in Blogging- Writing Principles and
-Topic Selection]]
-
-[[Michaela Greiler on How engineers can blog successfully and grow their
-readership]]
-
-[[AMA with Catalin Pit]]
-
-[[Mastering the Art of Blogging]]
+* Technical blogging
+  
+** [[file:Chris Bongers on Why should every developer blog What are the best ways to start a blog in 2020.org][Chris Bongers on Why should every developer blog What are the best ways to start a blog in 2020]]
+** [[file:Ruth Ikegah on How to overcome writer’s block as a beginner dev blogger.org][Ruth Ikegah on How to overcome writer's block as a beginner dev blogger]]
+** [[file:Aman Mittal on How to write consistently.org][Aman Mittal on How to write consistently]]
+** [[file:Anna McDougall on Getting Started in Blogging-Writing Principles and Topic Selection.org][Anna McDougall on Getting Started in Blogging-Writing Principles and Topic Selection]]
+** [[file:Michaela Greiler on How engineers can blog successfully and grow their readership.org][Michaela Greiler on How engineers can blog successfully and grow their readership]]
+** [[file:AMA with Catalin Pit.org][AMA with Catalin Pit]]
+** [[file:Mastering the Art of Blogging/Mastering the Art of Blogging.org][Mastering the Art of Blogging]]

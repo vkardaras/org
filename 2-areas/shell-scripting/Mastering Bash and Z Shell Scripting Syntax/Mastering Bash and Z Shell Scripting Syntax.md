@@ -1,9 +1,0 @@
-[[Working with shell syntax]]
-
-[[Working with variables]]
-
-[[Creating Conditional Statements]]
-
-[[Building Effective Functions]]
-
-[[Understanding Shell Iteration Using Loops]]

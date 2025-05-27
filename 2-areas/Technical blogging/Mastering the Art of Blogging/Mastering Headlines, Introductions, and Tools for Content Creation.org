@@ -1,7 +1,7 @@
+* Mastering Headlines, Introductions, and Tools for Content Creation
+
 ** Types of Headlines
-:PROPERTIES:
-:CUSTOM_ID: types-of-headlines
-:END:
+
 - *How-To Headlines*: Offer solutions of guidance, like "How to boost
   your productivity in 7 days"
 - *Listicles*: Present content in a list format, such as "Top 10 ways to
@@ -20,18 +20,14 @@
   examples, such as "How [Company] increased sales by 200%."
 
 ** Tools for content creation
-:PROPERTIES:
-:CUSTOM_ID: tools-for-content-creation
-:END:
+
 - Rytr.me
 - ChatGPT
 - Bing AI
 - Goole Bard
 
 ** Writing Intro
-:PROPERTIES:
-:CUSTOM_ID: writing-intro
-:END:
+
 - *Start with a Hook*: Begin with a captivating statement, question,
   statistic, or anecdote that grabs attention. It should pique curiosity
   or evoke emotion.
