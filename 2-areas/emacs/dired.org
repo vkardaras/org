@@ -17,6 +17,9 @@ SPC .
 # delete directory
 d
 
+# open file to left and keep focus to dired
+M-RET
+
 # toggle sort by name and date
 o
 
@@ -32,13 +35,20 @@ O
 ,*/
 # toggle between files and directories
 t
+# unselect file
+u
 # unselect all
 U
 
 # select file or directory
 m
+# select file or directory with regex
+% m
 # toggle selections
 t
+
+# compres a directory
+Z
 
 # split the window
 C-w v

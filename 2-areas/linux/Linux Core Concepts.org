@@ -1,0 +1,87 @@
+#+title: Linux Core Concepts
+
+* Working with hardware
+
+** Viewing Kernel and Device Events
+
+#+begin_src shell
+
+# display messages from the kernel's ring buffer
+dmesg
+# display messages from specific devices
+dmesg | grep -i usb
+
+# query and monitor device events related to uDev
+udevadm info --query=path --name=/dev/sda5
+# monitor kernel uEvents in real time
+udevadm monitor
+
+#+end_src
+
+** Listing PCI Devices
+
+PCI stands for Peripheral Component Interconnect, representing devices directly attached to the motherboard, such as Ethernet cards, RAID controllers, video cards, and wireless adapters.
+
+#+begin_src shell
+
+# lists all pci devices configured in your system
+lspci
+
+#+end_src
+
+** Viewing Block Devices
+
+#+begin_src shell
+
+# displays the physical disk (e.g., sda) along with its partitions
+lsblk
+
+#+end_src
+
+** Displaying CPU Information
+
+#+begin_src shell
+
+# insights into the CPU architecture, such as the number of cores, threads per core, cache sizes, and more.
+lscpu
+
+#+end_src
+
+** Displaying Memory Information
+
+#+begin_src shell
+
+# retrieve memory configuration details
+lsmem
+# view a brief overview of the system's memory
+lsmem --summary
+
+# shows memory usage statistics, including total, used, and free memory
+free -m
+
+#+end_src
+
+- =m= for megabytes
+- =k= for kilobytes
+- =g= for gigabytes
+
+** Extracting Detailed Hardware Information
+
+#+begin_src shell
+sudo lshw
+#+end_src
+
+* Runlevels
+
+#+begin_src shell
+
+# check the default target
+systemctl get-default
+
+# change the default target
+systemctl set-default multi-user.target
+
+#+end_src
+
+- Runlevel 5 corresponds to the graphical target (graphical)
+- Runlevel 3 corresponds to the multi-user target (terminal)

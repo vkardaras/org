@@ -4,6 +4,9 @@
 
 #+begin_src shell
 curl https://jsonplaceholder.typicode.com/users
+
+# save response to file
+curl https://jsonplaceholder.typicode.com/users -O
 #+end_src
 
 ** [[file:curl send headers.org][curl send headers]]

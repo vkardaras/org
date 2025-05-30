@@ -47,7 +47,7 @@ apropos modpr
 
 ** Basic Linux Commands
 
-Working with directories and files
+** Working with directories and files
 
 #+begin_src sh
 # create parent directories if not exist
@@ -73,9 +73,26 @@ cat > test.txt
 ctrl-d
 #+end_src
 
-[[file:Linux Archive Files.org][Linux Archive Files]]
+** Linux Archive Files
 
-List files
+#+begin_src sh
+# create an archive
+tar -cf test.tar file1 file2 file3
+
+# view info of an archive
+ls -ltr test.tar
+
+# view the contents of a tarball
+tar -tf test.tar
+
+# extract the contents of a tarball
+tar -xf test.tar
+
+# create and compress an archive
+tar -zcf test.tar file1 file2 file3
+#+end_src
+
+** List files
 
 #+begin_src sh
 # list files in order created
@@ -84,6 +101,50 @@ ls -lt
 ls -ltr
 #+end_src
 
+** Linux View File Size
+
+#+begin_src sh
+# inspect the size of a file
+du test.img
+du -sk test.img
+
+# inspect the size of a file in a human readable format
+du -sh test.img
+
+# list files including their size
+ls -lh
+#+end_src
+
+** Pages
+- more
+#+begin_src shell
+more new_file.txt
+#+end_src
+
+#+begin_src md
+# scroll the display one screenful of data at a time
+SPC
+# scroll the display one line
+ENTER
+# scroll the display backwords one screenfol of dsta
+b
+# search text
+/
+#+end_src
+
+- more
+#+begin_src shell
+less new_file.txt
+#+end_src
+
+#+begin_src md
+# scroll up the display one line
+Up Arrow
+# scroll down the display one line
+Down Arrow
+# search text
+/
+#+end_src
 ** [[file:Linux shell.org][Linux shell]]
 
 ** User acounts
@@ -114,4 +175,3 @@ sudo chown -R $USER /opt
 | 'x'     | "execute" the file. This permission is given only if the file is a program. |
 |         |                                                                             |
 
-** [[file:qemu-kvm.org][qemu-kvm]]

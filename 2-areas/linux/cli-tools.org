@@ -2,6 +2,7 @@
 
 ** [[file:tmux.org][tmux]]
 ** [[file:stow.org][stow]]
+** [[file:curl.org][curl]]
 ** [[file:httpie.org][httpie]]
 ** [[file:xclip.org][xclip]]
 ** [[file:grep.org][grep]]

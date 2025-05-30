@@ -29,6 +29,8 @@ View command history
 history
 #+end_src
 
+** Environment variables
+
 Get a list of all environment variables
 
 #+begin_src sh
@@ -43,6 +45,8 @@ ecport OFFICE=calestop
 
 To make a variable persistent add it to your =~/.profile= or equivalent
 file
+
+** PATH
 
 Check the location of a command
 
@@ -63,5 +67,3 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 #+end_src
 
 ** [[file:zsh.org][zsh]]
-** [[file:Linux View File Size.org][Linux View File Size]]
-** [[file:Linux Archive Files.org][Linux Archive Files]]

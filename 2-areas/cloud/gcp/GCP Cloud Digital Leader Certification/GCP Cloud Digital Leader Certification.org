@@ -1,0 +1,43 @@
+#+title: Gcp Cloud Digital Leader Certification
+
+* Select a region
+
+Google Cloud Region Picker
+https://googlecloudplatform.github.io/region-picker/
+
+* Demo
+
+** Create a =Compute Engine=
+
+*** Create an Instance Group
+- Create an =Instance Template=
+- Add label =env:dev=
+- Select Allow =HTTP traffic= and =Allow HTTPS traffic=
+- Open Advanced Settings and in Management -> Automation add the following script
+
+#+begin_src shell
+
+#!/bin/bash
+apt update
+apt -y install apache2
+echo "Simple application running on $(hostname)" > /var/www/html/index.html
+
+#+end_src
+
+*** Select minimum (2) and maximum (5) number of instances
+
+*** Select create to create the instance group
+
+*** Check the application by visiting the ip of each instance with http
+
+** Create a =load balancer=
+
+*** Create a backend service
+- Name: simple application
+- Backend type: Instance group
+- Select the instance group you created previously
+
+**** Create a Health Check
+- Name: simple-application
+
+*** Check the application by visiting the ip of the load balancer with http

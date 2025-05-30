@@ -4,3 +4,6 @@
 :END:
 
 ** [[file:apigee.org][apigee]]
+** compute engine
+
+Search for compute and select compute engine

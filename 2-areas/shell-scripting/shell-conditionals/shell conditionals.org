@@ -1,7 +1,4 @@
 * Shell Conditionals
-:PROPERTIES:
-:CUSTOM_ID: shell-conditionals
-:END:
 
-** shell conditionals introduction
-** shell if-then-else
+** [[file:shell conditionals introduction.org][shell conditionals introduction]]
+** [[file:shell if-then-else.org][shell if-then-else]]

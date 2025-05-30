@@ -1,0 +1,108 @@
+#+title: Services
+
+* Manage services
+#+begin_src shell
+
+# start service
+systemctl start httpd
+
+# stop service
+systemctl stop httpd
+
+# check service status
+systemctl status httpd
+
+# configure to start at startup
+systemctl enable httpd
+
+# configure to not start at startup
+systemctl disable httpd
+
+#+end_src
+
+* Define services
+
+- Lets assume we have a program at the following path =/opt/code/my_app.py=
+** Define a service =my_app.service= at the following directory
+  =/etc/systemd/system=
+
+my_app.service
+#+begin_src shell
+[Service]
+ExecStart=/usr/bin/python3 /opt/code/my_app.py
+#+end_src
+
+** Reload services
+
+#+begin_src shell
+systemctl deamon-reload
+#+end_src
+
+** Start the service
+
+#+begin_src shell
+systemctl start my_app
+#+end_src
+
+** Configure the service to start when the system boots up
+
+my_app.service
+#+begin_src shell
+[Service]
+ExecStart=/usr/bin/python3 /opt/code/my_app.py
+
+[Install]
+WantedBy=multy-user.target
+#+end_src
+
+Configure to run at startup
+#+begin_src
+systemctl enable my_app
+#+end_src
+
+** Provide additional metadata for the service
+
+my_app.service
+#+begin_src shell
+[Unit]
+Description=My python web application
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/code/my_app.py
+
+[Install]
+WantedBy=multy-user.target
+#+end_src
+
+** Add dependencies before or after starting the application
+
+my_app.service
+#+begin_src shell
+[Unit]
+Description=My python web application
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/code/my_app.py
+ExecStartPre=/opt/code/configure_db.sh
+ExecStartPost=/opt/code/email_status.sh
+
+[Install]
+WantedBy=multy-user.target
+#+end_src
+
+** Restart application automatically if crashes
+
+my_app.service
+#+begin_src shell
+[Unit]
+Description=My python web application
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/code/my_app.py
+ExecStartPre=/opt/code/configure_db.sh
+ExecStartPost=/opt/code/email_status.sh
+Restart=always
+
+[Install]
+WantedBy=multy-user.target
+#+end_src

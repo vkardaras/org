@@ -1,3 +1,5 @@
+* Mastering the Art of Blogging
+
 ** https://www.youtube.com/playlist?list=PLDmvslp_VR0wN8uQXyqJl8AiLBLo8PTsP
-** Everything You Need to Know
-** Mastering Headlines, Introductions, and Tools for Content Creation
+** [[file:Everything You Need to Know.org][Everything You Need to Know]]
+** [[file:Mastering Headlines, Introductions, and Tools for Content Creation.org][Mastering Headlines, Introductions, and Tools for Content Creation]]
