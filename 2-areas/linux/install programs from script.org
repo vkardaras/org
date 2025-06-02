@@ -5,7 +5,7 @@ Create the file =install.sh=
 #+begin_src sh
 #!/bin/bash
 
-pkgs=(networkmanager curl wget git tmux ttf-jetbrains-mono-nerd zsh wezterm starship thefuck eza fzf bat neovim neofetch starship ripgrep jdk21-openjdk nodejs npm maven jq kitty imagemagick zip unzip xclip lazygit ghostty jdk21-openjdk nodejs npm zoxide lazygit fuse2 gcc pandoc)
+pkgs=(networkmanager curl wget git tmux ttf-jetbrains-mono-nerd zsh wezterm starship thefuck eza fzf bat neovim neofetch starship ripgrep jdk21-openjdk nodejs npm maven jq kitty imagemagick zip unzip xclip lazygit ghostty jdk21-openjdk nodejs npm zoxide lazygit fuse2 gcc pandoc dnsutils)
 sudo pacman -S --noconfirm "${pkgs[@]}"
 
 # enable and start the NetworkManager service

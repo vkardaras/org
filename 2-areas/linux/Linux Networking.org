@@ -1,0 +1,89 @@
+#+title: Linux Networking
+
+* DNS
+
+** Map an ip to an alias
+To map an ip to an alias add it to the =/etc/hosts= file
+#+begin_src shell
+
+# add an entry to the =/etc/hosts= file
+192.168.1.11    db
+#+end_src
+
+** View the ip addres of your dns server
+#+begin_src shell
+cat /etc/resolve.conf
+#+end_src
+
+** Show used ports with processes
+
+#+begin_src sh
+sudo lsof -i -P -n | grep LISTEN
+#+end_src
+
+* DNS Record Types and Diagnostic Tools
+
+** Types of records
+- A records: Map hostnames to IPv4 addresses.
+- AAAA records: Map hostnames to IPv6 addresses.
+- CNAME records: Create an alias that maps one hostname to another. This is useful when a service is accessible by multiple names.
+
+  [[file:~/Documents/org/assets/frame_970.jpg]]
+
+** Troubleshoot DNS resolution
+
+#+begin_src shell
+
+# query directly your DNS server
+nslookup www.google.com
+
+# provide detailed output of the DNS records
+dig www.google.com
+
+#+end_src
+
+* Networking basics
+
+#+begin_src shell
+
+# check the ip of the device
+ip a
+
+# check the default gateway
+ip r
+
+# check the connection of the app devapp01-web from the port 80
+telnet devapp01-web 80
+
+# test the connectivity with another device
+ping 192.168.1.11
+
+# view current routing configuration
+route
+
+#+end_src
+
+* Troubleshooting
+
+#+begin_src shell
+
+# verivy local network interface
+ip link
+
+# confirm DNS resolution of hostname
+nslookup caleston-repo-01
+
+# test remote connectivity
+ping caleston-repo-01
+
+# trace the network route
+traceroute
+
+# troubleshoot the repository server
+# check HTTP process
+netstat -an | grep 80 | grep -i LISTEN
+
+# bring up an interface that is down
+ip link set dev enp1s0f1 up
+
+#+end_src

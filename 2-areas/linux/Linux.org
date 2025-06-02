@@ -2,6 +2,8 @@
 
 ** [[file:Linux basics.org][Linux basics]]
 ** [[file:Linux Core Concepts.org][Linux Core Concepts]]
+** [[file:Linux Networking.org][Linux Networking]]
+** [[file:Linux Security and File Permissions.org][Linux Security and File Permissions]]
 ** [[file:cli-tools.org][cli-tools]]
 ** [[file:arch.org][arch]]
 ** [[file:AppImage.org][AppImage]]
@@ -9,6 +11,5 @@
 ** [[file:dotfiles.org][dotfiles]]
 ** [[file:linux tips.org][linux tips]]
 ** [[file:linux graphics.org][linux graphics]]
-** [[file:linux networking.org][linux networking]]
 ** [[file:linux processes.org][linux processes]]
 ** [[file:qemu-kvm.org][qemu-kvm]]
