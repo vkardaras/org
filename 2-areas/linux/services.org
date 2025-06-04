@@ -1,25 +1,5 @@
 #+title: Services
 
-* Manage services
-#+begin_src shell
-
-# start service
-systemctl start httpd
-
-# stop service
-systemctl stop httpd
-
-# check service status
-systemctl status httpd
-
-# configure to start at startup
-systemctl enable httpd
-
-# configure to not start at startup
-systemctl disable httpd
-
-#+end_src
-
 * Define services
 
 - Lets assume we have a program at the following path =/opt/code/my_app.py=
@@ -30,6 +10,14 @@ my_app.service
 #+begin_src shell
 [Service]
 ExecStart=/usr/bin/python3 /opt/code/my_app.py
+#+end_src
+
+** Run the service upder a specific user
+
+#+begin_src shell
+[Service]
+ExecStart=/usr/bin/python3 /opt/code/my_app.py
+User=project_mercury
 #+end_src
 
 ** Reload services
@@ -52,7 +40,7 @@ my_app.service
 ExecStart=/usr/bin/python3 /opt/code/my_app.py
 
 [Install]
-WantedBy=multy-user.target
+WantedBy=graphical.target
 #+end_src
 
 Configure to run at startup
@@ -66,6 +54,7 @@ my_app.service
 #+begin_src shell
 [Unit]
 Description=My python web application
+Documentation=http://wiki.caleston-dev.ca/reported
 
 [Service]
 ExecStart=/usr/bin/python3 /opt/code/my_app.py
@@ -90,7 +79,7 @@ ExecStartPost=/opt/code/email_status.sh
 WantedBy=multy-user.target
 #+end_src
 
-** Restart application automatically if crashes
+** Restart application automatically after 10 seconds if crashes
 
 my_app.service
 #+begin_src shell
@@ -102,7 +91,108 @@ ExecStart=/usr/bin/python3 /opt/code/my_app.py
 ExecStartPre=/opt/code/configure_db.sh
 ExecStartPost=/opt/code/email_status.sh
 Restart=always
+RestartSec=10
 
 [Install]
 WantedBy=multy-user.target
+#+end_src
+
+** Define a dependency on a service
+
+my_app.service
+#+begin_src shell
+[Unit]
+Description=My python web application
+After=postgresql.service
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/code/my_app.py
+
+[Install]
+WantedBy=multy-user.target
+#+end_src
+
+* SYSTEMD Tools
+
+** Managing Services with systemctl
+
+Example for httpd
+
+#+begin_src shell
+
+# start service
+systemctl start httpd
+
+# restart service
+systemctl restart httpd
+
+# reload service
+systemctl reload httpd
+
+# stop service
+systemctl stop httpd
+
+# check service status
+systemctl status httpd
+
+# configure to start at startup
+systemctl enable httpd
+
+# configure to not start at startup
+systemctl disable httpd
+
+#+end_src
+
+Example for a custom service =my_app.service=
+
+#+begin_src shell
+systemctl start my_app.service
+systemctl restart my_app.service
+systemctl reload my_app.service
+systemctl stop my_app.service
+systemctl status my_app.service
+systemctl enable my_app.service
+systemctl disable my_app.service
+#+end_src
+
+*** Reloading Systemd Configuration
+
+#+begin_src shell
+
+# reload the system manager configuration to apply changes after modifying a unit
+systemctl daemon-reload
+
+# edit a service unit, no restart required
+systemctl edit my_app.service --full
+
+#+end_src
+
+** Working with System Targets
+
+#+begin_src shell
+
+# view the current default target
+systemctl get-default
+
+# change the default target (for example, to multi-user mode)
+systemctl set-default multi-user.target
+
+# list all units (both loaded and attempted)
+systemctl list-units --all
+
+# view only active units
+systemctl list-units
+
+#+end_src
+
+** Querying Logs with journalctl
+
+#+begin_src shell
+
+# view all log entries from the oldest to the newest
+journalctl
+
+# view logs for a specific unit, such as Docker
+journalctl -u docker.service
+
 #+end_src

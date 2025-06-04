@@ -4,6 +4,10 @@
 
 #+begin_src shell
 
+# check if a user exists
+getent passed tux
+> tux:x:1000:1000:tux:/home/tux:/bin/bash
+
 # get details of users
 cat /etc/passwd
 # get details of a specific user

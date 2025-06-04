@@ -1,3 +1,5 @@
+#+title: Building Effective Functions
+
 * Creating Functions
 
 *** Functions
@@ -53,7 +55,7 @@ $ declare -xf say_hello
 
 * Working with Arguments and Returns
 
-*** Passing arguments
+** Passing arguments
 
 Functions can accept arguments in a similar way to script.
 
@@ -62,7 +64,7 @@ $ create_user tux
 # inside the function tux would be $1
 #+end_src
 
-*** Return Values
+** Return Values
 
 Using the command return in a similar way to exit in conditional
 statements. The value acts as an exit code to the function, and the
@@ -71,7 +73,7 @@ return command will quit the function without further code execution.
 - return 1 (on error)
 - return 0 (on success)
 
-*** Putting it all together
+** Putting it all together
 
 Create the function
 
@@ -103,13 +105,11 @@ Creating new user tux
 
 * Best Practice
 
-*** Best Practices
-
 Functions should be standalone and not dependent on other elements such
 as variables from the master script. This limits how much the function
 can be used in other scripts.
 
-*** Bad vs Good
+*Bad vs Good*
 
 The first example relies on the $are variable being set in the shell.
 

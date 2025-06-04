@@ -1,7 +1,42 @@
+#+title: Shell Scripting
+
 * Shell Scripting
 
 ** [[file:shell scripting overview.org][shell scripting overview]]
 ** [[file:create shell script.org][create shell script]]
-** [[file:shell-variables/shell variables.org][shell variables]]
-** [[file:shell-conditionals/shell conditionals.org][shell conditionals]]
-** [[file:Mastering Bash and Z Shell Scripting Syntax/Mastering Bash and Z Shell Scripting Syntax.org][Mastering Bash and Z Shell Scripting Syntax]]
+** shell debugging
+
+*** Debugging with =-x=
+
+Print each line of the script by adding =-v= after the declaration of
+the shell
+
+#+begin_src sh
+#!/bin/bash -v
+#+end_src
+
+Print the result of each line of the script by adding =-x= after the
+declaration of the shell=.=
+
+#+begin_src sh
+#!/bin/bash -x
+#+end_src
+
+*** Check a shell script
+
+Install shellcheck
+
+#+begin_src sh
+sudo apt install shellcheck
+#+end_src
+
+Check a script with shellcheck
+
+#+begin_src sh
+shellcheck create_report.sh
+#+end_src
+
+** [[file:shell-variables/Shell Variables.org][Shell Variables]]
+** [[file:shell-conditionals/Shell Conditionals.org][Shell Conditionals]]
+** [[file:Building Effective Functions.org][Building Effective Functions]]
+** [[file:Shell Iteration Using Loops.org][Shell Iteration Using Loops]]

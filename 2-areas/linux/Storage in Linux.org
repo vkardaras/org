@@ -1,0 +1,95 @@
+#+title: Storage In Linux
+
+* Disk partitions
+
+#+begin_src shell
+
+# list the block devices on system
+lsblk
+
+# view detailed information such as partition type, disk size in bytes, and sector details
+sudo fdisk -l /dev/sda
+
+#+end_src
+
+** Partitioning Schemes
+
++ Primary Partition: Used for booting an operating system. Traditionally, disks could have a maximum of four primary partitions.
++ Extended Partition: Acts as a container for logical partitions; it cannot be used directly.
++ Logical Partition: Created within an extended partition to bypass the four primary partition limitation.
+
+** Creating a New Partition with GPT
+
+#+begin_src shell
+
+# create a new partition using the gdisk command
+gdisk /dev/sdb
+
+#+end_src
+
+* File Systems
+
+** Creating and Mounting an ext4 File System
+
+#+begin_src shell
+
+# format the device
+mkfs.ext4 /dev/sdb1
+
+# create a mount point directory
+mkdir /mnt/ext4
+
+# mount the file system
+mount /dev/sdb1 /mnt/ext4
+
+# verify the mounted file system
+mount | grep /dev/sdb1
+
+# mount automatic at boot
+# add an entry to /etc/fstab
+vi /etc/fstab
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+/dev/sda1  /  ext4  defaults,relatime,errors=panic  0  1
+
+#+end_src
+
+* DAS NAS and SAN
+
+** 1. Direct-Attached Storage (DAS)
+
+Direct-Attached Storage (DAS) connects storage devices directly to a host system. The operating system recognizes these devices as block devices, allowing for excellent performance with minimal latency because there is no network or firewall overhead.
+
+** 2. Network-Attached Storage (NAS)
+
+NAS devices are physically separate from the computing hosts, and data is transferred via a network connection.
+NAS typically functions as an NFS server, exporting storage as directories or shares that can be accessed simultaneously by multiple hosts.
+
+** 3. Storage Area Network (SAN)
+
+In a SAN system, storage is allocated to hosts as Logical Unit Numbers (LUNs), which represent sections of a shared storage pool presented as logical disks to the server.
+
+* NFS Filesystem
+
+NFS stores data as individual files, offering a unique file-centric approach to network storage.
+On the NFS server, directory sharing is managed through the exports configuration file located at /etc/exports. This file specifies which clients are permitted to access the shared directories.
+
+#+begin_src shell
+
+# configure allowed IP addresses on NFS server
+vi /etc/exports
+/software/repos 10.61.35.201 10.61.35.202 10.61.35.203
+
+# export all the mounts defined in the exports file
+exportfs -a
+
+# export a directory to a specific client
+exportfs -o 10.61.35.201:/software/repos
+
+# mount the directory on the client machine
+mount 10.61.112.101:/software/repos /mnt/software/repos
+
+#+end_src

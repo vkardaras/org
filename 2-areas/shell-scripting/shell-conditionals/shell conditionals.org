@@ -1,4 +1,0 @@
-* Shell Conditionals
-
-** [[file:shell conditionals introduction.org][shell conditionals introduction]]
-** [[file:shell if-then-else.org][shell if-then-else]]

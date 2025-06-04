@@ -1,42 +1,4 @@
-* Introducing While Loops
-
-*** Loops
-
-Looping structures allow quick iteration though a list of group of items
-very efficiently. A very simple loop could create 12 users that need
-similar properties. The code only needs to be written once, and it runs
-across each user in the list.
-
-*** While / Until
-
-The first loop structure we look at are while and until loops, looping
-while a condition is true or until the condition becomes true.
-
-*** WHILE
-
-The loop block will iterate while the test condition is true
-
-#+begin_src shell
-$ declare -i x=10
-
-$ while (( x > 0 )) ; do
-> echo $x
-> x=x-1
-> done
-#+end_src
-
-UNTIL
-
-The loop block will iterate until the test condition becomes true
-
-#+begin_src shell
-$ declare -i x=10
-
-$ until (( x == 0 )) ; do
-> echo $x
-> x=x-1
-> done
-#+end_src
+#+title: Shell Iteration Using Loops
 
 * Understanding For Loops
 
@@ -73,7 +35,7 @@ $ declare -p users
 $ echo ${\#users[*]}
 
 # loop through the array
-$ for ((i=0; i<${\#users[*]}; i++)) do 
+$ for ((i=0; i<${\#users[*]}; i++)) do
 > sudo useradd ${users[$i]};
 > done
 #+end_src
@@ -209,6 +171,42 @@ $ foreach f (*)
 > end
 #+end_src
 
+* Introducing While Loops
+
+Looping structures allow quick iteration though a list of group of items
+very efficiently. A very simple loop could create 12 users that need
+similar properties. The code only needs to be written once, and it runs
+across each user in the list.
+
+The first loop structure we look at are while and until loops, looping
+while a condition is true or until the condition becomes true.
+
+*Example*
+
+The loop block will iterate while the test condition is true
+
+#+begin_src shell
+$ declare -i x=10
+
+$ while (( x > 0 )) ; do
+> echo $x
+> x=x-1
+> done
+#+end_src
+
+UNTIL
+
+The loop block will iterate until the test condition becomes true
+
+#+begin_src shell
+$ declare -i x=10
+
+$ until (( x == 0 )) ; do
+> echo $x
+> x=x-1
+> done
+#+end_src
+
 * Building Menus
 
 Create a script =menu.sh=
@@ -253,18 +251,4 @@ Run the script
 
 #+begin_src shell
 $ ./menu.sh
-#+end_src
-
-** Configure zsh
-
-Check current shell
-
-#+begin_src sh
-echo $SHELL
-#+end_src
-
-Change to zsh shell
-
-#+begin_src sh
-chsh -s $(which zsh)
 #+end_src

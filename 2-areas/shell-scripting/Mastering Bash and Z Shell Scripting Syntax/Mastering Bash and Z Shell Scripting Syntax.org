@@ -1,7 +1,0 @@
-* Mastering Bash and Z Shell Scripting Syntax
-
-** [[file:Working with shell syntax.org][Working with shell syntax]]
-** [[file:Working with variables.org][Working with variables]]
-** [[file:Creating Conditional Statements.org][Creating Conditional Statements]]
-** [[file:Building Effective Functions.org][Building Effective Functions]]
-** [[file:Understanding Shell Iteration Using Loops.org][Understanding Shell Iteration Using Loops]]

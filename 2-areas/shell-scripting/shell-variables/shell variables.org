@@ -1,9 +1,0 @@
-* Shell variables
-
-** [[file:using shell variables.org][using shell variables]]
-** [[file:shell debugging.org][shell debugging]]
-** [[file:shell command-line arguments.org][shell command-line arguments]]
-** [[file:shell tips.org][shell tips]]
-** [[file:shell best practices.org][shell best practices]]
-** [[file:export variables.org][export variables]]
-** [[file:shell variables from file.org][shell variables from file]]

@@ -28,6 +28,22 @@ View command history
 #+begin_src sh
 history
 #+end_src
+** Check success of previous command
+
+If the previous command succeeded, =echo $?= returns 0 otherwise a
+different integer
+
+#+begin_src shell
+$ cat /etc/hosts
+$ echo $?
+0
+#+end_src
+
+#+begin_src shell
+$ cat /etc/hostss
+$ echo $?
+1
+#+end_src
 
 ** Environment variables
 
