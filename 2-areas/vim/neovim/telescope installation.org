@@ -1,7 +1,5 @@
-* telescope installation
-:PROPERTIES:
-:CUSTOM_ID: telescope-installation
-:END:
+#+title: telescope installation
+
 =telescope.lua=
 
 #+begin_src lua

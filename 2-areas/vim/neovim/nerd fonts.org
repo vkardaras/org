@@ -1,11 +1,7 @@
-* nerd fonts
-:PROPERTIES:
-:CUSTOM_ID: nerd-fonts
-:END:
-** Installation
-:PROPERTIES:
-:CUSTOM_ID: installation
-:END:
+#+title: nerd fonts
+
+Installation
+
 1. Go to the NerdFonts website in the download section, then choose the
    font that you want to install.
 2. Right-click on the download button and Copy the link address menu

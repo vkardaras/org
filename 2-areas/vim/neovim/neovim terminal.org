@@ -1,11 +1,7 @@
-* neovim terminal
-:PROPERTIES:
-:CUSTOM_ID: neovim-terminal
-:END:
-** Terminal commands
-:PROPERTIES:
-:CUSTOM_ID: terminal-commands
-:END:
+#+title: neovim terminal
+
+* Terminal commands
+
 #+begin_src sh
 # show help
 :help :term
@@ -20,10 +16,8 @@ i
 <C-\><C-n>
 #+end_src
 
-** Specify terminal options with autocommand
-:PROPERTIES:
-:CUSTOM_ID: specify-terminal-options-with-autocommand
-:END:
+* Specify terminal options with autocommand
+
 #+begin_src lua
 vim.api.nvim_create_autocmd("TermOpen", {
     desc = "Specify options for terminal",
@@ -35,14 +29,10 @@ vim.api.nvim_create_autocmd("TermOpen", {
 })
 #+end_src
 
-** keymaps for terminal
-:PROPERTIES:
-:CUSTOM_ID: keymaps-for-terminal
-:END:
-*** Open terminal
-:PROPERTIES:
-:CUSTOM_ID: open-terminal
-:END:
+* keymaps for terminal
+
+** Open terminal
+
 #+begin_src lua
 vim.keymap.set("n", "<leader>st", function()
     vim.cmd.vnew()
@@ -52,10 +42,8 @@ vim.keymap.set("n", "<leader>st", function()
 end)
 #+end_src
 
-*** Send command to terminal
-:PROPERTIES:
-:CUSTOM_ID: send-command-to-terminal
-:END:
+** Send command to terminal
+
 #+begin_src lua
 local job_id = 0
 vim.keymap.set("n", "<leader>st", function()

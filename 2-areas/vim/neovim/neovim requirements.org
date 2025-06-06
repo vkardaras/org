@@ -1,6 +1,4 @@
-* neovim requirements
-:PROPERTIES:
-:CUSTOM_ID: neovim-requirements
-:END:
-- [[nerd fonts]]
-- [[ripgrep]]
+#+title: neovim requirements
+
+* [[file:nerd fonts.org][nerd fonts]]
+* [[file:ripgrep.org][ripgrep]]

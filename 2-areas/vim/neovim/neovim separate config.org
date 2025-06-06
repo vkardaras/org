@@ -1,85 +1,63 @@
-* neovim separate config
-:PROPERTIES:
-:CUSTOM_ID: neovim-separate-config
-:END:
+#+title: neovim separate config
+
 #+begin_src sh
 NVIM_APPNAME=nvimexample nvim
 #+end_src
 
-** Make a new directory
-:PROPERTIES:
-:CUSTOM_ID: make-a-new-directory
-:END:
+* Make a new directory
+
 #+begin_src sh
 mkdir -p .config/nvimexample
 #+end_src
 
-** Make an init file
-:PROPERTIES:
-:CUSTOM_ID: make-an-init-file
-:END:
+* Make an init file
+
 #+begin_src sh
 NVIM_APPNAME=nvimexample nvim init.lua
 #+end_src
 
-** Add some text and exit
-:PROPERTIES:
-:CUSTOM_ID: add-some-text-and-exit
-:END:
+* Add some text and exit
+
 #+begin_src lua
 print("advent of neovim")
 #+end_src
 
-** Reopen the file and see the printed text
-:PROPERTIES:
-:CUSTOM_ID: reopen-the-file-and-see-the-printed-text
-:END:
+* Reopen the file and see the printed text
+
 #+begin_src sh
 NVIM_APPNAME=nvimexample nvim init.lua
 #+end_src
 
-** View messages
-:PROPERTIES:
-:CUSTOM_ID: view-messages
-:END:
+* View messages
+
 #+begin_src sh
 :messages
 #+end_src
 
-** Run the current file
-:PROPERTIES:
-:CUSTOM_ID: run-the-current-file
-:END:
+* Run the current file
+
 #+begin_src sh
 :source %
 #+end_src
 
-** Run the selected text
-:PROPERTIES:
-:CUSTOM_ID: run-the-selected-text
-:END:
+* Run the selected text
+
 Select the text you want to run and execute the following command
 
 #+begin_src sh
 lua
 #+end_src
 
-** Example for LazyVim
-:PROPERTIES:
-:CUSTOM_ID: example-for-lazyvim
-:END:
-*** clone the repository
-:PROPERTIES:
-:CUSTOM_ID: clone-the-repository
-:END:
+* Example for LazyVim
+
+** clone the repository
+
 #+begin_src sh
 git clone https://github.com/LazyVim/starter ~/.config/LazyVim
 #+end_src
 
-*** update =.zshrc= file
-:PROPERTIES:
-:CUSTOM_ID: update-.zshrc-file
-:END:
+** update =.zshrc= file
+
 #+begin_src sh
 alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
 
@@ -98,10 +76,8 @@ function nvims() {
 bindkey -s ^a "nvims\n"
 #+end_src
 
-*** source shell config file
-:PROPERTIES:
-:CUSTOM_ID: source-shell-config-file
-:END:
+** source shell config file
+
 #+begin_src sh
 source .zshrc
 #+end_src

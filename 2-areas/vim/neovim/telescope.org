@@ -1,26 +1,10 @@
-* nvim telescope
-:PROPERTIES:
-:CUSTOM_ID: nvim-telescope
-:END:
-** Installation
-:PROPERTIES:
-:CUSTOM_ID: installation
-:END:
-[[telescope installation]]
+#+title: nvim telescope
 
 #+begin_src sh
 # live grep on specific file types
 "fun" -t md
 #+end_src
 
-** Custom search
-:PROPERTIES:
-:CUSTOM_ID: custom-search
-:END:
-[[telescope custom search]]
-
-** Create a telescope plugin
-:PROPERTIES:
-:CUSTOM_ID: create-a-telescope-plugin
-:END:
-[[telescope create plugin]]
+* [[file:telescope installation.org][telescope installation]]
+* [[file:telescope custom search.org][telescope custom search]]
+* [[file:telescope create plugin.org][telescope create plugin]]

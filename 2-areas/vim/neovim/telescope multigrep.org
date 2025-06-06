@@ -1,7 +1,5 @@
-* telescope multigrep
-:PROPERTIES:
-:CUSTOM_ID: telescope-multigrep
-:END:
+#+title: telescope multigrep
+
 #+begin_src lua
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")

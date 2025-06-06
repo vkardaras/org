@@ -1,7 +1,5 @@
-* nvim configuration
-:PROPERTIES:
-:CUSTOM_ID: nvim-configuration
-:END:
+#+title: nvim configuration
+
 Create the file =~/.config/nvim/init.lua= and add the following
 requirements
 =lua require("config.vim-options") require("config.lazy") require("config.keymaps")=

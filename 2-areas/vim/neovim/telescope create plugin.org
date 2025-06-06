@@ -1,15 +1,9 @@
-* telescope create plugin
-:PROPERTIES:
-:CUSTOM_ID: telescope-create-plugin
-:END:
-** Create the folder =config/telescope/= and the file =multigrep.lua= inside it
-:PROPERTIES:
-:CUSTOM_ID: create-the-folder-configtelescope-and-the-file-multigrep.lua-inside-it
-:END:
-** Require the file in telescope config
-:PROPERTIES:
-:CUSTOM_ID: require-the-file-in-telescope-config
-:END:
+#+title: telescope create plugin
+
+* Create the folder =config/telescope/= and the file =multigrep.lua= inside it
+
+* Require the file in telescope config
+
 #+begin_src lua
 config = function()
     ...
@@ -18,16 +12,12 @@ config = function()
 end,
 #+end_src
 
-** The =multigrep.lua= file
-:PROPERTIES:
-:CUSTOM_ID: the-multigrep.lua-file
-:END:
-[[telescope multigrep]]
+* The =multigrep.lua= file
 
-** Using the custom telescope picker
-:PROPERTIES:
-:CUSTOM_ID: using-the-custom-telescope-picker
-:END:
+* [[file:telescope multigrep.org][telescope multigrep]]
+
+* Using the custom telescope picker
+
 Display the picker with the shortcut =<leader>mg=
 
 - Search in specific file types: =sometext  *.sql=

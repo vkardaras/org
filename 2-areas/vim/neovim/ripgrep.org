@@ -1,11 +1,7 @@
-* ripgrep
-:PROPERTIES:
-:CUSTOM_ID: ripgrep
-:END:
-** Installation
-:PROPERTIES:
-:CUSTOM_ID: installation
-:END:
+#+title: ripgrep
+
+Installation
+
 #+begin_src sh
 sudo apt-get install ripgrep
 #+end_src

@@ -1,11 +1,7 @@
-* telescope custom search
-:PROPERTIES:
-:CUSTOM_ID: telescope-custom-search
-:END:
-** Search in specific directory from anywhere
-:PROPERTIES:
-:CUSTOM_ID: search-in-specific-directory-from-anywhere
-:END:
+#+title: telescope custom search
+
+* Search in specific directory from anywhere
+
 #+begin_src lua
 vim.keymap.set("n", "<leader>en", function()
     require('telescope.builtin').find_files {
@@ -14,10 +10,8 @@ vim.keymap.set("n", "<leader>en", function()
 end)
 #+end_src
 
-** Search in lazy plugins directory
-:PROPERTIES:
-:CUSTOM_ID: search-in-lazy-plugins-directory
-:END:
+* Search in lazy plugins directory
+
 #+begin_src lua
 vim.keymap.set("n", "<leader>ep", function()
     require('telescope.builtin').find_files {

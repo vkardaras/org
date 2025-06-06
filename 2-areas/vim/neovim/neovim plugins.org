@@ -1,9 +1,0 @@
-* neovim plugins
-:PROPERTIES:
-:CUSTOM_ID: neovim-plugins
-:END:
-Add the folder =lua/plugins/= to add lazy plugins
-
-- [[treesiter]]
-- [[nvim surround]]
-- [[nvim debugging]]

@@ -1,40 +1,28 @@
-* neovim quickfix
-:PROPERTIES:
-:CUSTOM_ID: neovim-quickfix
-:END:
-** open quickfix
-:PROPERTIES:
-:CUSTOM_ID: open-quickfix
-:END:
-*** from telescope
-:PROPERTIES:
-:CUSTOM_ID: from-telescope
-:END:
+#+title: neovim quickfix
+
+* open quickfix
+
+** from telescope
+
 - Search in telescope for a term
 - Enter in normal mode
 - Press to add all entries to quickfix
 
-*** from reference
-:PROPERTIES:
-:CUSTOM_ID: from-reference
-:END:
+** from reference
+
 - Move the cursor to the word you want to show references
 - Press gr to open quickfix with the references of the word
 
-** Move in quickfix
-:PROPERTIES:
-:CUSTOM_ID: move-in-quickfix
-:END:
+* Move in quickfix
+
 - =:cnext=: move to next entry
 - =:cprev=: move to previous entry
 - =:cclose=: close quickfix
 - =:copen=: open quickfix
 - =:cdo=: do a command for each line
 
-*** Example of =:cdo=
-:PROPERTIES:
-:CUSTOM_ID: example-of-cdo
-:END:
+** Example of =:cdo=
+
 #+begin_src sh
 # substitute `client` with `c`
 :cdo s/client/c/gc
