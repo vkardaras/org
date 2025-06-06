@@ -1,10 +1,6 @@
 * Vasilis Kardaras
-:PROPERTIES:
-:CUSTOM_ID: vasilis-kardaras
-:END:
-[[mailto:vasiliskardaras@gmail.com][vasiliskardaras@gmail.com]] |
-[[https://github.com/vkardaras]] |
-[[https://www.linkedin.com/in/vasiliskardaras]]
+
+[[mailto:vasiliskardaras@gmail.com][vasiliskardaras@gmail.com]] | [[https://github.com/vkardaras]] | [[https://www.linkedin.com/in/vasiliskardaras]]
 
 March 3, 2025
 

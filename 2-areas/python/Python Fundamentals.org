@@ -1,4 +1,6 @@
-* python virtual environment
+#+title: Python Fundamentals
+
+* Python Virtual Environment
 
 ** Move to python project and add a virtual environment
 
@@ -23,3 +25,19 @@ pip3 install requests
 #+begin_src sh
 deactivate
 #+end_src
+* Print function
+
+** Controll end of print
+
+#+begin_src python
+print("Hello World", end="!")
+> Hello World!
+#+end_src
+
+** Control seperator
+
+#+begin_src python
+print("Hello", "future", "Python", "programmer!", sep="-")
+> Hello-future-Python-programmer!
+#+end_src
+* Input

@@ -1,9 +1,0 @@
-https://github.com/logandonley/dotfiles
-https://github.com/jetify-com/devbox
-https://www.chiarulli.me/Linux/05-nerd-fonts/
-https://ostechnix.com/install-nerd-fonts-to-add-glyphs-in-your-code-on-linux/
-https://dev.to/devopsking/automation-with-bash-creating-a-script-to-install-and-configure-applications-on-multiple-flavours-of-os-4o0k
-https://askubuntu.com/questions/519/how-do-i-write-a-shell-script-to-install-a-list-of-applications
-https://unix.stackexchange.com/questions/717483/creating-a-bash-script-to-install-packages
-https://medium.com/unixification/create-a-bash-script-to-install-your-packages-automatically-55b7f0638f3e
-

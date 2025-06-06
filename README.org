@@ -1,5 +1,3 @@
 * MyVault
-:PROPERTIES:
-:CUSTOM_ID: myvault
-:END:
+
 ** This is my org files for managing my notes

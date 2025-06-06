@@ -1,15 +1,7 @@
 * Web tools
-:PROPERTIES:
-:CUSTOM_ID: web-tools
-:END:
+
 ** Performance
-:PROPERTIES:
-:CUSTOM_ID: performance
-:END:
 [[https://gtmetrix.com/]]
 
 ** Load testing
-:PROPERTIES:
-:CUSTOM_ID: load-testing
-:END:
 [[https://k6.io/]]
