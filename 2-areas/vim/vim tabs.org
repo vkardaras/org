@@ -1,4 +1,7 @@
+#+title: Vim Tabs
+
 #+begin_src sh
+
 # open a new tab
 :tabnew
 <leader>to

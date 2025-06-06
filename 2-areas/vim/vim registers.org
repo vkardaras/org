@@ -1,8 +1,6 @@
-* vim registers
-:PROPERTIES:
-:CUSTOM_ID: vim-registers
-:END:
-** View help for registers
+#+title: Vim Registers
+
+* View help for registers
 :PROPERTIES:
 :CUSTOM_ID: view-help-for-registers
 :END:
@@ -10,7 +8,7 @@
 :h registers
 #+end_src
 
-** Using registers
+* Using registers
 :PROPERTIES:
 :CUSTOM_ID: using-registers
 :END:
@@ -24,7 +22,7 @@ To copy to a register use double quote and a letter from a - z
 "ap
 #+end_src
 
-*** View the contents of all the registers
+* View the contents of all the registers
 :PROPERTIES:
 :CUSTOM_ID: view-the-contents-of-all-the-registers
 :END:

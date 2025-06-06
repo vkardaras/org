@@ -1,20 +1,14 @@
-* vim configuration
-:PROPERTIES:
-:CUSTOM_ID: vim-configuration
-:END:
-** Important configuration files
-:PROPERTIES:
-:CUSTOM_ID: important-configuration-files
-:END:
+#+title: vim configuration
+
+* Important configuration files
+
 - =~/.vimrc= Most settings go here. Sheared terminal and graphical
   options
 - =~/.gvimrc= Graphic-only settings (font, window size)
 - =~/.vim/= Plugins, language-specific options, color schemes.
 
-*** Set, Show, Reset
-:PROPERTIES:
-:CUSTOM_ID: set-show-reset
-:END:
+* Set, Show, Reset
+
 Boolean options
 
 #+begin_src sh

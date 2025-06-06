@@ -1,3 +1,0 @@
-- `:e .` Browse a directory
-- `:e filename` Edit a file within vim
-- `:syntax enable` `:set syntax=apache` Enable syntax highlithing

@@ -1,7 +1,7 @@
-**  Horizontal
-:PROPERTIES:
-:CUSTOM_ID: horizontal
-:END:
+#+title: Vim Commands
+
+* Horizontal
+
 - =_= Move to the beginning of the text
 - =0= Move to the beginning of the line
 - =f+<char>= Move to the first character found in the line
@@ -17,10 +17,8 @@
 - =I= Move to the beginning of the text in insert mode
 - =A= Move to the end of the text in line in insert mode
 
-** Vertical
-:PROPERTIES:
-:CUSTOM_ID: vertical
-:END:
+* Vertical
+
 - ={= Move one paragraph up
 - =}= Move one paragraph down
 - =ctrl+d= Move half page down

@@ -1,4 +1,6 @@
-Search and replace in file
+#+title: Vim Search and Replace
+
+* Search and replace in file
 
 #+begin_src sh
 # search
@@ -15,7 +17,7 @@ Search and replace in file
 - =g= Search for all occurrences
 - =c= Ask for confirmation on each match
 
-Search commands
+* Search commands
 
 #+begin_src sh
 # search forward
@@ -36,7 +38,7 @@ g*
 g#
 #+end_src
 
-Search character
+* Search character
 
 #+begin_src sh
 # search for character forward

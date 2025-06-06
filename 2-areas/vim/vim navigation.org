@@ -1,7 +1,6 @@
-* vim navigation
-:PROPERTIES:
-:CUSTOM_ID: vim-navigation
-:END:
+#+title: Vim Navigation
+
+* Basic navigation
 #+begin_src sh
 # move to the middle of the line
 gm
@@ -65,7 +64,7 @@ gg
 G
 #+end_src
 
-** vim navigation by number
+* vim navigation by number
 :PROPERTIES:
 :CUSTOM_ID: vim-navigation-by-number
 :END:

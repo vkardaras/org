@@ -1,7 +1,7 @@
-* vim marks
-:PROPERTIES:
-:CUSTOM_ID: vim-marks
-:END:
+#+title: Vim Marks
+
+* Set marks
+
 #+begin_src sh
 # mark a position in a document, m+letter
 ma
@@ -18,10 +18,8 @@ ma
 d't
 #+end_src
 
-** vim's marks
-:PROPERTIES:
-:CUSTOM_ID: vims-marks
-:END:
+* Get marks
+
 #+begin_src sh
 # the location of the cursor when you last exited Vim (`0 is most recent)
 `0-`9

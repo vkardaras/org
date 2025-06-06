@@ -1,15 +1,91 @@
-* vim editing
-:PROPERTIES:
-:CUSTOM_ID: vim-editing
-:END:
-[[vim Precision Insertion]]
+#+title: Vim Editing
 
-[[vim Change Words]]
+* Basic editing
 
-** Select text
-:PROPERTIES:
-:CUSTOM_ID: select-text
-:END:
+#+begin_src shell
+# activate Visual linewise mode
+V
+# yank (copy)
+y
+# delete (cut)
+d
+# change (cut, then activate Insert mode)
+c
+# paste before cursor
+P
+# pase after cursor
+p
+
+# repeat the last change
+.
+#+end_src
+
+* Precision Insertion
+
+#+begin_src shell
+# move to ferst non-blank character
+I
+
+# move one character right
+a
+
+# move to end of line
+A
+
+# open a new line below
+o
+
+# open a new line above
+O
+
+# replace one character
+r
+
+# replace characteres forward
+R
+#+end_src
+
+* Change Words
+
+#+begin_src sh
+# change: delete words and switch to insert mode
+c
+
+# three words. also trw W for larger serctions of code
+3W
+
+# delete a character
+x
+
+# delete a line
+dd or D
+
+# yank (copy) a line
+yy or Y
+
+# change a line (delete and enter insert mode)
+cc or C
+
+# join 2 lines
+J
+
+# join x lines
+xJ
+
+# join 2 lines without leaving empty space between
+gJ
+
+# ident code: 2<<  2>>
+
+# ident code in insert mode right
+ctrl-t
+
+# ident code in insert mode left
+ctrl-d
+#+end_src
+
+* Select text
+
 #+begin_src sh
 # move to the start of a sentence
 (
@@ -27,10 +103,8 @@
 %
 #+end_src
 
-** Visual mode
-:PROPERTIES:
-:CUSTOM_ID: visual-mode
-:END:
+* Visual mode
+
 #+begin_src sh
 # toggle position of cursor in selection
 o

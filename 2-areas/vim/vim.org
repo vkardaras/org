@@ -1,17 +1,15 @@
-* vim
-:PROPERTIES:
-:CUSTOM_ID: vim
-:END:
-- [[vim configuration]]
-- [[vim-options]]
-- [[vim commands]]
-- [[vim editing]]
-- [[vim basic editing]]
-- [[vim search and replace]]
-- [[vim navigation]]
-- [[vim files]]
-- [[vim windows and buffers]]
-- [[vim tabs]]
-- [[vim marks]]
-- [[vim folding]]
-- [[vim macros]]
+#+title: Vim
+
+* [[file:vim configuration.org][vim configuration]]
+* [[file:vim options.org][vim options]]
+* [[file:vim commands.org][vim commands]]
+* [[file:vim editing.org][vim editing]]
+* [[file:vim search and replace.org][vim search and replace]]
+* [[file:vim navigation.org][vim navigation]]
+* [[file:vim files.org][vim files]]
+* [[file:vim windows and buffers.org][vim windows and buffers]]
+* [[file:vim tabs.org][vim tabs]]
+* [[file:vim marks.org][vim marks]]
+* [[file:vim folding.org][vim folding]]
+* [[file:vim registers.org][vim registers]]
+* [[file:vim macros.org][vim macros]]

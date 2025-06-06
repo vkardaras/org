@@ -1,7 +1,5 @@
-* vim folding
-:PROPERTIES:
-:CUSTOM_ID: vim-folding
-:END:
+#+title: Vim Folding
+
 #+begin_src sh
 # close all folds
 zM

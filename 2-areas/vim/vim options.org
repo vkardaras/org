@@ -1,13 +1,6 @@
----
-id: vim-options
-aliases:
-  - vim-options
-tags: []
----
+#+title: Vim Options
 
-# vim-options
-
-```lua
+#+begin_src lua
 -- Left column and similar settings
 vim.opt.number = true -- display line numbers
 vim.opt.relativenumber = true -- display relative line numbers
@@ -47,4 +40,4 @@ vim.opt.cursorline = true -- highlight current line
 vim.opt.hlsearch = true -- highlight all matches in search
 vim.opt.ignorecase = true -- ignore case in search
 vim.opt.smartcase = true -- match case if explicitly state
-```
+#+end_src

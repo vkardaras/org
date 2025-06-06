@@ -1,20 +1,12 @@
-* vim macros
-:PROPERTIES:
-:CUSTOM_ID: vim-macros
-:END:
-[[vim registers]]
+#+title: Vim Macros
 
-** Record a macro
-:PROPERTIES:
-:CUSTOM_ID: record-a-macro
-:END:
+* Record a macro
+
 - To start the recording of a macro pres =q= and a letter from a-z
 - To finish a recording press =q= again
 
-** Execute a macro
-:PROPERTIES:
-:CUSTOM_ID: execute-a-macro
-:END:
+* Execute a macro
+
 To execute a macro press =@= and the letter of the register
 
 To execute the last macro pres =@@=
