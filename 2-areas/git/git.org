@@ -1,5 +1,72 @@
 * Git
 
-** [[file:basic git commands.org][basic git commands]]
-** [[file:add remote origin.org][add remote origin]]
+** basic git commands
+
+#+begin_src sh
+# add global name and email
+git config --global user.name "Mona Lisa"
+git config --global user.email test@email.com
+
+# verify the connection details
+git remote -v
+# View existing remotes
+# origin  https://github.com/user/repo.git (fetch)
+# origin  https://github.com/user/repo.git (push)
+
+# Add the 'origin' remote's URL
+git remote add origin https://github.com/user/repo2.git
+
+# Change the 'origin' remote's URL
+git remote set-url origin https://github.com/user/repo2.git
+
+git remote -v
+# Verify new remote URL
+# origin  https://github.com/user/repo2.git (fetch)
+# origin  https://github.com/user/repo2.git (push)
+#+end_src
+
+** Resetting and Reverting
+
+#+begin_src sh
+
+# revert a commit
+git revert 8ad5d
+
+# reset a commit and keep the files
+git reset --soft HEAD~1
+
+# reset a commit and remove the files
+git reset --hard HEAD~1
+#+end_src
+** Stashing
+
+#+begin_src sh
+
+# stash files
+git stash
+
+# retrieve the most recent stash
+git stash pop
+# restore a specific stash
+git stash show stash@{1}
+
+# list all stashes
+git stash list
+
+# inspect the contents of a specific stash
+git stash show stash@{1}
+
+#+end_src
+** Reflog
+
+#+begin_src sh
+
+# show a detailed history that includes even those actions which don't create new commits
+git reflog
+
+# restore a repository to a previews state
+git reset --hard 8ad5d8c
+
+#+end_src
+
 ** [[file:github.org][github]]
