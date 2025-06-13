@@ -15,4 +15,5 @@ kubectl get nodes
 
 * [[file:minikube.org][minikube]]
 * [[file:Kubernetes Concepts - Pods, ReplicaSets, Deployments.org][Kubernetes Concepts - Pods, ReplicaSets, Deployments]]
+* [[file:kubectl run.org][kubectl run]]
 * [[file:Kubernetes services.org][Kubernetes services]]

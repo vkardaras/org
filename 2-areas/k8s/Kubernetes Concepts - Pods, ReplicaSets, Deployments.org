@@ -116,19 +116,22 @@ spec:
 
 #+begin_src sh
 # create replicalset
-kubectl create -f replicalset.yaml
+kubectl create -f replicaset.yaml
 
 # get ReplicaSets
-kubectl get replicalset
+kubectl get replicaset
 
 # get info of replicalset
-kubectl describe replicalset myapp-replicaset
+kubectl describe replicaset myapp-replicaset
 
 # edit replicalset
-kubectl edit replicalset myapp-replicaset
+kubectl edit replicaset myapp-replicaset
 
 # scale replicalset
-kubectl scale replicalset myapp-replicaset --replicas=2
+kubectl scale --replicas=5 -f replicaset.yaml
+kubectl scale --replicas=5 replicaset new-replica-set
+# scale after updating the yaml file
+kubectl replace -f replicaset.yaml
 
 # delete replicalset
 kubectl delete replicaset replicaset-1

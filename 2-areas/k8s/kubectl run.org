@@ -1,0 +1,26 @@
+#+title: Kubectl Run
+
+#+begin_src sh
+
+# create a pod
+kubectl run nginx --image=nginx
+
+# generate POD Manifest YAML file (-o yaml)
+kubectl run nginx --image=nginx --dry-run=client -o yaml
+
+# create a deployment
+kubectl create deployment --image=nginx nginx
+
+# generate Deployment YAML file (-o yaml)
+kubectl create deployment --image=nginx nginx --dry-run=client -o yaml
+
+# generate Deployment YAML file (-o yaml). Don’t create it(–dry-run) and save it to a file
+kubectl create deployment --image=nginx nginx --dry-run=client -o yaml > nginx-deployment.yaml
+
+# make necessary changes to the file (for example, adding more replicas) and then create the deployment
+kubectl create -f nginx-deployment.yaml
+
+# specify the –replicas option to create a deployment with 4 replicas
+kubectl create deployment --image=nginx nginx --replicas=4 --dry-run=client -o yaml > nginx-deployment.yaml
+
+#+end_src

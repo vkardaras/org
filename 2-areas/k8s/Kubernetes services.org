@@ -1,12 +1,12 @@
-* Kubernetes services
+#+title: Kubernetes services
 
-Service Types
+* Service Types
 
 - NodePort
 - ClusterIP
 - LoadBalancer
 
-** Service definition
+* Service definition
 
 #+begin_src yaml
 apiVersion: v1
@@ -23,7 +23,7 @@ spec:
     app: myapp
 #+end_src
 
-** Service commands
+* Service commands
 
 #+begin_src sh
 # create Service
