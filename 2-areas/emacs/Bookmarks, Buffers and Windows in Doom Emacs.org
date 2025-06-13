@@ -1,6 +1,6 @@
-* Bookmarks, Buffers and Windows in Doom Emacs
+#+title: Bookmarks, Buffers and Windows in Doom Emacs
 
-** Emacs Windows
+* Emacs Windows
 
 #+begin_src sh
 # change window frame
@@ -23,7 +23,7 @@ SPC w h,j,k,l
 SPC w =
 #+end_src
 
-** Emacs Buffers
+* Emacs Buffers
 
 #+begin_src sh
 # list buffers in workspace
@@ -44,7 +44,7 @@ SPC b k
 SPC b s
 #+end_src
 
-** Emacs Help
+* Emacs Help
 
 #+begin_src sh
 # search documentation

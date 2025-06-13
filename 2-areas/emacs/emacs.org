@@ -1,8 +1,6 @@
-* emacs
-:PROPERTIES:
-:CUSTOM_ID: emacs
-:END:
-** [[file:emacs getting started.org][emacs getting started]]
-** [[file:get around emacs.org][get around emacs]]
-** [[file:editing text with emacs.org][editing text with emacs]]
-** [[file:emacs shells.org][emacs shells]]
+#+title: emacs
+
+* [[file:emacs getting started.org][emacs getting started]]
+* [[file:get around emacs.org][get around emacs]]
+* [[file:editing text with emacs.org][editing text with emacs]]
+* [[file:emacs shells.org][emacs shells]]

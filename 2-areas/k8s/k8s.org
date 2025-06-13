@@ -1,6 +1,6 @@
-* k8s
+#+title: k8s
 
-** kubectl
+* kubectl
 
 #+begin_src sh
 # deploy an application to cluster
@@ -13,6 +13,6 @@ kubectl cluster-info
 kubectl get nodes
 #+end_src
 
-** [[file:minikube.org][minikube]]
-** [[file:Kubernetes Concepts - Pods, ReplicaSets, Deployments.org][Kubernetes Concepts - Pods, ReplicaSets, Deployments]]
-** [[file:Kubernetes services.org][Kubernetes services]]
+* [[file:minikube.org][minikube]]
+* [[file:Kubernetes Concepts - Pods, ReplicaSets, Deployments.org][Kubernetes Concepts - Pods, ReplicaSets, Deployments]]
+* [[file:Kubernetes services.org][Kubernetes services]]

@@ -1,0 +1,11 @@
+#+title: Magit
+
+#+begin_src sh
+
+# view changes
+SPC g g
+
+# view help for each stage
+?
+
+#+end_src

@@ -1,10 +1,12 @@
-* Kubernetes Concepts - Pods, ReplicaSets, Deployments
+#+title: Kubernetes Concepts - Pods, ReplicaSets, Deployments
 
-** YAML in Kubernetes
+* YAML in Kubernetes
+
+** pod definition
 
 Define pod file =pod-definition.yml=
 
-#+begin_src yml
+#+begin_src yaml
 apiVersion: v1
 kind: Pod
 metadata:
@@ -24,7 +26,7 @@ Create pod
 kubectl create -f pod-definition.yml
 #+end_src
 
-*** Definition kinds
+** Definition kinds
 
 | Kind       | Version |
 |------------+---------|
@@ -33,7 +35,7 @@ kubectl create -f pod-definition.yml
 | ReplicaSet | apps/v1 |
 | Deployment | apps/v1 |
 
-*** Commands
+** Commands
 
 #+begin_src sh
 # get pods
@@ -59,7 +61,7 @@ kubectl create -f redis.yaml
 kubectl apply -f redis.yaml
 #+end_src
 
-*** Demo
+** Demo
 
 Create the file =pod.yaml=
 
@@ -83,9 +85,9 @@ Create the pod
 kubectl apply -f pod.yaml
 #+end_src
 
-** Replication Controllers and ReplicaSets
+* Replication Controllers and ReplicaSets
 
-*** Define ReplicaSet
+** Define ReplicaSet
 
 #+begin_src yaml
 apiVersion: apps/v1
@@ -110,7 +112,7 @@ spec:
           image: nginx
 #+end_src
 
-*** ReplicaSet commands
+** ReplicaSet commands
 
 #+begin_src sh
 # create replicalset
@@ -135,9 +137,9 @@ kubectl delete replicaset replicaset-1
 kubectl explain replicalset
 #+end_src
 
-** Deployments
+* Deployments
 
-*** Deployment definition
+** Deployment definition
 
 #+begin_src yaml
 apiVersion: apps/v1
@@ -164,7 +166,7 @@ spec:
           image: nginx
 #+end_src
 
-*** Deployment commands
+** Deployment commands
 
 #+begin_src sh
 # get help fro deployment
