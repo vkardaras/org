@@ -1,0 +1,75 @@
+#+title: Logging Monitoring
+
+* Monitor Cluster Components
+** What to Monitor
+
+For nodes, consider monitoring the following:
+
+- Total number of nodes in the cluster
+- Health status of each node
+- Performance metrics such as CPU, memory, network, and disk utilization
+
+For pods, focus on:
+
+- The number of running pods
+- CPU and memory consumption for every pod
+
+** How Metrics are Collected
+
+Every Kubernetes node runs a service called the Kubelet, which communicates with the Kubernetes API server and manages pod operations. Within the Kubelet, an integrated component called cAdvisor (Container Advisor) is responsible for collecting performance metrics from running pods. These metrics are then exposed via the Kubelet API and retrieved by Metrics Server.
+
+** Deploying Metrics Server
+
+#+begin_src shell
+
+# deploy for minikube
+minikube addons enable metrics-server
+
+# for other environments
+git clone https://github.com/kubernetes-incubator/metrics-server.git
+kubectl create -f deploy/1.8+/
+
+#+end_src
+
+** View metrics
+
+#+begin_src shell
+
+# view metrics for nodes
+kubectl top node
+
+# view metrics for pods
+kubectl top pod
+
+#+end_src
+* Managing Application Logs
+
+#+begin_src shell
+# view the live logs of a pod
+kubectl logs -f event-simulator-pod
+#+end_src
+
+** Logging with Multiple Containers in a Pod
+
+Create a pod with multiple containers
+
+#+begin_src yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: event-simulator-pod
+spec:
+  containers:
+    - name: event-simulator
+      image: kodekloud/event-simulator
+    - name: image-processor
+      image: some-image-processor
+#+end_src
+
+View the logs of a container
+
+#+begin_src shell
+
+# specify the container name to view its logs:
+kubectl logs -f event-simulator-pod event-simulator
+#+end_src

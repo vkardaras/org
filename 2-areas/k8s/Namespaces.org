@@ -1,0 +1,107 @@
+#+title: Namespaces
+
+* Default Namespace and System Namespaces
+
+- default: is the default namespace
+- kube-system: contains core system components like network services and DNS
+- kube-public: intended for resources that need to be publicly accessible across users
+
+* Commands for namespaces
+
+#+begin_src shell
+
+# get all the namespaces
+kubectl get namespaces
+
+# connect to a service at the dev namespace from another namespace
+mysql.connect("db-service.dev.svc.cluster.local")
+
+# get the nodes in the default namespace
+kubectl get pods
+
+# get the nodes in the kube-system namespace
+kubectl get pods  --namespace=kube-system
+
+# create pod in a specific namespace
+kubectl create -f pod-definition.yml --namespace=dev
+
+#+end_src
+
+* Define namespace for pod in yaml file
+
+Define pod in the dev namespace
+
+#+begin_src yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  namespace: dev
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+#+end_src
+
+* Create namespace
+
+** Define the dev namespace
+
+#+begin_src yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+#+end_src
+
+Create the namespace
+
+#+begin_src shell
+kubectl create -f namespace-dev.yml
+#+end_src
+
+** Create the namespace directly
+
+#+begin_src shell
+kubectl create namespace dev
+#+end_src
+
+* Setting the Default Namespace for Your Context
+
+#+begin_src shell
+kubectl config set-context $(kubectl config current-context) --namespace=dev
+#+end_src
+
+* Get pods for all namespaces
+
+#+begin_src shell
+kubectl get pods --all-namespaces
+#+end_src
+
+* Control Resource Usage with ResourceQuotas
+
+Define the resource
+
+#+begin_src shell
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: compute-quota
+  namespace: dev
+spec:
+  hard:
+    pods: "10"
+    requests.cpu: "4"
+    requests.memory: 5Gi
+    limits.cpu: "10"
+    limits.memory: 10Gi
+#+end_src
+
+Apply the configuration
+
+#+begin_src shell
+kubectl create -f compute-quota.yaml
+#+end_src

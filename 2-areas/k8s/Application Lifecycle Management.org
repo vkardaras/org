@@ -1,0 +1,59 @@
+#+title: Application Lifecycle Management
+
+* Rolling Updates and Rollbacks
+
+*Deployment Strategies*
+
+- recreate
+- rolling update (default)
+
+** Update a Deployment
+
+Adjust the container image version
+
+Update a deployment
+
+#+begin_src yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:1.7.1
+#+end_src
+
+** Update deployments commands
+
+#+begin_src shell
+
+# Apply the changes of a deployment
+kubectl apply -f deployment-definition.yml
+
+# update the container image directly
+kubectl set image deployment/myapp-deployment nginx-container=nginx:1.9.1
+
+# view deployment details
+kubectl describe deployment myapp-deployment
+
+# perform a rollback
+kubectl rollout undo deployment/myapp-deployment
+
+# check the status of the rollout
+kubectl rollout status deployment/myapp-deployment
+#+end_src

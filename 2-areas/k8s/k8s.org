@@ -17,3 +17,7 @@ kubectl get nodes
 * [[file:Kubernetes Concepts - Pods, ReplicaSets, Deployments.org][Kubernetes Concepts - Pods, ReplicaSets, Deployments]]
 * [[file:kubectl run.org][kubectl run]]
 * [[file:Kubernetes services.org][Kubernetes services]]
+* [[file:Namespaces.org][Namespaces]]
+* [[file:Scheduling.org][Scheduling]]
+* [[file:Logging Monitoring.org][Logging Monitoring]]
+* [[file:Application Lifecycle Management.org][Application Lifecycle Management]]

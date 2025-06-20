@@ -41,8 +41,14 @@ kubectl create -f pod-definition.yml
 # get pods
 kubectl get pods
 
+# get specific fields of pos
+kubectl get pods -o custom-columns="NAME:.metadata.name,PRIORITY:.spec.priorityClassName"
+
 # get pods with more details
 kubectl get pods -o wide
+
+# export pod definition from running pod
+kubectl get pod critical-app -o yaml > critical-app.yaml
 
 # create pod
 kubectl run nginx --image=nginx

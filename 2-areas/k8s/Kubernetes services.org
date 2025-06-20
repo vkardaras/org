@@ -2,12 +2,11 @@
 
 * Service Types
 
-- NodePort
-- ClusterIP
-- LoadBalancer
+** NodePort
+Creates a service to communicate exteran apps with the pod in a node
+range: 30000 - 32767
 
-* Service definition
-
+*Definition*
 #+begin_src yaml
 apiVersion: v1
 kind: Service
@@ -23,6 +22,43 @@ spec:
     app: myapp
 #+end_src
 
+** ClusterIP
+Creates a service for the communication of pods inside a node
+
+*Definition*
+#+begin_src yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-end
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: myapp
+    type: back-end
+#+end_src
+
+** LoadBalancer
+Connect to load balancer of cloud platforms
+
+*Definition*
+#+begin_src yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30004
+#+end_src
+
+
 * Service commands
 
 #+begin_src sh
@@ -31,6 +67,9 @@ kubectl create -f service-definition.yml
 
 # get services
 kubectl get service
+
+# get service details
+kubectl describe service <service_name>
 
 # get url of a service in minikube
 minikube service myapp-service --url
