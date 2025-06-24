@@ -145,3 +145,551 @@ docker run ubuntu-sleeper
 
 #+end_src
 ** Configuring ENTRYPOINT for Runtime Arguments
+
+Specify only runtime arguments without changing the default command. This instruction sets the executable to run when the container starts, and any command-line arguments provided at runtime are appended to it.
+
+#+begin_src shell
+# create the image
+FROM ubuntu
+ENTRYPOINT ["sleep"]
+CMD ["5"]
+
+# build the image
+docker build -t ubuntu-sleeper .
+
+# run the image
+docker run ubuntu-sleeper
+
+# override the sleep duration at runtime
+docker run ubuntu-sleeper 10
+
+# override the ENTRYPOINT with a different executable
+docker run --entrypoint sleep2.0 ubuntu-sleeper 10
+#+end_src
+* Commands and Arguments in Kubernetes
+** Override Default Behavior with Arguments
+
+Create the image =ubuntu-sleeper= with the following docker file
+
+#+begin_src shell
+FROM Ubuntu
+ENTRYPOINT ["sleep"]
+CMD ["5"]
+#+end_src
+
+Specify the pod with the created image
+
+#+begin_src yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-sleeper-pod
+spec:
+  containers:
+  - name: ubuntu-sleeper
+    image: ubuntu-sleeper
+    args: ["10"]
+#+end_src
+
+** Overriding the ENTRYPOINT
+
+Pod definition YAML with overridden ENTRYPOINT:
+
+#+begin_src yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-sleeper-pod
+spec:
+  containers:
+    - name: ubuntu-sleeper
+      image: ubuntu-sleeper
+      command: ["sleep2.0"]
+      args: ["10"]
+
+# or
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu-sleeper-pod
+spec:
+  containers:
+    - name: ubuntu-sleeper
+      image: ubuntu-sleeper
+      command: ["sleep2.0", "10"]
+#+end_src
+
+It is equivalent to the following for docker
+
+#+begin_src shell
+docker run --name ubuntu-sleeper \
+  --entrypoint sleep2.0 \
+  ubuntu-sleeper 10
+#+end_src
+* Configure Environment Variables in Applications
+** Setting Environment Variables Using Docker
+
+When running a Docker container, you can set environment variables using the =-e= flag.
+#+begin_src shell
+docker run -e APP_COLOR=pink simple-webapp-color
+#+end_src
+
+** Configuring Environment Variables in Kubernetes Pods
+
+#+begin_src yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp-color
+spec:
+  containers:
+    - name: simple-webapp-color
+      image: simple-webapp-color
+      ports:
+        - containerPort: 8080
+      env:
+        - name: APP_COLOR
+          value: pink
+#+end_src
+
+** Leveraging ConfigMaps and Secrets for Environment Variables
+
+#+begin_src yaml
+# define an environment variable directly
+env:
+  - name: APP_COLOR
+    value: pink
+
+# reference a ConfigMap for the environment variable
+env:
+  - name: APP_COLOR
+    valueFrom:
+      configMapKeyRef:
+        name: app-config
+        key: color
+
+# source the environment variable from a Secret
+env:
+  - name: APP_COLOR
+    valueFrom:
+      secretKeyRef:
+        name: app-secrets
+        key: color
+#+end_src
+* Configure ConfigMaps in Applications
+
+** Using Environment Variables in a Pod
+
+#+begin_src yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp-color
+spec:
+  containers:
+    - name: simple-webapp-color
+      image: simple-webapp-color
+      ports:
+        - containerPort: 80
+  env:
+    - name: APP_COLOR
+      value: blue
+    - name: APP_MODE
+      value: prod
+#+end_src
+
+** Centralizing Configuration with ConfigMaps
+
+#+begin_src yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp-color
+spec:
+  containers:
+    - name: simple-webapp-color
+      image: simple-webapp-color
+      ports:
+        - containerPort: 80
+  envFrom:
+    - configMapRef:
+        name: app-color
+#+end_src
+
+Assume that the ConfigMap (named app-color) holds the following key–value pairs:
+#+begin_src shell
+APP_COLOR: blue
+APP_MODE: prod
+#+end_src
+
+** Creating ConfigMaps
+
+*** Imperative Approach
+
+#+begin_src shell
+# create a ConfigMap directly by specifying key–value pairs
+kubectl create configmap app-config --from-literal=APP_COLOR=blue --from-literal=APP_MOD=prod
+
+# generate a ConfigMap from a file using the `--from-file` option
+kubectl create configmap app-config --from-file=app_config.properties
+#+end_src
+
+*** Declarative Approach
+
+Define your ConfigMap in a YAML file and apply it with kubectl.
+
+#+begin_src yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  APP_COLOR: blue
+  APP_MODE: prod
+#+end_src
+
+Create the ConfigMap
+
+#+begin_src shell
+kubectl create -f config-map.yaml
+#+end_src
+
+** View ConfigMaps
+
+#+begin_src shell
+
+# get config maps
+kubectl get configmaps
+
+# check the stored configuration data
+kubectl describe configmaps
+
+#+end_src
+
+** Injecting a ConfigMap into a Pod
+
+Inject the app-config ConfigMap into the container as environment variables
+#+begin_src yaml
+# pod-definition.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp-color
+  labels:
+    name: simple-webapp-color
+spec:
+  containers:
+    - name: simple-webapp-color
+      image: simple-webapp-color
+      ports:
+        - containerPort: 8080
+  envFrom:
+    - configMapRef:
+        name: app-config
+#+end_src
+
+** Alternative Injection Methods
+
+#+begin_src yaml
+# inject environment variables using the envFrom property
+envFrom:
+  - configMapRef:
+      name: app-config
+
+# inject a single environment variable using the valueFrom property
+env:
+  - name: APP_COLOR
+    valueFrom:
+      configMapKeyRef:
+        name: app-config
+        key: APP_COLOR
+
+# mount the entire ConfigMap as a volume
+volumes:
+  - name: app-config-volume
+    configMap:
+      name: app-config
+#+end_src
+* Secrets
+** Imperative Creation of a Secret
+
+#+begin_src shell
+# create a Secret named "app-secret" with the key-value pair
+kubectl create secret generic app-secret --from-literal=DB_Host=mysql
+
+# include multiple key-value pairs, use the `--from-literal` option repeatedly
+kubectl create secret generic app-secret \
+  --from-literal=DB_Host=mysql \
+  --from-literal=DB_User=root \
+  --from-literal=DB_Password=paswd
+
+# create a Secret from a file with the --from-file option
+kubectl create secret generic app-secret --from-file=app_secret.properties
+#+end_src
+
+** Declarative Creation of a Secret
+
+Define a Secret in a YAML file
+
+#+begin_src yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secret
+data:
+  DB_Host: bXlzcWw=
+  DB_User: cm9vdA==
+  DB_Password: cGFzd3Jk
+#+end_src
+
+Apply the definition
+
+#+begin_src shell
+kubectl create -f secret-data.yaml
+#+end_src
+
+** Convert Plaintext to Base64
+
+#+begin_src shell
+echo -n 'mysql' | base64
+echo -n 'root' | base64
+echo -n 'paswrd' | base64
+# Output: cGFzd3Jk
+#+end_src
+
+** Viewing and Decoding Secrets
+
+#+begin_src shell
+# list Secrets
+kubectl get secrets
+
+# describe a Secret (without showing sensitive data)
+kubectl describe secret app-secret
+
+# view the encoded data in YAML format
+kubectl get secret app-secret -o yaml
+
+# decode an encoded value
+echo -n 'bXlzcWw=' | base64 --decode
+echo -n 'cm9vdA==' | base64 --decode
+echo -n 'cGFzd3Jk' | base64 --decode
+#+end_src
+
+** Inject Secrets into a Pod
+*** Injecting as Environment Variables
+
+#+begin_src yaml
+# pod-definition.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp-color
+  labels:
+    name: simple-webapp-color
+spec:
+  containers:
+  - name: simple-webapp-color
+    image: simple-webapp-color
+    ports:
+    - containerPort: 8080
+    envFrom:
+    - secretRef:
+        name: app-secret
+#+end_src
+
+** Mount Secrets as Files
+
+#+begin_src yaml
+volumes:
+- name: app-secret-volume
+  secret:
+    secretName: app-secret
+#+end_src
+
+After mounting, listing the directory contents should display each key as a file:
+
+#+begin_src shell
+ls /opt/app-secret-volumes
+# Output: DB_Host  DB_Password  DB_User
+#+end_src
+
+To view the content of a specific file, such as the DB password:
+
+#+begin_src shell
+cat /opt/app-secret-volumes/DB_Password
+# Output: paswrd
+#+end_src
+
+** Important Considerations When Using Secrets
+
+- Secrets offer only Base64 encoding. For enhanced security, consider enabling encryption at rest for etcd.
+- Limit access to Secrets using Role-Based Access Control (RBAC). Restrict permissions to only those who require it.
+- Avoid storing sensitive secret definition files in source control systems that are publicly accessible.
+- For even greater security, explore third-party secret management solutions such as AWS Secrets Manager, Azure Key Vault, GCP Secret Manager, or Vault.
+
+** External Secret Providers
+
+External secret providers decouple secret management from etcd and offer advanced encryption, granular access control, and comprehensive auditing capabilities.
+* Multi Container Pods
+
+Configure a pod that contains both a web application and its corresponding logging agent
+
+#+begin_src yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-webapp
+  labels:
+    name: simple-webapp
+spec:
+  containers:
+    - name: simple-webapp
+      image: simple-webapp
+      ports:
+        - containerPort: 8080
+    - name: log-agent
+      image: log-agent
+#+end_src
+* Init Containers
+
+That is a task that will run only one time when the pod is first created. Or a process that waits for an external service or database to be up before the actual application starts.
+
+That's where initContainers come in. An initContainer is configured in a pod like all other containers, except that it is specified inside an =initContainers= section, like this:
+
+#+begin_src yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+spec:
+  containers:
+  - name: myapp-container
+    image: busybox:1.28
+    command: \['sh', '-c', 'echo The app is running! && sleep 3600'\]
+  initContainers:
+  - name: init-myservice
+    image: busybox
+    command: \['sh', '-c', 'git clone  ;'\]
+#+end_src
+
+You can configure multiple such initContainers as well
+
+#+begin_src yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+spec:
+  containers:
+  - name: myapp-container
+    image: busybox:1.28
+    command: \['sh', '-c', 'echo The app is running! && sleep 3600'\]
+  initContainers:
+  - name: init-myservice
+    image: busybox:1.28
+    command: \['sh', '-c', 'until nslookup myservice; do echo waiting for myservice; sleep 2; done;'\]
+  - name: init-mydb
+    image: busybox:1.28
+    command: \['sh', '-c', 'until nslookup mydb; do echo waiting for mydb; sleep 2; done;'\]
+#+end_src
+* Introduction to Autoscaling
+
+Two primary scaling strategies in Kubernetes
+
+1. Scaling workloads – adding or removing containers (Pods) in the cluster.
+2. Scaling the underlying cluster infrastructure – adding or removing nodes (servers) in the cluster.
+
+
+For the cluster infrastructure:
+
+- Horizontal scaling: Add more nodes to the cluster.
+- Vertical scaling: Increase resources (CPU, memory) on existing nodes.
+
+For workloads:
+
+- Horizontal scaling: Create more Pods.
+- Vertical scaling: Increase resource limits and requests for existing Pods.
+* Horizontal Pod Autoscaler HPA
+** Manual Horizontal Scaling
+
+Consider the following deployment configuration
+
+#+begin_src yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-app
+          image: nginx
+          resources:
+            requests:
+              cpu: "250m"
+            limits:
+              cpu: "500m"
+#+end_src
+
+** Monitor and scale
+
+#+begin_src shell
+
+# monitor the resource usage of a pod
+kubectl top pod my-app-pod
+
+# manually execute a scale command to add more pods
+kubectl scale deployment my-app --replicas=3
+
+#+end_src
+** Imperative Configuration for HPA
+
+#+begin_src shell
+
+# configures the "my-app" deployment to maintain 50% CPU utilization, scaling the number of pods between 1 and 10
+kubectl autoscale deployment my-app --cpu-percent=50 --min=1 --max=10
+
+# review the status of your HPA
+kubectl get hpa
+
+# when the HPA is no longer needed, you can remove it
+kubectl delete hpa my-app
+
+#+end_src
+
+** Declarative Configuration for HPA
+
+#+begin_src yaml
+# monitors the CPU utilization of the "my-app" deployment, automatically adjusting the replica count as needed
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: my-app-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: my-app
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
+#+end_src
