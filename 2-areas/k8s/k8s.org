@@ -21,3 +21,5 @@ kubectl get nodes
 * [[file:Scheduling.org][Scheduling]]
 * [[file:Logging Monitoring.org][Logging Monitoring]]
 * [[file:Application Lifecycle Management.org][Application Lifecycle Management]]
+* [[file:Cluster Maintenance.org][Cluster Maintenance]]
+* [[file:Security.org][Security]]

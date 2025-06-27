@@ -1,0 +1,161 @@
+#+title: Cluster Maintenance
+
+* OS Upgrades
+
+Kubernetes offers mechanisms to handle unavailability results of pods in downtime
+
+- If a node comes back online quickly, the pods are simply restarted.
+- If a node remains down for more than five minutes, Kubernetes marks the pods on that node as dead. For pods managed by a ReplicaSet, new pods are automatically created on other nodes. In contrast, pods that are not part of a ReplicaSet will not be restarted, potentially leading to downtime.
+
+** Draining a Node
+
+Draining involves gracefully terminating the pods running on that node so they are recreated on other nodes.
+At the same time, draining marks the node as unschedulable (cordoned), preventing new pods from being scheduled on it until explicitly allowed.
+
+When it comes back online, it remains unschedulable until you uncordon it, allowing new pods to be scheduled.
+
+#+begin_src shell
+
+# drain a node
+kubectl drain node-1
+
+# uncordon a node
+kubectl uncordon node-1
+
+# mark node-1 as unschedulable so that no new pods are scheduled on this node.
+kubectl cordon node-1
+#+end_src
+
+* Cluster Upgrade
+
+- not all components are required to run on the same version
+- the Kube API Server remains the primary control plane component that all others communicate with
+- no component should ever run on a version higher than the API Server
+
+For example:
+
+- The controller manager and scheduler may be one version lower than the API Server.
+- The Kubelet and Kube Proxy components may be two versions lower than the API Server.
+
+[[file:~/Documents/org/assets/frame_140.jpg]]
+** Upgrade Process Overview
+
+The upgrade process generally involves two major steps:
+
+1. Upgrading the master nodes.
+2. Upgrading the worker nodes.
+
+There are several strategies for this:
+
+1. Upgrade all worker nodes simultaneously (which may result in downtime).
+2. Upgrade one worker node at a time, allowing workloads to be shifted and ensuring continuous service.
+3. Add new nodes with the updated software version, migrate workloads to these new nodes, and then decommission the older nodes.
+** Upgrading with kubeadm
+
+The kubeadm tool simplifies planning and executing cluster upgrades
+
+#+begin_src shell
+kubeadm upgrade plan
+#+end_src
+
+This command provides useful information such as:
+
+- The current cluster version.
+- The version of the kubeadm tool.
+- The latest stable version of Kubernetes.
+- A list of control plane components along with their current versions and the target upgrade versions.
+
+Below is an example of upgrading the control plane components using kubeadm:
+
+#+begin_src shell
+apt-get upgrade -y kubeadm=1.12.0-00
+kubeadm upgrade apply v1.12.0
+# Output:
+# [upgrade/successful] SUCCESS! Your cluster was upgraded to "v1.12.0". Enjoy!
+# [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
+#+end_src
+
+** Upgrading Worker Nodes
+
+#+begin_src shell
+
+# drain a node
+kubectl drain node-1
+
+# uncordon a node
+kubectl uncordon node-1
+
+#+end_src
+* Demo Cluster upgrade
+
+https://notes.kodekloud.com/docs/CKA-Certification-Course-Certified-Kubernetes-Administrator/Cluster-Maintenance/Demo-Cluster-upgrade
+* Backup and Restore Methods
+** What to Back Up
+
+- Declarative Configuration Files: Files defining resources like Deployments, Pods, and Services.
+- Cluster State: Information stored in the etcd cluster.
+- Imperative Objects: Resources created on the fly (e.g., namespaces, secrets, configMaps) which might not be documented in files.
+
+** Imperative vs. Declarative Backup Approaches
+
+While the declarative method is preferred, sometimes resources are created using imperative commands. To capture all configurations, you can query the Kubernetes API server directly.
+
+#+begin_src shell
+
+# back up all resources across every namespace
+kubectl get all --all-namespaces -o yaml > all-deploy-services.yaml
+
+#+end_src
+
+* Backing Up the etcd Cluster
+
+Typically located on the master nodes, etcd’s data resides in a dedicated directory determined during setup.
+
+Below is an example of how etcd might be configured on a master node:
+
+#+begin_src shell
+ExecStart=/usr/local/bin/etcd \\
+   --name ${ETCD_NAME} \\
+   --cert-file=/etc/etcd/kubernetes.pem \\
+   --key-file=/etc/etcd/kubernetes-key.pem \\
+   --peer-cert-file=/etc/etcd/kubernetes.pem \\
+   --peer-key-file=/etc/etcd/kubernetes-key.pem \\
+   --trusted-ca-file=/etc/etcd/ca.pem \\
+   --peer-trusted-ca-file=/etc/etcd/ca.pem \\
+   --client-cert-auth \\
+   --initial-advertise-peer-urls https://${INTERNAL_IP}:2380 \\
+   --listen-peer-urls https://${INTERNAL_IP}:2380 \\
+   --advertise-client-urls https://${INTERNAL_IP}:2379 \\
+   --initial-cluster etcd-cluster-0 \\
+   --initial-cluster-token etcd-cluster-0 \\
+   --initial-cluster controller-0=https://${CONTROLLER0_IP}:2379 \\
+   --initial-cluster-state new \\
+   --data-dir=/var/lib/etcd
+
+# create a snapshot called "snapshot.db"
+ETCDCTL_API=3 etcdctl snapshot save snapshot.db
+#+end_src
+
+** Restoring from an etcd Backup
+
+To restore a cluster from an etcd backup involves several steps:
+
+1. Stop the Kubernetes API Server: The restore process requires stopping the API server.
+2. Restore the Snapshot: Restore the snapshot to a new data directory (e.g., /var/lib/etcd-from-backup):
+   #+begin_src shell
+   # initializes a new etcd data directory and reinitializes cluster members.
+   ETCDCTL_API=3 etcdctl snapshot restore snapshot.db \
+   --data-dir /var/lib/etcd-from-backup
+  #+end_src
+3. Update etcd Configuration: Modify your etcd configuration file to point to the new data directory.
+4. Restart Services: Reload the system daemon, restart the etcd service, and finally restart the Kubernetes API server.
+
+For an authenticated backup, use:
+
+#+begin_src shell
+ETCDCTL_API=3 etcdctl snapshot save snapshot.db \
+--endpoints=https://127.0.0.1:2379 \
+--cacert=/etc/etcd/ca.crt \
+--cert=/etc/etcd/etcd-server.crt \
+--key=/etc/etcd/etcd-server.key
+#+end_src

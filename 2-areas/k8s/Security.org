@@ -1,0 +1,48 @@
+#+title: Security
+
+* Authentication
+
+** Basic Authentication Using Static Password Files
+
+Start the API server with the following parameter:
+
+#+begin_src shell
+kube-apiserver --basic-auth-file=user-details.csv
+#+end_src
+
+Below is an example of a basic authentication CSV file (=user-details.csv=):
+
+#+begin_src csv
+password123,user1,u0001
+password123,user2,u0002
+password123,user3,u0003
+password123,user4,u0004
+password123,user5,u0005
+#+end_src
+
+** Token-Based Authentication Using Static Token Files
+
+Example token authentication CSV file (user-token-details.csv):
+
+#+begin_src csv
+KpjCVbI7cFAHYPkByTIzRb7gulcUc4B,user10,u0010,group1
+rJjncHmvtXHc6MlWQddhtvNyyhgTdxSC,user11,u0011,group1
+mjpoFTEiFOkL9toikaRNTt59ePtczZSq,user12,u0012,group2
+PG41IXhs7QjqWkmBkvGT9gclOyUqZj,user13,u0013,group2
+#+end_src
+
+#+begin_src shell
+
+# Start the API server with the token file:
+kube-apiserver --token-auth-file=user-token-details.csv
+
+# When making API requests, include the token as an authorization bearer token
+curl -v -k https://master-node-ip:6443/api/v1/pods --header "Authorization: Bearer KpjCVbI7cFAHYPkByTIzRb7gulcUc4B"
+
+#+end_src
+
+** Note
+
+- This is not a recommended authentication mechanism
+- Consider volume mount while providing the auth file in a kubeadm setup
+- Setup Role Based Authorization for the new users
