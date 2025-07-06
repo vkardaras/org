@@ -12,3 +12,5 @@ archinstall
 ** [[file:install yay.org][install yay]]
 ** [[file:install zen on arch.org][install zen on arch]]
 ** [[file:instal printer-scanner on arch.org][instal printer-scanner on arch]]
+** [[file:bluetooth.org][bluetooth]]
+** [[file:Galaxy buds app.org][Galaxy buds app]]

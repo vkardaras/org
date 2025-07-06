@@ -1,0 +1,3 @@
+#+title: Nginx
+
+* [[file:Install and config.org][Install and config]]

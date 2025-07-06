@@ -1,0 +1,7 @@
+#+title: Galaxy Buds App
+
+Install application for galaxy buds
+
+#+begin_src shell
+yay -S galaxybudsclient-bi
+#+end_src

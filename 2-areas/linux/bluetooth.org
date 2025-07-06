@@ -1,0 +1,18 @@
+#+title: Bluetooth
+
+* Install software
+
+#+begin_src shell
+sudo pacman -S bluez bluez-utils gnome-bluetooth-3.0
+#+end_src
+
+* Enable service
+
+#+begin_src shell
+
+# Enable the service to start on boot
+sudo systemctl enable bluetooth.service
+
+# Start the service immediately
+sudo systemctl start bluetooth.service
+#+end_src
