@@ -1,0 +1,25 @@
+#+title: Clean Disk Space In Arch
+
+* Clean pkg cache
+
+#+begin_src shell
+
+# Remove all pkg except those installed
+sudo pacman -Sc
+
+# Remove all files
+sudo pacman -Scc
+
+#+end_src
+
+* Remove unused packages
+
+#+begin_src shell
+
+# List unused
+sudo pacman -Qtdq
+
+# Remove unused
+sudo pacman -R $(pacman -Qtdq)
+
+#+end_src
