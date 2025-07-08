@@ -280,3 +280,86 @@ curl http://localhost
 curl --header "Host: helloworld.com" http://localhost
 
 #+end_src
+* Firewall & Ports
+
+** Built-In Firewalls Across Operating Systems
+- Debian & Ubuntu (UFW)
+- Red Hat & Fedora (firewalld)
+
+** Common ports
+
+|------+---------+-------------------------|
+| Port | Service | Description             |
+|------+---------+-------------------------|
+|   80 | HTTP    | Unencrypted web traffic |
+|  443 | HTTPS   | Encrypted web traffic   |
+|   22 | SSH     | Secure shell access     |
+|   25 | SMTP    | Email delivery          |
+|   53 | DNS     | Domain name resolution  |
+
+** Managing UFW on Debian/Ubuntu
+
+#+begin_src shell
+
+# allow SSH first to prevent lockout
+sudo ufw allow 22/tcp
+
+# enable UFW
+sudo ufw enable
+
+# Open HTTP and HTTPS
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+
+# reload to apply
+sudo ufw reload
+
+# view rules with indices:
+sudo ufw status numbered
+
+# delete a specific rule
+sudo ufw delete <rule-number>
+
+#+end_src
+
+** Managing firewalld on Red Hat/Fedora
+
+#+begin_src shell
+
+# install (if needed)
+sudo yum update && sudo yum install firewalld
+
+# start and enable at boot
+sudo systemctl start firewalld
+sudo systemctl enable firewalld
+
+# open port permanently (e.g., HTTP)
+sudo firewall-cmd --permanent --add-port=80/tcp
+sudo firewall-cmd --reload
+
+# remove a port
+sudo firewall-cmd --permanent --remove-port=80/tcp
+sudo firewall-cmd --reload
+
+# check active zones and ports
+sudo firewall-cmd --list-all
+
+#+end_src
+
+** Inspecting Open Ports with netstat
+
+=netstat= lists active connections and listening ports. Install it if missing
+
+#+begin_src shell
+
+# Debian/Ubuntu
+sudo apt update
+sudo apt install net-tools
+
+# Red Hat/Fedora/CentOS
+sudo yum install net-tools
+
+# run
+sudo netstat -nltup
+
+#+end_src

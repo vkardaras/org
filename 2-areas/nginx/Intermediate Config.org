@@ -1,0 +1,821 @@
+#+title: Intermediate Config
+
+* Virtual Servers Multiple Sites
+
+** Remove the Default Site
+
+#+begin_src shell
+
+# Verify the default page
+curl localhost
+# → Welcome to nginx!
+
+# Disable default configuration
+rm /etc/nginx/sites-enabled/default
+
+# Reload Nginx to apply changes
+nginx -s reload
+
+# Confirm removal
+curl localhost
+# → curl: (7) Failed to connect to localhost port 80: Connection refused
+
+#+end_src
+
+** Create Site Configurations
+
+We’ll copy the default config twice—once for each domain—and then adjust the =root= and =server_name=.
+
+*example1.com*
+
+#+begin_src shell
+
+# List available configs
+ls -l /etc/nginx/sites-available
+
+# Copy default to example1
+cp /etc/nginx/sites-available/default /etc/nginx/sites-available/example1
+
+#+end_src
+
+Edit =/etc/nginx/sites-available/example1=
+
+#+begin_src conf
+# /etc/nginx/sites-available/example1
+server {
+    listen 80;
+    server_name www.example1.com;
+    root /var/www/example1;
+    index index.html index.htm;
+
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+#+end_src
+
+*example2.com*
+
+#+begin_src shell
+
+# Duplicate example1 for example2
+cp /etc/nginx/sites-available/example1 /etc/nginx/sites-available/example2
+
+#+end_src
+
+Update =/etc/nginx/sites-available/example2=
+
+#+begin_src shell
+# /etc/nginx/sites-available/example2
+server {
+    listen 80;
+    server_name www.example2.com;
+    root /var/www/example2;
+    index index.html index.htm;
+
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+#+end_src
+
+** Set Up Document Roots and Index Files
+
+#+begin_src shell
+
+mkdir -p /var/www/example1 /var/www/example2
+
+cat << 'EOF' > /var/www/example1/index.html
+<h1>Example 1</h1>
+EOF
+
+cat << 'EOF' > /var/www/example2/index.html
+<h1>Example 2</h1>
+EOF
+
+# Ensure Nginx can read the files
+chown -R www-data:www-data /var/www/example1 /var/www/example2
+
+#+end_src
+
+** Enable Sites and Reload Nginx
+
+Create symbolic links in sites-enabled, then test and reload.
+
+#+begin_src shell
+
+# Enable both sites
+ln -s /etc/nginx/sites-available/example1 /etc/nginx/sites-enabled/
+ln -s /etc/nginx/sites-available/example2 /etc/nginx/sites-enabled/
+
+# Test configuration
+nginx -t
+# Reload Nginx
+nginx -s reload
+
+#+end_src
+
+** Verify Virtual Host Routing
+
+#+begin_src shell
+
+curl --header "Host: www.example1.com" localhost
+curl --header "Host: www.example2.com" localhost
+curl --header "Host: unknown.com" localhost
+# → <h1>Example 1</h1>  (first enabled server block)
+
+#+end_src
+* URL Redirect Rewrite
+
+** Redirect vs Rewrite
+
+- *Redirect* (return) issues an HTTP status code (e.g., 301) back to the client and changes what appears in their browser’s address bar.
+- *Rewrite* silently alters the URI before Nginx processes it, keeping the user’s URL intact.
+
+Use redirects when you want search engines and clients to update bookmarks. Use rewrites to preserve a clean URL structure without exposing internal file paths.
+
+** Redirecting with =return=
+
+*** Entire Domain Redirect
+
+To forward every request from one domain to another:
+
+#+begin_src conf
+server {
+    listen       80;
+    server_name  honda.cars.com;
+
+    return 301 https://cars.honda.com$request_uri;
+
+    root  /var/www/example.com/html;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+#+end_src
+
+*** HTTP → HTTPS Redirect
+
+Force all HTTP traffic to HTTPS:
+
+#+begin_src conf
+server {
+    listen       80;
+    server_name  honda.cars.com;
+
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen       443 ssl;
+    server_name  honda.cars.com;
+
+    ssl_certificate     /etc/ssl/certs/honda.cars.com.pem;
+    ssl_certificate_key /etc/ssl/certs/honda.cars.com-key.pem;
+
+
+    root  /var/www/;
+}
+#+end_src
+
+Here, =$host= becomes the requested domain name, and =$request_uri= includes the full path and query string.
+
+*** Single-Page Redirect
+
+For path-specific forwarding, wrap only that URI:
+
+#+begin_src conf
+server {
+    listen       80;
+    server_name  honda.cars.com;
+
+    root  /var/www/example.com/html;
+    index index.html;
+
+    location /civic-type-r {
+        return 301 https://cars.honda.com$request_uri;
+    }
+}
+#+end_src
+*** Demo Configure URL Redirect
+
+#+begin_src shell
+
+# allow HTTPS traffic
+ufw allow 443/tcp
+
+# check firewall rules
+ufw status
+
+# review existing configuration
+ls -l /etc/nginx/sites-enabled
+
+#+end_src
+
+Open =/etc/nginx/sites-available/diner—it= currently listens only on HTTP:
+
+#+begin_src conf
+server {
+    listen 80;
+    server_name diner.com;
+
+    root /var/www/diner;
+    index index.html index.htm index.nginx-debian.html;
+
+    location / {
+        # First attempt to serve request as file,
+        # then as directory, then return a 404.
+        try_files $uri $uri/ =404;
+    }
+}
+#+end_src
+
+Create the HTTPS Configuration
+Create (or edit) /etc/nginx/sites-available/diner-https with two server blocks:
+
+#+begin_src conf
+server {
+    listen 80;
+    server_name diner.com;
+
+    # Redirect all HTTP requests to HTTPS
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name diner.com;
+
+    # SSL certificates (already present on the system)
+    ssl_certificate     /etc/ssl/certs/diner.com.pem;
+    ssl_certificate_key /etc/ssl/certs/diner.com-key.pem;
+
+    root /var/www/diner;
+    index index.html index.htm index.nginx-debian.html;
+
+    location / {
+        # First attempt to serve request as file,
+        # then as directory, then return a 404.
+        try_files $uri $uri/ =404;
+    }
+}
+#+end_src
+
+Enable and Test the New Configuration
+
+#+begin_src shell
+
+# Disable the old site and enable the new one:
+sudo rm /etc/nginx/sites-enabled/diner
+sudo ln -s \
+    /etc/nginx/sites-available/diner-https \
+    /etc/nginx/sites-enabled/diner-https
+
+# Test NGINX syntax and reload:
+nginx -t
+nginx -s reload
+
+# Verify the redirect and HTTPS response:
+curl -I http://localhost
+curl -I https://localhost --insecure
+
+#+end_src
+
+** Common HTTP Status Codes
+
+| Status Code | Meaning                    |
+|-------------+----------------------------|
+|         200 | OK                         |
+|         301 | Moved Permanently          |
+|         302 | Found (Temporary Redirect) |
+|         400 | Bad Request                |
+|         401 | Unauthorized               |
+|         403 | Forbidden                  |
+|         404 | Not Found                  |
+|         500 | Internal Server Error      |
+|         502 | Bad Gateway                |
+|         503 | Service Unavailable        |
+** Transforming URLs with =rewrite=
+
+Rewrites let you modify incoming URLs before Nginx searches for files or forwards to upstream servers—ideal for cleanup rules or legacy support.
+
+*** Simple Rewrite Example
+
+Map =/sports-car-civic-type-r= → =/type-r=:
+
+#+begin_src conf
+server {
+    listen       80;
+    server_name  honda.cars.com;
+
+    root  /var/www/example.com/html;
+    index index.html;
+
+    rewrite ^/sports-car-civic-type-r$ /type-r permanent;
+}
+#+end_src
+
+*** Rewriting Directory Paths
+
+When you rename a folder from /pics → /images, keep existing links functional:
+
+#+begin_src conf
+# Before rename
+$ tree
+|-- 50x.html
+|-- index.html
+`-- pics
+    |-- accord.jpg
+    |-- civic.jpg
+    `-- type-r.jpg
+
+# After rename
+$ tree
+|-- 50x.html
+|-- index.html
+|-- images
+|   |-- accord.jpg
+|   |-- civic.jpg
+|   `-- type-r.jpg
+`-- pics
+    |-- accord.jpg
+    |-- civic.jpg
+    `-- type-r.jpg
+#+end_src
+
+#+begin_src conf
+server {
+    listen       80;
+    server_name  honda.cars.com;
+
+    root  /var/www/example.com/html;
+    index index.html;
+
+    location /pics {
+        rewrite ^/pics/(.*)$ /images/$1 permanent;
+    }
+}
+#+end_src
+*** Demo Configure URL Rewrite
+
+Redirect all traffic from =/images/...= to =/pics/...= without breaking links. A suitable rewrite rule is:
+
+#+begin_src config
+rewrite ^/images/(.*)$ /pics/$1 permanent;
+#+end_src
+
+*Review Initial Nginx Configuration*
+Open your server block configuration for =example.com= (commonly in =/etc/nginx/sites-available/example=):
+
+#+begin_src conf
+server {
+    listen 80;
+    server_name example.com;
+    root /var/www/html;
+
+    index index.html index.htm index.nginx-debian.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+#+end_src
+
+*Add the Rewrite Directive*
+
+#+begin_src conf
+server {
+    listen 80;
+    server_name example.com;
+    root /var/www/html;
+
+    index index.html index.htm index.nginx-debian.html;
+
+    location / {
+        # Redirect all /images/... requests to /pics/...
+        rewrite ^/images/(.*)$ /pics/$1 permanent;
+
+        # Then attempt to serve the request
+        try_files $uri $uri/ =404;
+    }
+}
+#+end_src
+
+Save the file, then test and reload:
+
+#+begin_src shell
+sudo nginx -t
+sudo systemctl reload nginx
+#+end_src
+
+** Regex Cheat Sheet
+
+| Symbol | Description                         | Example              |
+|--------+-------------------------------------+----------------------|
+| ^      | Start of string                     | ^/old matches /old   |
+| $      | End of string                       | /page$ matches /page |
+| .      | Any single character                | a.b matches acb      |
+| *      | Zero or more of the preceding token | .* captures anything |
+| []     | Character class                     | [a-z]                |
+| ()     | Capture group                       | (.*)                 |
+* Load Balancer
+
+** Configuring Upstream Pools
+
+Upstream blocks group your backend servers into a single logical name. Later, you reference that name with proxy_pass in a server block.
+
+#+begin_src conf
+upstream backend {
+    server 10.10.0.101:80;
+    server 10.10.0.102:80;
+    server 10.10.0.103:80;
+}
+
+server {
+    listen 80;
+    server_name example.com www.example.com;
+
+    location / {
+        proxy_pass http://backend;
+    }
+}
+#+end_src
+
+** Load Balancing Methods
+
+| Algorithm            | Use Case                                | Directive                   |
+|----------------------+-----------------------------------------+-----------------------------|
+| Round Robin          | Even distribution (default)             | —                           |
+| Weighted Round Robin | Prioritize higher-capacity servers      | weight=                     |
+| IP Hash              | Sticky sessions based on client IP      | ip_hash                     |
+| Least Connections    | Send to server with fewest active conns | least_conn                  |
+| Least Time*          | Fastest response (NGINX Plus only)      | least_time last_byte/header |
+
+*** Round-Robin (Default)
+
+#+begin_src conf
+upstream backend {
+    server 10.10.0.101:80;
+    server 10.10.0.102:80;
+    server 10.10.0.103:80;
+}
+
+server {
+    listen 80;
+    server_name example.com www.example.com;
+
+    location / {
+        proxy_pass http://backend;
+    }
+}
+#+end_src
+
+*** Weighted Round-Robin
+
+#+begin_src conf
+upstream backend {
+    server 10.10.0.101:80 weight=4;
+    server 10.10.0.102:80 weight=2;
+    server 10.10.0.103:80 weight=1;
+}
+
+server {
+    listen 80;
+    server_name example.com www.example.com;
+
+    location / {
+        proxy_pass http://backend;
+    }
+}
+#+end_src
+
+*** IP Hash (Sticky Sessions)
+
+Ensures the same client IP always hits the same server—ideal for session persistence when data is stored in memory on each backend.
+
+#+begin_src conf
+upstream backend {
+    ip_hash;
+    server 10.10.0.101:80;
+    server 10.10.0.102:80;
+    server 10.10.0.103:80;
+}
+
+server {
+    listen 80;
+    server_name example.com www.example.com;
+
+    location / {
+        proxy_pass http://backend;
+    }
+}
+#+end_src
+
+*** Least Connections
+
+Routes each new request to the server with the fewest active connections—ideal for dynamic workloads.
+
+#+begin_src conf
+upstream backend {
+    least_conn;
+    server 10.10.0.101:80;
+    server 10.10.0.102:80;
+    server 10.10.0.103:80;
+}
+
+server {
+    listen 80;
+    server_name example.com www.example.com;
+
+    location / {
+        proxy_pass http://backend;
+    }
+}
+#+end_src
+
+*** Least Time (NGINX Plus)
+
+#+begin_src conf
+upstream backend {
+    least_time last_byte/header;
+    server 10.10.0.101:80;
+    server 10.10.0.102:80;
+    server 10.10.0.103:80;
+}
+
+server {
+    listen 80;
+    server_name example.com www.example.com;
+
+    location / {
+        proxy_pass http://backend;
+    }
+}
+#+end_src
+** Demo Load Balancer
+
+*** Environment Setup
+
+We have three Ubuntu nodes in our test lab:
+
+- nginx: Nginx load balancer (192.230.202.10)
+- node01 & node02: Apache backend servers
+
+*Allow Only the Load Balancer*
+
+Restrict HTTP access so only the load balancer can reach port 80 on your backends.
+
+#+begin_src shell
+
+# On node01
+ufw allow from 192.230.202.10 proto tcp to any port 80
+
+# Verify the rule
+ufw status
+Status: active
+#+end_src
+
+*** Configuring the Load Balancer
+
+On the nginx node, create or edit your site configuration:
+
+#+begin_src shell
+cd /etc/nginx/sites-available/
+vim apache-app
+#+end_src
+
+#+begin_src conf
+# Upstream (Round Robin)
+upstream apache_example {
+    server 192.230.202.12:80;
+    server 192.230.202.3:80;
+}
+
+server {
+    listen 80;
+    server_name apache.example.com;
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    location / {
+        proxy_pass http://apache_example;
+    }
+}
+#+end_src
+
+*** Configure nginx and test
+
+#+begin_src shell
+
+# Enable the site and reload Nginx:
+nginx -t
+ln -s apache-app /etc/nginx/sites-enabled/
+nginx -s reload
+
+# Test with curl to see alternating responses:
+curl localhost
+<p>Served by node02</p>
+curl localhost
+<p>Served by node01</p>
+
+#+end_src
+* Reverse Proxy
+
+Common use cases include:
+
+- Hiding backend server identities
+- SSL/TLS offloading
+- Caching static assets
+- Distributing traffic across multiple application servers
+
+A reverse proxy can improve security, performance, and scalability by centralizing request handling, encryption, and caching.
+
+** SSL/TLS Termination (Offloading)
+
+*** Basic HTTP Reverse Proxy
+
+#+begin_src conf
+http {
+    upstream backend {
+        server 10.10.0.101:80;
+        server 10.10.0.102:80;
+        server 10.10.0.103:80;
+    }
+}
+
+server {
+    listen 80;
+    server_name example.com www.example.com;
+
+    location / {
+        proxy_pass http://backend/;
+    }
+}
+#+end_src
+
+*** HTTPS Termination at the Proxy
+
+#+begin_src conf
+server {
+    listen 443 ssl;
+    server_name example.com www.example.com;
+
+    ssl_certificate     /etc/nginx/ssl/server.crt;
+    ssl_certificate_key /etc/nginx/ssl/server.key;
+    ssl_protocols       TLSv1.2 TLSv1.3;
+
+    location / {
+        proxy_pass http://backend/;
+    }
+}
+#+end_src
+
+*** End-to-End TLS Encryption
+
+When compliance mandates encrypted links all the way to your app servers, enable HTTPS in proxy_pass:
+
+#+begin_src conf
+http {
+    upstream backend {
+        server 10.10.0.101:443;
+        server 10.10.0.102:443;
+        server 10.10.0.103:443;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name example.com www.example.com;
+
+    ssl_certificate     /etc/nginx/ssl/server.crt;
+    ssl_certificate_key /etc/nginx/ssl/server.key;
+    ssl_protocols       TLSv1.2 TLSv1.3;
+
+    location / {
+        proxy_pass https://backend/;
+    }
+}
+#+end_src
+
+** Caching to Reduce Backend Load
+
+Sample Cache Configuration
+
+#+begin_src conf
+http {
+    proxy_cache_path /var/lib/nginx/cache levels=1:2 zone=app_cache:8m;
+    proxy_cache_key "$scheme$request_method$host$request_uri$is_args$args";
+    proxy_cache_valid 200 302 10m;
+    proxy_cache_valid 404 1m;
+}
+
+server {
+    listen 80;
+    server_name example.com www.example.com;
+
+    location / {
+        proxy_cache        app_cache;
+        proxy_cache_bypass $http_cache_control;
+        proxy_set_header   Host $host;
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_pass         http://backend/;
+    }
+}
+#+end_src
+** Demo Reverse Proxy
+
+Lab Environment
+
+| Host   | Role                          |     IP Address |
+|--------+-------------------------------+----------------|
+| nginx  | Reverse proxy server (NGINX)  | 192.230.206.12 |
+| node01 | Flask application (port 5000) |  192.230.206.3 |
+| node02 | Flask application (port 5000) |  192.230.206.6 |
+
+*** Example for node1. similar for node2
+#+begin_src shell
+
+# SSH into the Backends
+root@nginx ~ ➜ ssh node01
+
+# Verify Backend Servers
+root@node01 ~ ➜ curl localhost:5000
+# <h1>Hello, Human!</h1>[Not Authenticated]
+
+## Configure Firewall Rules
+# 1. Enable UFW (if not already running)
+sudo ufw enable
+
+# 2. Allow SSH management
+sudo ufw allow 22/tcp
+
+# 3. Permit Flask traffic from the proxy only
+sudo ufw allow from 192.230.206.12 proto tcp to any port 5000
+
+# 4. Verify the active rules
+sudo ufw status
+# Status: active
+# To                         Action      From
+# --                         ------      ----
+# 22/tcp                     ALLOW       Anywhere
+# 5000/tcp                   ALLOW       192.230.206.12
+# 22/tcp (v6)                ALLOW       Anywhere (v6)
+#+end_src
+
+*** Configure NGINX as a Reverse Proxy
+
+Remove the default site and switch to the config directory
+
+#+begin_src shell
+cd /etc/nginx/sites-enabled
+sudo rm default
+cd /etc/nginx/sites-available
+#+end_src
+
+Create /etc/nginx/sites-available/helloworld with upstream and server blocks
+
+#+begin_src conf
+# Upstream definition for Flask backends
+upstream hello_world {
+    server 192.230.206.3:5000;
+    server 192.230.206.6:5000;
+}
+
+server {
+    listen 80;
+    server_name helloworld.com;
+
+    root /var/www/html;
+    index index.html index.htm;
+
+    location / {
+        proxy_pass http://hello_world;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+#+end_src
+
+Enable the site and reload NGINX
+
+#+begin_src shell
+sudo ln -s /etc/nginx/sites-available/helloworld /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo nginx -s reload
+#+end_src
+
+Test the Reverse Proxy
+
+#+begin_src shell
+# Root path
+curl -H "Host: helloworld.com" http://localhost
+# /foo endpoint
+curl -H "Host: helloworld.com" http://localhost/foo
+# /bar endpoint
+curl -H "Host: helloworld.com" http://localhost/bar
+# <h1>Bar page</h1>...
+#+end_src
