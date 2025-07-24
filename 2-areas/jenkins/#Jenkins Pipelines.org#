@@ -1,0 +1,54 @@
+#+title: Jenkins Pipelines
+
+* Pipeline and Jenkinsfile
+
+** Example Jenkinsfile
+
+Below is an example Jenkinsfile that outlines four primary stages: Build, Unit Test, Dockerize, and Deploy.
+
+#+begin_src shell
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn build'
+            }
+        }
+        stage('Unit Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('Dockerize') {
+            steps {
+                sh 'docker build -t imageName:version .'
+                sh 'docker push imageName:version'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'kubectl apply -f deployment.yaml'
+            }
+        }
+    }
+}
+#+end_src
+
+** Declarative vs. Scripted Pipelines
+
+Jenkins offers two primary types of pipelines:
+
+- =Declarative Pipeline=: Uses a simplified and human-readable syntax that is easy to learn—ideal for straightforward and well-defined workflows.
+- =Scripted Pipeline=: Allows for full Groovy scripting, providing greater control and flexibility for complex logic, although it has a steeper learning curve.
+
+** Benefits of Using Jenkins Pipelines
+Jenkins pipelines enable a more streamlined CI/CD process with key advantages such as:
+
+- Code-as-configuration for easy version control and sharing.
+- Resilience with features like pause and resume.
+- Efficient handling of complex build processes with minimal job maintenance.
+- Seamless integration with numerous Jenkins plugins that extend pipeline capabilities.
+
+* Additional Pipeline Configuration
+

@@ -1,0 +1,71 @@
+#+title: Jenkins Installation
+
+* Hardware and Software Requirements
+
+Minimum Requirements:
+- 2 CPU cores
+- 256 MB of RAM
+- 1 GB of disk space
+
+Recommended for Small Teams:
+- 4 CPU cores
+- 4 GB of RAM
+- 50 GB of disk space
+
+* Jenkins Home Directory
+
+- WAR File Execution:
+  When running Jenkins via the jenkins.war file, the home directory defaults to the =.jenkins= directory in the =home= directory of the user executing Jenkins.
+
+- System Package Installation on Linux:
+  When installed using system packages, the Jenkins home directory is typically set to =/var/lib/jenkins=.
+
+* Installing Jenkins on Ubuntu
+
+#+begin_src shell
+
+# add the Jenkins Repository and Installing Jenkins
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+  https://pkg.jenkins.io/debian-stable binary/" | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkins -y
+
+# install Java
+sudo apt update
+sudo apt install fontconfig openjdk-21-jre -y
+java -version
+
+# restart the Jenkins service
+sudo systemctl restart jenkins
+
+# verify status
+systemctl status jenkins
+
+# review jenkins logs
+journalctl -u jenkins
+
+#+end_src
+
+* Completing the Jenkins Initial Setup
+
+#+begin_src shell
+# accessing the Jenkins UI
+http://<your-vm-public-ip>:8080
+
+# retrieve the Initial Admin Password
+cat /var/lib/jenkins/secrets/initialAdminPassword
+
+#+end_src
+
+* Installing Plugins and Creating an Admin User
+
+For this demonstration, consider installing these key plugins:
+
+- Credential Binding
+- Timestamper
+- Various Pipeline plugins (e.g., pipeline graph view, GitHub branch source, pipeline Groovy libraries)
+- Git (for Source Control Management)
+- Docker Theme (for enhanced UI appearance)

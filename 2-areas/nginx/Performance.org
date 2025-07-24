@@ -1,0 +1,254 @@
+#+title: Performance
+
+* Rate Limiting
+
+| Feature                        | Benefit                                                          |
+|--------------------------------+------------------------------------------------------------------|
+| Rate limiting                  | Protect against DDoS, brute-force logins, and web scraping       |
+| Caching (Nginx)                | Reduce backend load and improve response times                   |
+| Compression (Gzip)             | Decrease payload sizes without extra software                    |
+| Keep-Alive connections         | Maintain persistent client–server connections                    |
+| Log analysis & troubleshooting | Identify errors and performance issues via access and error logs |
+| System monitoring (Datadog)    | Gather continuous metrics and alerts with Datadog                |
+
+** Why Rate Limiting Matters
+
+- Protects against DDoS (Distributed Denial of Service)
+
+- Thwarts brute-force password guessing
+  Automated scripts try credentials repeatedly—targeting login pages until they succeed.
+
+- Prevents large-scale web scraping
+  Scripts extract valuable data from sites (e.g., copying car listings from Autotrader).
+
+- Controls API abuse for endpoints like social networks
+  Endpoints (like Instagram’s post, like, follow, DM APIs) must limit calls to stay responsive.
+
+** NGINX Rate Limiting Methods
+
+NGINX provides two core rate-limiting mechanisms:
+
+| Method                   | Purpose                               | Core Directives             |
+|--------------------------+---------------------------------------+-----------------------------|
+| Request rate limiting    | Limit requests per time interval      | limit_req_zone, limit_req   |
+| Connection rate limiting | Limit simultaneous connections per IP | limit_conn_zone, limit_conn |
+
+*** Request Rate Limiting
+
+Implements a token bucket algorithm, allowing a defined number of requests per time unit. Excess requests get delayed or rejected with HTTP 429.
+
+In the =http= context:
+
+#+begin_src conf
+http {
+    # Allocate 10 MB shared memory for tracking each IP ($binary_remote_addr)
+    # and allow up to 2r/m (2 requests per minute).
+    limit_req_zone $binary_remote_addr zone=req_limit_per_ip:10m rate=2r/m;
+
+    # When limit is exceeded, respond with 429 Too Many Requests.
+    limit_req_status 429;
+}
+#+end_src
+
+Apply the limit to a specific location within your =server= block:
+
+#+begin_src conf
+server {
+    listen 80;
+    server_name example.com www.example.com;
+
+    root /var/www/example.com/html;
+    index index.html;
+
+    location /admin {
+        # Enforce request limit for this location
+        limit_req zone=req_limit_per_ip;
+
+        # Standard file serving
+        try_files $uri $uri/ =404;
+    }
+}
+#+end_src
+
+*** Connection Rate Limiting
+
+Restricts the number of concurrent connections per client IP—ideal against SYN floods or slow-loris style attacks.
+
+Warning
+Ensure the shared memory zone size (e.g., =10m=) is sufficient for the number of tracked IPs to avoid performance issues.
+
+In the =http= context:
+
+#+begin_src conf
+http {
+    # Zone for tracking connections per IP
+    limit_conn_zone $binary_remote_addr zone=conn_limit_per_ip:10m;
+
+    # Return 429 when connection limit is reached
+    limit_conn_status 429;
+}
+#+end_src
+
+Then in your =server= block:
+
+#+begin_src conf
+server {
+    listen 80;
+    server_name example.com www.example.com;
+
+    location /admin {
+        # Allow only 1 simultaneous connection per IP
+        limit_conn conn_limit_per_ip 1;
+
+        try_files $uri $uri/ =404;
+    }
+}
+#+end_src
+** Demo Rate Limiting
+
+Configure =/etc/hosts=
+
+#+begin_src shell
+sudo tee -a /etc/hosts <<EOF
+192.231.179.3   example.com
+EOF
+#+end_src
+
+Looping Requests
+
+#+begin_src shell
+for i in {1..20}; do
+  curl -Ik https://example.com/generic.html
+done
+#+end_src
+
+Apache Benchmark (ab)
+
+#+begin_src shell
+
+# install ab with apache utils
+apt-get install apache2-utils
+
+# Run a simple benchmark:
+# 100 sequential requests
+ab -n 100 https://example.com/
+
+#+end_src
+
+*** Enabling Request Rate Limiting
+
+**** Global Rate Limit Settings (nginx.conf)
+
+Edit =/etc/nginx/nginx.conf= and add inside the =http= block:
+
+#+begin_src conf
+http {
+    sendfile on;
+    tcp_nopush on;
+    types_hash_max_size 2048;
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    ## Rate Limiting
+    limit_req_zone $binary_remote_addr zone=limit_per_ip:10m rate=10r/m;
+    limit_req_status 429;
+
+    # ... SSL and other settings ...
+}
+#+end_src
+
+Reload:
+
+#+begin_src shell
+sudo nginx -t
+sudo nginx -s reload
+#+end_src
+
+Apply Rate Limit in Site Config
+
+In =sites-available/example-https=, update the =location /= block:
+
+#+begin_src conf
+server {
+    listen 443 ssl;
+    server_name example.com;
+
+    ssl_certificate     /etc/ssl/certs/example.com.pem;
+    ssl_certificate_key /etc/ssl/certs/example.com-key.pem;
+    root /var/www/html;
+
+    location / {
+        limit_req zone=limit_per_ip;
+        try_files $uri $uri =404;
+    }
+}
+#+end_src
+
+Reload to apply:
+
+#+begin_src shell
+sudo nginx -t
+sudo nginx -s reload
+#+end_src
+
+**** Apply Rate Limit in Site Config
+
+In =sites-available/example-https=, update the =location /= block:
+
+#+begin_src conf
+server {
+    listen 443 ssl;
+    server_name example.com;
+
+    ssl_certificate     /etc/ssl/certs/example.com.pem;
+    ssl_certificate_key /etc/ssl/certs/example.com-key.pem;
+    root /var/www/html;
+
+    location / {
+        limit_req zone=limit_per_ip;
+        try_files $uri $uri =404;
+    }
+}
+#+end_src
+
+*** Enabling Connection Rate Limiting
+
+**** Global Connection Limit Settings
+
+In /etc/nginx/nginx.conf:
+
+#+begin_src conf
+http {
+    sendfile on;
+    tcp_nopush on;
+    types_hash_max_size 2048;
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    ## Rate & Connection Limiting
+    limit_req_zone  $binary_remote_addr zone=limit_per_ip:10m rate=1000r/s;
+    limit_conn_zone $binary_remote_addr zone=conn_per_ip:10m;
+    limit_req_status 429;
+
+    # ... SSL Settings ...
+}
+#+end_src
+
+Reload:
+
+#+begin_src shell
+sudo nginx -t
+sudo nginx -s reload
+#+end_src
+
+**** Apply in Site Configuration
+
+#+begin_src conf
+location / {
+    # Connection rate limit: max 1 concurrent connection per IP
+    limit_conn conn_per_ip 1;
+    try_files $uri $uri =404;
+}
+#+end_src

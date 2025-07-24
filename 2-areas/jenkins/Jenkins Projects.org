@@ -1,0 +1,158 @@
+#+title: Jenkins Projects
+
+* Types of Jenkins Projects
+
+Jenkins offers a range of projects to match your build and deployment needs:
+
+| Project Type         | Use Case                                               | Example Workflow                                               |
+|----------------------+--------------------------------------------------------+----------------------------------------------------------------|
+| Freestyle Projects   | Simple, custom workflows with sequential steps         | Code checkout → Test → Build → Push → Deploy                   |
+| Pipeline Projects    | Complex, code-defined CI/CD pipelines                  | Multi-staged pipeline with conditional steps                   |
+| Multibranch Pipeline | Automated branch management for continuous development | Auto-detect branches and trigger corresponding pipelines       |
+| Maven Projects       | Java projects using Maven                              | Execute Maven commands based on pom.xml                        |
+| Multi-Configuration  | Running builds across multiple configurations          | Testing various environments and parameter combinations        |
+| Organization Folders | Hierarchical organization of projects                  | Grouping projects for clearer management in large environments |
+
+* Working with Freestyle Jobu
+
+** Creating the Jenkins Project
+
+Click on “New Item” (or the plus icon) to create a new job.
+
+** Configuring the Job
+
+After selecting the Freestyle Project, you will see several configuration sections:
+
+- General
+- Source Control Management (SCM)
+- Build Triggers
+- Build Environment
+- Build Steps
+- Post-build Actions
+
+Under the General section, add the following description: "Generate ASCII artwork using the cowsay library and the AdviceSlip REST API."
+
+In the Build Environment section, consider enabling the "Add timestamps to the console output" option
+
+** Adding the Build Steps
+
+Within the *Build Steps section*, add a new build step by selecting the shell script execution option.
+
+Below is the complete shell script added as a build step. This script performs the following operations:
+
+1. Fetches advice from the AdviceSlip REST API and saves it as a JSON file.
+2. Uses the jq tool to extract the advice text and verifies if it contains more than five words.
+3. Installs the cowsay library if it is not already installed.
+4. Updates the PATH variable so that Jenkins can locate the cowsay command.
+5. Pipes the advice text through cowsay to generate the ASCII artwork output.
+
+#+begin_src shell
+# Call the AdviceSlip API and save output as JSON
+curl -s https://api.adviceslip.com/advice > advice.json
+cat advice.json | jq -r '.slip.advice' > advice.message
+
+# Ensure the advice has more than 5 words
+[ $(wc -w < advice.message) -gt 5 ] && echo "Advice has more than 5 words" || (echo "Advice - $(cat advice.message) has 5 words or less")
+
+# Install cowsay (if not already installed) and generate ASCII artwork
+sudo apt-get install cowsay -y
+echo $PATH
+export PATH="$PATH:/usr/games:/usr/local/games"
+cat advice.message | cowsay -f $(ls /usr/share/cowsay/cows | shuf -n 1)
+#+end_src
+
+** Understanding the Shell Script
+
+When the build is triggered, the following steps occur:
+
+1. The script uses curl to fetch a piece of advice from the API, saving the JSON output to advice.json. A typical JSON response looks like this:
+
+   #+begin_src shell
+{
+  "slip": {
+    "id": 135,
+    "advice": "If you want to be happily married, marry a happy person."
+  }
+}
+   #+end_src
+
+2. The jq command extracts the advice (.slip.advice) from the JSON file and stores it in advice.message.
+
+3. A word count check is performed on the extracted advice. If the advice contains more than five words, a confirmation message is printed; otherwise, an error message is output, potentially marking the build as failed.
+
+4. The script installs the cowsay library using apt-get (if it is not already installed) and updates the PATH variable to include directories where the cowsay command is located. This update is necessary because the Jenkins environment might not include /usr/games or /usr/local/games in its PATH.
+
+5. Finally, the advice is piped through cowsay, which randomly selects a cow file from /usr/share/cowsay/cows (using shuf) to generate ASCII artwork in the Jenkins console output.
+* Chained Freestyle Projects
+
+** ASCII Build Job
+
+Begin by setting up the build phase as a new Freestyle Project.
+
+1. Open the Jenkins dashboard and create a new item. Name the project ASCII Build Job and select the Freestyle Project type. Then click OK.
+
+2. In the project configuration, scroll down to the Build section and add an Execute shell build step. Enter the following commands:
+
+   #+begin_src shell
+# Build: Fetch advice from the API and save to file
+curl -s https://api.adviceslip.com/advice > advice.json
+cat advice.json
+   #+end_src
+
+3. Save the configuration.
+
+4. Run a build manually to verify that it completes successfully. After a successful build, a new file named advice.json will be generated in the workspace. For example, the file might appear as:
+   #+begin_src json
+{
+  "slip": {
+    "id": 59,
+    "advice": "Don't be afraid of silly ideas."
+  }
+}
+   #+end_src
+
+5. You can review the build history and details on the Jenkins dashboard:
+
+** ASCII Test Job
+
+Next, create a test job to verify the output generated by the build job.
+
+1. From the Jenkins dashboard, create a new job named ASCII Test Job. Select the Freestyle Project option and click OK.
+
+2. In the job configuration, add an Execute shell build step. Insert the following script, which performs the necessary tests:
+   #+begin_src bash
+# Test: Verify that the advice message has more than 5 words
+ls advice.json
+cat advice.json | jq -r '.slip.advice' > advice.message
+if [ $(wc -w < advice.message) -gt 5 ]; then
+    echo "Advice has more than 5 words: $(cat advice.message)"
+else
+    echo "Advice message has 5 words or less: $(cat advice.message)"
+fi
+   #+end_src
+This script checks for the presence of advice.json, extracts the advice text into a file called advice.message, and then confirms that it contains more than five words.
+
+3. Save the configuration. You don’t need to trigger this job manually since it will be set up to run automatically after the build job completes.
+
+4. Note that initially the workspace for this job will not include advice.json because that file is created in the build job’s workspace. In a later section, we will address artifact sharing between jobs.
+
+5. To see Jenkins managing multiple jobs, refer to the following image:
+
+** Chaining the Projects
+
+To automate the process, configure the build job to trigger the test job once it completes successfully:
+
+1. Open the configuration for ASCII Build Job.
+2. Scroll to the Post-build Actions section and click Add post-build action. Then, select Build other projects.
+3. Enter ASCII Test Job in the provided field. (Multiple projects can be listed by separating them with commas.)
+4. Make sure the downstream job is configured to trigger only upon a successful build. Save your settings.
+
+After these adjustments, when the ASCII Build Job completes successfully, it will automatically trigger the ASCII Test Job.
+
+*Important*
+
+If the build job successfully runs but the test job fails to find advice.json, it is due to isolated workspaces. This will be resolved in the next section using the Copy Artifact Plugin.
+
+* Workspace Isolation*
+
+Directly accessing files from another job's workspace will result in errors. Ensure you properly configure artifact sharing using plugins like the Copy Artifact Plugin.
