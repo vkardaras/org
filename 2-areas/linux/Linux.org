@@ -16,3 +16,4 @@
 ** [[file:linux graphics.org][linux graphics]]
 ** [[file:linux processes.org][linux processes]]
 ** [[file:qemu-kvm.org][qemu-kvm]]
+** [[file:qtile.org][qtile]]

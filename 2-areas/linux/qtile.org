@@ -1,0 +1,30 @@
+#+title: QTILE
+
+* Setup
+
+#+begin_src shell
+
+# open terminal
+s RET
+
+# close terminal
+s q
+
+# reload configuration
+s C r
+
+# run application
+s r
+#+end_src
+
+* Wallpapers
+
+#+begin_src shell
+# clone this gitlab repo =https://gitlab.com/stephan-raabe/wallpaper=
+git clone https://gitlab.com/stephan-raabe/wallpaper
+
+# install nitrogen
+sudo pacman -S nitrogen
+
+# start nitrogen application with s-r
+#+end_src
