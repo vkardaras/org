@@ -24,11 +24,11 @@ Configuring for the build
             --with-tiff\
             --with-imagemagick\
             --with-pgtk\
- 	    --with-wide-int \
-    	    --with-json \
-    	    --with-modules \
-    	    --with-gnutls \
-	    --with-cairo \
+            --with-wide-int\
+            --with-json\
+            --with-modules\
+            --with-gnutls\
+            --with-cairo\
             --with-mailutils
 
 Making and Installing
@@ -70,10 +70,10 @@ cd emacs
             --with-tiff\
             --with-imagemagick\
             --with-pgtk\
- 	        --with-wide-int\
-    	    --with-modules\
-    	    --with-gnutls\
-	        --with-cairo\
+            --with-wide-int\
+            --with-modules\
+            --with-gnutls\
+            --with-cairo\
             --with-mailutils
 make -j8
 sudo make install
