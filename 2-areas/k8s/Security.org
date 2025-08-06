@@ -46,3 +46,82 @@ curl -v -k https://master-node-ip:6443/api/v1/pods --header "Authorization: Bear
 - This is not a recommended authentication mechanism
 - Consider volume mount while providing the auth file in a kubeadm setup
 - Setup Role Based Authorization for the new users
+* TLS Basics
+
+** SSH access using key pairs
+
+#+begin_src shell
+
+# Generate SSH key pair
+ssh-keygen
+# Files generated: id_rsa (private key) and id_rsa.pub (public key)
+
+# review the authorized keys on the server
+cat ~/.ssh/authorized_keys
+
+# connect securely to the server using your key pair
+ssh -i id_rsa user1@server1
+
+#+end_src
+
+** Asymmetric encryption
+
+Asymmetric encryption addresses the risk if intercepted by securely transferring the symmetric key.
+Here’s how the process works for a web server using HTTPS:
+
+1. The server generates a key pair (private and public keys).
+2. Upon a user's initial HTTPS request, the server sends its public key embedded within a certificate.
+3. The client's browser encrypts a newly generated symmetric key using the server’s public key.
+4. The encrypted symmetric key is sent back to the server.
+5. The server decrypts the symmetric key using its private key.
+6. All subsequent communications are encrypted with this symmetric key.
+
+#+begin_src shell
+# Generate a private key
+openssl genrsa -out my-bank.key 1024
+
+# Extract the public key
+openssl rsa -in my-bank.key -pubout > mybank.pem
+#+end_src
+
+A certificate contains essential details that help verify its authenticity:
+
+- Identity of the issuing authority
+- The server’s public key
+- Domain and other related information
+
+Below is an example excerpt from a certificate:
+
+#+begin_src shell
+Certificate:
+Data:
+  Serial Number: 420327018966204255
+  Signature Algorithm: sha256WithRSAEncryption
+  Issuer: CN=kubernetes
+  Validity
+    Not After : Feb  9 13:41:28 2020 GMT
+  Subject: CN=my-bank.com
+  X509v3 Subject Alternative Name:
+    DNS:mybank.com, DNS:i-bank.com,
+    DNS:we-bank.com,
+  Subject Public Key Info:
+    00:b9:b0:55:24:fb:a4:ef:77:73:7c:9b
+#+end_src
+* TLS in Kubernetes
+
+** Naming Conventions
+
+Certificate files follow specific naming conventions. Public key certificates typically have a .crt or .pem extension (e.g., server.crt, server.pem, client.crt, client.pem). In contrast, private keys usually include the word "key" in their file name or extension (e.g., server.key or server-key.pem). If a file name lacks "key," it is almost certainly a public key certificate.
+
+** Kubernetes Components and Their Certificates
+
+1. Kube API Server
+2. ETCD Server
+3. Kubelet on Worker Nodes
+
+** Client Components and Their Certificates
+
+1. Administrator (kubectl/REST API)
+2. Scheduler
+3. Kube Controller Manager
+4. Kube Proxy
