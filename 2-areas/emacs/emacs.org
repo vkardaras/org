@@ -4,3 +4,4 @@
 * [[file:get around emacs.org][get around emacs]]
 * [[file:editing text with emacs.org][editing text with emacs]]
 * [[file:emacs shells.org][emacs shells]]
+* [[file:emacs org mode.org][emacs org mode]]

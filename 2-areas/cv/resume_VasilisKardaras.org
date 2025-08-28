@@ -1,0 +1,93 @@
+#+title: Vasilis Kardaras
+#+date: <2025-08-11 Mon>
+#+author: Vasilis Kardaras
+#+email: vasiliskardaras@gmail.com
+#+export_file_name: /home/vasilis/Documents/cv/resume_VasilisKardaras.pdf
+#+OPTIONS: toc:nil author:nil num:nil date:nil title:nil
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [a4paper,10pt]
+#+LATEX_HEADER: \usepackage{helvet} \renewcommand\familydefault{\sfdefault}
+#+LATEX_HEADER: \renewcommand{\Large}{\large}
+#+LATEX_HEADER: \usepackage[a4paper, total={7in, 9.5in}]{geometry}
+# #+LATEX_HEADER: \usepackage[total={6.5in,9.75in},top=1.2in, left=0.9in, includefoot]{geometry}
+#+LATEX: \setlength{\parindent}{0pt}
+#+LATEX_HEADER: \usepackage{enumitem}
+#+LATEX: \setlist[itemize]{leftmargin=2.5em,label={$\circ$}, nosep, topsep=4pt, partopsep=2pt}
+# #+LATEX: \setlist{nosep}
+# #+LATEX: \setlist{itemsep=0.1pt}
+#+LATEX_HEADER: \usepackage{nopageno}
+#+LATEX_HEADER: \usepackage{titlesec}
+#+LATEX: \titlespacing*{\section} {0pt}{2ex}{1ex}
+
+#+BEGIN_CENTER
+@@latex:\textbf{\LARGE Vasilis Kardaras}@@
+@@latex:\vspace{10pt}@@
+
+Athens Greece | (+30) 6973833646 | vasiliskardaras@gmail.com | linkedin.com/in/vasiliskardaras
+@@latex:\vspace{10pt}@@
+
+@@latex:\textbf{\large Senior Software Engineer/Architect}@@
+#+END_CENTER
+
+I am an experienced software engineer with studies in Digital Systems. Through the years of my working
+experience, I have implemented numerous web and mobile applications with a focus on quality and the best
+user experience for the end users.
+
+* SKILLS SUMMARY
+#+BEGIN_CENTER
+Mobile development | Web applications | Test Driven Development | Restful services | Microservices | Software Lifecycle | Engineering | Data Center Management | Technical writing
+#+END_CENTER
+
+* PROFESSIONAL EXPERIENCE
+
+*Senior Software Engineer (Hybrid)* @@latex:\hfill@@ /May 2023 - present/
+
+#+LATEX: \vspace{2pt}
+Contractor at IKnowHow. Athens, GR
+- Development of web applications with Spring Boot framework
+
+*Senior iOS Developer (Remote)* @@latex:\hfill@@ /Feb 2022 - Feb 2023/
+
+Silvare Consulting - Contractor at Accenture. Athens, GR
+- Development of the mobile application of Alpha Bank
+
+*Senior Mobile and Java Developer* @@latex:\hfill@@ /Dec 2018 - Jan 2022/
+
+Toorbee. 49, Pentelis av., Vrilissia, GR
+- Development of mobile applications for Android and iPhone
+- Development of web applications and microservices on Java Spring framework
+- Development of DevOps systems with docker and kubernetes
+
+*Senior Mobile Developer* @@latex:\hfill@@ /Jan 2017 - present/
+
+Working as a freelancer
+- Development of mobile applications for Android and iPhone
+
+*Senior Mobile and Web Developer* @@latex:\hfill@@ /Nov 2013 - Jan 2017/
+
+Novomatix P.C. 29 Antinoros str, Athens, GR
+- Development of mobile applications for Android and iPhone
+- Development of web applications on php/mysql
+  
+*Mobile and Java Developer* @@latex:\hfill@@ /Oct 2011 - Nov 2013/
+
+APLOON LTD. 20 El. Alamein str, Nea Ionia, GR
+- Development of mobile applications for iPhone
+- Development of web applications on java/Wicket framework
+
+*E-Learning Developer* @@latex:\hfill@@ /Oct 2010 - Sep 2011/
+
+COMPACT. 6 Thermopilon str, Chalandri, GR
+- Development of applications for e-learning on Flash/Flex
+
+*Mobile Developer* @@latex:\hfill@@ /Dec 2007 - Nov 2009/
+
+NOON Informatics S.A. 276 Acharnon av., Athens, GR
+- Development of mobile applications on JavaME platform
+
+* TECHNOLOGY SKILLS
+Java, Spring Boot, Android, iOS/Swift, Rest Services, RDBMS/No-SQL Databases, Reactive programming, Linux
+
+* EDUCATION AND TRAINING
+- MSc on Electronic Learning - University of Piraeus
+- University Degree in Educational Technology and Digital Systems - University of Piraeus

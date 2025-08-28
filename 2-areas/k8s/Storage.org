@@ -1,0 +1,7 @@
+#+title: Storage
+
+* Introduction to Docker Storage
+Here, we focus on two core components within Docker storage:
+
+- Storage Drivers: These manage the read/write operations to containers.
+- Volume Driver Plugins: These help in managing persistent data across container lifecycles.

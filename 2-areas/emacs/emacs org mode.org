@@ -1,0 +1,8 @@
+#+title: emacs org mode
+
+* [[file:org mode example.org][org mode example]]
+* add support for pdf
+
+#+begin_src shell
+sudo apt install texlive-latex-base texlive-latex-recommended texlive-fonts-recommended texlive-latex-extra
+#+end_src

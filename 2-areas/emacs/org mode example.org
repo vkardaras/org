@@ -1,0 +1,79 @@
+#+title: Org Export Despatch and Readtheorg
+#+description: Convert Org to HTML and use Readtheorg CSS.
+#+author: Vasilis Kardaras
+#+export_file_name: /home/vasilis/Documents/dev/org/html/org-mode-example.html
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+options: num:nil
+
+* Exporting
+At some point you might want to print your notes, publish them on the web, or share them with people not using Org. Org can convert and export documents to a variety of other formats while retaining as much structure (see Document Structure) and markup (see Markup for Rich Contents) as possible.
+
+The libraries responsible for translating Org files to other formats are called backends. Org ships with support for the following backends:
+
++ ascii (ASCII format)
++ beamer (LaTeX Beamer format)
++ html (HTML format)
++ icalendar (iCalendar format)
++ latex (LaTeX format)
++ md (Markdown format)
++ odt (OpenDocument Text format)
++ org (Org format)
++ texinfo (Texinfo format)
++ man (Man page format)
+
+Users can install libraries for additional formats from the Emacs packaging system. For easy discovery, these packages have a common naming scheme: ox-NAME, where NAME is a format. For example, ox-koma-letter for koma-letter backend. More libraries can be found in the ‘org-contrib’ repository (see Installation).
+
+Org only loads backends for the following formats by default: ASCII, HTML, iCalendar, LaTeX, and ODT. Additional backends can be loaded in either of two ways: by configuring the org-export-backends variable, or by requiring libraries in the Emacs init file. For example, to load the Markdown backend, add this to your Emacs config:
+
+(require 'ox-md)
+
+* Export Settings
+Export options can be set: globally with variables; for an individual file by making variables buffer-local with in-buffer settings (see Summary of In-Buffer Settings); by setting individual keywords or specifying them in compact form with the ‘OPTIONS’ keyword; or for a tree by setting properties (see Properties and Columns). Options set at a specific level override options set at a more general level.
+
+In-buffer settings may appear anywhere in the file, either directly or indirectly through a file included using ‘#+SETUPFILE: filename or URL’ syntax. Option keyword sets tailored to a particular backend can be inserted from the export dispatcher (see The Export Dispatcher) using the ‘Insert template’ command by pressing #. To insert keywords individually, a good way to make sure the keyword is correct is to type ‘#+’ and then to use M-TAB126 for completion.
+
+The export keywords available for every backend, and their equivalent global variables, include:
+
+** AUTHOR
+The document author (user-full-name).
+
+** CREATOR
+Entity responsible for output generation (org-export-creator-string).
+
+** DATE
+A date or a timestamp127.
+
+** EMAIL
+The email address (user-mail-address).
+
+** LANGUAGE
+Language to use for translating certain strings (org-export-default-language). With ‘#+LANGUAGE: fr’, for example, Org translates ‘Table of contents’ to the French ‘Table des matières’128.
+
+** SELECT_TAGS
+List of tags that will, if present, be selected for export. The default value is org-export-select-tags ‘("export")’. When a tree is tagged with ‘export’, Org selects that tree and its subtrees for export, ignoring all the other sections that do not possess the ‘export’ tag.
+
+When selectively exporting files with ‘export’ tags set, Org does not export any text that appears before the first headline.
+
+Note that a file without the ‘export’ tags will export all its sections.
+
+To select non-default tags for export, customize org-export-select-tags (globally) or add ‘#+SELECT_TAGS: tag1 tag2’ to the document.
+
+** EXCLUDE_TAGS
+List of tags that will be excluded from export. The default value is org-export-exclude-tags ‘("noexport")’. When a tree is tagged with ‘noexport’, Org excludes that tree and its subtrees from export.
+
+Entries tagged with ‘noexport’ are unconditionally excluded from the export, even if they have an ‘export’ tag. Even if a subtree is not exported, Org executes any code blocks contained there.
+
+To select non-default tags for the exclusion, customize org-export-exclude-tags (globally) or add ‘#+EXCLUDE_TAGS: tag1 tag2’ to the document.
+
+** TITLE
+Org displays this title. For long titles, use multiple ‘#+TITLE’ lines.
+
+** EXPORT_FILE_NAME
+The name of the output file to be generated. Otherwise, Org generates the file name based on the buffer name and the extension based on the backend format.
+
+* ORG HTML THEMES
+Org-HTML themes is an open source framework for providing you with a list of very nice (cross-browser) themes for all your Org documents. Use them to style your docs, and your colleagues will come up to tell you that you are a genius!
+
+The two themes currently available are
++ Bigblow
++ ReadTheOrg

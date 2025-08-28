@@ -23,3 +23,4 @@ kubectl get nodes
 * [[file:Application Lifecycle Management.org][Application Lifecycle Management]]
 * [[file:Cluster Maintenance.org][Cluster Maintenance]]
 * [[file:Security.org][Security]]
+* [[file:Storage.org][Storage]]

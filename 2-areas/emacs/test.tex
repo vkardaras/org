@@ -1,0 +1,56 @@
+% Created 2025-08-11 Mon 21:25
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[fontsize=12pt]{scrextend}
+\usepackage{helvet} \renewcommand\familydefault{\sfdefault}
+\author{Vasilis}
+\date{\textit{<2025-08-11 Mon>}}
+\title{test}
+\hypersetup{
+ pdfauthor={Vasilis},
+ pdftitle={test},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.1.90 (Org mode 9.7.11)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+\label{sec:orgf9f93bc}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nec placerat metus. Ut porttitor orci ex. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec tincidunt, metus vel maximus rhoncus, nibh metus hendrerit sem, at varius purus risus non sem. Pellentesque purus dui, tempor et vehicula vel, elementum sollicitudin mauris. Fusce at lorem justo. Suspendisse potenti.
+
+Morbi sagittis felis in metus elementum, quis interdum orci iaculis. Sed et ligula arcu. Integer dui metus, ultricies sed orci at, auctor auctor justo. Pellentesque tincidunt tristique metus vitae iaculis. Nullam quis mattis orci. Aenean gravida velit eu facilisis lacinia. Praesent viverra porttitor sem sit amet sodales.
+\subsection{ditaa}
+\label{sec:org2cf8ea5}
+
+\begin{dot}
+digraph data\textsubscript{relationships} \{
+  "org-mode"
+  "org-exp-blocks"
+  "dot"
+  "ditaa"
+  "HTML" [shape=Mrecord, label="\{HTML|publish on the web\l\}"]
+  "\LaTeX{}" [shape=Mrecord, label="\{\LaTeX{}|publish in PDF\l\}"]
+  "org-mode" -> "org-exp-blocks"
+  "dot" -> "org-mode"
+  "ditaa" -> "org-mode"
+  "org-exp-blocks" -> "HTML"
+  "org-exp-blocks" -> \LaTeX{}
+\}
+\end{dot}
+\end{document}
