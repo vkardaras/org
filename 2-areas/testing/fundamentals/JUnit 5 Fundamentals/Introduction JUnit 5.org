@@ -1,12 +1,14 @@
-## Why Unit Tests are important
+#+title: Introduction JUnit 5
 
-### Benefits
+* Why Unit Tests are important
+
+** Benefits
 
 - Reduce debugging time
 - Serve as documentation
 - Help to improve the design
 
-### JUnit 5
+** JUnit 5
 
 - JUnit Platform
 - JUnit Jupiter

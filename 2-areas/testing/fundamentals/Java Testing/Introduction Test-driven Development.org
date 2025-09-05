@@ -1,25 +1,16 @@
-** Introduction
-:PROPERTIES:
-:CUSTOM_ID: introduction
-:END:
-*** Why TDD?
-:PROPERTIES:
-:CUSTOM_ID: why-tdd
-:END:
-*** Software problems
-:PROPERTIES:
-:CUSTOM_ID: software-problems
-:END:
+#+title: Introduction Test-driven Development
+
+* Introduction
+
+** Why TDD?
+** Software problems
 - How to design your code?
 - How to encourage Testing?
 - YAGNI. You Ain't Gonna Need It!
 
 TDD helps to discourage over-design
 
-*** How to encourage Testing?
-:PROPERTIES:
-:CUSTOM_ID: how-to-encourage-testing
-:END:
+** How to encourage Testing?
 With TDD, developers naturally write tests
 
 #+begin_quote
@@ -28,16 +19,11 @@ foresee that you need them.
 
 #+end_quote
 
-*** Goal
-:PROPERTIES:
-:CUSTOM_ID: goal
-:END:
+** Goal
 The incremental production of well-designed and tested code.
 
-** What is TDD?
-:PROPERTIES:
-:CUSTOM_ID: what-is-tdd
-:END:
+* What is TDD?
+
 - Failing Test
 - Passing Implementation
 - Refactor

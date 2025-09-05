@@ -1,14 +1,17 @@
-## Software testing
+#+title: Introducing Software Testing
 
-Making objective judgments regarding the extent to which the system meets, exceeds or fails to meet stated objectives.
+* Software testing
 
-### Purpose of Testing
+Making objective judgments regarding the extent to which the system
+meets, exceeds or fails to meet stated objectives.
+
+** Purpose of Testing
 
 - Verify
 - Uncover
 - Mitigate
 
-### Why use testing
+** Why use testing
 
 - Understand
 - Stability
@@ -17,14 +20,14 @@ Making objective judgments regarding the extent to which the system meets, excee
 - Quality
 - Work
 
-### Types of Testing
+** Types of Testing
 
 - Unit
 - Integration
 - System
 - Acceptance
 
-### What to Test?
+** What to Test?
 
 - Business logic
 - Invariants
@@ -33,7 +36,7 @@ Making objective judgments regarding the extent to which the system meets, excee
 - Boundary conditions
 - Regressions
 
-### Tools, Frameworks, and Environments
+** Tools, Frameworks, and Environments
 
 - JUnit, TestNG
 - Mockito, PowerMock

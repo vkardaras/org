@@ -1,119 +1,110 @@
-## Introduction
+#+title: Writing good tests
 
+* Introduction
 Tests have a cost
 
 - maintenance
 - Readability
 - Coupling
 
-## What makes a good test
-
+* What makes a good test
 - Well named
 - Behavior, not implementation
-- Don’t repeat yourself
+- Don't repeat yourself
 - Failure diagnostics
 
-### Why name?
+** Why name?
 
 - Executable documentation
 - Maintenance
 - Readability
 
-### Naming ant-patterns
+** Naming ant-patterns
 
 Numbers
 
-```Java
+#+begin_src java
 @Test
 public void test1() {
-```
+#+end_src
 
-Describing the thing that you’re testing but not the property under test
+Describing the thing that you're testing but not the property under test
 
-```Java
+#+begin_src java
 @Test
 public void espresso_beans() {
 ...
 @Test
 public void restock() {
-```
+#+end_src
 
-### Good Naming
-
-```Java
+** Good Naming
+#+begin_src java
 @Test
 public void brewingEspressoConsumesBeans() {
-```
+#+end_src
 
-```Java
+#+begin_src java
 @Test
 public void shouldBlockTransactionBeyondCreditLimit() {
-```
+#+end_src
 
-### Naming Guidelines
-
+** Naming Guidelines
 - Use domain terminology
 - Natural language
 - Be descriptive
 
-## Test Code
+* Test Code
 
-### Behavior Anti-pattern
-
-```Java
+** Behavior Anti-pattern
+#+begin_src java
 assertEquals(5, object.internalState);
 
 // Exposing the field via a getter just for 
 assertEquals(5, object. getInternalState());
-```
+#+end_src
 
-### Two approaches
+** Two approaches
+- *Implementation*. Exposing state results in brittle tests
+- *Behaviour*. Assert on results. Implementation can still be refactored
 
-- **Implementation**. Exposing state results in brittle tests
-- **Behaviour**. Assert on results. Implementation can still be refactored
-
-### Duplication Anti-pattern
-
-```Java
+** Duplication Anti-pattern
+#+begin_src java
 Cafe cafe = new Cafe();
 cafe. restockBeans(7);
-```
+#+end_src
 
-### Magic number anti-pattern
-
-```Java
+** Magic number anti-pattern
+#+begin_src java
 cafe.restockBeans(7);
 
 // number could be replaced by a variable
 cafe.restockBeans(ESPRESSO_BEANS);
-```
+#+end_src
 
-## Diagnostics
-
+* Diagnostics
 Size of List
 
-```Java
+#+begin_src java
 List<Coffee> order = care.brewOrder(...);
 assertTrue(order.size() == 1);
 
 java.lang.AssertionError
 
 // Only use of assertTrue with actual boolean values
-```
+#+end_src
 
-### Exposing the value
-
-```Java
+** Exposing the value
+#+begin_src java
 List<Coffee> order = care.brewOrder(...);
 assertEquals(1, order.size());
 
 Expected: 1
 Actual: 0
-```
+#+end_src
 
-### Exposing a reason
-
-```Java
+** Exposing a reason
+#+begin_src java
 List<Coffee> order = care.brewOrder(...);
 assertEquals(1, order.size(), "Wrong quantity of coffee");
 
@@ -122,89 +113,81 @@ Expected: 1
 Actual: 0
 
 // Giving messages to asserts helps diagnostics
-```
+#+end_src
 
-## Common Code
-
-### Before & After: Common Code
-
-### JUnit Practices
-
+* Common Code
+** Before & After: Common Code
+** JUnit Practices
 - JUnit helps. Features align with good practices
 - Reduced duplication
 - Before and after
 
-### Common annotations
-
-`@BefoereEach @AfterEach`
+** Common annotations
+=@BefoereEach @AfterEach=
 
 - Common code run in before and after blocks
 - Each variants run before/after each test method
 
-`@BefoereAll @AfterAll`
+=@BefoereAll @AfterAll=
 
 - All variants run before/after all the test methods in a single class
 
-## Hamcrest Matchers
-
-### Matcher
-
+* Hamcrest Matchers
+** Matcher
 A simple and general blob of logic used in assetions.
 
-Example: A map contains _this_ key
+Example: A map contains /this/ key
 
-### Compositional
-
+** Compositional
 A Matcher can combine other Matchers
 
 Example: A number is 5 or 6.
 
-### Examples
-
+** Examples
 Map
 
-```Java
+#+begin_src java
 var values:Map<String, Integer> = Map.of("A", 1, "B", 2);
 
 assertThat(values, hasEntry("B", 2));
-```
+#+end_src
 
 Lists
 
-```Java
+#+begin_src java
 var numbers = Arrays.asList(5, 4, 1, 2, 3);
 
 assertEquals(Arrays.asList(1, 2, 3, 4, 5), numbers);
-```
+#+end_src
 
-```Java
+#+begin_src java
 var numbers = Arrays.asList(5, 4, 1, 2, 3);
 
 assertEquals(Arrays.asList(5, 4, 1, 2, 3), numbers);
-```
+#+end_src
 
-```Java
+#+begin_src java
 var numbers = Arrays.asList(5, 4, 1, 2, 3);
 
 assertThat(numbers, containsInAnyOrder(1, 2, 3, 4, 5));
-```
+#+end_src
 
 Properties
 
-```Java
+#+begin_src java
 Coffee coffee = new Coffee(CoffeeType.Espresso, 7, 0);
 
 assertThat(coffee, hasProperty("beans", is(7)));
-```
+#+end_src
 
 Composition
 
-```Java
+#+begin_src java
 var coffees = List.of(
-	new Coffee(CoffeeType.Espresso, 7, 0),
-	new Coffee(CoffeeType.FilterCoffee, 10, 0));
-	
+    new Coffee(CoffeeType.Espresso, 7, 0),
+    new Coffee(CoffeeType.FilterCoffee, 10, 0));
+    
 asseretThat(coffees, containsInAnyOrder(
-	hasProperty("beans", is(10)),
-	hasProperty("beans", is(7))));
-```
+    hasProperty("beans", is(10)),
+    hasProperty("beans", is(7))));
+#+end_src

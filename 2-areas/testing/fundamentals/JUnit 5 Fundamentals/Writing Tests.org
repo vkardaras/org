@@ -1,14 +1,18 @@
-## Test Structure
+#+title: Writing Tests
 
-### Set the order of the test
+* Test Structure
 
-Use `@TestMethodOrder` annotation for class
+** Set the order of the test
 
-- Order by method name: `@TestMethodOrder(MethodOrderer.MethodName.class)`
-- Order by method order annotation: `@TestMethodOrder(MethodOrderer.MethodName.class)`
-    - Use `@Order` annotation for each method
+Use =@TestMethodOrder= annotation for class
 
-```Java
+- Order by method name:
+  =@TestMethodOrder(MethodOrderer.MethodName.class)=
+- Order by method order annotation:
+  =@TestMethodOrder(MethodOrderer.MethodName.class)=
+  - Use =@Order= annotation for each method
+
+#+begin_src java
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class RewardByDiscountServiceTest {
     @Test
@@ -23,89 +27,89 @@ class RewardByDiscountServiceTest {
         ...
     }
 }
-```
+#+end_src
 
-### Four phases of every test
+** Four phases of every test
 
 - Arrange
 - Act
 - Assert
 - Annihilation
 
-## Lifecycle Methods
+* Lifecycle Methods
 
-### Test Fixture
+** Test Fixture
 
 Everything we need to execute the test.
 
-### Managing test fixtures
+** Managing test fixtures
 
 - Transient Fresh
 - Persistence Fresh
 - Persistence Shared
 
-### Lifecycle Annotations
+** Lifecycle Annotations
 
 Once per method
 
-- `@BeforeEach`
-- `@AfterEach`
+- =@BeforeEach=
+- =@AfterEach=
 
 Once per class
 
-- `@BeforeAll`
-- `@AfterAll`
+- =@BeforeAll=
+- =@AfterAll=
 
-### Lifecycle Execution
+** Lifecycle Execution
 
 Per method
 
-```Java
+#+begin_src java
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
-```
+#+end_src
 
 Per class
 
-```Java
+#+begin_src java
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-```
+#+end_src
 
-## Disabling Tests
+* Disabling Tests
 
 The annotation
 
-```Java
+#+begin_src java
 @Disabled("description")
-```
+#+end_src
 
 You can use it in Methods and Classes
 
-### Annotation-based Conditions
+** Annotation-based Conditions
 
 Enable
 
-```Java
+#+begin_src java
 @EnabledOnOs({ LINUX, MAC })
 @EnabledOnJre(JAVA_8)
 @EnabledOnJreRange(max=JAVA_10)
 @EnabledIfSystemProperty(named="version", matches="1.*")
 @EnabledIfEnvironmentVariable(named="ENV", matches="*server")
 @EnabledIf("methodName")
-```
+#+end_src
 
-```Java
+#+begin_src java
 @DisabledOnOs({ WINDOWS })
 @DisabledOnJre({ JAVA_9, JAVA_10 })
 @DisabledOnJreRange(min=JAVA_11, max=JAVA_14)
 @DisabledIfSystemProperty(named="dev", matches="true")
 @DisabledIfEnvironmentVariable(named="ENV", matches="QA")
 @DisabledIf("com.example.MyClass\#myMethod")
-```
+#+end_src
 
-## Assumptions
+* Assumptions
 
 - Based on conditions
-- Don’t result in test failure like assertions
+- Don't result in test failure like assertions
 - Abort the test
 
 Assumption methods
@@ -116,57 +120,57 @@ Assumption methods
 
 Example
 
-```Java
+#+begin_src java
 assumeTrue("1".equals(System.getenv("TEST_POINTS")));
 
 assumingThat("1".equals(System.getenv("TEST_POINTS")), 
-				() -> {
-						// Execute this assertion only if the assumption is valid
-						assertEquals(10, info.getPointsRedeemed());
-				});
-						
-```
+                () -> {
+                        // Execute this assertion only if the assumption is valid
+                        assertEquals(10, info.getPointsRedeemed());
+                });
+                        
+#+end_src
 
-## Test Interfaces and Default Methods
+* Test Interfaces and Default Methods
 
-### What to include in interfaces?
+** What to include in interfaces?
 
-- `@Test`
-- `@FeforeEach`
-- `@AfterEach`
-- `@RepeatedTest`
-- `@ParameterizedTest`
-- `@TestFactory`
-- `@TestTemplate`
-- `@ExtendWith`
-- `@Tag`
+- =@Test=
+- =@FeforeEach=
+- =@AfterEach=
+- =@RepeatedTest=
+- =@ParameterizedTest=
+- =@TestFactory=
+- =@TestTemplate=
+- =@ExtendWith=
+- =@Tag=
 
 Static methods
 
-- `@FeforeAll`
-- `@AfterAll`
+- =@FeforeAll=
+- =@AfterAll=
 
-## Repeating Tests
+* Repeating Tests
 
-### `@RepeatedTest`
+** =@RepeatedTest=
 
 - Repeat a test
 - Fixed number of repetitions
 - Full support of lifecycle
 
-### Custom Display Name
+** Custom Display Name
 
 Placeholders
 
-```Java
+#+begin_src java
 {displayName}
 {currentRepetition}
 {totalRepetitions}
-```
+#+end_src
 
 Predefined formats
 
-```Java
+#+begin_src java
 RepeatedTest.LONG_DISPLAY_NAME
 {displayName} :: repetition {currentRepetition} of {totalRepetitions}
 Ex: My Test :: repetition 1 of 10
@@ -174,10 +178,10 @@ Ex: My Test :: repetition 1 of 10
 RepeatedTest.SHORT_DISPLAY_NAME
 repetition {currentRepetition} of {totalRepetitions}
 Ex: repetition 1 of 10
-```
+#+end_src
 
 RepetitionInfo Interface
 
-- `@RepeatedTest`
-- `@FeforeEach`
-- `@AfterEach`
+- =@RepeatedTest=
+- =@FeforeEach=
+- =@AfterEach=

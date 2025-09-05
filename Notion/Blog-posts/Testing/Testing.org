@@ -1,5 +1,0 @@
-[[Fundamentals of Java Testing]]
-
-[[Implementing a Test Pyramid Strategy in Java]]
-
-[[JUnit 5 Fundamentals]]
