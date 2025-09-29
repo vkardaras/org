@@ -1,5 +1,44 @@
 #+title: emacs org mode
 
+* Heades :testa:project:
+
+#+begin_src shell
+# add same header below
+Alt Enter
+
+# move heading up
+Alt Up
+# move heading down
+Alt Down
+#+end_src
+
+* Tags
+#+begin_src shell
+# add tag
+C-c C-q
+C-c C-c
+#+end_src
+
+* Lists
+- item1
+- item2
+
+#+begin_src shell
+# add list item
+Alt Enter
+# move inside
+Alt Right
+# move outside
+Alt Left
+#+end_src
+# move item up
+Alt Up
+# move item down
+Alt Down
+# change list type
+S Right, S Left
+#+end_src
+
 * [[file:org mode example.org][org mode example]]
 * add support for pdf
 
