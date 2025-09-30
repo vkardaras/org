@@ -4,3 +4,6 @@
 :END:
 
 ** [[file:12 factor app.org][12 factor app]]
+
+** [[file:gitlab_cicd.org][gitlab CI/CD]]
+
