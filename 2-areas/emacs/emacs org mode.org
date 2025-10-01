@@ -19,6 +19,15 @@ C-c C-q
 C-c C-c
 #+end_src
 
+* Properties
+:PROPERTIES:
+:CATEGORY: animals
+:STYLE:    simple
+:END:
+#+begin_src 
+C-c C-x p
+#+end_src
+
 * Lists
 - item1
 - item2

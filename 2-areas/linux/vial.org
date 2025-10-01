@@ -1,0 +1,18 @@
+#+title: Vial
+
+* Configuring udev rules for VIA and Vial on Linux
+
+https://get.vial.today/manual/linux-udev.html
+https://www.reddit.com/r/keyboards/comments/11laiq7/vial_doesnt_recognize_corne_i_am_new_to_linux_pop/
+
+#+begin_src shell
+export USER_GID=`id -g`; sudo --preserve-env=USER_GID sh -c 'echo "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", ATTRS{serial}==\"*vial:f64c2b3c*\", MODE=\"0660\", GROUP=\"$USER_GID\", TAG+=\"uaccess\", TAG+=\"udev-acl\"" > /etc/udev/rules.d/99-vial.rules && udevadm control --reload && udevadm trigger'
+#+end_src
+
+* Configuration for Arch linux
+
+Replace ~MODE=\"0660\"~ with ~MODE=\"0666\"~
+
+#+begin_src shell
+export USER_GID=`id -g`; sudo --preserve-env=USER_GID sh -c 'echo "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", ATTRS{serial}==\"*vial:f64c2b3c*\", MODE=\"0666\", GROUP=\"$USER_GID\", TAG+=\"uaccess\", TAG+=\"udev-acl\"" > /etc/udev/rules.d/99-vial.rules && udevadm control --reload && udevadm trigger'
+#+end_src

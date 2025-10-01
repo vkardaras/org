@@ -1,3 +1,4 @@
+#+title: Arch pacman
 * arch pacman
 
 #+begin_src sh
@@ -15,4 +16,19 @@ sudo pacman -Syu
 
 # remove all downloaded package files from the cache
 sudo pacman -Scc
+#+end_src
+
+* Change pacman mirrors
+
+https://mesumali26-ma.medium.com/configuring-pacman-mirror-for-specific-country-arch-linux-84c06dc5954b
+
+#+begin_src shell
+# edit the following file
+/etc/pacman.d/mirrorlist
+# generate a mirrorlist file for specific geographical location using the official Arch Linux website
+https://www.archlinux.org/mirrorlist/ 
+# Copy the content into a file and remove the # before Server named mirrorlist.txt and run the following commands
+sudo cp mirrorlist.txt /etc/pacman.d/mirrorlist
+# update pacman
+sudo pacman -Syy
 #+end_src

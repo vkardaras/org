@@ -1,0 +1,89 @@
+#+title: Virtual Machine
+
+* Check if login attempts happening
+#+begin_src shell
+tail -n 10 -f /var/log/auth.log
+#+end_src
+
+* Update the server after connecting for the first time
+#+begin_src shell
+# update the package lists
+sudo apt update
+
+# upgrade packages
+sudo apt upgrade
+
+# check if a reboot required after upgrade
+ls /var/run/reboot-required
+#+end_src
+
+* Change user password
+#+begin_src shell
+passwd
+#+end_src
+
+* Add a new user
+#+begin_src shell
+# create the user
+adduser vkardar
+# add the user to the sudo group
+usermod -aG sudo vkardar
+# check group of user
+groups vkardar
+#+end_src
+
+* Login with SSH key
+
+** Generate SSH key on your host machine
+https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+
+#+begin_src shell
+# view the contents of the public key on your machine
+cat .ssh/id_ed25519.pub
+#+end_src
+
+** Add SSH key to the virtual machine
+#+begin_src shell
+# create the .ssh folder in your home directory
+mkdir .ssh
+# create the file to authorize the keys and add the public key
+vim .ssh/authorized_keys
+#+end_src
+
+** Check if the login with SSH key is enabled
+#+begin_src shell
+# open the following file
+sudo vim /etc/ssh/sshd_config
+# check the variable =PuplicAuthentication=
+PublicAuthentication yes
+#+end_src
+
+* Disable password login
+#+begin_src shell
+# edit the following file
+sudo vim /etc/ssh/sshd_config
+# disable PasswordAuthentication setting
+PasswordAuthentication no
+# check if there is a file in the folder
+/etc/ssh/sshd_config.d/
+# disable PasswordAuthentication setting if exists
+PasswordAuthentication no
+# restart the ssh service
+sudo service ssh restart
+#+end_src
+
+* Disable root login
+#+begin_src shell
+# edit the following file
+sudo vim /etc/ssh/sshd_config
+# disable PermitRootLogin setting
+PermitRootLogin no
+# restart the ssh service
+sudo service ssh restart
+#+end_src
+
+* Network and firewall policy
+
+* Change default SSH port
+
+* Restrict port access to a specific IP

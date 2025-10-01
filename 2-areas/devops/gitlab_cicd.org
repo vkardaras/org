@@ -918,3 +918,333 @@ e2e:
     - npm ci
     - npm run e2e
 #+end_src
+
+* Docker for DevOps
+
+** Initial config
+#+begin_src yaml
+variables:
+  NETLIFY_SITE_ID: 'a1582667-4e53-4bb4-8eaa-1af0768302a2'
+  VITE_APP_VERSION: $CI_COMMIT_SHORT_SHA
+
+stages:
+  - build
+  - deploy
+
+build_website:
+  image: node:22-alpine
+  stage: build
+  script:
+    - node --version
+    - npm --version
+    - npm ci
+    - npm run build
+  artifacts:
+    paths: 
+      - build/
+
+netlify_prod:
+  image: node:22-alpine
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  environment:
+    name: production
+    url: 'https://ocd-learn-gitlab.netlify.app'
+  before_script: 
+    - npm install -g netlify-cli@20.1.1
+    - apk add curl
+  script:
+    - netlify --version
+    - netlify status
+    - echo "Deploying to site id $NETLIFY_SITE_ID"
+    - netlify deploy --prod --dir build
+    - curl $CI_ENVIRONMENT_URL | grep 'GitLab'
+#+end_src
+
+** Build a Docker image
+
+https://docs.docker.com/reference/dockerfile/
+
+#+begin_src yaml
+variables:
+  NETLIFY_SITE_ID: 'a1582667-4e53-4bb4-8eaa-1af0768302a2'
+  VITE_APP_VERSION: $CI_COMMIT_SHORT_SHA
+
+stages:
+  - build
+  - deploy
+
+build_docker_netlify:
+  stage: .pre
+  image: docker:27
+  services:
+    - docker:27-dind
+  script:
+    - docker version
+    - docker build -t netlify -f ci/Dockerfile .
+    - docker image ls
+
+build_website:
+  image: node:22-alpine
+  stage: build
+  script:
+    - node --version
+    - npm --version
+    - npm ci
+    - npm run build
+  artifacts:
+    paths: 
+      - build/
+
+netlify_prod:
+  image: node:22-alpine
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  environment:
+    name: production
+    url: 'https://ocd-learn-gitlab.netlify.app'
+  before_script: 
+    - npm install -g netlify-cli@20.1.1
+    - apk add curl
+  script:
+    - netlify --version
+    - netlify status
+    - echo "Deploying to site id $NETLIFY_SITE_ID"
+    - netlify deploy --prod --dir build
+    - curl $CI_ENVIRONMENT_URL | grep 'GitLab'
+#+end_src
+
+** GitLab container registry
+#+begin_src yaml
+variables:
+  NETLIFY_SITE_ID: 'a1582667-4e53-4bb4-8eaa-1af0768302a2'
+  VITE_APP_VERSION: $CI_COMMIT_SHORT_SHA
+
+stages:
+  - build
+  - deploy
+
+build_docker_netlify:
+  stage: .pre
+  image: docker:27
+  services:
+    - docker:27-dind
+  script:
+    - docker version
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - docker build -t netlify -f ci/Dockerfile .
+    - docker image ls
+
+build_website:
+  image: node:22-alpine
+  stage: build
+  script:
+    - node --version
+    - npm --version
+    - npm ci
+    - npm run build
+  artifacts:
+    paths: 
+      - build/
+
+netlify_prod:
+  image: node:22-alpine
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  environment:
+    name: production
+    url: 'https://ocd-learn-gitlab.netlify.app'
+  before_script: 
+    - npm install -g netlify-cli@20.1.1
+    - apk add curl
+  script:
+    - netlify --version
+    - netlify status
+    - echo "Deploying to site id $NETLIFY_SITE_ID"
+    - netlify deploy --prod --dir build
+    - curl $CI_ENVIRONMENT_URL | grep 'GitLab'
+#+end_src
+
+** Push an image to the GitLab container registry
+#+begin_src yaml
+variables:
+  NETLIFY_SITE_ID: 'a1582667-4e53-4bb4-8eaa-1af0768302a2'
+  VITE_APP_VERSION: $CI_COMMIT_SHORT_SHA
+
+stages:
+  - build
+  - deploy
+
+build_docker_netlify:
+  stage: .pre
+  image: docker:27
+  services:
+    - docker:27-dind
+  script:
+    - docker version
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE/netlify -f ci/Dockerfile .
+    - docker image ls
+    - docker push $CI_REGISTRY_IMAGE/netlify
+
+build_website:
+  image: node:22-alpine
+  stage: build
+  script:
+    - node --version
+    - npm --version
+    - npm ci
+    - npm run build
+  artifacts:
+    paths: 
+      - build/
+
+netlify_prod:
+  image: node:22-alpine
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  environment:
+    name: production
+    url: 'https://ocd-learn-gitlab.netlify.app'
+  before_script: 
+    - npm install -g netlify-cli@20.1.1
+    - apk add curl
+  script:
+    - netlify --version
+    - netlify status
+    - echo "Deploying to site id $NETLIFY_SITE_ID"
+    - netlify deploy --prod --dir build
+    - curl $CI_ENVIRONMENT_URL | grep 'GitLab'
+#+end_src
+
+** Use a custom Docker image in the pipeline
+
+Go to =Deploy->Container registry= and copy the image path
+
+#+begin_src yaml
+variables:
+  NETLIFY_SITE_ID: 'a1582667-4e53-4bb4-8eaa-1af0768302a2'
+  VITE_APP_VERSION: $CI_COMMIT_SHORT_SHA
+
+stages:
+  - build
+  - deploy
+
+build_docker_netlify:
+  stage: .pre
+  image: docker:27
+  services:
+    - docker:27-dind
+  script:
+    - docker version
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE/netlify -f ci/Dockerfile .
+    - docker image ls
+    - docker push $CI_REGISTRY_IMAGE/netlify
+
+build_website:
+  image: node:22-alpine
+  stage: build
+  script:
+    - node --version
+    - npm --version
+    - npm ci
+    - npm run build
+  artifacts:
+    paths: 
+      - build/
+
+netlify_prod:
+  image: $CI_REGISTRY_IMAGE/netlify
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  environment:
+    name: production
+    url: 'https://ocd-learn-gitlab.netlify.app'
+  script:
+    - netlify --version
+    - netlify status
+    - echo "Deploying to site id $NETLIFY_SITE_ID"
+    - netlify deploy --prod --dir build
+    - curl $CI_ENVIRONMENT_URL | grep 'GitLab'
+#+end_src
+
+** Create a scheduled pipeline
+
+Create a schedule from =Bukild->Pipeline schedules=
+
+Exclude a step when pipeline isn't scheduled
+
+#+begin_src yaml
+variables:
+  NETLIFY_SITE_ID: 'a1582667-4e53-4bb4-8eaa-1af0768302a2'
+  VITE_APP_VERSION: $CI_COMMIT_SHORT_SHA
+
+stages:
+  - build
+  - deploy
+
+build_docker_netlify:
+  stage: .pre
+  image: docker:27
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  services:
+    - docker:27-dind
+  script:
+    - docker version
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE/netlify -f ci/Dockerfile .
+    - docker image ls
+    - docker push $CI_REGISTRY_IMAGE/netlify
+
+build_website:
+  image: node:22-alpine
+  stage: build
+  script:
+    - node --version
+    - npm --version
+    - npm ci
+    - npm run build
+  artifacts:
+    paths: 
+      - build/
+
+netlify_prod:
+  image: $CI_REGISTRY_IMAGE/netlify
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+  environment:
+    name: production
+    url: 'https://ocd-learn-gitlab.netlify.app'
+  script:
+    - netlify --version
+    - netlify status
+    - echo "Deploying to site id $NETLIFY_SITE_ID"
+    - netlify deploy --prod --dir build
+    - curl $CI_ENVIRONMENT_URL | grep 'GitLab'
+#+end_src
+
+* Deploy over SSH
+** Create an Ngnix web server
+#+begin_src bash
+# Install ngnix
+sudo dnf install -y nginx
+
+# Starts the Nginx web server service
+sudo systemctl start nginx
+
+# Configures a the Ngnix service to start automatically when the system boots
+sudo systemctl enable nginx
+
+# Displays detailed information about the current state of the Nginx service
+sudo systemctl status nginx
+#+end_src
+
+** Store the SSH private key in GitLab

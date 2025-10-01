@@ -1,7 +1,5 @@
 * emacs shells
-:PROPERTIES:
-:CUSTOM_ID: emacs-shells
-:END:
+
 ** emacs shells
 
 - Pass single command lines to a shell subprocess

@@ -214,7 +214,7 @@ C-x C-p
 
 ** Searching in Emacs
 
-Incremental search
+*** Incremental search
 
 #+begin_src sh
 # Forward incremental search
@@ -242,7 +242,7 @@ M-n
 M-p
 #+end_src
 
-Non-incremental search
+*** Non-incremental search
 
 #+begin_src sh
 # Forward non-incremental search

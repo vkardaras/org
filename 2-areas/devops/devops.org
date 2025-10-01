@@ -7,3 +7,4 @@
 
 ** [[file:gitlab_cicd.org][gitlab CI/CD]]
 
+** [[file:virtual_machine.org][virtual machine]]

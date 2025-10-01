@@ -1,7 +1,5 @@
 * editing text with emacs
-:PROPERTIES:
-:CUSTOM_ID: editing-text-with-emacs
-:END:
+
 ** Killing and Deleting
 
 #+begin_src sh
