@@ -1471,3 +1471,55 @@ ssh_deploy:
     # Open SSH connection and run the deploy script
     - ssh $REMOTE_DEPLOY_USER@$REMOTE_DEPLOY_HOST "cd ~/deploy; chmod +x deploy.sh; ./deploy.sh"
 #+end_src
+
+* Example for spring boot
+#+begin_src yaml
+variables:
+  SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+  GIT_DEPTH: "0"
+  DOCKER_IMAGE_NAME: "dev-docker.corp.iknowhow.com:5000/bi-health-ws"
+  DOCKER_CONTAINER_NAME: "bi-health-ws"
+  DOCKER_CONTAINER_PORT: "3001"
+  PROJECT_NAME: "bi-health-ws"
+  SO_API_BASE_URL: "${GLOBAL_SO_API_BASE_URL}"
+
+stages:
+  - build
+  - test
+
+build-image:
+  stage: build
+  image: maven:3.9-eclipse-temurin-21
+  script:
+    - echo "Starting building process"
+    - mvn clean package -P staging -Duser.timezone=EET
+    - echo "Pushing to registry"
+  artifacts:
+    paths:
+      - target/
+      - Dockerfile
+    expire_in: 1 hour # Keep artifacts for a short period, or as needed
+  # You may modify this according to the branches you want to automatically build
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+  tags:
+    - build
+    - docker
+    - global
+    - shared
+
+maven-test:
+  image: maven:3.9-eclipse-temurin-21
+  stage: test
+  script: "mvn test"
+  artifacts:
+    paths:
+      - target/*.jar
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+  tags:
+    - build
+    - docker
+    - global
+    - shared
+#+end_src
