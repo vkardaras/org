@@ -1247,4 +1247,227 @@ sudo systemctl enable nginx
 sudo systemctl status nginx
 #+end_src
 
+** Check if a port of the vm is open with netcat
+#+begin_src shell
+nc -zv 18.201.118.147 22
+#+end_src
+
 ** Store the SSH private key in GitLab
+
+Move to =Settings->CI/CD->Variables= and add a variable of type file with the value of the private key
+
+** Verify the SSH host keys
+
+#+begin_src shell
+# connect to vm and get te fingerpring of the machine
+ssh-keyscan 18.201.118.147 22
+#+end_src
+
+Move to =Settings->CI/CD->Variables= and add a variable of type file with key the SSH_KNOWN_HOSTS and the value of uncommented lines of the ssh-keyscan
+
+** Upload files using scp
+
+Move to the vm and change the owner of the directory to upload the files to the current user
+
+#+begin_src shell
+# change the owner of the nginx/html directory
+sudo chown -R john-doe:john-doe /usr/share/nginx/html/
+#+end_src
+
+Update .gitlab-ci.yml with the deploy step
+
+#+begin_src yaml
+variables:
+  VITE_APP_VERSION: $CI_COMMIT_SHORT_SHA
+
+build_website:
+  image: node:22-alpine
+  stage: build
+  script:
+    - node --version
+    - npm --version
+    - npm ci
+    - npm run build
+  artifacts:
+    paths: 
+      - build/
+
+ssh_deploy:
+  stage: deploy
+  image: alpine
+  before_script:
+     # Check if port 22 is open on the server
+    - nc -zv $REMOTE_DEPLOY_HOST 22
+    # Grant read-only permission to the private key
+    - chmod 400 $SSH_PRIVATE_KEY
+    # Install the OpenSSH client
+    - apk add openssh-client
+    # Start the SSH agent
+    - eval $(ssh-agent)
+    # Add the SSH key to the agent
+    - ssh-add $SSH_PRIVATE_KEY
+    # Create the SSH directory and assign the right permissions
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    # Create the known_hosts files and assign the right permissions
+    - cp $SSH_KNOWN_HOSTS ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    # Open SSH connection + run commands
+    - ssh $REMOTE_DEPLOY_USER@$REMOTE_DEPLOY_HOST "whoami; touch /tmp/foo.txt; ls -l /tmp"
+    # Copy all the directories and files from the build directory (but not build itself) to the remote destination
+    - scp -r build/* $REMOTE_DEPLOY_USER@$REMOTE_DEPLOY_HOST:/usr/share/nginx/html/
+#+end_src
+
+** Upload fiels using rsync
+
+Use rsync instead of scp. You need to install it first
+
+#+begin_src yaml
+variables:
+  VITE_APP_VERSION: $CI_COMMIT_SHORT_SHA
+
+build_website:
+  image: node:22-alpine
+  stage: build
+  script:
+    - node --version
+    - npm --version
+    - npm ci
+    - npm run build
+  artifacts:
+    paths: 
+      - build/
+
+ssh_deploy:
+  stage: deploy
+  image: alpine
+  before_script:
+     # Check if port 22 is open on the server
+    - nc -zv $REMOTE_DEPLOY_HOST 22
+    # Grant read-only permission to the private key
+    - chmod 400 $SSH_PRIVATE_KEY
+    # Install the OpenSSH client, rsync
+    - apk add openssh-client rsync
+    # Start the SSH agent
+    - eval $(ssh-agent)
+    # Add the SSH key to the agent
+    - ssh-add $SSH_PRIVATE_KEY
+    # Create the SSH directory and assign the right permissions
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    # Create the known_hosts files and assign the right permissions
+    - cp $SSH_KNOWN_HOSTS ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    # Open SSH connection + run commands
+    - ssh $REMOTE_DEPLOY_USER@$REMOTE_DEPLOY_HOST "whoami; touch /tmp/foo.txt; ls -l /tmp"
+    # Copy all the directories and files from the build directory (but not build itself) to the remote destination
+    - rsync -rvz --delete build/ $REMOTE_DEPLOY_USER@$REMOTE_DEPLOY_HOST:/usr/share/nginx/html/
+#+end_src
+
+** Run a deployment script
+
+*** Script to execute on server
+#+begin_src shell
+#!/bin/bash
+
+# Print a message
+echo "Starting the deployment ..."
+
+# Input variables
+ZIP_FILE="build.zip"                # Replace with your ZIP file path
+BUILD_DIR="build"                   # Replace with your build directory name
+DEST_DIR="/usr/share/nginx/html/"   # Replace with your target directory
+HTTP_URL="http://example.com"       # Replace with the HTTP address you want to fetch
+
+# Create a temporary directory
+TEMP_DIR=$(mktemp -d)
+
+# Check if the ZIP file exists
+if [[ ! -f "$ZIP_FILE" ]]; then
+  echo "Error: $ZIP_FILE could not be found."
+  exit 1
+fi
+
+# Unzip the file to the temporary directory
+echo "Unzipping $ZIP_FILE to $TEMP_DIR..."
+unzip "$ZIP_FILE" -d "$TEMP_DIR" > /dev/null
+mv "$TEMP_DIR"/"$BUILD_DIR"/* "$TEMP_DIR"/
+rm -rf "$TEMP_DIR"/"$BUILD_DIR"/
+
+if [[ $? -ne 0 ]]; then
+  echo "Error: Failed to unzip $ZIP_FILE."
+  exit 1
+fi
+
+# Copy the content to the destination directory
+echo "Copying files to $DEST_DIR..."
+rsync -rv --delete "$TEMP_DIR"/ "$DEST_DIR"
+
+if [[ $? -ne 0 ]]; then
+  echo "Error: Failed to copy files to $DEST_DIR."
+  exit 1
+fi
+
+# Cleanup the temporary directory
+echo "Cleaning up temporary files..."
+rm -rf "$TEMP_DIR"
+
+# Fetch the HTTP address and search for "GitLab"
+echo "Fetching content from $HTTP_URL and searching for 'GitLab'..."
+if curl -fs "$HTTP_URL" | grep -iq "GitLab"; then
+  echo "Found 'GitLab' in the response!"
+else
+  echo "Error: Could not find 'GitLab' or fetch content from $HTTP_URL."
+  exit 1
+fi
+
+echo "Deployment completed successfully!"
+#+end_src
+
+*** Update .gitlab-ci.yml to execure the script on the server
+#+begin_src yaml
+variables:
+  VITE_APP_VERSION: $CI_COMMIT_SHORT_SHA
+
+build_website:
+  image: node:22-alpine
+  stage: build
+  script:
+    - node --version
+    - npm --version
+    - npm ci
+    - npm run build
+  artifacts:
+    paths: 
+      - build/
+
+ssh_deploy:
+  stage: deploy
+  image: alpine
+  before_script:
+     # Check if port 22 is open on the server
+    - nc -zv $REMOTE_DEPLOY_HOST 22
+    # Grant read-only permission to the private key
+    - chmod 400 $SSH_PRIVATE_KEY
+    # Install the OpenSSH client, rsync, zip
+    - apk add openssh-client rsync zip
+    # Start the SSH agent
+    - eval $(ssh-agent)
+    # Add the SSH key to the agent
+    - ssh-add $SSH_PRIVATE_KEY
+    # Create the SSH directory and assign the right permissions
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    # Create the known_hosts files and assign the right permissions
+    - cp $SSH_KNOWN_HOSTS ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    # Create a zip archive of the build directory
+    - zip -r build.zip build/
+    # Copy the build artifact (zip) and the deploy script to the remote location
+    - scp build.zip ci/deploy.sh $REMOTE_DEPLOY_USER@$REMOTE_DEPLOY_HOST:~/deploy
+    # Open SSH connection and run the deploy script
+    - ssh $REMOTE_DEPLOY_USER@$REMOTE_DEPLOY_HOST "cd ~/deploy; chmod +x deploy.sh; ./deploy.sh"
+#+end_src

@@ -1,5 +1,8 @@
 #+title: Virtual Machine
 
+* Reference link
+https://www.youtube.com/watch?v=Q1Y_g0wMwww&list=PLLnpHn493BHHAxTeLNUZEDLYc8uUwqGXa
+
 * Check if login attempts happening
 #+begin_src shell
 tail -n 10 -f /var/log/auth.log
@@ -87,3 +90,26 @@ sudo service ssh restart
 * Change default SSH port
 
 * Restrict port access to a specific IP
+
+* Enable and configure automatic upgrades
+
+** Install unattended-upgrades
+
+#+begin_src shell
+# install unattended-upgrades
+sudo apt install unattended-upgrades
+# configure unattended-upgrades
+sudo dpkg-reconfigure unattended-upgrades
+#+end_src
+
+** Configure unattended-upgrades
+
+Check options for unattended-upgrades
+https://github.com/mvo5/unattended-upgrades?tab=readme-ov-file#supported-options-reference
+
+#+begin_src shell
+# configure unattended-upgrades
+sudo vim /etc/apt/apt.conf.d/50unattended-upgrades
+# check the status of the service
+sudo systemctl status unattended-upgrades
+#+end_src

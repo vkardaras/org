@@ -1,0 +1,57 @@
+#+title: Deployment
+
+* Rename the packaged application
+
+Edit the =pom.xml= file
+#+begin_src xml
+
+<!-- update the version of the application -->
+<version>1.0.0</version>
+
+<!-- update the name of the packaged application--> 
+<build>
+  <finalName>spring-deploy-${project.version}</finalName>
+  ...
+</build>
+
+#+end_src
+
+* Package the application
+#+begin_src shell
+mvn clean package
+#+end_src
+
+* Inspect the JAR file
+#+begin_src shell
+jar -tf target/spring-deploy-1.0.0.jar
+#+end_src
+
+* Run the application
+#+begin_src shell
+java -jar target/appname-0.0.1-SNAPSHOT.jar
+#+end_src
+
+* Package the application with AOT support
+#+begin_src shell
+mvn clean compile spring-boot:process-aot package
+#+end_src
+
+* Run the application using AOT support
+#+begin_src shell
+java -DspringAot=true -jar target/spring-deploy-1.0.0.jar
+#+end_src
+
+* Move the application to the virtual machine
+#+begin_src shell
+scp target/appname-0.0.1-SNAPSHOT.jar remote-user@192.168.11.234:/home/bob
+#+end_src
+
+* Run the application on vm
+#+begin_src shell
+java -jar appname-0.0.1-SNAPSHOT.jar
+#+end_src
+
+* Check the running application
+#+begin_src shell
+curl http://localhost:8080/products
+#+end_src
