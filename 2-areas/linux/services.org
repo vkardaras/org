@@ -196,3 +196,24 @@ journalctl
 journalctl -u docker.service
 
 #+end_src
+
+* Demo service for jar
+
+=/etc/systemd/system/demo.service=
+
+#+begin_src conf
+[Unit]
+Description=Demo service
+Requires=network.target remote-fs.target
+After=network.target remote-fs.target
+
+[Service]
+Type=simple
+User=vasilis
+ExecStart=/usr/bin/java -jar /home/vasilis/demo-1.0.0.jar
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+#+end_src

@@ -2,5 +2,6 @@
 
 * [[file:Install and config.org][Install and config]]
 * [[file:Intermediate Config.org][Intermediate Config]]
+* [[file:port_forwarding.org][Port forwarding]]
 * [[file:Security.org][Security]]
 * [[file:Performance.org][Performance]]
