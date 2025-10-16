@@ -72,6 +72,12 @@ The format of /etc/group is:
 - GID: The unique numeric group identifier.
 - MEMBERS: A comma-separated list of usernames that belong to the group.
 
+** Troubleshouting
+
+- "cannot create user data directory"
+  Bind Mount: Create an empty directory at /home/$USER and use a bind mount to map the actual home directory to this location. Add an entry to =/etc/fstab= like =/opt/home/user /home/user none bind 0 0= and run =sudo mount -a= to apply it.
+  This is the recommended solution for non-standard home paths.
+
 * User Management
 
 #+begin_src shell

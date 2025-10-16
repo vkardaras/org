@@ -2,6 +2,8 @@
 * arch pacman
 
 #+begin_src sh
+# search for package
+sudo pacman -Ss package-name
 # install a package
 sudo pacman -S package-name
 
