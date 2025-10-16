@@ -1,0 +1,19 @@
+#+title: Tomcat
+
+* Installation
+
+Download from https://tomcat.apache.org/ and unzip the file
+
+* Run tomcat
+
+Move to the bin directory
+
+#+begin_src sh
+# start tomcat
+./catalina.sh run
+
+# start as a background daemon
+./startup.sh
+#+end_src
+
+Visit tomcat at http://localhost:8080

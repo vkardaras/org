@@ -1,16 +1,19 @@
-* Java
+#+title: Java
 
-** General
+* General
 
 - [[file:Maven.org][Maven]]
 - [[file:Java installation-removal.org][Java installation-removal]]
 - [[file:debug.org][debug]]
 
-** Frameworks
+* Frameworks
 
 - [[file:spring boot/spring boot.org][spring boot]]
-- [[file:JAKARTA.org][JAKARTA]]
 
-** Tools
+* Tools
 
 - [[file:sdkman.org][sdkman]]
+
+* Application servers
+
+- [[file:tomcat.org][tomcat]]

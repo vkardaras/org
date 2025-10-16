@@ -1,0 +1,20 @@
+#+title: Tracing
+
+* Add dependency for actuator
+
+#+begin_src xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+#+end_src
+
+* View endpoints of actuator
+
+http://localhost:8080/actuator
+
+* Expose all the actuator endpoints in dev environment
+
+#+begin_src conf
+management.endpoints.web.exposure.include=*
+#+end_src

@@ -1,7 +1,7 @@
 * spring boot
 
 ** [[file:springboot cli.org][springboot cli]]
-** [[file:spring basic properties.org][spring basic properties]]
+** [[file:spring properties.org][spring properties]]
 ** [[file:spring environment variables.org][spring environment variables]]
 ** [[file:spring restClient interface.org][spring restClient interface]]
 ** [[file:spring mvn commands.org][spring mvn commands]]
@@ -14,4 +14,5 @@
 ** [[file:spring boot testing.org][spring boot testing]]
 ** [[file:spring boot mongo.org][spring boot mongo]]
 ** [[file:spring boot webflux.org][spring boot webflux]]
+** [[file:tracing.org][Tracing]]
 ** [[file:deployment.org][Deployment]]

@@ -1,6 +1,8 @@
 #+title: Deployment
 
-* Rename the packaged application
+* Deploy as a standalone app
+
+** Rename the packaged application
 
 Edit the =pom.xml= file
 #+begin_src xml
@@ -16,47 +18,94 @@ Edit the =pom.xml= file
 
 #+end_src
 
-* Package the application
+** Package the application
 #+begin_src shell
 mvn clean package
 #+end_src
 
-* Inspect the JAR file
+** Inspect the JAR file
 #+begin_src shell
 jar -tf target/spring-deploy-1.0.0.jar
 #+end_src
 
-* Run the application
+** Run the application
 #+begin_src shell
 java -jar target/appname-0.0.1-SNAPSHOT.jar
 #+end_src
 
-* Run the application in the packground
+** Run the application with specific profile
+#+begin_src shell
+java -jar target/appname-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod
+#+end_src
+
+** Run the application in the packground
 #+begin_src shell
 nohup java -jar target/appname-0.0.1-SNAPSHOT.jar &
 #+end_src
 
-* Package the application with AOT support
+** Package the application with AOT support
 #+begin_src shell
 mvn clean compile spring-boot:process-aot package
 #+end_src
 
-* Run the application using AOT support
+** Run the application using AOT support
 #+begin_src shell
 java -DspringAot=true -jar target/spring-deploy-1.0.0.jar
 #+end_src
 
-* Move the application to the virtual machine
+** Move the application to the virtual machine
 #+begin_src shell
 scp target/appname-0.0.1-SNAPSHOT.jar remote-user@192.168.11.234:/home/bob
 #+end_src
 
-* Run the application on vm
+** Run the application on vm
 #+begin_src shell
 java -jar appname-0.0.1-SNAPSHOT.jar
 #+end_src
 
-* Check the running application
+** Check the running application
 #+begin_src shell
 curl http://localhost:8080/products
 #+end_src
+
+* Deploy to tomcat
+
+** Modify =pom.xml=
+
+#+begin_src xml
+
+<!-- update packaging to war -->
+<modelVersion>4.0.0</modelVersion>
+<packaging>war</packaging>
+
+<!-- add dependency for provided tomcat -->
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-tomcat</artifactId>
+  <scope>provided</scope>
+</dependency>
+#+end_src
+
+** Extend main class with =SpringBootServletInitializer=
+
+#+begin_src java
+
+@SpringBootApplication
+public class TestApplication extends SpringBootServletInitializer {
+    ...
+}
+
+#+end_src
+
+** Package tha application
+
+#+begin_src sh
+mvn clean package
+#+end_src
+
+** Deploy war file to tomcat
+
+Move the =war= file (e.g. app.war) to =webapps= folder in tomcat
+
+Access the application from tomcat e.g.
+http://locallhost:8080/app

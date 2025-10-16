@@ -1,0 +1,42 @@
+#+title: Spring Properperties
+
+* basic properties
+
+application.properties
+
+#+begin_src conf
+# define application name
+spring.application.name=app-name
+
+# define server port
+server.port=8081
+
+# get the version of the application
+spring.application.version=@project.version@
+#+end_src
+
+* database
+
+#+begin_src conf
+# enable console for h2
+spring.h2.console.enabled=true
+#+end_src
+
+* tracing
+
+#+begin_src conf
+# set logging level
+# logging level for dev
+logging.level.root=debug
+# logging level for prod
+logging.level.root=warn
+# enable logging for security
+logging.level.org.springframework.security=trace
+#+end_src
+
+* security
+
+#+begin_src conf
+# set token validity time
+spring.security.oauth2.authorizationserver.client.client-1.token.access-token-time-to-live=30s
+#+end_src
