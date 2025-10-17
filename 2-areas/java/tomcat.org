@@ -4,6 +4,23 @@
 
 Download from https://tomcat.apache.org/ and unzip the file
 
+* Create a account
+
+#+begin_src sh
+# add a system account
+useradd -r tomcat
+
+# change permissions of tomcat account to user created
+chown -R tomcat:tomcat /usr/local/tomcat10
+#+end_src
+
+* Create a system service
+
+#+begin_src sh
+# create the file for the service
+vim /etc/systemd/system/tomcat.service
+#+end_src
+
 * Run tomcat
 
 Move to the bin directory
