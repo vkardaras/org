@@ -16,9 +16,48 @@ chown -R tomcat:tomcat /usr/local/tomcat10
 
 * Create a system service
 
+** Create the file for the service
+
 #+begin_src sh
-# create the file for the service
 vim /etc/systemd/system/tomcat.service
+#+end_src
+
+** The contents of the service
+
+#+begin_src conf
+[Unit]
+Description=Apache tomcat
+After=syslog.target network.target
+
+[Service]
+Type=forking
+User=tomcat
+Group=tomcat
+
+Environment=CATALINA_PID=/user/local/tomcat10/temp/tomcat.pid
+Environment=CATALINA_HOME=/user/local/tomcat10
+Environment=CATALINA_BASE=/user/local/tomcat10
+
+ExecStart=/usr/local/tomcat10/bit/catalina.sh start
+ExecStop=/usr/local/tomcat10/bit/catalina.sh stop
+
+RestartSec=12
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+#+end_src
+
+** Reload the daemon systemctl
+
+#+begin_src sh
+systemctl daemon-reload
+#+end_src
+
+** Start the service
+
+#+begin_src sh
+systemctl start tomcat.service
 #+end_src
 
 * Run tomcat
