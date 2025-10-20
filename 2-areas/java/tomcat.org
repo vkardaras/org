@@ -73,3 +73,39 @@ Move to the bin directory
 #+end_src
 
 Visit tomcat at http://localhost:8080
+
+* Add user
+
+Edit the file =conf/tomcat-users.xml=
+
+#+begin_src xml
+<tomcat-users ...>
+  ...
+  <role rolename="admin-gui,manager-gui"/>
+  <user username="admin" password="pEnguinLA@45" roles="admin-gui,admin-script,manager-gui"/>
+</tomcat-users>
+#+end_src
+
+* Allow access remotely from an external site
+
+Edit the file =webapps/manager/META-INF/context.xml=
+
+#+begin_src xml
+<!-- allow access from a specific external IP address e.g. 203.0.113.10 -->
+<Valve className="org.apache.catalina.valves.RemoteCIDRValve"
+       allow="203.0.113.10" />
+
+<!-- allow access from an entire subnet, such as 203.0.113.0/24 -->
+<Valve className="org.apache.catalina.valves.RemoteCIDRValve"
+       allow="203.0.113.0/24" />
+
+<!-- allow access from everywhere -->
+<Valve className="org.apache.catalina.valves.RemoteCIDRValve"
+       allow=".*" />
+#+end_src
+
+* Access the server from command line
+
+#+begin_src sh
+curl -u admin:pEnguinLA@45 http://localhost:8080/host-manager/text/list
+#+end_src
