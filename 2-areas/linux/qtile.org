@@ -28,3 +28,17 @@ sudo pacman -S nitrogen
 
 # start nitrogen application with s-r
 #+end_src
+
+* Programs for qtile
+
+- rofi
+- papirus-icon-theme
+- alsa-utils
+- blueman
+- thunar
+
+* Find program name
+
+=xprop=
+
+* [[file:qtile_config.org][Qtile example config]]
