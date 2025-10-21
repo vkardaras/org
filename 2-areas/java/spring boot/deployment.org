@@ -21,6 +21,9 @@ Edit the =pom.xml= file
 ** Package the application
 #+begin_src shell
 mvn clean package
+
+# package with specific profile
+mvn clean package -Pdev
 #+end_src
 
 ** Inspect the JAR file
