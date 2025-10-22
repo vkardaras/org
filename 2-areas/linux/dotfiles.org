@@ -1,4 +1,64 @@
-* dotfile
+#+title: dotfiles
+
+* Dotfiles configuration
+
+** Create a folder to store the dotfile
+
+#+begin_src sh
+mkdir ~/.dotfiles
+#+end_src
+
+** Move configuration files and folders into it
+
+#+begin_src sh
+mv ~/.emacs.d ~/.dotfiles/
+mv ~/.zshrc ~/.dorfiles
+#+end_src
+
+** Create symbolic links to the original config file locations
+
+#+begin_src sh
+# Create a new link called ~/.emacs.d which comes from ~/.dotfiles/.emacs.d
+ls -sf ~/.dotfiles/.emacs.d ~/.emacs.d
+#+end_src
+
+* GNU Stow
+
+** Create symbolic links
+
+#+begin_src sh
+# Create symbolic links for all files and folders in .dotfiles
+cd ~/.dotfiles
+stow .
+
+# Specify the directory of the dotfiles and the target directory
+stow --dir=~/.dotfiles --target=~/
+# OR
+stow -d ~/.dotfiles -t ~/
+#+end_src
+
+** Ignore files and directories
+
+Create a =.stow-local-ignore= file in =.dotfiles= directory and add files and directories that you want to ignore
+
+Example =.stow-local-ignore= file
+
+#+begin_src sh
+\.git
+misc
+#LICENSE
+^/.*\.org
+#+end_src
+
+** Clean up symbolic links
+
+Get rid of all the symbolic links that GNU Stow created
+
+#+begin_src sh
+stow -D .
+#+end_src
+
+* Dotfiles for apps
 
 ** Programs to install
 
@@ -13,9 +73,13 @@
 
 - .zshrc
 - .tmux.conf
+- .tmux
+- .gitconfig
 - .config/nvim
+- .config/qtile
+- .config/rofi
+- .config/zsh
 - .wezterm.lua
-- .config/starship.toml
 
 ** dotfiles on windows
 
