@@ -1,0 +1,12 @@
+#+title: Spring Aop
+
+* Add dependency for AOP
+
+#+begin_src xml
+<!-- Spring AOP -->
+<dependency>
+  <groupId>org.springframework</groupId>
+  <artifactId>spring-aop</artifactId>
+  <version>5.3.14</version>
+</dependency>
+#+end_src

@@ -1,0 +1,8 @@
+#+title: Logging
+
+* Rotate logs
+
+#+begin_src conf
+log4j.appender.file.MaxFileSize=10MB
+log4j.appender.file.MaxBackupIndex=5
+#+end_src
