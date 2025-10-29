@@ -1,14 +1,12 @@
-* emacs getting started
-:PROPERTIES:
-:CUSTOM_ID: emacs-getting-started
-:END:
-** Installing and running Emacs
+#+title: emacs getting started
+
+* Installing and running Emacs
 
 #+begin_src sh
 sudo pacman -S emacs
 #+end_src
 
-*** Install from source
+** Install from source
 
 #+begin_src sh
 
@@ -27,7 +25,16 @@ make
 make install
 #+end_src
 
-** Run emacs
+* Key modifiers
+
+| Modifier | Name                             |
+|----------+----------------------------------|
+| C-       | Control                          |
+| M-       | Meta (alt key on most keyboards) |
+| S-       | Shift                            |
+| ESC-     | Escape (can be used as Meta)     |
+
+* Run emacs
 
 #+begin_src sh
 
@@ -41,30 +48,26 @@ emacs -nw
 C-x C-c
 #+end_src
 
-** Key modifiers
+* Getting help
 
-| Modifier | Name                             |
-|----------+----------------------------------|
-| C-       | Control                          |
-| M-       | Meta (alt key on most keyboards) |
-| S-       | Shift                            |
-| ESC-     | Escape (can be used as Meta)     |
+| Key sequence | Description                                  |
+|--------------+----------------------------------------------|
+| C-h C-h      | Help for help                                |
+| C-h t        | Emacs tutorial                               |
+| C-x 1 or q   | Close help window                            |
+| C-h a        | Apropos command                              |
+| C- i         | Info manual                                  |
+| C-h d        | Apropos documentation command                |
+| C-h f        | Help for functions                           |
+| C-h v        | Help for variables                           |
+| C-h o        | Help for functions or variables              |
+| C-h k        | Help for the given key binding               |
+| C-h w        | Help for where the given command is bound to |
+| C-h m        | Help for the current modes (major and minor) |
 
-** Getting help
+* Configuring Emacs
 
-| Key sequence | Description                   |
-|--------------+-------------------------------|
-| C-h C-h      | Help for help                 |
-| C-h t        | Emacs tutorial                |
-| C-x 1 or q   | Close help window             |
-| C-h a        | Apropos command               |
-| C- i         | Info manual                   |
-| C-h d        | Apropos documentation command |
-| C-h k        | Describe keys                 |
-
-** Configuring Emacs
-
-*** Customize interface
+** Customize interface
 
 #+begin_src sh
 # customize or bring up interactive menu
@@ -74,7 +77,7 @@ M-x customize
 M-x customize-face
 #+end_src
 
-*** Package manager
+** Package manager
 
 #+begin_src sh
 # list installed and available packages
@@ -87,7 +90,7 @@ M-x package-install
 M-x package-delete
 #+end_src
 
-*** Evaluate Elisp code
+** Evaluate Elisp code
 
 #+begin_src sh
 # evaluate a region
