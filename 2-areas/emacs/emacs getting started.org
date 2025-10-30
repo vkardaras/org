@@ -64,6 +64,13 @@ C-x C-c
 | C-h k        | Help for the given key binding               |
 | C-h w        | Help for where the given command is bound to |
 | C-h m        | Help for the current modes (major and minor) |
+| C-h i        | Access the emacs manuals                     |
+| C-h i m      | Select a menu from the manual                |
+| C-h r        | Open the emacs manual                        |
+
+** Get help for partial key bindings
+
+For example if I enter a partial key binding like =C-x r= or =C-c C-x= and after =C-h=, I will see the available operations
 
 * Configuring Emacs
 

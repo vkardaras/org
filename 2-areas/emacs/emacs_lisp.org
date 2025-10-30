@@ -1,0 +1,63 @@
+#+title: Emacs Lisp
+
+* Define a function
+
+Define a function witn the =defun= keyword
+
+#+begin_src elisp
+(defun my-next-15-lines ()
+  "Move to the next 15 lines."
+  (interactive)
+  (forward-line 15))
+
+(defun my-previous-15-lines ()
+  "Move to the next 15 lines."
+  (interactive)
+  (forward-line -15))
+
+#+end_src
+
+* Define key bindins for the custom commands
+
+#+begin_src elisp
+(define-key global-map (kbd "C-S-n") #'my-next-15-lines)
+
+(define-key global-map (kbd "C-S-p") #'my-previous-15-lines)
+
+#+end_src
+
+* Define a variable
+
+#+begin_src elisp
+(defvar my-first-toggle t
+  "if non-nil, do stuff.")
+#+end_src
+
+* Conditional statements
+
+#+begin_src elisp
+(if my-first-toggle
+    (message "It is true")
+  (message "It is not true"))
+#+end_src
+
+* Evaluate elisp code
+=C-x C-e=
+
+** Evaluate elisp code in the scratch buffer and return the value of the expression
+=C-j=
+
+* Define a function with optional argument and conditional statement
+
+#+begin_src elisp
+(defun my-next-or-prev-15-lines (&optional arg)
+  "Mov to the next or previous 15 lines.
+With optional prefix ARG, move to the next lines. Else to the
+previous ones."
+  (interactive "P")
+  (if arg
+      (my-next-15-lines)
+    (my-previous-15-lines)))
+#+end_src
+
+=(interactive "P")= represents the =C-u= prefix argument, which is the universal argument
