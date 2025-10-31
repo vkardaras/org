@@ -1,0 +1,9 @@
+#+title: Design Patterns
+
+* Creational
+
+** Singleton Pattern
+** Builder Pattern
+** Prototype Pattern
+** Factory Method Pattern
+** AbstractFactory Pattern

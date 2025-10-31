@@ -17,3 +17,5 @@
 * Application servers
 
 - [[file:tomcat.org][tomcat]]
+
+* [[file:design_patterns.org][Design Patterns]]
