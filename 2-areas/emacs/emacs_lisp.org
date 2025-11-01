@@ -1,6 +1,7 @@
 #+title: Emacs Lisp
 
-* Define a function
+* emacs basics
+** Define a function
 
 Define a function witn the =defun= keyword
 
@@ -17,7 +18,7 @@ Define a function witn the =defun= keyword
 
 #+end_src
 
-* Define key bindins for the custom commands
+** Define key bindins for the custom commands
 
 #+begin_src elisp
 (define-key global-map (kbd "C-S-n") #'my-next-15-lines)
@@ -26,14 +27,14 @@ Define a function witn the =defun= keyword
 
 #+end_src
 
-* Define a variable
+** Define a variable
 
 #+begin_src elisp
 (defvar my-first-toggle t
   "if non-nil, do stuff.")
 #+end_src
 
-* Conditional statements
+** Conditional statements
 
 #+begin_src elisp
 (if my-first-toggle
@@ -41,13 +42,13 @@ Define a function witn the =defun= keyword
   (message "It is not true"))
 #+end_src
 
-* Evaluate elisp code
+** Evaluate elisp code
 =C-x C-e=
 
-** Evaluate elisp code in the scratch buffer and return the value of the expression
+*** Evaluate elisp code in the scratch buffer and return the value of the expression
 =C-j=
 
-* Define a function with optional argument and conditional statement
+** Define a function with optional argument and conditional statement
 
 #+begin_src elisp
 (defun my-next-or-prev-15-lines (&optional arg)
@@ -61,3 +62,50 @@ previous ones."
 #+end_src
 
 =(interactive "P")= represents the =C-u= prefix argument, which is the universal argument
+
+* define prefix/leader key (nested key maps)
+
+Define a function
+#+begin_src elisp
+(defun test-command ()
+  (interactive)
+  (message "this is a test"))
+#+end_src
+
+Create a key binding to call the function
+#+begin_src elisp
+;; from emacs 29 and above
+(keymap-set global-map "C-t" 'test-command)
+
+;; before emacs 29
+(define-key global-map (kbd "C-t") 'test-command)
+
+;; define keybind in a package
+(use-package PACKAGE
+  :bind ("C-t" . test-command))
+#+end_src
+
+** Define and call a keymap
+
+Define a sub-keymap
+#+begin_src elisp
+(defvar-keymap my-test-prefix-buffer-map
+  :doc "My prefix map for buffers"
+  "s" #'switch-to-buffer
+  "b" #'buffer-menu)
+#+end_src
+
+Define a keymap
+#+begin_src elisp
+(defvar-keymap my-test-prefix-map
+  :doc "My prefix map"
+  "f" 'find-file
+  "b" my-test-prefix-buffer-map
+  "d" 'dired
+  "t" 'test-command)
+#+end_src
+
+Call the keymap
+#+begin_src elisp
+(keymap-set global-map "C-t" 'my-test-prefix-map)
+#+end_src
