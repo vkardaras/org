@@ -1,14 +1,12 @@
-* get around emacs
-:PROPERTIES:
-:CUSTOM_ID: get-around-emacs
-:END:
-** Find file
+#+title: get around emacs
+
+* Find file
 
 #+begin_src sh
 C-x C-f
 #+end_src
 
-** Major Mode Detection
+* Major Mode Detection
 
 File-local variables
 
@@ -27,7 +25,7 @@ Automatic mode detection
 - How most modes are applied
 - Uses filename extensions, names, and file paths
 
-** Writing to files
+* Writing to files
 
 #+begin_src sh
 # save current buffer
@@ -40,7 +38,7 @@ C-x C-w
 C-x s
 #+end_src
 
-** Basic navigation
+* Basic navigation
 
 #+begin_src sh
 # Forward by character
@@ -92,7 +90,7 @@ M->
 S-expressions cover commands that operate on balanced expressions.
 e.g. Brackets are considered balanced expressions in most major modes.
 
-** Buffer Switching, Killing, and Undoing
+* Buffer Switching, Killing, and Undoing
 
 #+begin_src sh
 # Switch to another buffer
@@ -105,7 +103,7 @@ C-x C-b
 C-x k
 #+end_src
 
-*** Return to Normal
+** Return to Normal
 
 =Esc Esc Esc=
 
@@ -114,7 +112,7 @@ C-x k
 - Prompts are exited.
 - Pre-fix keys are cancelled.
 
-*** Undoing
+** Undoing
 
 #+begin_src sh
 C-/
@@ -122,7 +120,7 @@ C-_
 C-x u
 #+end_src
 
-** Window Management
+* Window Management
 
 #+begin_src sh
 # Split window horizontally
@@ -141,7 +139,7 @@ C-x 1
 C-x o
 #+end_src
 
-*** The "Other" Window
+** The "Other" Window
 
 The window immediately after the current window one if you run =C-x o=
 
@@ -159,9 +157,9 @@ C-x 4 b
 C-x 4 0
 #+end_src
 
-** Selecting Text
+* Selecting Text
 
-*** Setting the Mark
+** Setting the Mark
 
 #+begin_src sh
 # set the mark and activate or deactivate the region
@@ -180,7 +178,7 @@ Mouse-1 + <drag>
 Mouse-3
 #+end_src
 
-*** The Mark Ring
+** The Mark Ring
 
 Overview
 
@@ -194,7 +192,7 @@ Global Mark Ring
 - Records a sequence of visited buffers and, for each buffer, where you
   placed a mark
 
-*** Marking Textual Objects
+** Marking Textual Objects
 
 Words, Buffers, Pages, and Paragraphs
 
@@ -212,9 +210,9 @@ C-x h
 C-x C-p
 #+end_src
 
-** Searching in Emacs
+* Searching in Emacs
 
-*** Incremental search
+** Incremental search
 
 #+begin_src sh
 # Forward incremental search
@@ -242,7 +240,7 @@ M-n
 M-p
 #+end_src
 
-*** Non-incremental search
+** Non-incremental search
 
 #+begin_src sh
 # Forward non-incremental search
@@ -264,7 +262,7 @@ C-g
 M-s w <RETURN>
 #+end_src
 
-*** Emacs Occur
+** Emacs Occur
 
 - Uses regex for searching
 - Provides a list of lines with matches
@@ -293,7 +291,7 @@ e
 C-c C-c
 #+end_src
 
-*** Emacs Grep
+** Emacs Grep
 
 - Use to search unopened files
 - Provides a list of files and lines with matches

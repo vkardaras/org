@@ -83,6 +83,10 @@ Create a key binding to call the function
 ;; define keybind in a package
 (use-package PACKAGE
   :bind ("C-t" . test-command))
+;; define the map explicitely
+(use-package PACKAGE
+  :bind (:map global-map
+              ("C-t" . test-command)))
 #+end_src
 
 ** Define and call a keymap
@@ -107,5 +111,11 @@ Define a keymap
 
 Call the keymap
 #+begin_src elisp
-(keymap-set global-map "C-t" 'my-test-prefix-map)
+(keymap-set global-map "C-t" my-test-prefix-map)
+#+end_src
+
+Set value for sub-keymap in which key
+#+begin_src elisp
+(which-key-add-keymap-based-replacements my-test-prefix-map
+  "b" `("Buffer" . ,my-test-prefix-buffer-map))
 #+end_src
