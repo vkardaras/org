@@ -7,3 +7,8 @@
 ** Prototype Pattern
 ** Factory Method Pattern
 ** AbstractFactory Pattern
+
+* Behavioral
+
+** Chain of Responsibility Pattern
+** Command Pattern
