@@ -6,3 +6,4 @@
 * [[file:emacs shells.org][emacs shells]]
 * [[file:emacs org mode.org][emacs org mode]]
 * [[file:emacs_lisp.org][emacs lisp]]
+* [[file:emacs_macros.org][emacs macros]]

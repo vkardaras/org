@@ -85,6 +85,9 @@ M-<
 
 # Move to the end of the buffer
 M->
+
+# Move to line
+M-g g
 #+end_src
 
 S-expressions cover commands that operate on balanced expressions.
