@@ -1,0 +1,16 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /home/vasilis/Documents/org/2-areas/emacs/emacs org mode.org
+
+
+* Hyperlinks
+:PROPERTIES:
+:ARCHIVE_TIME: 2025-11-10 Mon 21:41
+:ARCHIVE_FILE: ~/Documents/org/2-areas/emacs/emacs org mode.org
+:ARCHIVE_CATEGORY: emacs org mode
+:END:
+#+begin_src shell
+  # insert or edit link
+  C-c C-l
+#+end_src

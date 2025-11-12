@@ -1,0 +1,104 @@
+#+title: emacs dired
+
+* Open file or directory
+#+begin_src shell
+  # open file or directory
+  C-x C-f
+  # open current directory
+  C-x C-j
+
+  # cycle through dired history forward
+  M-n
+  # cycle through dired history backward
+  M-p
+
+  # open dired from over text of specific path
+  C-x C-f M-n
+#+end_src
+
+* Modify directories
+#+begin_src shell
+  # create a new directory
+  +
+#+end_src
+
+* Move in dired
+#+begin_src shell
+  # move to parent directory
+  ^
+  # open file to the other window
+  o
+#+end_src
+
+* Modify files
+#+begin_src shell
+  # copy file
+  C
+
+  # mark file for deletion
+  D
+  # confirm deletion
+  x
+
+  # rename file
+  R
+
+  # mark files
+  m
+  # mark files with regular expression
+  %m
+  # toggle marked and unmarked files
+  t
+  # unmark of file
+  u
+  # unmark all marked files
+  U
+
+  # hide selected files from dired
+  k
+  # restore all files in dired
+  g
+#+end_src
+
+* Edit files with dired
+#+begin_src shell
+  # make dired editable
+  C-x C-q
+  # apply changes to files
+  C-c C-c
+  # abort changes to files
+  C-c ESC
+
+#+end_src
+
+* Modify permissions
+#+begin_src shell
+  # change permissions of the selected file
+  M
+  # examples
+  # make selected file executable for all users
+  M +x
+  # make selected file writable for user and readable for all other users
+  M 644
+#+end_src
+
+* Search files
+#+begin_src shell
+  # search for file in project
+  C-x p f
+  M-x project-find-file
+
+  # search file with consult package
+  M-x consult-find
+  # example part inside # is for asynchronous search
+  M-x consult-find #prot# dired
+
+#+end_src
+
+* Open files with external programs
+#+begin_src elisp
+(setq dired-guess-shell-alist-user
+      '(("\\.\\(png\\|jpe?g\\|tiff\\)" "feh *" "xdg-open")
+        ("\\.\\(mp[34]\\|m4a\\|ogg\\|flac\\|webm\\|mkv\\)" "mpv *" "xdg-open")
+		(".*" "xdg-open")))
+#+end_src

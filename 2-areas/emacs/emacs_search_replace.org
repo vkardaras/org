@@ -1,0 +1,15 @@
+#+title: Emacs search and replace
+
+#+begin_src shell
+  # search forward
+  C-s
+  # search backward
+  C-r
+  # edit last search
+  M-e
+
+  # search forward by regular expression
+  M-C-s
+  # search backward by regular expression
+  M-C-r
+#+end_src
