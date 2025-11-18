@@ -1,0 +1,5 @@
+#+title: Writing
+
+* [[file:blog_ideas.org][Blog ideas]]
+
+* [[file:technical_article_types.org][Types of Technical Articles]]

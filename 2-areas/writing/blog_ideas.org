@@ -1,0 +1,19 @@
+#+title: Blog Ideas
+
+* Clean code
+
+* Testing
+
+* Design Patterns
+
+* Programming
+
+* Microservices
+
+* Practical Tips
+
+* Career Development
+
+* Technical Post based on new skills
+
+* Educational Resources Recommendation

@@ -1,15 +1,69 @@
 #+title: Emacs search and replace
 
-#+begin_src shell
-  # search forward
+* Search
+** Incremental search
+
+#+begin_src sh
+  # Forward incremental search
   C-s
-  # search backward
+
+  # Backward incremental search
   C-r
-  # edit last search
+
+  # Edit the last search
   M-e
 
-  # search forward by regular expression
-  M-C-s
-  # search backward by regular expression
-  M-C-r
+  # Get the last searched item
+  C-s C-s
+  C-r C-r
+
+  # Regex forward incremental search
+  C-M-s
+
+  # Regex backward incremental search
+  C-M-r
+
+  # Quit the search
+  C-g
+
+  # Incremental word search
+  M-s w
+
+  # Next item in search history
+  M-n
+
+  # Previous item in search history
+  M-p
+
+  # Highlight search results
+  M-s h r
+
+  # Unhighlight search results
+  M-s h u
 #+end_src
+
+You can rearrenge the order of regex groups
+
+*Example*
+#+begin_src txt
+  (bg-graph-red-0 "#b52c2c")
+  (bg-graph-red-1 "#702020")
+  (bg-graph-green-0 "#0fed00")
+  (bg-graph-green-1 "#007800")
+#+end_src
+
+Use the I-search regular expression =C-M-s=
+
+Type the following in minibuffer prompt
+
+#+begin_src text
+  \(bg\)-\(graph\)-\(.*?\)-\([0-1]\)
+#+end_src
+
+Feed the matching group to a query replace =M-%= and type the following
+
+#+begin_src text
+  \4-\1-\3-\2
+#+end_src
+
+and replace results one by one or all together

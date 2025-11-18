@@ -1,0 +1,4 @@
+(bg-graph-red-0 "#b52c2c") ;; test comment
+(bg-graph-red-1 "#702020") ;; test comment
+(bg-graph-green-0 "#0fed00")
+(bg-graph-green-1 "#007800")
