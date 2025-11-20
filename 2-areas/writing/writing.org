@@ -3,3 +3,9 @@
 * [[file:blog_ideas.org][Blog ideas]]
 
 * [[file:technical_article_types.org][Types of Technical Articles]]
+
+* [[file:article_title.org][Crafting the Perfect Article Title]]
+
+* [[file:article_structure.org][How to Structure Your Article]]
+
+* [[file:feature_image.org][The Power of Feature Images]]
