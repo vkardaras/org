@@ -1,6 +1,38 @@
-* postgres
+#+title: postgres
 
-** [[file:Querying Data from PostgreSQL/Querying Data from PostgreSQL.org][Querying Data from PostgreSQL]]
-** [[file:psql common commands.org][psql common commands]]
-** [[file:docker postgres.org][docker postgres]]
-** [[file:delete database tables with constrains.org][delete database tables with constrains]]
+* [[file:Querying Data from PostgreSQL.org][Querying Data from PostgreSQL]]
+* [[file:psql common commands.org][Common PSQL Commands]]
+* docker postgres
+
+#+begin_src yml
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    hostname: localhost
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: test-db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+#+end_src
+
+* delete database tables with constrains
+
+#+begin_src sql
+DO $$
+BEGIN
+    EXECUTE (
+        SELECT string_agg('DROP TABLE IF EXISTS "' || tablename || '" CASCADE;', ' ')
+        FROM pg_tables
+        WHERE schemaname = 'public'
+    );
+END $$;
+#+end_src

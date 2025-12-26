@@ -1,7 +1,4 @@
-* 12 factor app
-:PROPERTIES:
-:CUSTOM_ID: factor-app
-:END:
+#+title: 12 factor app
 
 Build software applications that are scalable, resilient and easy to
 manage
@@ -13,7 +10,7 @@ created by Heroku and is widely adopted in the cloud-native community.
 It provides us with a set of best practices for building applications
 that meet these requirements.
 
-** 12 factor principles
+* 12 factor principles
 
 - Codebase
 - Dependencies
@@ -28,6 +25,6 @@ that meet these requirements.
 - Logs
 - Admin Processes
 
-*** Codebase
+** Codebase
 
 Multiple apps sharing the same code is a violation of twelve-factor

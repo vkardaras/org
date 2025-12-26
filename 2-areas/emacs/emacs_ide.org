@@ -1,0 +1,30 @@
+#+title: emacs IDE
+
+* Python
+
+#+begin_src shell
+  # ubuntu
+  sudo apt install python3-pylsp
+
+  # arch
+  sudo pacman -S python-lsp-server
+#+end_src
+
+* Javascript/Typescript
+
+#+begin_src shell
+  # ubuntu
+  sudo apt install nodejs npm
+
+  # arch
+  sudo pacman -S nodejs npm
+#+end_src
+
+* Bash
+
+#+begin_src shell
+  # ubuntu
+  sudo npm i -g bash-lsnguage-server
+#+end_src
+
+bash-lsnguage-server

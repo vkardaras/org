@@ -1,0 +1,623 @@
+#+title: Querying Data from PostgreSQL
+
+* Selecting Your Data
+** Overview
+
+*** Formatting SQL Queries
+
+- Strive for consistent formatting
+- Emphasis on readability
+- Use UPPERCASE for SQL keywords
+
+*** Select can perform calculations
+
+#+begin_src sql
+> SELECT 2+2;
+4
+#+end_src
+
+Return all columns from a given table
+
+#+begin_src sql
+SELECT * FROM tablename
+#+end_src
+
+** Explicit Selection
+
+- Explicitly list specific columns of interest
+- Increases readability
+- makes code easier to troubleshoot
+
+Specifying fields
+
+- List each column after the SELECT keyword
+- Separate each column with a comma
+
+#+begin_src sql
+SELECT first_name, last_name FROM person;
+#+end_src
+
+Column alias
+
+#+begin_src sql
+SELECT mkt_carrier AS airline,
+                mkt_carrier_fl_num AS flight,
+                origin AS depart_city
+    FROM performance;
+#+end_src
+
+** Selecting distinct values
+
+Distinct keyword returns unique values from a column
+
+#+begin_src sql
+SELECT DISTINCT first_name FROM students;
+#+end_src
+
+When selecting from more than one column, it returns the unique
+combination of the columns
+
+#+begin_src sql
+SELECT DISTINCT mkt_carrier, origin FROM performance;
+#+end_src
+
+* Limiting your results
+** Introducing the WHERE keyword
+
+Filtering results
+
+All records
+
+#+begin_src sql
+SELECT first_name, last_name
+    FROM person;
+#+end_src
+
+Limiting criteria
+
+#+begin_src sql
+SELECT first_name, last_name
+    FROM person
+    WHERE first_name = "Joe";
+#+end_src
+
+Criteria in the WHERE clause is case-sensitive
+
+** Specific conditions
+
+Comparison operators
+
+- Equal ===
+- Not equal =<>=
+- Greater than =>=
+- Less than =<=
+- Greater than or equal =>==
+- Less than or equal =<==
+
+Using comparison operators to filter for specific conditions
+
+#+begin_src sql
+SELECT first_name, last_name
+    FROM person
+    WHERE name = 'John'
+        AND last_name = 'Doe';
+#+end_src
+
+** LIKE pattern matching
+
+- Relational operators match fields to a specific value
+- LIKE matches fields to a specific pattern
+
+Functionality of LIKE
+
+#+begin_src sql
+SELECT first_name, last_name
+    FROM person
+    WHERE first_name = 'John';
+#+end_src
+
+Can be written like the following
+
+#+begin_src sql
+SELECT first_name, last_name
+    FROM person
+    WHERE first_name LIKE 'John';
+#+end_src
+
+*** Pattern wildcards
+
+Pattern to match can include wildcards
+
+- =%= represents zero or more characters
+- =_= represents exactly one character
+
+Return results where origin_city_name starts with Fort
+
+#+begin_src sql
+SELECT fl_date, 
+                mkt_carrier AS airline,
+                mkt_carrier_fl_num AS flight,
+                origin_city_name
+    FROM performance
+    WHERE origin_city_name LIKE 'Fort%';
+#+end_src
+
+Return results where origin_city_name ends with FL
+
+#+begin_src sql
+SELECT DISTINCT origin_city_name
+    FROM performance
+    WHERE origin_city_name LIKE '%FL';
+#+end_src
+
+Return results where origin_city_name starts with New and ends with LA
+
+#+begin_src sql
+SELECT DISTINCT origin_city_name
+    FROM performance
+    WHERE origin_city_name LIKE 'New%FL';
+#+end_src
+
+Return results where origin_city_name starts with 4 letters and ends
+with =, KS=
+
+#+begin_src sql
+SELECT DISTINCT origin_city_name
+    FROM performance
+    WHERE origin_city_name LIKE '____, KS';
+#+end_src
+
+Return results where origin_city_name starts with 4 letters and has a
+comma and anything after that
+
+#+begin_src sql
+SELECT DISTINCT origin_city_name
+    FROM performance
+    WHERE origin_city_name LIKE '____, %';
+#+end_src
+
+** Null Values
+
+- Null is not equivalent to zero
+- Null indicates that the value of a field is missing or unknown
+- A field is null only when no data exists in that field
+
+*** Keywords for Null Values
+
+- =IS NULL=
+- =IS NOT NULL=
+
+Get results where the cancellation code is not null
+
+#+begin_src sql
+SELECT fl_date, 
+                mkt_carrier AS airline,
+                mkt_carrier_fl_num AS flight,
+                cancellation_code
+    FROM performance
+    WHERE cancellation_code IS NOT NULL;
+#+end_src
+
+Get results where the cancellation code is null
+
+#+begin_src sql
+SELECT fl_date, 
+                mkt_carrier AS airline,
+                mkt_carrier_fl_num AS flight,
+                cancellation_code
+    FROM performance
+    WHERE cancellation_code IS NULL;
+#+end_src
+
+** Putting it together
+
+*** Logical operators
+
+- =AND= If a row from the table matches *both* conditions, it will be
+  included
+- =OR= If a row from the table matches either condition, it will be
+  included
+
+*** The BETWEEN keyword
+
+BETWEEN looks for matches within specified boundaries
+
+Boundaries are inclusive
+
+#+begin_src sql
+SELECT first_name
+                age
+    FROM person
+    WHERE age >= 19
+    AND age <= 35;
+#+end_src
+
+Can be written as follow
+
+#+begin_src sql
+SELECT first_name
+                age
+    FROM person
+    WHERE age BETWEEN 19 and 35;
+#+end_src
+
+*** The IN keyword
+
+- Instead of multiple OR statements
+- Can use the SQL keyword IN
+- Provide a list of options for a given field
+
+#+begin_src sql
+  SELECT first_name
+                  age
+      FROM person
+      WHERE first_name = 'Jimmy'
+      OR first_name = 'Brenna'
+      OR first_name = 'Elmo';
+#+end_src
+
+Can be written as follow
+
+#+begin_src sql
+SELECT first_name
+                age
+    FROM person
+    WHERE first_name IN ("Jimmy, Brenna, Elmo");
+#+end_src
+
+*** The NOT IN keyword
+
+Used to return records that do not match any of the listed values
+
+** Operator precedence
+
+The sequence in which operations are performed
+
+- =AND= has higher operator precedence than =OR=
+- SQL will evaluate contents of parentheses first
+
+* Joining for Further Insight
+
+- Combining records and data from multiple tables
+- Joining is what makes a database "relational"
+
+** Inner Joins
+
+- Returns all rows from two or more tables that meet the join condition
+- Joined fields must exist in both tables
+
+#+begin_src sql
+SELECT customers.*,
+                orders.*
+FROM customers
+INNER JOIN orders
+ON customers.customer_id = orders.custommer_id
+#+end_src
+
+=ON= specifies field to join
+
+It is best to return only specific columns of interest
+
+#+begin_src sql
+        SELECT customers.first_name,
+                        customers.last_name,
+                        orders.order_date,
+                        orders.order_amount
+            FROM customers
+INNER JOIN orders
+                ON customers.customer_id = orders.customer_id;
+#+end_src
+
+Use where to narrow result set
+
+#+begin_src sql
+        SELECT customers.first_name,
+                        customers.last_name,
+                        orders.order_date,
+                        orders.order_amount
+            FROM customers
+INNER JOIN orders
+                ON customers.customer_id = orders.customer_id
+         WHERE customers.last_name = 'Dodd';
+#+end_src
+
+*** Alternative Inner Join Syntax
+
+#+begin_src sql
+        FROM customers
+INNER JOIN orders
+                ON customers.customer_id = orders.customer_id;
+#+end_src
+
+#+begin_src sql
+FROM customers
+JOIN orders
+    ON customers.customer_id = orders.customer_id;
+#+end_src
+
+#+begin_src sql
+ FROM customers,
+          orders
+WHERE customers.customer_id = orders.customer_id;
+#+end_src
+
+To use =ON=, you must have a matching =JOIN= keyword
+
+** Table Aliases
+
+- Alias: Temporary label in a query
+
+#+begin_src sql
+        SELECT c.first_name,
+                        c.last_name,
+                        o.order_date,
+                        o.order_amount
+            FROM customers AS c
+INNER JOIN orders AS o
+                ON c.customer_id = o.customer_id;
+#+end_src
+
+=AS= can be omitted
+
+#+begin_src sql
+        FROM customers c
+INNER JOIN orders o
+#+end_src
+
+** Outer Joins
+
+- =Lef Join= Returns all records from the left table along with any
+  matching record from the right table
+- =Right Join= Returns all records from the right table along with any
+  matching records from the left table
+
+*** Left Outer Join
+
+#+begin_src sql
+            SELECT c.first_name,
+                                c.last_name,
+                                o.order_date,
+                                o.order_amount
+                     FROM customers c
+LEFT OUTER JOIN orders o
+                         ON c.customer_id = o.customer_id;
+#+end_src
+
+*** Right Outer Join
+
+#+begin_src sql
+              SELECT c.first_name,
+                                 c.last_name,
+                                 o.order_date,
+                                 o.order_amount
+                      FROM customers c
+RIGHT OUTER JOIN orders o
+                          ON c.customer_id = o.customer_id;
+#+end_src
+
+Outer Join Syntax
+
+=LEFT OUTER JOIN= → =LEFT JOIN=
+
+#+begin_src sql
+        SELECT c.first_name,
+                        c.last_name,
+                        o.order_date,
+                        o.order_amount
+            FROM customers c
+RIGHT JOIN orders o
+                ON c.customer_id = o.customer_id;
+#+end_src
+
+*** Left vs. Right
+
+- Left outer joins are far more prevalent in practice
+- It can be easier to read and interpret
+
+** Full Join
+
+- Returns all rows from two or more tables regardless of whether the
+  join condition is met
+- If there is no match, the missing side will contain null
+
+#+begin_src sql
+            SELECT c.first_name,
+                                c.last_name,
+                                o.order_date,
+                                o.order_amount
+                     FROM customers c
+FULL OUTER JOIN orders o
+                         ON c.customer_id = o.customer_id;
+#+end_src
+
+** Implementing Joins
+
+*** Lookup tables
+
+Database tables that contain data that specify the values for given
+codes
+
+* Presenting and Aggregating your results
+** Sort Order
+
+*** Querying Residency
+
+#+begin_src sql
+    SELECT name, state
+        FROM residency
+ORDER BY name;
+#+end_src
+
+If we do not list a sorting direction, ascending is the default order.
+
+*** Specifying Sort Order
+
+=Ascending= Smallest to largest
+
+#+begin_src sql
+SORT BY ASC
+#+end_src
+
+=Descending= Largest to smallest
+
+#+begin_src sql
+SORT BY DESC
+#+end_src
+
+*** Sort with more than one column
+
+#+begin_src sql
+    SELECT name, state
+        FROM residency
+ORDER BY state, name;
+#+end_src
+
+*** Sort in both orders
+
+#+begin_src sql
+    SELECT name, state
+        FROM residency
+ORDER BY state DESC, name ASC;
+#+end_src
+
+** Introduction to Aggregate Functions
+
+*** Aggregate Functions
+
+- =COUNT= counts rows in a specified table or view
+- =SUM= calculates the sum of a given set of values
+- =AVG= calculates the average of a set of values
+- =MIN= finds the minimum value in a set of values
+- =MAX= finds the maximum value in a set of values
+
+To use an aggregate function, include it in the SELECT clause
+
+#+begin_src sql
+SELECT AVG(age)
+    FROM person;
+#+end_src
+
+We can alias the aggregate calculation
+
+#+begin_src sql
+SELECT AVG(age) AS avg_age
+    FROM person;
+#+end_src
+
+*** Analyzing Groups
+
+- Aggregate functions can be used for more sophisticated analysis
+- What is our average age by grade level?
+- GROUP BY keyword is used to specify groups
+
+#+begin_src sql
+    SELECT grade_lvl, 
+               AVG(age) AS avg_age
+        FROM person
+GROUP BY grade_lvl;
+#+end_src
+
+*** Using GROUP BY with Aggregation
+
+Incorrect
+
+#+begin_src sql
+SELECT grade_lvl,
+             MIN(age) AS minimum_age
+    FROM person;
+#+end_src
+
+Correct
+
+#+begin_src sql
+    SELECT grade_lvl,
+               MIN(age) AS minimum_age
+        FROM person
+GROUP BY grade_lvl;
+#+end_src
+
+All non-aggregate fields in the SELECT clause must be represented in the
+GROUP BY clause
+
+#+begin_src sql
+    SELECT mtk_carrier,
+               AVG(dep_delay_new)
+        FROM performance
+GROUP BY mtk_carrier;
+#+end_src
+
+Group by two fields
+
+#+begin_src sql
+    SELECT p.mtk_carrier,
+                 c.carrier_desc
+               AVG(p.dep_delay_new)
+        FROM performance p
+        JOIN codes_carrier c
+            ON p.mtk_carrier = c.carrier_code
+GROUP BY p.mtk_carrier
+                 c.carrier_desc;
+#+end_src
+
+Using GROUP BY with ORDER BY
+
+#+begin_src sql
+    SELECT p.mtk_carrier,
+                 c.carrier_desc
+               AVG(p.dep_delay_new)
+        FROM performance p
+        JOIN codes_carrier c
+            ON p.mtk_carrier = c.carrier_code
+GROUP BY p.mtk_carrier
+                 c.carrier_desc
+ORDER BY AVG(p.dep_delay_new);
+#+end_src
+
+Use multiple aggregates in one select query
+
+#+begin_src sql
+    SELECT p.mtk_carrier,
+                 c.carrier_desc
+               AVG(p.dep_delay_new) AS departure_delay,
+               AVG(p.arr_delay_new) AS arrival_delay
+        FROM performance p
+        JOIN codes_carrier c
+            ON p.mtk_carrier = c.carrier_code
+GROUP BY p.mtk_carrier
+                 c.carrier_desc
+ORDER BY AVG(p.dep_delay_new);
+#+end_src
+
+** Filtering Aggregate Results
+
+- =WHERE= Filter single rows
+- =HAVING= Filter aggregate results
+
+=HAVING= always follows =GROUP BY= and can be interpreted as
+=GROUP BY grade_lvl=
+
+#+begin_src sql
+    SELECT grade_lvl,
+               AVG(age) AS avg_age
+        FROM person
+GROUP BY grade_lvl
+    HAVING AVG(age) < 19;
+#+end_src
+
+=HAVING= clause specifies that we want to filter aggregate values from
+AVG
+
+#+begin_src sql
+    SELECT p.mtk_carrier,
+                 c.carrier_desc
+               AVG(p.dep_delay_new) AS departure_delay,
+               AVG(p.arr_delay_new) AS arrival_delay
+        FROM performance p
+        JOIN codes_carrier c
+            ON p.mtk_carrier = c.carrier_code
+GROUP BY p.mtk_carrier
+                 c.carrier_desc
+    HAVING AVG(p.dep_delay_new) > 15
+         AND AVG(p.arr_delay_new) > 15;
+#+end_src
+

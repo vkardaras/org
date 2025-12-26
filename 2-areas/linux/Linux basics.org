@@ -1,12 +1,12 @@
-* Linux basics
+#+title: Linux basics
 
-** check linux release
+* check linux release
 
 #+begin_src sh
 cat /etc/*release*
 #+end_src
 
-** Linux Kernel
+* Linux Kernel
 
 #+begin_src shell
 # Display information about the kernel
@@ -25,7 +25,7 @@ uname -r
 
 Check [[https://kernel.org][kernel.org]] for more info
 
-** Help in Linux
+* Help in Linux
 
 #+begin_src shell
 # display a one line description of what a command does
@@ -39,15 +39,15 @@ date --help
 apropos modpr
 #+end_src
 
-** Command types
+* Command types
 
 - Internal or Built-in Commands =echo, cd, pwd, set etc=
 - External Commands =mv, date, uptime, cp, uptime etc=
 - Check the type of the command =type echo= =type mv=
 
-** Basic Linux Commands
+* Basic Linux Commands
 
-** Working with directories and files
+* Working with directories and files
 
 #+begin_src sh
 # create parent directories if not exist
@@ -73,7 +73,7 @@ cat > test.txt
 ctrl-d
 #+end_src
 
-** Linux Archive Files
+* Linux Archive Files
 
 #+begin_src sh
 # create an archive
@@ -92,7 +92,7 @@ tar -xf test.tar
 tar -zcf test.tar file1 file2 file3
 #+end_src
 
-** List files
+* List files
 
 #+begin_src sh
 # list files in order created
@@ -101,7 +101,7 @@ ls -lt
 ls -ltr
 #+end_src
 
-** Linux View File Size
+* Linux View File Size
 
 #+begin_src sh
 # inspect the size of a file
@@ -115,7 +115,7 @@ du -sh test.img
 ls -lh
 #+end_src
 
-** Pages
+* Pages
 - more
 #+begin_src shell
 more new_file.txt
@@ -145,9 +145,9 @@ Down Arrow
 # search text
 /
 #+end_src
-** [[file:Linux shell.org][Linux shell]]
+* [[file:Linux shell.org][Linux shell]]
 
-** User acounts
+* User accounts
 
 #+begin_src shell
 
@@ -160,13 +160,13 @@ id
 su <user>
 
 #+end_src
-*** Linux change owner
+** Linux change owner
 
 #+begin_src shell
 sudo chown -R $USER /opt
 #+end_src
 
-*** The three permission groups in Linux, Kinds of permissions
+** The three permission groups in Linux, Kinds of permissions
 
 | Letters | Definition                                                                  |
 |---------+-----------------------------------------------------------------------------|

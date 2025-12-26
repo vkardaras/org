@@ -9,3 +9,5 @@
 * [[file:emacs_search_replace.org][emacs search and replace]]
 * [[file:emacs_macros.org][emacs macros]]
 * [[file:emacs_dired.org][emacs dired]]
+* [[file:emacs_spelling.org][emacs spelling]]
+* [[file:emacs_ide.org][emacs IDE]]

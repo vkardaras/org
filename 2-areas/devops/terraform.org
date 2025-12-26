@@ -1,0 +1,977 @@
+#+title: Terraform
+
+* Introduction to Infrastructure as Code
+
+** Types of IAC Tools
+
+*** Configuration Management Tools
+
+ These tools are used for installing and managing software on existing infrastructure components—such as servers, databases, and network devices. They offer a consistent structure for changes, facilitate version control, and are idempotent. An Ansible playbook or role can be stored in a version control system for reuse and distribution.
+
+- Ansible
+- Puppet
+- SaltStack
+
+*** Server Templating Tools
+
+Allow you to create custom images pre-installed with the software and dependencies you need. This method reduces the need for post-deployment software installation and promotes immutable infrastructure. Common examples include VM images from osboxes.org, custom AMIs in Amazon AWS, and Docker images available on Docker Hub.
+
+- Docker
+- Vagrantf
+- Packer (from HashiCorp)
+
+*** Infrastructure Provisioning Tools
+
+These tools use a declarative, high-level language to provision infrastructure components, such as virtual machines, VPCs, databases, subnets, security groups, and storage. While AWS CloudFormation is tailored for AWS, Terraform is vendor-agnostic and supports a wide range of cloud providers through its plugin architecture.
+
+- Terraform
+- CloudFormation
+
+** Why Terraform
+
+Terraform can deploy infrastructure across diverse platforms using providers, ensuring that your infrastructure remains consistent across different environments.
+
+- Cloud platforms (AWS, GCP, Azure)
+- Network infrastructure (e.g., F5 BIG-IP, Cloudflare, DNS, Palo Alto Networks, Infoblox)
+- Monitoring and data tools (e.g., Datadog, Grafana, Auth0, Wavefront, Sumo Logic)
+- Databases (e.g., InfluxDB, MongoDB, MySQL, PostgreSQL)
+- Version control systems (e.g., GitHub, Bitbucket, GitLab)
+
+*** Terraform configuration that provisions multiple AWS resources
+
+This code demonstrates how Terraform provisions a new EC2 instance, creates an S3 bucket, and manages an IAM user on AWS
+
+#+begin_src terraform
+  resource "aws_instance" "webserver" {
+    ami           = "ami-0edab43b6fa892279"
+    instance_type = "t2.micro"
+  }
+
+  resource "aws_s3_bucket" "finance" {
+    bucket = "finance-21092020"
+    tags = {
+      Description = "Finance and Payroll"
+    }
+  }
+
+  resource "aws_iam_user" "admin-user" {
+    name = "lucy"
+    tags = {
+      Description = "Team Leader"
+    }
+  }
+#+end_src
+
+*** The Three Phases of Terraform
+
+1. Init Phase:
+   Terraform initializes the project and downloads the necessary providers for the specified environment.
+ 
+2. Plan Phase:
+   Terraform creates a detailed execution plan that outlines the changes required to achieve the desired infrastructure state.
+
+3. Apply Phase:
+   Terraform implements the planned changes, ensuring that your environment matches the configuration. If there is any drift from the defined state, running terraform apply again will correct the discrepancies.
+
+
+* Getting Started
+** Installing Terraform
+
+#+begin_src shell
+  wget https://releases.hashicorp.com/terraform/0.13.0/terraform_0.13.0_linux_amd64.zip
+  unzip terraform_0.13.0_linux_amd64.zip
+  mv terraform /usr/local/bin
+  terraform version
+#+end_src
+
+** HashiCorp Configuration Language HCL Basics
+
+HCL Syntax
+
+#+begin_src terraform
+  <block> <parameters> {
+    key1 = value1
+    key2 = value2
+  }
+#+end_src
+
+*Example*
+
+*** Understanding Terraform Resources
+
+| Resource Type | Description              | Example       |
+|---------------+--------------------------+---------------|
+| EC2 Instance  | Virtual machine on AWS   | aws_instance  |
+| S3 Bucket     | Cloud storage on AWS     | aws_s3_bucket |
+| IAM Role      | Access management in AWS | aws_iam_role  |
+
+*** Local File Resource
+
+Create the file =local.tf=
+
+#+begin_src terraform
+  resource "local_file" "pet" {
+    filename = "/root/pets.txt"
+    content  = "We love pets!"
+  }
+#+end_src
+
+*** Examples
+
+AWS EC2 Instance Example
+#+begin_src terraform
+  resource "aws_instance" "webserver" {
+    ami           = "ami-0c2f25c1f66a1ff4d"
+    instance_type = "t2.micro"
+  }
+#+end_src
+
+AWS S3 Bucket Example
+#+begin_src terraform
+  resource "aws_s3_bucket" "data" {
+    bucket = "webserver-bucket-org-2207"
+    acl    = "private"
+  }
+#+end_src
+
+*** Terraform Workflow
+
+1. Write the Configuration File:
+   Create and edit your Terraform configuration file (e.g., local.tf).
+
+2. nitialize the Working Directory:
+   This step checks your configuration file and downloads the necessary provider plugins.
+   
+   #+begin_src shell
+     terraform init
+   #+end_src
+
+3. Review the Execution Plan:
+   Use the terraform plan command to see the proposed actions before applying changes.
+
+   #+begin_src shell
+     terraform plan
+   #+end_src
+
+4. Apply the Configuration:
+   Execute the following command to apply the configuration and create the resource:
+
+   #+begin_src shell
+     terraform apply
+   #+end_src
+
+*Inspect* the resource details
+
+#+begin_src shell
+  terraform show
+#+end_src
+
+*Destroy the resource
+
+#+begin_src shell
+  terraform destroy
+#+end_src
+
+* Terraform Basics
+
+** Terraform providers
+
+- Official Providers:
+  Maintained by HashiCorp. They include major cloud providers and providers like the local provider used in our examples.
+  Examples: AWS, GCP, Azure, Local
+- Partner Providers:
+  Managed by third-party technology companies that have completed HashiCorp's partner provider process.
+  Examples:	F5 Networks (BigIP), Heroku, DigitalOcean
+- Community Providers:
+  Developed and maintained by individual contributors within the HashiCorp community.
+  Examples: Various community-driven plugins
+
+** Configuration files
+
+You can have multiple Configuration files in a Terraform configuration directory. You can have additional configuration files such as
+
+| File         | Purpose                                  |
+|--------------+------------------------------------------|
+| variables.tf | To define input variables                |
+| outputs.tf   | To specify outputs for the configuration |
+| providers.tf | To configure provider                    |
+
+** Multiple Providers
+
+Usually the file containing multiple providers has the name =main.tf=
+
+#+begin_src terraform
+  resource "local_file" "pet" {
+    filename = "/root/pets.txt"
+    content  = "We love pets!"
+  }
+
+  resource "random_pet" "my-pet" {
+    prefix    = "Mrs"
+    separator = "."
+    length    = 1
+  }
+#+end_src
+
+** Input Variables
+
+Using variables makes your configuration files more modular and easier to manage. Adjust values in a single file to propagate changes across your infrastructure.
+
+#+begin_src terraform
+  # main.tf
+  resource "local_file" "pet" {
+    filename = var.filename
+    content  = var.content
+  }
+
+  resource "random_pet" "my-pet" {
+    prefix    = var.prefix
+    separator = var.separator
+    length    = var.length
+  }
+
+
+  # variables.tf
+  variable "filename" {
+    default = "/root/pets.txt"
+  }
+
+  variable "content" {
+    default = "We love pets!"
+  }
+
+  variable "prefix" {
+    default = "Mrs"
+  }
+
+  variable "separator" {
+    default = "."
+  }
+
+  variable "length" {
+    default = "1"
+  }
+#+end_src
+
+*Example: EC2 Instance with Variables*
+
+#+begin_src terraform
+  resource "aws_instance" "webserver" {
+    ami           = var.ami
+    instance_type = var.instance_type
+  }
+
+  variable "ami" {
+    default = "ami-0edab43b6fa892279"
+  }
+
+  variable "instance_type" {
+    default = "t2.micro"
+  }
+#+end_src
+
+** Variable block
+
+ A variable block can have instead of =default= keyword, the optional =type= and =description= keywords
+
+ #+begin_src terraform
+   variable "filename" {
+     default     = "/root/pets.txt"
+     type        = string
+     description = "The path of the local file"
+   }
+
+   variable "content" {
+     default     = "I love pets!"
+     type        = string
+     description = "The content of the file"
+   }
+
+   variable "prefix" {
+     default     = "Mrs"
+     type        = string
+     description = "The prefix to be set"
+   }
+
+   variable "separator" {
+     default = "."
+   }
+ #+end_src
+
+*** Simple Variable Types
+
+- String: Accepts alphanumeric values.
+- Number: Accepts numeric values (both positive and negative).
+- Boolean: Accepts values of either true or false.
+
+*** List Variables
+
+#+begin_src terraform
+  variable "prefix" {
+    default = ["Mr", "Mrs", "Sir"]
+    type    = list(string)
+  }
+
+  resource "random_pet" "my-pet" {
+    prefix = var.prefix[0]
+  }
+#+end_src
+
+In this configuration:
+
+- =var.prefix[0]= returns "Mr"
+- =var.prefix[1]= returns "Mrs"
+- =var.prefix[2]= returns "Sir"
+
+*** Map Variables
+
+#+begin_src terraform
+  # variables.tf
+  variable "file_content" {
+    type    = map(string)
+    default = {
+      "statement1" = "We love pets!"
+      "statement2" = "We love animals!"
+    }
+  }
+
+  # main.tf
+  resource "local_file" "my-pet" {
+    filename = "/root/pets.txt"
+    content  = var.file_content["statement2"]
+  }
+
+#+end_src
+
+*** List and Map Type Constraints
+
+You can enforce type constraints on lists and maps to ensure all elements are of a specific type. For example:
+
+#+begin_src terraform
+  variable "prefix" {
+    default = ["Mr", "Mrs", "Sir"]
+    type    = list(string)
+  }
+
+  variable "numbers" {
+    default = [1, 2, 3]
+    type    = list(number)
+  }
+#+end_src
+
+Similarly, you can enforce type constraints on maps:
+
+#+begin_src terraform
+  variable "cats" {
+    default = {
+      "color" = "brown"
+      "name"  = "bella"
+    }
+    type = map(string)
+  }
+
+  variable "pet_count" {
+    default = {
+      "dogs"     = 3
+      "cats"     = 1
+      "goldfish" = 2
+    }
+    type = map(number)
+  }
+#+end_src
+
+*** Set Variables
+
+Sets in Terraform are similar to lists but automatically remove duplicate elements. Consider these examples of valid set declarations:
+
+#+begin_src terraform
+  variable "prefix" {
+    default = ["Mr", "Mrs", "Sir"]
+    type    = set(string)
+  }
+
+  variable "fruit" {
+    default = ["apple", "banana"]
+    type    = set(string)
+  }
+
+  variable "age" {
+    default = [10, 12, 15]
+    type    = set(number)
+  }
+#+end_src
+
+*** Object Variables
+
+Objects allow you to create complex structures by combining various data types. For example, you can define an object representing a cat with multiple attributes:
+
+#+begin_src terraform
+  variable "bella" {
+    type = object({
+      name         = string
+      color        = string
+      age          = number
+      food         = list(string)
+      favorite_pet = bool
+    })
+  }
+#+end_src
+
+Assign default values that adhere to the defined structure:
+
+#+begin_src terraform
+  variable "bella" {
+    type    = object({
+      name         = string
+      color        = string
+      age          = number
+      food         = list(string)
+      favorite_pet = bool
+    })
+    default = {
+      name         = "Bella"
+      color        = "brown"
+      age          = 7
+      food         = ["fish", "chicken", "turkey"]
+      favorite_pet = true
+    }
+  }
+#+end_src
+
+*** Tuple Variables
+
+Tuples in Terraform are like lists but allow elements of different types. The order and type of the elements are strictly defined. For example, consider this tuple variable:
+
+#+begin_src terraform
+  variable "kitty" {
+    type    = tuple([string, number, bool])
+    default = ["cat", 7, true]
+  }
+#+end_src
+
+** Using Variables
+*** Default Values with Variable Blocks
+
+#+begin_src terraform
+  # main.tf
+  resource "local_file" "pet" {
+    filename = var.filename
+    content  = var.content
+  }
+
+  resource "random_pet" "my-pet" {
+    prefix    = var.prefix
+    separator = var.separator
+    length    = var.length
+  }
+
+  # variables.tf
+  variable "filename" {
+    default = "/root/pets.txt"
+  }
+
+  variable "content" {
+    default = "We love pets!"
+  }
+
+  variable "prefix" {
+    default = "Mrs"
+  }
+
+  variable "separator" {
+    default = "."
+  }
+
+  variable "length" {
+    default = 2
+  }
+#+end_src
+
+*** Provide Variable Values Interactively and via the Command Line
+
+
+
+Pass values using the =-var= flag
+
+#+begin_src shell
+  terraform apply -var "filename=/root/newfile.txt" -var "content=Hello, Terraform!"
+#+end_src
+
+Set environment variables by prefixing the variable name with =TF_VAR_=.
+
+#+begin_src shell
+  $ export TF_VAR_filename="/root/pets.txt"
+  $ export TF_VAR_content="We love pets!"
+  $ export TF_VAR_prefix="Mrs"
+  $ export TF_VAR_separator="."
+  $ export TF_VAR_length="2"
+  $ terraform apply
+#+end_src
+
+*** Use Variable Definition Files
+
+These files typically have a =.tfvars= or =.tfvars.json=
+
+=terraform.tfvars=
+
+#+begin_src shell
+  filename = "/root/pets.txt"
+  content  = "We love pets!"
+  prefix   = "Mrs"
+  separator = "."
+  length   = "2"
+#+end_src
+
+Terraform automatically loads files named terraform.tfvars, terraform.tfvars.json, or files with extensions like .auto.tfvars or .auto.tfvars.json. If you use a differently named file (e.g., variables.tfvars), be sure to specify it explicitly with the -var-file flag:
+
+*** Variable Definition Precedence
+
+- Environment Variable:
+  #+begin_src shell
+    export TF_VAR_filename="/root/cats.txt"
+  #+end_src
+
+- terraform.tfvars File:
+  #+begin_src shell
+    filename = "/root/pets.txt"
+  #+end_src
+
+- File Ending with .auto.tfvars:
+  #+begin_src shell
+    filename = "/root/mypet.txt"
+  #+end_src
+
+- Command-Line Flag:
+  #+begin_src shell
+    terraform apply -var "filename=/root/best-pet.txt"
+  #+end_src
+
+*** Resource Attributes
+
+Initial configuration file =main.tf=
+#+begin_src terraform
+  resource "local_file" "pet" {
+    filename = var.filename
+    content  = "My favorite pet is Mr.Cat"
+  }
+
+  resource "random_pet" "my-pet" {
+    prefix    = var.prefix
+    separator = var.separator
+    length    = var.length
+  }
+#+end_src
+
+Updated configuration using Terraform's interpolation syntax using *implicit dependency*
+#+begin_src terraform
+  resource "local_file" "pet" {
+    filename = var.filename
+    content  = "My favorite pet is ${random_pet.my-pet.id}"
+  }
+
+  resource "random_pet" "my-pet" {
+    prefix    = var.prefix
+    separator = var.separator
+    length    = var.length
+  }
+#+end_src
+
+Specify the dependency using the =depends_on= argument using *explicit dependency*
+#+begin_src terraform
+  resource "local_file" "pet" {
+    filename   = var.filename
+    content    = "My favorite pet is Mr.Cat"
+    depends_on = [
+      random_pet.my-pet
+    ]
+  }
+
+  resource "random_pet" "my-pet" {
+    prefix    = var.prefix
+    separator = var.separator
+    length    = var.length
+  }
+#+end_src
+
+** Output Variables
+
+Terraform output variables are a powerful feature that allow you to store the results of expressions from your configuration files for later use.
+
+#+begin_src terraform
+  resource "local_file" "pet" {
+    filename = var.filename
+    content  = "My favorite pet is ${random_pet.my-pet.id}"
+  }
+
+  resource "random_pet" "my-pet" {
+    prefix    = var.prefix
+    separator = var.separator
+    length    = var.length
+  }
+
+  output "pet-name" {
+    value = random_pet.my-pet.id
+    desc  = ""
+  }
+#+end_src
+
+*** Displaying Outputs with Terraform
+
+#+begin_src shell
+  terraform apply
+  ...
+  Outputs:
+    pet-name = Mrs.gibbon
+#+end_src
+
+ Retrieve the value of output variables using the terraform output command
+
+ #+begin_src shell
+   # list all outputs
+   $ terraform output
+   pet-name = Mrs.gibbon
+
+   # display an individual output
+   $ terraform output pet-name
+   Mrs.gibbon
+ #+end_src
+
+* Terraform State
+
+** Terraform State File
+
+After the initial successful =terraform apply=, an additional file named =terraform.tfstate= is created in the project directory. This file is a JSON data structure mapping your real-world infrastructure to the resource definitions from your configuration files.
+
+#+begin_src js
+  {
+    "version": 4,
+    "terraform_version": "0.13.0",
+    "serial": 1,
+    "lineage": "e35dde72-a943-de50-3c8b-1df8986e5a31",
+    "outputs": {},
+    "resources": [
+      {
+        "mode": "managed",
+        "type": "local_file",
+        "name": "pet",
+        "provider": "provider[\"registry.terraform.io/hashicorp/local\"]",
+        "instances": [
+          {
+            "schema_version": 0,
+            "attributes": {
+              "content": "I love pets!",
+              "content_base64": null,
+              "directory_permission": "0777",
+              "file_permission": "0777",
+              "filename": "/root/pets.txt",
+              "id": "7e4db4fbfdcb108dd04692062bae39bd1e1b68",
+              "sensitive_content": null
+            },
+            "private": "bnVzBA=="
+          }
+        ]
+      }
+    ]
+  }
+#+end_src
+
+** Terraform State Considerations
+
+Always ensure your state files are stored in a secure location, especially when using local storage.
+
+Your working directory typically contains two types of files:
+
+1. Terraform Configuration Files (HCL): These are written in HashiCorp Configuration Language and are used to provision and manage your infrastructure.
+2. Terraform State File: This JSON file records the current state of your deployed infrastructure.
+
+* Working with Terraform
+
+** Terraform Commands
+
+#+begin_src shell
+  # validate syntax of configuration file
+  terraform validate
+
+  # reformat Configuration files
+  terraform fmt
+
+  # display the current Terraform state
+  terraform show
+  # display the state in JSON format
+  terraform show -json
+
+  # list all providers required by a configuration
+  terraform providers
+
+  # mirror provider plugins to a specified directory
+  terraform providers mirror /root/terraform/new_local_file
+
+  # display output variables of a configuration
+  terraform output
+
+  # synchronize a terraform state with an actual state
+  terraform refresh
+  # update the state file without changing any infrastructure by using the =-refresh-only= flag with =terraform apply=
+  terraform apply -refresh-only
+
+  # create a DOT format representation of resource dependencies in your configuration
+  terraform graph
+
+  # visualize tghe graph with graphviz
+  # install graphviz
+  apt install graphviz -y
+  # pipe the output of the terraform =graph= command into Graphviz's =dot= command to create an SVG
+#+end_src 
+
+** Lifecycle Rules
+
+*** The create_before_destroy Rule
+
+The =create_before_destroy= lifecycle rule instructs Terraform to create a new resource before deleting the old one.
+
+#+begin_src terraform
+  resource "local_file" "pet" {
+    filename        = "/root/pets.txt"
+    content         = "We love pets!"
+    file_permission = "0700"
+
+    lifecycle {
+      create_before_destroy = true
+    }
+  }  
+#+end_src
+
+*** The prevent_destroy Rule
+
+ Ensure a resource is never accidentally deleted using the =prevent_destroy= rule.
+
+ #+begin_src terraform
+   resource "local_file" "pet" {
+     filename        = "/root/pets.txt"
+     content         = "We love pets!"
+     file_permission = "0700"
+
+     lifecycle {
+       prevent_destroy = true
+     }
+   }
+ #+end_src
+
+*** The ignore_changes Rule
+
+The ignore_changes rule is beneficial when you want Terraform to disregard modifications made to specific attributes.
+
+#+begin_src terraform
+  # prevent Terraform from reverting external changes for tags
+  resource "aws_instance" "webserver" {
+     ami           = "ami-0edab43b6fa892279"
+     instance_type = "t2.micro"
+     tags = {
+       Name = "ProjectA-Webserver"
+     }
+     lifecycle {
+       ignore_changes = [
+         tags
+       ]
+     }
+   }
+
+   # ignore changes across all attributes
+   resource "aws_instance" "webserver" {
+     ami           = "ami-0edab43b6fa892279"
+     instance_type = "t2.micro"
+     tags = {
+       Name = "ProjectA-Webserver"
+     }
+     lifecycle {
+       ignore_changes = all
+     }
+   }
+#+end_src
+
+** Datasources
+
+Data sources in Terraform enable you to use attributes from external resources, integrating them into your Terraform-managed infrastructure.
+
+Create a resource outside terraform
+
+#+begin_src shell
+  $ cat /root/dog.txt
+  Dogs are awesome!
+#+end_src
+
+Use the resource
+
+#+begin_src terraform
+  resource "local_file" "pet" {
+    filename = "/root/pets.txt"
+    content  = data.local_file.dog.content
+  }
+
+  data "local_file" "dog" {
+    filename = "/root/dog.txt"
+  }
+#+end_src
+
+** Meta Arguments
+
+Meta-arguments in Terraform allow you to modify the behavior of resource blocks, enabling advanced configurations such as creating multiple instances of a resource and managing dependencies.
+
+*** depends_on
+
+#+begin_src terraform
+  resource "local_file" "pet" {
+    filename   = var.filename
+    content    = var.content
+    depends_on = [
+      random_pet.my_pet
+    ]
+  }
+
+
+  resource "random_pet" "my_pet" {
+    prefix    = var.prefix
+    separator = var.separator
+    length    = var.length
+  }
+#+end_src
+
+*** lifecycle
+
+#+begin_src terraform
+  resource "local_file" "pet" {
+    filename        = "/root/pets.txt"
+    content         = "We love pets!"
+    file_permission = "0700"
+    
+    lifecycle {
+      create_before_destroy = true
+    }
+  }
+#+end_src
+
+*** count
+
+*Creating Unique Resources by Using a List Variable*
+
+#+begin_src terraform
+  # main.tf
+  resource "local_file" "pet" {
+    filename = var.filename[count.index]
+    count    = 3
+  }
+
+  # variable.tf
+  variable "filename" {
+    default = [
+      "/root/pets.txt",
+      "/root/dogs.txt",
+      "/root/cats.txt"
+    ]
+  }
+#+end_src
+
+*Dynamically Adjusting the Count with the length() Function*
+
+#+begin_src terraform
+  resource "local_file" "pet" {
+    filename = var.filename[count.index]
+    count    = length(var.filename)
+  }
+  variable "filename" {
+    default = [
+      "/root/pets.txt",
+      "/root/dogs.txt",
+      "/root/cats.txt",
+      "/root/cows.txt",
+      "/root/ducks.txt"
+    ]
+ }    
+#+end_src
+
+*Viewing Resource Details*
+
+Adding an output variable lets you verify each resource's configuration:
+
+#+begin_src terraform
+  output "pets" {
+    value = local_file.pet
+  }
+#+end_src
+
+*** for_each
+
+Using for_each allows the resources to be identified by a unique key (here, the filename), reducing the risk of accidental shifts in resource management compared to using count.
+
+#+begin_src terraform
+  # main.tf
+  resource "local_file" "pet" {
+    filename = each.value
+    for_each = toset(var.filename)
+  }
+
+  # variable.tf
+  variable "filename" {
+    type    = list(string)
+    default = [
+      "/root/pets.txt",
+      "/root/dogs.txt",
+      "/root/cats.txt"
+    ]
+  }
+#+end_src
+
+** Version Constrains
+
+Specify provider versions in Terraform to ensure your configuration consistently uses the intended plugin version
+
+#+begin_src terraform
+  # main.tf
+  terraform {
+    required_providers {
+      local = {
+        source  = "hashicorp/local"
+        version = "1.4.0"
+      }
+    }
+  }
+
+  resource "local_file" "pet" {
+    filename = "/root/pet.txt"
+    content  = "We love pets!"
+  }
+#+end_src
+
+Comparison Operators for Version Constraints
+
+#+begin_src terraform
+  # avoid specific version
+  terraform {
+    required_providers {
+      local = {
+        source  = "hashicorp/local"
+        version = "!= 2.0.0"
+      }
+    }
+  }
+
+  # combine comparison operators to define a version range
+  terraform {
+    required_providers {
+      local = {
+        source  = "hashicorp/local"
+        version = "> 1.2.0, < 2.0.0, != 1.4.0"
+      }
+    }
+  }
+
+  # pessimistic constraint operator
+  terraform {
+    required_providers {
+      local = {
+        source  = "hashicorp/local"
+        version = "~> 1.2"
+      }
+    }
+  }
+#+end_src

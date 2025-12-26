@@ -1,0 +1,294 @@
+#+title: Remote Jobs Braintrust
+
+* Pitch your experience and skills
+
+** What could “something unique” be? And do I have it?
+- High level of ownership + accountability + communication
+- Budilt B2C products or your own startup
+- Experience with high load applications
+- Experience with global payment flows
+- Experience wfith ecommerce or creator economy
+- Experience with Ruby and AWS
+
+** Ideas for “something unique” in the pitch to Gumroad
+- “I was part of the initial team that built a payments product from $x to $y in volume”
+- “I worked for an ecommerce app that had xM page views per minute”
+- “I built a startup that allows education companies to sell online courses”
+
+ ** The “I have 5 years of experience” fail
+- Applying to a fintech startup: “I have experience at 2 fintech startups, having implemented payments workflows and integrations with Stripe, Paypal and Plaid”
+- Applying to a startup in another industry: “I have startup experience, having grown with the team from X to Y number of people”
+- Applying to a generic javascript role: “I have deep experience with node.js, frameworks A and B, and built X, Y and Z.”
+- Applying to a developer role in a different stack: “I have experience in backend development, containerization and aws”
+
+** Let’s broaden the scope of “your pitch”
+- You application collateral (CV, cover letter, etc) is the most visible face of your “pitch” to a job opportunity.
+- But your broader online presence is also part of your “pitch”.
+- Most of your future interviewers will look you up on Linkedin, Twitter, Github, etc before booking the interview.
+
+*Examples*
+
+- Software Engineer
+- Remote - Lead/Senior Software Engineer | Technical Project Manager
+- Senior Javascript Engineer - React - Angular - NodeJS
+- Java Software Engineer - Freelancer - Contractor - Remote - Fintech
+
+** Takeaways from Session 2
+- Create a public persona that cannibalizes the opportunities you do NOT want, and that makes you more “unique” to the opportunities that you DO want.
+- Create a targeted “pitch” for each role you apply. One that makes you look “unique” in those 5-seconds someone spends looking at your CV.
+- Create a scalable process for this research and targeting, so that you can increase your odds across dozens/hundreds of opportunities.
+
+* Make job opportunities come to you
+
+** Inbound opportunities from Linkedin
+
+*** Identify what keywords are relevant to you
+
+- Java, PHP, Python, Javascript, Ruby…
+- AWS, Azure, GCP, Heroku…
+- Backend, Frontend, Mobile, API integrations…
+- Fintech, eCommerce, Adtech, Crypto…
+- Remote, B2B contractor, Part time
+
+- It could be your preferred tech stack:
+  - Senior Javascript Engineer - React - Angular - NodeJS
+  - Java Software Engineer - Freelancer - Contractor - Remote - Fintech
+
+- It could be the cloud provider you’re most familiar with:
+  - AWS DevOps Engineer at HSBC Global Cloud Services - AWS Community Builder
+  - Azure Cloud Architect
+
+- It could be your preferred part of the stack:
+  - Backend Engineer @ OLX Group
+  - Senior Mobile Engineer at Freetrade
+
+- It could be your preferred industry vertical:
+  - eCommerce Engineer at Encentiv Energy
+  - Fintach Engineer at Saltpay
+
+- It could be other things related to the future relationship with your employer:
+  - Remote Staff Software Engineer (Android) @ Zendesksd
+  - DevOps Engineer - Contractor - Freelancer
+
+
+*** Optimize your profile to highlight "your" keywords
+
+- Your Headline - The title that shows below your photo AND on the search results page
+- Your About section - The long bio between your headline and experience
+
+*Use this simple structure broken into 3 sections:*
+
+1. A brief introduction. Eg: “I’m a Software Engineer with 4 years of experience…” or “I worked as a backend engineer…”
+2. A few bullets with achievements. Eg: “I’ve built…” or “I worked with A, B and C” or “I implemented an integration with X”
+3. Keywords. Eg: “I’ve been working with …”
+
+**** Examples
+#+begin_example example 1
+I am Software Engineer with nearly 3 years of experience in building highly scalable integration applications, in MERN Stack using microservices architecture built with AWS Cloud and Oracle PLM
+
+I have experience in
+
+- Node JS
+- React JS/View js
+- Redux
+- MySQL, SQL, PostgreSQL, Progress Databas
+- AWS (S3,RDS,CloudWatch,EC2)
+- Microservices
+- Design Patterns
+- REST and SOAP APIs
+- Auth0 with Node JS
+- Docker and Docker Compose
+- Oracle PLM (Product Lifecycle Management and Product Information Management)
+
+I have worked with clients like Logitech, Motorola, Unigen, Glaukos. I have created Integration products for these clients which integrate their data from Oracle PLM to their ERP Systems. I also have experience providing integration solutions between CAD Solutions, like SolidWorks, AutoDesk, CREO and Oracle PLM.
+
+I also have experience working in a Fintech startup, which included integration with national payment gateway of Pakistan named 1Link.
+
+Please contact me to get further details about my work. You will definitely enjoy working with me.
+#+end_example
+
+#+begin_example exemple 2
+Responsibility
+- Implemented RESTful APIs in the Backend from scratch
+- Integrated 1Link as payment gateway with backend
+- Optimized code structure and database queries to improve API performance
+- Improved API security by implementing RBAC on backend APIs
+- Improved security by implementing encryption on request and responses
+- Lead team of 5 people to implement new features
+- Discuss new requirements with stakeholders and finalize requirements
+- Create FRS documents for new requirements and delegate work to team members until successful completion of requirement
+
+Tech Stack
+- JavaScript
+- NodeJs
+- MySQL
+#+end_example
+
+#+begin_example example 3
+- Collaborated with 3 engineers and 1 Product Owner to lead the development of a mobile app, resulting in a 20% increase in electric cargo bike rentals
+- Initiated and developed a new back-end system, leading to a 30% reduction in tracking errors and a 25% increase in overall operational efficiency
+- Implemented efficient logging, resulting in a 50% improvement in performance optimazation
+
+Backend: NodeJS, Java8, Spring, Spring Boot, PostgreSQL
+Front-end: ReactJS, React Native
+AWS: EC2, RDS, SQS, Cloudwatch, S3
+Tooling: NPM, Docker, Git, Xcode, Android Studio
+#+end_example
+
+#+begin_example example 4
+I worked as a backend developer in a serverless project to fetch, process, and store events from IoT devices.
+The software gathers information about all the devices installed in each truck of a fleet in order to control information about the heat o pressure in wheels, speed, location, problems with the load...
+This project was completely designed, developed and deployed using AWS technologies. The application was split into lambda functions, S3, AWS IoT, AWS gateway... My role covered testing the current codebase, developing new functions, and refactoring code.
+
+Technologies used: NodeJS, Typescript, Jest, Serverless, AWS Gateway, SQS, DynamoDB, Lambda
+Skills: NoSQL - Serverless Computing - GraphQL - MongoDB - Terraform - Amazon Web Services (AWS) - Typescript - Javascript - Git
+#+end_example
+
+#+begin_example my description
+I am Software Engineer/Architect with studies in Digital Systems Design and E-Learning. I have nearly 20 years of experience in building mobile applicaitons in both Android and iOS, and web applications in Java and Javascript frameworks using monolith and microservices architecture.
+
+I provide optimal solutions for my customers and partner agencies and I focus on the quality and the best user experience for the end users.
+
+I have experience in
+
+- Java
+- Java EE
+- Spring Boot
+- ORM (Hibernate, Spring JPA)
+- Spring Cloud
+- Spring Security/Spring Authorization Server
+- Databases (PostgreSQL, MySQL, Oracle, DB2, NoSQL)
+- Test Driven Development (TDD)
+- Test frameworks (JUnit, Mochito)
+- Cloud (AWS, Azure)
+- DevOps (CI/CD - Pipelines, Terraform)
+- Microservices
+- Design Patterns
+- REST and SOAP APIs
+- OAuth2, OpenID
+- Docker and Docker Compose
+- Kubernetes
+- Android (Java and Kotlin)
+- iOS (Objective C and Swift)
+- Angular
+- React/React Native
+
+Please contact me to get further details about my work. You will definitely enjoy working with me.
+#+end_example
+**** Skill
+Add your skill to the skills section in Linkedin
+
+**** Prove you are a human
+
+- Profile picture
+- Connections
+- Endorsements
+- Recommendations
+  
+*** Get found when people search for those keywords
+
+** Inbound opportunities from recruiters
+
+- For most recruiters, income is based on performance.
+- When recruiters find you a job, they earn a “finder’s fee” calculated as a % of you yearly salary.
+- Finder’s fees usually range between 10-20%.
+- Eg: If you’re hired for a role that pays $100k/year, the recruiter earns $20k.
+- Recruiters work on very few roles at a time, and dedicate themselves to place the right candidate and earn the prize in those few roles.
+
+Leverage recruiters as your “sales department”!
+
+1. Go through your past Linkedin messages and emails from recruiters. Reply to all of them explaining the role you’re looking for at the moment!
+2. Search for “relevant” recruiters on Linkedin and reach out to them explaining the role you’re looking for.
+
+** Inbound opportunities from broader channels
+
+1. Write short-form content on Twitter or Linkedin
+2. Write long-form content on Medium or Substack
+3. Write long-form content on your personal website or newsletter
+4. Contribute to open source on Github
+5. Grow your network more actively
+
+All these channels can bring you opportunities, but see them as a long term plan.
+
+** Takeaways from Session 3
+
+- Optimise your Linkedin profile to be found by people searching for “your” keywords.
+- Build a network of recruiters who can “sell” you to open roles they work with.
+- Consider leveraging channels like Twitter or Medium for longer term inbound opportunities.
+  
+* How to apply to remote jobs
+
+** How to apply to jobs (and stand out from the crowd)
+- Find the person in the company in charge of that role.
+- Invite that person to connect on Linkedin.
+- Once the person accepts, send a linkedin message with a one-sentence blurb why you’re the perfect fit for that role, and offering some interview slots.
+
+- If no reply after 24h:
+- Get the person’s email from the Contacts tab on Linkedin.
+- Send a similar message via email. Don’t forget the interview slots!
+
+Follow up after a few days.
+
+Most will ghost you. But for the ones who reply, you’ve just skipped the ATS line!
+
+*** How to find the person in the company in charge of that role?
+- Some job boards have that information. Easy!
+- For all other roles, use these heuristics from a quick Linkedin search:
+  - HR/Recruiter folks whenever there is such a role
+  - Early stage startups -> CTO
+  - Larger startups -> VP/Head of Engineering
+
+*** Example of message to send
+
+#+begin_example
+Hi Alaina, very nice to meet you!
+
+I saw the open role for Senior Software Engineer at Wonderment, and I'm reaching out because I believe it's a perfect fit for me.
+
+I've been a Software Engineer for the past 5 years, especially working on the backend on the javascript stack with Next.js, the cloud servers on AWS, and the databases both PostgreSQL and MongoDB. This seems to be a perfect fit to your requirements.
+
+I love Wonderment's mission, and would love to learn more about the plans ahead. Should we jump on an intro call to further discuss?
+
+Best,
+
+Vasilis.
+#+end_example
+
+** The application process
+Create your application collateral as you go:
+- CV
+- Application blurb or cover letter
+- Template for message to hiring message
+- Template for message to person above
+- Template for message to ask for an intro
+- Template for message to ask for a referral
+
+For each of these, create variations for each level of the pyramid, or any other way you segment your applications as you see fit.
+Make it easy to simply copy and paste for new applications with minimal edits.
+
+* Job boards
+- Remote OK: https://remoteok.io/
+- WellFound (former AngelList): https://wellfound.com/
+- Work at a Startup https://www.workatastartup.com/
+- We Work Remotely: https://weworkremotely.com/
+- Jobspresso: https://jobspresso.co/
+- Remote.co: https://remote.co/
+- JustRemote: https://justremote.co/
+- Working Nomads: https://www.workingnomads.co/jobs
+- Skip the Drive: https://www.skipthedrive.com/
+- https://my.greenhouse.io/jobs
+- https://www.dice.com/
+- https://www.glassdoor.com/
+- https://my.greenhouse.io/jobs
+- https://devsdata.com/careers/
+- https://www.xm.com/careers
+- https://www.randstad.gr/theseis-ergasias/remote/
+- https://app.fratch.io/en/
+- https://nrbcareers.com/
+- https://www.qualco.eu/
+- https://careers.openvpn.net/
+- https://jobgether.com/home
+- https://jobs.lever.co/qualysoft
+- https://careers.salveinno.com/jobs
+- https://careers.sportserve.co/#jobs
+- https://my.greenhouse.io/jobs

@@ -1,0 +1,394 @@
+#+title: SQL
+
+* Writing SQL Queries
+
+** Select
+#+begin_src sql
+  --- select all columns
+  SELECT *
+  FROM Customer;
+
+  --- select specific columns
+  SELECT Email, Firstname, Lastname
+  FROM Customer;
+#+end_src
+
+** Filtering with WHERE
+
+#+begin_src sql
+  --- select where equals
+  SELECT Title
+  FROM Movie
+  WHERE ReleaseYear = 2005;
+
+  SELECT *
+  FROM Movie
+  WHERE Title = 'Citizen Kane';
+
+  --- select where not equals
+  SELECT *
+  FROM Movie
+  WHERE ReleaseYear <> 2005;
+
+  --- select where less than or more than
+  SELECT *
+  FROM Movie
+  WHERE ReleaseYear < 2005;
+
+  SELECT *
+  FROM Movie
+  WHERE ReleaseYear <= 2005;
+
+  SELECT *
+  FROM Movie
+  WHERE ReleaseYear >= 2005;
+
+#+end_src
+
+** Complex WHERE Conditions
+
+#+begin_src sql
+  --- AND
+  SELECT Firstname, Lastname, Email
+  FROM Employee
+  WHERE DateHired < '2020-01-01' AND Position = 'Manager';
+
+  SELECT ProductID, ProductName
+  FROM Product
+  WHERE Category = 'Electronics' AND UnitPrice > 100;
+
+  --- OR
+  SELECT ProductID, ProductName
+  FROM Product
+  WHERE Category = 'Electronics' OR UnitPrice > 100;
+
+  --- if you combine AND and OR, AND takes precedence, so use parentheses
+  SELECT *
+  FROM Product
+  WHERE (Category = 'Electronics')
+  OR    (Category = 'Books' AND UnitPrice < 10);
+#+end_src
+
+** BETWEEN and IN
+
+#+begin_src sql
+  --- IN
+  SELECT *
+  FROM Employee
+  WHERE Department IN ('Sales', 'Marketing', 'Engineering');
+
+  --- NOT IN
+  SELECT *
+  FROM Employee
+  WHERE Department NOT IN ('Sales', 'Marketing', 'Engineering');
+
+  --- BETWEEN
+  SELECT *
+  FROM artifacts
+  WHERE year BETWEEN 1900 AND 1950;
+
+  SELECT *
+  FROM Orders
+  WHERE OrderDate BETWEEN '2024-01-01' AND '2024-01-31';
+#+end_src
+
+** LIKE
+
+#+begin_src sql
+  --- find products where ProductName starts with Green
+  SELECT ProductName, Category, UnitPrice
+  FROM Product
+  WHERE ProductName LIKE 'Green%';
+
+  --- find products where ProductName contains the word Green
+  SELECT ProductName, Category, UnitPrice
+  FROM Product
+  WHERE ProductName LIKE '%Green%';
+
+  --- use LIKE to match a single character
+  SELECT *
+  FROM Vehicles
+  WHERE Name LIKE 'Genesis G_0';
+
+  --- use NOT LIKE to exclude patterns
+  SELECT ProductName, Category, UnitPrice
+  FROM Product
+  WHERE ProductName NOT LIKE '%Green%';
+
+#+end_src
+
+** NULL in a SELECT statement
+
+#+begin_src sql
+  --- check for NULL
+  SELECT *
+  FROM Employee
+  WHERE MiddleInitials IS NULL;
+
+  --- check for NOT NULL
+  SELECT *
+  FROM Employee
+  WHERE MiddleInitials IS NOT NULL;
+#+end_src
+
+* Ordering, Grouping, and Aggregate Functions
+
+** ORDER BY
+
+#+begin_src sql
+  --- order by list price asceding
+  SELECT ProductID, ProductName, Category, ListPrice
+  FROM Product
+  WHERE Status <> 'Discontinued'
+  ORDER BY ListPrice;
+
+  --- order by list price desceding
+  SELECT ProductID, ProductName, Category, ListPrice
+  FROM Product
+  WHERE Status <> 'Discontinued'
+  ORDER BY ListPrice DESC;
+
+  -- use ORDER BY with multiple comumns
+  SELECT last_name, first_name, email, primary_phone
+  FROM employees
+  WHERE status = 'Active'
+  ORDER BY last_name, first_name;
+#+end_src
+
+** Aggregate Functions
+
+#+begin_src sql
+  --- count all rows
+  SELECT COUNT(*)
+  FROM Employee;
+
+  --- count rows based on a condition
+  SELECT COUNT(*)
+  FROM Employee;
+  WHERE Salary > 50000;
+
+  --- use SUM to calculate a total
+  SELECT SUMk(minites_watched)
+  FROM user_session
+  WHERE user_id = 'sherrock42';
+
+  --- find the largest value with MAX
+  SELECT MAX(ListPrice)
+  FROM Product;
+
+  --- find the smallest value with MIN
+  SELECT MIN(ListPrice)
+  FROM Product;
+  
+  --- find the average value with AVG
+  SELECT AVG(ListPrice)
+  FROM Product;
+#+end_src
+
+** GROUP BY
+
+*WHEN YOU USE GROUP BY YOU ALSO USE AN AGGREGATE FUNCTION*
+
+#+begin_src sql
+  --- use GROUP BY
+  SELECT COUNT(*), Category
+  FROM Product
+  GROUP BY Category;  
+#+end_src
+
+** Use GROUP BY with HAVING
+
+#+begin_src sql
+  --- use calculated informatgion to filter data
+  SELECT COUNT(*), Category
+  FROM Product
+  WHERE Status <> 'Discontinued'
+  GROUP BY Category
+  HAVING COUNT(*) > 100;
+#+end_src
+
+** DISTINCT
+
+#+begin_src sql
+  --- ignore duplicate values with DISTINCT
+  SELECT DISTINCT country
+  FROM customer;
+#+end_src
+
+* JOIN Tables
+
+** INNER JOIN
+
+#+begin_src sql
+  --- join tables in SQL
+  SELECT Firstname, Lastname, Email, DateHired
+         Name, Location
+  FROM Employee
+  JOIN Department
+    ON Employee.DepartmentID = Department.DepartmentID;
+#+end_src
+
+** OUTER JOINs - LEFT, RIGHT, and FULL
+
+#+begin_src sql
+  --- create a LEFT OUTER JOIN, you can ommit the word OUTER
+  --- show all rows from the Employee table
+  SELECT Firstname, Lastname, Email, DateHired, Name, Location
+  FROM Employee LEFT OUTER JOIN Department
+    ON Employee.DepartmentID = Department.DepartmentID;
+    
+  --- create a RIGHT OUTER JOIN, you can ommit the word OUTER
+  --- show all rows from the Department table
+  SELECT Firstname, Lastname, Email, DateHired, Name, Location
+  FROM Employee RIGHT OUTER JOIN Department
+    ON Employee.DepartmentID = Department.DepartmentID;
+    
+  --- create a FULL OUTER JOIN, you can ommit the word OUTER
+  --- show all rows from all tables
+  SELECT Firstname, Lastname, Email, DateHired, Name, Location
+  FROM Employee FULL OUTER JOIN Department
+    ON Employee.DepartmentID = Department.DepartmentID;
+#+end_src
+
+** NATURAL JOIN
+
+Both tables must have a column with the *same name*, and *same data type*
+Some database systems don't support it, so try to avoid it
+
+#+begin_src sql
+  SELECT OrderID, OrderDate, TotalAmount,
+         Customer.LastName, Customer.Email
+  FROM Order NATURAL JOIN Customer;
+#+end_src
+
+** Table Aliases in SQL
+
+#+begin_src sql
+  --- use table aliases
+  SELECT o.order_id,
+         c.last_name,
+         o.order_date,
+         o.status,
+         c.status
+  FROM orders o INNER JOIN customers c
+  ON o.customer_id = c.customer_id
+  WHERE c.last_name LIKE 'Sm_th'
+  AND o.order_date BETWEEN '2023-01-01' AND '2023-12-31'
+  AND o.status = 'Completed'
+  AND c.staus = 'Active'
+  ORDER BY o.order_date DESC;
+#+end_src
+
+* Subqueries and Sets
+
+** Create a Subquery
+
+#+begin_src sql
+  --- We want to combine the following queries
+  --- first query
+  SELECT ProductName, ListPrice
+  FROM Product
+  WHERE ListPrice > 100;
+
+  --- second query
+  SELECT AVG(ListPrice)
+  FROM Product;
+
+  --- final query
+  SELECT ProductName, ListPrice
+  FROM Product
+  WHERE ListPrice > (SELECT AVG(ListPrice) FROM Product);
+#+end_src
+
+** Column Aliases with AS
+
+#+begin_src sql
+  --- column names in query results
+  SELECT nm AS Name,
+         id,
+         itm_inv AS ItemsInStock,
+         itm_lc AS Location
+  FROM Inventory;
+
+  --- use AS to provide an alias for aggregate functions
+  SELECT Category, AVG(ListPrice) AS AveragePrice
+  FROM Product
+  GROUP BY Category;
+#+end_src
+
+** Combine data with UNION and UNION ALL
+
+#+begin_src sql
+  --- use UNION to combine two SQL statements
+  --- it shows only distinct values from both tables
+  SELECT Email FROM CurrentCustomers
+  UNION
+  SELECT email FROM PastCustomers;
+
+  --- show duplicate values from both tables
+  SELECT Email FROM CurrentCustomers
+  UNION ALL
+  SELECT email FROM PastCustomers;
+#+end_src
+
+* Add, Update, and Delete data
+
+** INSERT new data
+
+#+begin_src sql
+  --- INSERT a row INTO a table
+  INSERT INTO Employee (FirstName, LastName, Email, HireDate, Role, IsFullTime)
+  VALUES ('Jane', 'Dow', 'jd@example.com', '2024-01-01', 'Developer', TRUE);
+
+  --- INSERT multiple rows INTO a table
+  INSERT INTO Employee (FirstName, LastName, Email, HireDate, Role, IsFullTime)
+  VALUES ('Jane', 'Dow', 'jd@example.com', '2024-01-01', 'Developer', TRUE)
+         ('Claire', 'Flores', 'cf@example.com', '2024-01-02', 'Developer', TRUE);
+#+end_src
+
+** UPDATE data
+
+#+begin_src sql
+  --- use UPDATE to change values in a row
+  UPDATE Employee
+  SET Status = 'Retired', Salary = 0, DepartmentID = NULL
+  WHERE EmployeeID = 6543;
+#+end_src
+
+** Delete rows from a Table
+
+#+begin_src sql
+  --- use DELETE to delete entire rows
+  DELETE FROM Product
+  WHERE ProductID = 11382;
+
+  --- use DELETE to delete multiple rows
+  DELETE FROM Product
+  WHERE ProdictID IN (11381, 11382);
+#+end_src
+
+* Understanding DML, DDL and DCL
+
+- DML (Data Model Language): SELECT, INSERT, UPDATE, DELETE
+- DDL (Data Definition Language): CREATE, ALTER, DROP
+- DCL (Data Control Language): control authorization and permission aspects, GRANT, REVOKE
+
+** DDL
+
+#+begin_src sql
+  --- use CREATE
+  CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Email VARCHAR(100),
+    HireDate Date
+  );
+
+  --- use ALTER to change the definition of a table
+  ALTER TABLE Employees
+  ADD COLUMN DepertmentID INT;
+
+  --- use DROP to delete a table
+  DROP TABLE Employees;
+#+end_src

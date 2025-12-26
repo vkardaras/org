@@ -1,4 +1,6 @@
-*** Connect to the database
+#+title: Common psql commands
+
+* Connect to the database
 
 #+begin_src sql
 psql -d postgres -U postgres
@@ -34,7 +36,7 @@ List all available tables
 Describe all tables
 
 #+begin_src sql
-\d
+  \d
 #+end_src
 
 Describe a specific table
@@ -43,13 +45,13 @@ Describe a specific table
 \d product
 #+end_src
 
-*** Create a new database
+* Create a new database
 
 #+begin_src sql
 CREATE DATABASE postgres_db;
 #+end_src
 
-*** Create a table
+* Create a table
 
 #+begin_src sql
 CREATE TABLE [IF NOT EXISTS] table_name (
@@ -81,7 +83,7 @@ CREATE TABLE IF NOT EXISTS product(
  );
 #+end_src
 
-*** Create a table with auto-increment id
+* Create a table with auto-increment id
 
 #+begin_src sql
 CREATE TABLE IF NOT EXISTS product(

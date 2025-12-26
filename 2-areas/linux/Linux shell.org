@@ -1,6 +1,6 @@
-* Linux shell
+#+title: Linux shell
 
-** General
+* General
 
 Check the current shell
 
@@ -28,7 +28,7 @@ View command history
 #+begin_src sh
 history
 #+end_src
-** Check success of previous command
+* Check success of previous command
 
 If the previous command succeeded, =echo $?= returns 0 otherwise a
 different integer
@@ -45,7 +45,7 @@ $ echo $?
 1
 #+end_src
 
-** Environment variables
+* Environment variables
 
 Get a list of all environment variables
 
@@ -62,7 +62,7 @@ ecport OFFICE=calestop
 To make a variable persistent add it to your =~/.profile= or equivalent
 file
 
-** PATH
+* PATH
 
 Check the location of a command
 
@@ -82,4 +82,4 @@ Install ohMyZsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 #+end_src
 
-** [[file:zsh.org][zsh]]
+* [[file:zsh.org][zsh]]

@@ -1,3 +1,19 @@
-* react
+#+title: react
 
-** [[file:create project with next.org][create project with next]]
+* React extensions
+- eslint
+- prettier
+
+* React commands  
+#+begin_src shell
+  # create a react app
+  npx create-react-app moviedux
+
+  # install dependencies
+  npm install
+
+  # start the application
+  npm start
+#+end_src
+
+* [[file:create project with next.org][create project with next]]

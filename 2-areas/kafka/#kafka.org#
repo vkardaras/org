@@ -1,0 +1,22 @@
+#+title: Kafka
+
+* Install Kafka
+
+Install Kafka using Docker or Binary download from here https://kafka.apache.org/community/downloads/
+
+*Update path*
+
+#+begin_src shell
+  # Add =kafka/bin= to the PATH variable in .bashrc
+  PATH="$PATH:/home/johnDoe/kafka/bin"
+
+  # check kafka cli commands
+  kafka-topics.sh
+#+end_src
+
+* Start kafka
+
+#+begin_src shell
+  # Generate a Cluster UUID
+  KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
+#+end_src
