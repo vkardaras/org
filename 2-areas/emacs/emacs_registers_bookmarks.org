@@ -1,0 +1,50 @@
+#+title: Emacs Registers/Bookmarks
+
+* Registers
+
+#+begin_src shell
+  # store a point to a register
+  C-x r SPC
+
+  # jump to register
+  C-x r j
+
+  # store text to register
+  C-x r s
+
+  # store text to register and cut it
+  C-u C-x r s
+
+  # insert text from register
+  C-x r i
+
+  # append text to register
+  C-x r +
+
+  # store window configuration to register
+  C-x r w
+
+  # store a file location to a register
+  (set-register ?l '(file . "/tmp/temp_file.txt"))
+
+#+end_src
+
+this is a test
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+* Bookmarks
+
+#+begin_src shell
+  # store a bookmark
+  C-x r m
+
+  # list bookmars
+  C-x r l
+
+  # jump to bookmark
+  C-x r b
+
+  # save bookmarks
+  M-x bookmark-save
+#+end_src

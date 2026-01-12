@@ -18,7 +18,7 @@ Define a function witn the =defun= keyword
 
 #+end_src
 
-** Define key bindins for the custom commands
+** Define key bindings for the custom commands
 
 #+begin_src elisp
 (define-key global-map (kbd "C-S-n") #'my-next-15-lines)
@@ -36,14 +36,122 @@ Define a function witn the =defun= keyword
 
 ** Conditional statements
 
+*** ~if~ statement
+
 #+begin_src elisp
-(if my-first-toggle
-    (message "It is true")
-  (message "It is not true"))
+  (if my-first-toggle
+      (message "It is true")
+    (message "It is not true"))
+#+end_src
+
+#+begin_src elisp
+  ;; Use `eval-expression' to evaluate this code in a file-visiting `test'
+  ;; buffer versus a buffer that does not visit any file.
+  (if buffer-file-name
+      (message "The path to this file is `%s'" buffer-file-name)
+    (message "Sorry mate, this buffer is not visiting a file"))
+#+end_src
+
+*** ~when~ and ~unless~
+
+#+begin_src elisp
+  ;; when statement
+  (when t
+    'this-is-true)
+
+  ;; unless statement
+  (unless nil
+    'this-is-false)
+#+end_src
+
+*** ~progn~
+
+Use it to perform a sequence of operations in an ~if~ expression
+
+#+begin_src elisp
+  (if t
+      (progn
+        (message "print this in minibuffger")
+        'this-was-true)
+    'this-was-false)
+#+end_src
+
+** Iteration
+
+*** cl-loop
+#+begin_src elisp
+  (cl-loop for i from 0 to 10
+           collect (* i i))
+#+end_src
+
+*** while
+#+begin_src elisp
+  (setq my/val 1)
+  (setq my/truth t)
+  (while my/truth
+    (if (= my/val 10)
+        (setq my/truth nil))
+    (message "%s" (setq my/val (1+ my/val))))
+#+end_src
+
+*** dotimes
+#+begin_src elisp
+  (setq total nil)
+  (dotimes (i 3)
+    (setq total (cons total i)))
+  total
+#+end_src
+
+*** dolist
+#+begin_src elisp
+  (setq total 0)
+  (dolist (i '(1 2 3))
+    (setq total (+ total i)))
+  total
+#+end_src
+
+** hooks
+
+A *hook* is a list of functions to run in a particular situation
+
+#+begin_src elisp
+  (defun my-fun ()
+    (interactive)
+    ;; does something
+    (run-hooks 'my-fun-hook))
+
+  (add-hook 'my-fun-hook (lambda () (insert "3")))
+  (add-hook 'my-fun-hook (lambda () (insert "4")))
+#+end_src
+
+One example usecase would be to change settings for a particular programming language
+
+#+begin_src elisp
+  (add-hook 'emacs-lisp-mode-hook (lambda ()
+                                    (indent-tabs-mode -1)))
+#+end_src
+
+** Temporary Variables ~let~
+
+When you want a function local variable people usually use ~let~
+
+#+begin_src elisp
+  (defun what-is-2+2-5 ()
+    (let (
+          (four (+ 2 2))
+          (five 5)
+          )
+      (- four five)))
+
+  ;; call this function
+  (what-is-2+2-5)
 #+end_src
 
 ** Evaluate elisp code
 =C-x C-e=
+
+*** Open mini-buffer to evaluate elisp code
+=M-:=
 
 *** Evaluate elisp code in the scratch buffer and return the value of the expression
 =C-j=
@@ -74,19 +182,23 @@ Define a function
 
 Create a key binding to call the function
 #+begin_src elisp
-;; from emacs 29 and above
-(keymap-set global-map "C-t" 'test-command)
+  ;; from emacs 29 and above
+  (keymap-set global-map "C-t" 'test-command)
+  (keymap-global-set "C-t" 'test-command)
+  ;; define keymap for specific mode e.g. `c programming language'
+  (keymap-set c-mode-map "C-t" 'test-command)
 
-;; before emacs 29
-(define-key global-map (kbd "C-t") 'test-command)
+  ;; before emacs 29
+  (define-key global-map (kbd "C-t") 'test-command)
+  (global-set-key (kbd "C-t") 'test-command)
 
-;; define keybind in a package
-(use-package PACKAGE
-  :bind ("C-t" . test-command))
-;; define the map explicitely
-(use-package PACKAGE
-  :bind (:map global-map
-              ("C-t" . test-command)))
+  ;; define keybind in a package
+  (use-package PACKAGE
+    :bind ("C-t" . test-command))
+  ;; define the map explicitely
+  (use-package PACKAGE
+    :bind (:map global-map
+                ("C-t" . test-command)))
 #+end_src
 
 ** Define and call a keymap

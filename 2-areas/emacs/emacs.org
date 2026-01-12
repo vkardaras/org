@@ -7,6 +7,7 @@
 * [[file:emacs org mode.org][emacs org mode]]
 * [[file:emacs_lisp.org][emacs lisp]]
 * [[file:emacs_search_replace.org][emacs search and replace]]
+* [[file:emacs_registers_bookmarks.org][emacs registers/bookmarks]]
 * [[file:emacs_macros.org][emacs macros]]
 * [[file:emacs_dired.org][emacs dired]]
 * [[file:emacs_spelling.org][emacs spelling]]
