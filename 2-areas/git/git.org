@@ -69,4 +69,11 @@ git reset --hard 8ad5d8c
 
 #+end_src
 
+** .gitignore
+#+begin_src sh
+  # ignore all but one file
+  *
+  !Bookmarks
+#+end_src
+
 ** [[file:github.org][github]]
