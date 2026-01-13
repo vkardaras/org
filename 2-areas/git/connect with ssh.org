@@ -1,5 +1,14 @@
 * connect with ssh
 
+Install openssh
+
+#+begin_src sh
+  # debian,ubuntu
+  apt-get install openssh-client
+
+  # arch
+  pacman -S openssh
+#+end_src
 Paste the text below, replacing the email used in the example with your
 GitHub email address. Press enter on promts
 
