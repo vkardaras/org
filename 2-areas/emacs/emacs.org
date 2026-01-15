@@ -12,3 +12,4 @@
 * [[file:emacs_dired.org][emacs dired]]
 * [[file:emacs_spelling.org][emacs spelling]]
 * [[file:emacs_ide.org][emacs IDE]]
+* [[file:emacs_tools.org][emacs tools]]
