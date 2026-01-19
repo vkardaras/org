@@ -1,0 +1,25 @@
+#+title: Linux fonts
+
+* Install fonts on Debian/Ubuntu
+
+#+begin_src sh
+  # Install necessary tools
+  sudo apt update && sudo apt install curl unzip fontconfig
+
+  # Download the latest font archive
+  curl -L https://download.jetbrains.com/fonts/JetBrainsMono-2.304.zip \
+  -o ~/Downloads/JetBrainsMono-2.304.zip
+
+  # Extract the fonts
+  unzip ~/Downloads/JetBrainsMono-2.304.zip -d ~/Downloads/JetBrainsMono-2.304
+
+  # Create a fonts directory (if it doesn't exist) and move the font files
+  mkdir -p ~/.local/share/fonts/jetbrains-mono
+  mv ~/Downloads/JetBrainsMono-2.304/fonts/ttf/*.ttf ~/.local/share/fonts/jetbrains-mono/
+
+  # Update the font cache
+  fc-cache -fv
+
+  # Clean up
+  rm -rf ~/Downloads/JetBrainsMono-2.304.zip ~/Downloads/JetBrainsMono-2.304
+#+end_src
