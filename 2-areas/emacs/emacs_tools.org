@@ -6,10 +6,8 @@ Prerequisites for installing vterm
 
 #+begin_src sh
   # for arch
-  sudo pacman -S base-devel
-  sudo pacman -S cmake
+  sudo pacman -S base-devel cmake
 
   # for Debian/Ubuntu
-  sudo apt install build-essential
-  sudo apt install cmake
+  sudo apt install build-essential cmake libvterm-dev
 #+end_src
