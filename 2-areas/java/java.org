@@ -13,6 +13,8 @@
 * Tools
 
 - [[file:sdkman.org][sdkman]]
+- [[file:gradle.org][gradle]]
+- [[file:apache_camel.org][apache camel]]
 
 * Application servers
 

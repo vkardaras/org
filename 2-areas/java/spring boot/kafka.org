@@ -1,0 +1,72 @@
+#+title: Kafka
+
+* Start the Kafka environment
+
+** Using downloaded files
+
+#+begin_src sh
+  # install manually
+  # download tar file
+  tar -xzf kafka_2.13-4.1.1.tgz
+  cd kafka_2.13-4.1.1
+
+  # Generate a Cluster UUID
+  KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
+
+  # Format Log Directories
+  bin/kafka-storage.sh format --standalone -t $KAFKA_CLUSTER_ID -c config/server.properties
+
+  # Start the Kafka Server
+  bin/kafka-server-start.sh config/server.properties
+#+end_src
+
+** Using JVM Based Apache Kafka Docker Image
+
+#+begin_src sh
+  # Get the Docker image:
+  docker pull apache/kafka:4.1.1
+
+  # Start the Kafka Docker container:
+  docker run -p 9092:9092 apache/kafka:4.1.1
+#+end_src
+
+** Using GraalVM Based Native Apache Kafka Docker Image
+
+#+begin_src sh
+  # Get the Docker image:
+  docker pull apache/kafka-native:4.1.1
+
+  # Start the Kafka Docker container
+  docker run -p 9092:9092 apache/kafka-native:4.1.1
+#+end_src
+
+* Create a Spring Boot project
+
+** Add the following dependencies
+
+ #+begin_src xml
+   <project>
+     <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-web</artifactId>
+     </dependency>
+     <dependency>
+       <groupId>org.springframework.kafka</groupId>
+       <artifactId>spring-kafka</artifactId>
+     </dependency>
+   </project>
+ #+end_src
+
+** Update =application.properties=
+
+#+begin_src conf
+  spring.kafka.consumer.bootstrap-servers: localhost:9092
+  spring.kafka.consumer.group-id: myGroup
+  spring.kafka.consumer.auto-offset-reset: earliest
+  spring.kafka.consumer.key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  spring.kafka.consumer.value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+  spring.kafka.producer.bootstrap-servers: localhost:9092
+  spring.kafka.producer.key-deserializer: org.apache.kafka.common.serialization.StringSerializer
+  spring.kafka.producer.value-deserializer: org.apache.kafka.common.serialization.StringSerializer
+#+end_src

@@ -1,0 +1,19 @@
+#+title: Apache Camel
+
+* Apache Camel and Spring Boot
+
+** Create demo application
+
+Project Metadata
+- Group: com.vasiliskardaras.microservices
+- Artifact: camel-microservice-a
+- Name: camel-microservice-a
+- Description: Demo project for Camel
+
+Dependencies
+- Spring Boot DevTools
+- Spring Web
+- Spring Boot Actuator
+- Apache Camel
+
+Create a second project with Artifact and Name =camel-microservice-b=

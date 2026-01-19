@@ -1,6 +1,6 @@
-* Git
+#+title: Git
 
-** basic git commands
+* basic git commands
 
 #+begin_src sh
 # add global name and email
@@ -25,7 +25,7 @@ git remote -v
 # origin  https://github.com/user/repo2.git (push)
 #+end_src
 
-** Resetting and Reverting
+* Resetting and Reverting
 
 #+begin_src sh
 
@@ -38,7 +38,7 @@ git reset --soft HEAD~1
 # reset a commit and remove the files
 git reset --hard HEAD~1
 #+end_src
-** Stashing
+* Stashing
 
 #+begin_src sh
 
@@ -57,7 +57,7 @@ git stash list
 git stash show stash@{1}
 
 #+end_src
-** Reflog
+* Reflog
 
 #+begin_src sh
 
@@ -69,11 +69,13 @@ git reset --hard 8ad5d8c
 
 #+end_src
 
-** .gitignore
+* .gitignore
 #+begin_src sh
   # ignore all but one file
   *
   !Bookmarks
 #+end_src
 
-** [[file:github.org][github]]
+* [[file:git_workflow_patterns.org][Git Workflow Patterns]]
+
+* [[file:github.org][github]]

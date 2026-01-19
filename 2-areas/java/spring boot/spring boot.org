@@ -18,3 +18,4 @@
 ** [[file:deployment.org][Deployment]]
 ** [[file:logging.org][Logging]]
 ** [[file:spring_aop.org][Spring AOP]]
+** [[file:kafka.org][kafka]]

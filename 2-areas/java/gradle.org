@@ -1,0 +1,23 @@
+#+title: gradle
+
+* Install on linux
+
+** install [[file:sdkman.org][sdkman]]
+** install gradle
+
+Move to https://sdkman.io/sdks/gradle/ to see installation instructions
+
+#+begin_src sh
+  sdk install gradle
+#+end_src
+
+* Example file
+
+#+begin_src groovy
+  task 'hello' {
+  doLast {
+  println "Hello Gradle"
+}
+}
+
+#+end_src

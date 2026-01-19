@@ -1,7 +1,16 @@
-* sdkman
+#+title: sdkman
+
+* Install sdkman
 
 Paste and run the following in a terminal
 
 #+begin_src sh
-curl -s "https://get.sdkman.io" | bash
+  # download sdkman
+  curl -s "https://get.sdkman.io" | bash
+
+  # add to path
+  source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+  # ensure that installation succeeded
+  sdk version
 #+end_src

@@ -1,0 +1,130 @@
+#+title: Git Workflow Patterns
+
+* Trunk Based Development (Centralized Workflow)
+
+** Key Characteristics
+- Single branch (main)
+- Commit directly to main: Short lived branches (<24 hours) are okay
+- Main is always production ready
+- CI/CD and feature flags are a must
+
+** Pros
+- Very simple workflow
+- Codebase is always production ready
+- Production matches latest commit
+- Improved engineer experience
+- Limited merge conflicts
+
+** Cons
+- Robust CI/CD pipeline is a must
+- Restrictively low number of contributors
+- Need for feature flags
+- Senior engineers are needed
+- Individual work becomes more difficult
+- Limited traceability
+  
+* Git Flow
+
+** Overview
+- Good for software with specific releases
+- Established process for hotfixes
+- Multiple long living branches
+  - main
+  - develop
+- Short living branches
+  - feature
+  - release
+  - hotfix
+
+** Pros
+- Great for specific testing and compliance requirements
+- Well suited for large teams
+- Improved traceability between features and branches
+- Support managing multiple versions
+
+** Cons
+- High learning curve
+- Very complex process
+- Difficult and lengthy path to production
+- Dedicated release manager may be needed
+- Merge conflicts are frequent and complex
+
+** Git Flow Extension Versions
+- Git Flow AVH is the current version
+- github.com/petervanderdoes/gitflow-avh
+- Included in Git for Windows
+- Git Flow (original)
+- github.com/nvie/gitflow - old (2012)
+
+#+begin_src sh
+  # create the appropriate branches and structure in an existing git repository
+  git flow init
+
+  ## features
+  # create a new feature branch off of develop
+  git flow feature start <feature>
+
+  # push the feature to remote server (origin)
+  git flow feature publish <feature>
+
+  # merge feature branch to develop locally (not good for PR workflows)
+  git flow feature finish <finish>
+
+  ## releases
+  # create a new release brance off of the develop
+  git flow release start <release>
+
+  # push the release to remote server (origin)
+  git flow release publish <release>
+
+  # merge release branch to develop locally (not good for PR workflows)
+  git flow release finish <release>
+
+  ## hotfixes
+  # create a new hotfix branch off of main
+  git flow hotfix start <version>
+
+  # merge hotfix branch to main locally (not good for PR workflows)
+  git flow hotfix finish <version>
+#+end_src
+
+*The Git Flow extension is completely optional for using Git Flow*
+
+** Git Flow with the CLI
+
+#+begin_src sh
+  # check git flow version
+  git flow version
+
+  # create a feature branch (from develop)
+  git flow feature start promo-end
+  > feature/promo-end
+
+  # create another feature branch
+  git flow feature start spring-promo
+  > feature/spring-promo
+
+  # switch to the previous branch you were on
+  git checkout -
+  > feature/promo-end
+
+  # push the feature to remote server
+  git flow feature publish spring-promo
+
+  # create a hotfix branch
+  git flow hotfix start 1.1.1
+  # commit the change
+  git commit -m "removing google+ icon"
+  # push fix to origin
+  git push --set-upstream origin hotfix/1.1.1
+#+end_src
+
+* Feature Branching
+
+** Key Characteristics
+
+- Long living main branch
+- Short lived feature branches
+- Supports concurrent feature development
+- main is always production ready
+- CI/CD enables main to match production
