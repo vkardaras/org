@@ -14,3 +14,27 @@ Paste and run the following in a terminal
   # ensure that installation succeeded
   sdk version
 #+end_src
+
+** Install for fish shell
+
+#+begin_src sh
+  # Install Fisher (Fish plugin manager)
+  curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+
+  # Install the SDKMAN! for Fish plugin
+  fisher install reitzig/sdkman-for-fish@v2.1.0
+
+  # Configure custom SDKMAN! directory (if needed)
+  set -g __sdkman_custom_dir /home/user/.sdkman/libexec
+#+end_src
+
+* Sdkman common commands
+
+#+begin_src sh
+  # List available Java versions
+  sdk list java
+  
+  sdk install java 17.0.0-tem – Install a specific Java version.
+  sdk use java 17.0.0-tem – Use a version for the current session.
+  sdk default java 17.0.0-tem – Set a default version globally. 
+#+end_src
