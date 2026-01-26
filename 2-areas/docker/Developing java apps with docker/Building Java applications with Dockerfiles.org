@@ -1,167 +1,167 @@
-* Building Java applications with Dockerfiles
+#+title: Building Java applications with Dockerfiles
 
-** Using a Dockerfile
+* Using a Dockerfile
 
-*** Create a Dockerfile for a .jar application.
+** Create a Dockerfile for a .jar application.
 
 #+begin_src shell
-FROM eclipse-temurin:17
-RUN mkdir /app
-\#RUN ["executable", "param1", "param2"]
-WORKDIR /app
-COPY api.jar app.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+  FROM eclipse-temurin:17
+  RUN mkdir /app
+  \#RUN ["executable", "param1", "param2"]
+  WORKDIR /app
+  COPY api.jar app.jar
+  EXPOSE 8080
+  ENTRYPOINT ["java", "-jar", "app.jar"]
 #+end_src
 
 Build the image
 
 #+begin_src shell
-$ docker build -f jar.Dockerfile -t my-api .
+  $ docker build -f jar.Dockerfile -t my-api .
 #+end_src
 
 Create and run a container
 
 #+begin_src shell
-$ docker run -p 9000:8080 -it my-api
+  $ docker run -p 9000:8080 -it my-api
 #+end_src
 
-*** Create a Dockerfile for a .war application
+** Create a Dockerfile for a .war application
 
 #+begin_src shell
-FROM tomcat:10
-COPY web.war ${CATALINA_HOME}/webapps/ROOT.war
-EXPOSE 8080
-ENTRYPOINT ["catalina.sh", "run"]
+  FROM tomcat:10
+  COPY web.war ${CATALINA_HOME}/webapps/ROOT.war
+  EXPOSE 8080
+  ENTRYPOINT ["catalina.sh", "run"]
 #+end_src
 
 Build the image
 
 #+begin_src shell
-$ docker build -f web.Dockerfile -t my-web-app .
+  $ docker build -f web.Dockerfile -t my-web-app .
 #+end_src
 
 Create and run a container
 
 #+begin_src shell
-$ docker run -p 9001:8080 -it --rm my-web-app
+  $ docker run -p 9001:8080 -it --rm my-web-app
 #+end_src
 
-** Using Maven and Gradle Docker images
+* Using Maven and Gradle Docker images
 
-*** Create a Dockerfile for a Maven application.
+** Create a Dockerfile for a Maven application.
 
 #+begin_src shell
-FROM maven:3.9-eclipse-temurin-17
-WORKDIR /app
-COPY pom.xml .
-RUN mvn dependency:resolve
-COPY src src
-RUN mvn package
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "target/api.jar"]
+  FROM maven:3.9-eclipse-temurin-17
+  WORKDIR /app
+  COPY pom.xml .
+  RUN mvn dependency:resolve
+  COPY src src
+  RUN mvn package
+  EXPOSE 8080
+  ENTRYPOINT ["java", "-jar", "target/api.jar"]
 #+end_src
 
 Build the image
 
 #+begin_src shell
-$ docker build -f maven.Dockerfile -t my-api-maven .
+  $ docker build -f maven.Dockerfile -t my-api-maven .
 #+end_src
 
 Create and run a container
 
 #+begin_src shell
-$ docker run -p 9010:8080 -it --rm my-api-maven
+  $ docker run -p 9010:8080 -it --rm my-api-maven
 #+end_src
 
-*** Create a Dockerfile for a Gradle application.
+** Create a Dockerfile for a Gradle application.
 
 #+begin_src shell
-FROM gradle:8.0-jdk17
-WORKDIR /app
-RUN chown -R gradle:gradle /app
-USER gradle
-COPY build.gradle .
-COPY src src
-RUN gradle build
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "build/libs/api.jar"]
+  FROM gradle:8.0-jdk17
+  WORKDIR /app
+  RUN chown -R gradle:gradle /app
+  USER gradle
+  COPY build.gradle .
+  COPY src src
+  RUN gradle build
+  EXPOSE 8080
+  ENTRYPOINT ["java", "-jar", "build/libs/api.jar"]
 #+end_src
 
 Build the image
 
 #+begin_src shell
-$ docker build -f gradle.Dockerfile -t my-api-gradle .
+  $ docker build -f gradle.Dockerfile -t my-api-gradle .
 #+end_src
 
 Create and run a container
 
 #+begin_src shell
-$ docker run -p 9011:8080 -it --rm my-api-gradle .
+  $ docker run -p 9011:8080 -it --rm my-api-gradle .
 #+end_src
 
 Check the volume for the gradle user home directory which is removed
 when the container is stopped
 
 #+begin_src shell
-$ docker volume ls
+  $ docker volume ls
 #+end_src
 
-*** Run the container and specify the volume.
+** Run the container and specify the volume.
 
 Run a maven container
 
 #+begin_src shell
-$ docker run --rm -it \
-> -v $(pwd):/app \
-> -v $(HOME)/.m2:/root/.m2 \ 
-> -w /app \
-> maven:3.9-eclipse-temurin-17 \
-> mvn clean package
+  $ docker run --rm -it \
+  > -v $(pwd):/app \
+  > -v $(HOME)/.m2:/root/.m2 \ 
+  > -w /app \
+  > maven:3.9-eclipse-temurin-17 \
+  > mvn clean package
 #+end_src
 
 Run a grade container
 
 #+begin_src shell
-$ docker run --rm -it \
-> -v $(pwd):/app \
-> -v $(HOME)/.gradle:/home/gradle/.gradle \ 
-> -w /app \
-> gradle:8.0-jdk17 \
-> gradle build
+  $ docker run --rm -it \
+  > -v $(pwd):/app \
+  > -v $(HOME)/.gradle:/home/gradle/.gradle \ 
+  > -w /app \
+  > gradle:8.0-jdk17 \
+  > gradle build
 #+end_src
 
-** Using multi-stage builds
+* Using multi-stage builds
 
 Dockerfile for Maven
 
 #+begin_src shell
-FROM maven:3.9-eclipse-temurin-17 as build
-WORKDIR /app
-COPY pom.xml .
-RUN mvn dependency:resolve
-COPY src src
-RUN mvn package
+  FROM maven:3.9-eclipse-temurin-17 as build
+  WORKDIR /app
+  COPY pom.xml .
+  RUN mvn dependency:resolve
+  COPY src src
+  RUN mvn package
 
-FROM tomcat:10
-COPY --from=build /app/target/web.war ${CATALINA_HOME}/webapps/ROOT.war
-EXPOSE 8080
-ENTRYPOINT ["catalina.sh", "run"]
+  FROM tomcat:10
+  COPY --from=build /app/target/web.war ${CATALINA_HOME}/webapps/ROOT.war
+  EXPOSE 8080
+  ENTRYPOINT ["catalina.sh", "run"]
 #+end_src
 
 Dockerfile for Gradle
 
 #+begin_src shell
-FROM gradle:8.0-jdk17 as build
-WORKDIR /app
-RUN chown -R gradle:gradle /app
-USER gradle
-COPY build.gradle .
-COPY src src
-RUN gradle build
+  FROM gradle:8.0-jdk17 as build
+  WORKDIR /app
+  RUN chown -R gradle:gradle /app
+  USER gradle
+  COPY build.gradle .
+  COPY src src
+  RUN gradle build
 
-FROM tomcat:10
-COPY --from=build /app/build/libs/web.war ${CATALINA_HOME}/webapps/ROOT.war
-EXPOSE 8080
-ENTRYPOINT ["catalina.sh", "run"]
+  FROM tomcat:10
+  COPY --from=build /app/build/libs/web.war ${CATALINA_HOME}/webapps/ROOT.war
+  EXPOSE 8080
+  ENTRYPOINT ["catalina.sh", "run"]
 #+end_src

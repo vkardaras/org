@@ -1,3 +1,0 @@
-* Building and Running Your First Docker App
-
-[[file:Creating an Application Image.org][Creating an Application Image]]

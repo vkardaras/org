@@ -1,4 +1,4 @@
-* Running Multi-container Java applications with docker compose
+#+title: Running Multi-container Java applications with docker compose
 
 Run a docker container with postgres in command line
 
@@ -11,9 +11,9 @@ $ docker run -it --rm \
 > postgres
 #+end_src
 
-** Setting up a Docker network
+* Setting up a Docker network
 
-*** Network Drivers
+** Network Drivers
 
 - Bridge
   - The default network driver
@@ -29,7 +29,7 @@ $ docker run -it --rm \
 - None
   - Disables all networking functions in a container
 
-*** Docker Network Command Options
+** Docker Network Command Options
 
 - create - Creates a network
 - ls - Lists networks
@@ -39,54 +39,54 @@ $ docker run -it --rm \
 - rm - Removes one or more networks
 - prune - Removes unused networks
 
-** Using Docker Compose
+* Using Docker Compose
 
-*** Docker Compose configuration
+** Docker Compose configuration
 
 #+begin_src shell
-version: '3.9' # Optional
-services:
-  db:
-    image: postgres
-    ports:
-      - 5432:5432
-    environment
+  version: '3.9' # Optional
+  services:
+    db:
+      image: postgres
+      ports:
+        - 5432:5432
+      environment
       - POSTGRES_PASSSWORD=password
 #+end_src
 
-*** Docker Compose configuration (build)
+** Docker Compose configuration (build)
 
 #+begin_src shell
-version: '3.9' # Optional
-services:
-  db:
-    image: postgres
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 5432:5432
-    environment
+  version: '3.9' # Optional
+  services:
+    db:
+      image: postgres
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - 5432:5432
+      environment
       - POSTGRES_PASSSWORD=password
 #+end_src
 
-*** Docker Compose configuration (depends_on)
+** Docker Compose configuration (depends_on)
 
 #+begin_src shell
-version: '3.9' # Optional
-services:
-  db:
-    image: postgres
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 5432:5432
-    environment
-      - POSTGRES_PASSSWORD=password
-  app:
-    image: my-app
-    depends_on: 
+  version: '3.9' # Optional
+  services:
+    db:
+      image: postgres
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - 5432:5432
+      environment
+        - POSTGRES_PASSSWORD=password
+    app:
+      image: my-app
+      depends_on: 
       - db
 #+end_src
 
@@ -94,21 +94,21 @@ Check if the dependent service is completely initialized so the first
 one can start without errors
 
 #+begin_src shell
-version: '3.9' # Optional
-services:
-  db:
-    image: postgres
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 5432:5432
-    environment
-      - POSTGRES_PASSSWORD=password
-  app:
-    image: my-app
-    depends_on: 
-      db:
+  version: '3.9' # Optional
+  services:
+    db:
+      image: postgres
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - 5432:5432
+      environment
+        - POSTGRES_PASSSWORD=password
+    app:
+      image: my-app
+      depends_on: 
+        db:
         condition: service_healthy
 #+end_src
 
@@ -118,48 +118,48 @@ condition values
 - service_started
 - service_completed_successfully
 
-*** Docker Compose configuration (optional sections)
+** Docker Compose configuration (optional sections)
 
 #+begin_src shell
-version: '3.9' # Optional
-services:
-  db:
-    image: postgres
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 5432:5432
-    environment
-      - POSTGRES_PASSSWORD=password
+  version: '3.9' # Optional
+  services:
+    db:
+      image: postgres
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - 5432:5432
+      environment
+        - POSTGRES_PASSSWORD=password
 
-volumes:
-networks:  
+  volumes:
+  networks:  
 #+end_src
 
-*** Docker Compose configuration (volumes)
+** Docker Compose configuration (volumes)
 
 #+begin_src shell
-version: '3.9' # Optional
-services:
-  db:
-    image: postgres
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 5432:5432
-    environment
-      - POSTGRES_PASSSWORD=password
-    volumes
-      - ./db:/var/lib/postgresql/data
-      - data_volume:/my-dir
+  version: '3.9' # Optional
+  services:
+    db:
+      image: postgres
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - 5432:5432
+      environment
+        - POSTGRES_PASSSWORD=password
+      volumes
+        - ./db:/var/lib/postgresql/data
+        - data_volume:/my-dir
 
-volumes:
+  volumes:
   data_volume: 
 #+end_src
 
-*** Docker Compose configuration (networks)
+** Docker Compose configuration (networks)
 
 By default compose a bridged network for all services defined in the
 file
@@ -167,92 +167,92 @@ file
 1. Specify the name of an existing network to be used
 
 #+begin_src shell
-version: '3.9' # Optional
-services:
-  db:
-    image: postgres
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 5432:5432
-    environment
-      - POSTGRES_PASSSWORD=password
-    volumes
-      - ./db:/var/lib/postgresql/data
+  version: '3.9' # Optional
+  services:
+    db:
+      image: postgres
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - 5432:5432
+      environment
+        - POSTGRES_PASSSWORD=password
+      volumes
+        - ./db:/var/lib/postgresql/data
 
-networks:
-  default: 
-    external: 
+  networks:
+    default: 
+      external: 
       name: existing_network
 #+end_src
 
 1. Create a new network in the file
 
 #+begin_src shell
-version: '3.9' # Optional
-services:
-  db:
-    image: postgres
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 5432:5432
-    environment
-      - POSTGRES_PASSSWORD=password
-    volumes
-      - ./db:/var/lib/postgresql/data
-    networks
-      - my_network
+  version: '3.9' # Optional
+  services:
+    db:
+      image: postgres
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - 5432:5432
+      environment
+        - POSTGRES_PASSSWORD=password
+      volumes
+        - ./db:/var/lib/postgresql/data
+      networks
+        - my_network
 
-networks:
-  my_network:
+  networks:
+    my_network:
 #+end_src
 
-*** Demo
+** Demo
 
 #+begin_src shell
-networks:
-  web-db-compose:
+  networks:
+    web-db-compose:
 
-services:
-  web-app:
-    image: web-app-db
-    build:
-      context: .
-      dockerfile: web.Dockerfile
-    ports:
-      - 8080:8080
-    networks
-      - web-db-compose
-    depends_on: 
-      db:
-        condition: service_healthy
-  db:
-    image: postgres
-    environment
-      - POSTGRES_PASSSWORD=password
-      - POSTGRES_DB=bookdb
-    volumes
-      - ./db:/var/lib/postgresql/data
-    networks
-      - web-db-compose
-    healthcheck
-      test: ["CMD-SHELL". "pg_isready -U postgres -d bookdb"]
-      interval: 15s
-      retries: 5
-      start_period: 10s
+  services:
+    web-app:
+      image: web-app-db
+      build:
+        context: .
+        dockerfile: web.Dockerfile
+      ports:
+        - 8080:8080
+      networks
+        - web-db-compose
+      depends_on: 
+        db:
+          condition: service_healthy
+    db:
+      image: postgres
+      environment
+        - POSTGRES_PASSSWORD=password
+        - POSTGRES_DB=bookdb
+      volumes
+        - ./db:/var/lib/postgresql/data
+      networks
+        - web-db-compose
+      healthcheck
+        test: ["CMD-SHELL". "pg_isready -U postgres -d bookdb"]
+        interval: 15s
+        retries: 5
+        start_period: 10s
 #+end_src
 
-** Managing Docker Compose services
+* Managing Docker Compose services
 
 Commands to work with Docker Compose
 
 - docker-compose [subcommand] # version 1
 - docker compose [subcommand] # version 2
 
-*** Important Docker Compose commands
+** Important Docker Compose commands
 
 - build - Builds services using a Dockerfile
 - config - Validates a Compose file
@@ -268,53 +268,53 @@ Commands to work with Docker Compose
 Validate a docker-compose file
 
 #+begin_src shell
-$ docker compose config
+  $ docker compose config
 #+end_src
 
 Validate a docker-compose file and silence the output
 
 #+begin_src shell
-$ docker compose config -q
+  $ docker compose config -q
 #+end_src
 
 Build the images defined in the file
 
 #+begin_src shell
-$ docker compose build
+  $ docker compose build
 #+end_src
 
 Create and start
 
 #+begin_src shell
-$ docker compose up
+  $ docker compose up
 #+end_src
 
 Build the images before starting the containers
 
 #+begin_src shell
-$ docker compose up --build
+  $ docker compose up --build
 #+end_src
 
 Create and run containers in the background
 
 #+begin_src shell
-$ docker compose up -d
+  $ docker compose up -d
 #+end_src
 
 Start the containers manually
 
 #+begin_src shell
-$ docker compose start
+  $ docker compose start
 #+end_src
 
 Stop and remove the containers and network
 
 #+begin_src shell
-$ docker compose down
+  $ docker compose down
 #+end_src
 
 Stop and remove the containers and network, also remove the images
 
 #+begin_src shell
-$ docker compose down --rmi all
+  $ docker compose down --rmi all
 #+end_src

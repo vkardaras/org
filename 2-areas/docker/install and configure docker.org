@@ -1,25 +1,25 @@
-* install and configure docker
+#+title: install and configure docker
 
-** Install docker
+* Install docker
 
 #+begin_src sh
-sudo pacman -S docker
+  sudo pacman -S docker
 #+end_src
 
-** Start docker deamon
+* Start docker deamon
 
 #+begin_src sh
-sudo systemctl start docker.service
+  sudo systemctl start docker.service
 #+end_src
 
-*** Start automatically on boot
+** Start automatically on boot
 
 #+begin_src sh
-sudo systemctl enable docker.service
+  sudo systemctl enable docker.service
 #+end_src
 
-** Add user to docker group
+* Add user to docker group
 
 #+begin_src sh
-sudo usermod -aG docker $USER
+  sudo usermod -aG docker $USER
 #+end_src

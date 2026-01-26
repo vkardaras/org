@@ -1,0 +1,51 @@
+#+title: Working with Docker Swarm
+
+Get into node1
+
+#+begin_src shell
+multipass shell node1
+#+end_src
+
+Create a service with 3 replicas
+
+#+begin_src shell
+docker service create --name web -p 8080:8080 --replicas 3 vkardaras/gsd:ctr2024
+#+end_src
+
+List services
+
+#+begin_src shell
+docker service ls
+#+end_src
+
+Check replicas of services
+
+#+begin_src shell
+docker service ps web
+#+end_src
+
+Scale replicas to a certain number
+
+#+begin_src shell
+docker service scale web=10
+#+end_src
+
+Remove containers
+
+#+begin_src shell
+docker container rm <name1> <name2>
+#+end_src
+
+Remove a service
+
+#+begin_src shell
+docker service rm web
+#+end_src
+
+Remove all services
+
+#+begin_src shell
+docker service rm $(docker service ls -q)
+#+end_src
+
+Multi-container Apps with Docker Swarm

@@ -1,13 +1,13 @@
-* Developing java apps with docker
+#+title: Developing java apps with docker
 
-** [[file:Getting started with docker for java.org][Getting started with docker for java]]
+* [[file:Getting started with docker for java.org][Getting started with docker for java]]
 
-** [[file:Building Java applications with Dockerfiles.org][Building Java applications with Dockerfiles]]
+* [[file:Building Java applications with Dockerfiles.org][Building Java applications with Dockerfiles]]
 
-** [[file:Building Java applications with build tools and plugins.org][Building Java applications with build tools and plugins]]
+* [[file:Building Java applications with build tools and plugins.org][Building Java applications with build tools and plugins]]
 
-** [[file:Running Multi-container Java applications with docker compose.org][Running Multi-container Java applications with docker compose]]
+* [[file:Running Multi-container Java applications with docker compose.org][Running Multi-container Java applications with docker compose]]
 
-** [[file:Configuring Java applications in containers.org][Configuring Java applications in containers]]
+* [[file:Configuring Java applications in containers.org][Configuring Java applications in containers]]
 
-** [[file:Managing application logs with Docker.org][Managing application logs with Docker]]
+* [[file:Managing application logs with Docker.org][Managing application logs with Docker]]

@@ -1,0 +1,16 @@
+#+title: JMeter
+
+* Installation
+
+#+begin_src sh
+  # debian/ubuntu
+  sudo apt install jmeter
+
+  # arch linux
+  yay -S jmeter
+#+end_src
+
+* Configure
+
+Change the heap memory allocation
+
