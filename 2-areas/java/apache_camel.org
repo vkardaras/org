@@ -17,3 +17,102 @@ Dependencies
 - Apache Camel
 
 Create a second project with Artifact and Name =camel-microservice-b=
+
+** Create a first =route=
+
+Create the file =/routes/a/MyFirstTimerRouter.java=
+
+#+begin_src java
+  @Component
+  public class MyFirstTimerRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          // timer
+          // transformation
+          // log
+          // Exchange[ExchangePattern: InOnly, BodyType: null, Body: [Body is null]]
+          from("timer:first-timer") // null
+                  .to("log:first-timer"); //database
+      }
+  }
+#+end_src
+
+** Add a transformation
+
+#+begin_src java
+  @Component
+  public class MyFirstTimerRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          // timer
+          // transformation
+          // log
+          // Exchange[ExchangePattern: InOnly, BodyType: String, Body: My Constant Message]
+          from("timer:first-timer") // null
+                  .transform().constant("My Constant Message")
+                  .to("log:first-timer"); //database
+      }
+  }
+#+end_src
+
+** Create dynamic transformations using Beans
+
+#+begin_src java
+  @Component
+  public class MyFirstTimerRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          from("timer:first-timer") // null
+                  .bean("getCurrentTimeBean")
+                  .to("log:first-timer"); //database
+      }
+  }
+
+  @Component
+  class GetCurrentTimeBean {
+      public String getCurrentTime() {
+          return "Time now is " + LocalDateTime.now();
+      }
+  }
+#+end_src
+
+** Type safety for Bean transformation using injection
+
+#+begin_src java
+  @Component
+  public class MyFirstTimerRouter extends RouteBuilder {
+
+      @Autowired
+      private GetCurrentTimeBean getCurrentTimeBean;
+      
+      @Override
+      public void configure() throws Exception {
+          from("timer:first-timer") // null
+                  .bean(getCurrentTimeBean)
+                  .to("log:first-timer"); //database
+      }
+  }
+#+end_src
+
+Specify the method of a Bean if there are more than one methods in it
+
+#+begin_src java
+  @Component
+  public class MyFirstTimerRouter extends RouteBuilder {
+
+      @Autowired
+      private GetCurrentTimeBean getCurrentTimeBean;
+      
+      @Override
+      public void configure() throws Exception {
+          from("timer:first-timer") // null
+                  .bean(getCurrentTimeBean, "getCurrentTime")
+                  .to("log:first-timer"); //database
+      }
+  }
+#+end_src
+
+** Types of operations in camel
+
+- Processing: Does not make a change at the body of the message
+- Transformation: Makes a change at the body of the message
