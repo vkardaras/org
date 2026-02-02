@@ -10,3 +10,4 @@
 ** [[file:starship.org][starship]]
 ** [[file:fzf.org][fzf]]
 ** [[file:lazygit.org][lazygit]]
+** [[file:wezterm.org][wezterm]]

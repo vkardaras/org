@@ -32,10 +32,10 @@ Create the file =/routes/a/MyFirstTimerRouter.java=
           // log
           // Exchange[ExchangePattern: InOnly, BodyType: null, Body: [Body is null]]
           from("timer:first-timer") // null
-                  .to("log:first-timer"); //database
+              .to("log:first-timer"); //database
       }
   }
-#+end_src
+  #+end_src
 
 ** Add a transformation
 
@@ -49,8 +49,8 @@ Create the file =/routes/a/MyFirstTimerRouter.java=
           // log
           // Exchange[ExchangePattern: InOnly, BodyType: String, Body: My Constant Message]
           from("timer:first-timer") // null
-                  .transform().constant("My Constant Message")
-                  .to("log:first-timer"); //database
+              .transform().constant("My Constant Message")
+              .to("log:first-timer"); //database
       }
   }
 #+end_src
@@ -63,8 +63,8 @@ Create the file =/routes/a/MyFirstTimerRouter.java=
       @Override
       public void configure() throws Exception {
           from("timer:first-timer") // null
-                  .bean("getCurrentTimeBean")
-                  .to("log:first-timer"); //database
+              .bean("getCurrentTimeBean")
+              .to("log:first-timer"); //database
       }
   }
 
@@ -87,9 +87,9 @@ Create the file =/routes/a/MyFirstTimerRouter.java=
       
       @Override
       public void configure() throws Exception {
-          from("timer:first-timer") // null
-                  .bean(getCurrentTimeBean)
-                  .to("log:first-timer"); //database
+          from("timer:first-timer")
+              .bean(getCurrentTimeBean)
+              .to("log:first-timer");
       }
   }
 #+end_src
@@ -105,9 +105,9 @@ Specify the method of a Bean if there are more than one methods in it
       
       @Override
       public void configure() throws Exception {
-          from("timer:first-timer") // null
-                  .bean(getCurrentTimeBean, "getCurrentTime")
-                  .to("log:first-timer"); //database
+          from("timer:first-timer")
+              .bean(getCurrentTimeBean, "getCurrentTime")
+              .to("log:first-timer");
       }
   }
 #+end_src
@@ -116,3 +116,290 @@ Specify the method of a Bean if there are more than one methods in it
 
 - Processing: Does not make a change at the body of the message
 - Transformation: Makes a change at the body of the message
+
+*** Log the body of the message after transformation
+
+#+begin_src java
+  @Component
+  public class MyFirstTimerRouter extends RouteBuilder {
+
+      @Autowired
+      private GetCurrentTimeBean getCurrentTimeBean;
+
+      @Override
+      public void configure() throws Exception {
+          from("timer:first-timer") // null
+              .log("${body}") // null
+              .transform().constant("My Constant Message")
+              .log("${body}") // My Constant Message
+              .bean(getCurrentTimeBean)
+              .log("${body}") // Time now is 2026-02-01T00:13:11.583366222
+              .to("log:first-timer");
+      }
+  }
+#+end_src
+
+*** Process the body of the message without any transformation
+
+#+begin_src java
+  @Component
+  public class MyFirstTimerRouter extends RouteBuilder {
+
+      @Autowired
+      private GetCurrentTimeBean getCurrentTimeBean;
+      @Autowired
+      private SimpleLoggingProcessingComponent loggingComponent;
+
+      @Override
+      public void configure() throws Exception {
+          from("timer:first-timer") // null
+                  .log("${body}") // null
+                  .bean(getCurrentTimeBean)
+                  .log("${body}") // Time now is 2026-02-01T00:13:11.583366222
+                  .bean(loggingComponent)
+                  .log("${body}") // Time now is 2026-02-01T00:13:11.583366222
+                  .to("log:first-timer");
+      }
+  }
+
+  @Component
+  class SimpleLoggingProcessingComponent {
+
+      private Logger logger = LoggerFactory.getLogger(SimpleLoggingProcessingComponent.class);
+
+      public void process(String message) {
+          logger.info("SimpleLoggingProcessingComponent {}", message);
+      }
+  }
+#+end_src
+
+*** Processing using Camel Processors in Camel Routes
+
+#+begin_src java
+    @Component
+  public class MyFirstTimerRouter extends RouteBuilder {
+
+      @Override
+      public void configure() throws Exception {
+          from("timer:first-timer") // null
+                  .log("${body}") // null
+                  .transform().constant("My Constant Message")
+                  .process(new SimpleLoggingProcessor())
+                  .to("log:first-timer"); //database
+      }
+  }
+
+  class SimpleLoggingProcessor implements Processor {
+
+      private Logger logger = LoggerFactory.getLogger(SimpleLoggingProcessor.class);
+
+      @Override
+      public void process(Exchange exchange) throws Exception {
+          logger.info("SimpleLoggingProcessor {}", exchange.getMessage().getBody());
+      }
+  }
+#+end_src
+
+** Creating a Camel Route to play with Files
+
+Create the file =/routes/b/MyFileRouter.java=
+
+#+begin_src java
+  @Component
+  public class MyFileRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          from("file:files/input")
+                  .log("${body}")
+                  .to("file:files/output");
+      }
+  }
+#+end_src
+
+The program will do the following
+
+- Take each file in =folders/input= and put it in =folders/output=
+- Print the contents of each file
+
+* Integrate Apache Camel with ActiveMQ and Kafka
+
+** Launch ActiveMQ as docker container
+
+#+begin_src sh
+  # download and run ActiveMQ
+  docker run -p 61616:61616 -p 8161:8161 rmohr/activemq
+
+  # select Manage ActiveMQ broker (admin/admin)
+#+end_src
+
+** Create Sender Camel Route for ActiveMQ in Microservice A
+
+Add the dependency for ActiveMQ in =pom.xml=
+#+begin_src xml
+  <dependency>
+  	<groupId>org.apache.camel.springboot</groupId>
+  	<artifactId>camel-activemq-starter</artifactId>
+  	<version>${camel.version}</version>
+  </dependency>
+#+end_src
+
+Create the file =/routes/c/ActiveMqSenderRouter.java=
+#+begin_src java
+  @Component
+  public class ActiveMqSenderRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          //timer
+          from("timer:active-mq-timer?period=10000")
+              .transform().constant("My message fo ActiveMQ")
+              .log("${body}")
+              .to("activemq:my-activemq-queue");
+      }
+  }
+#+end_src
+
+Update =application.properties= file
+#+begin_src sh
+  # add the following to 'application.properties'
+  spring.activemq.broker-url=tcp://localhost:61616
+#+end_src
+
+Go to the =Queues= at the ActiveMQ board and check the created queue
+
+** Create Receiver Camel Route for ActiveMQ in Microservice B
+
+Add the dependency for ActiveMQ in =pom.xml=
+#+begin_src xml
+  <dependency>
+  	<groupId>org.apache.camel.springboot</groupId>
+  	<artifactId>camel-activemq-starter</artifactId>
+  	<version>${camel.version}</version>
+  </dependency>
+#+end_src
+
+Update =application.properties= file
+#+begin_src sh
+  # change the server port
+  server.port=8000
+  
+  # add the following to 'application.properties'
+  spring.activemq.broker-url=tcp://localhost:61616
+#+end_src
+
+Create the file =routes/ActiveMqReceiverRouter.java=
+#+begin_src java
+  @Component
+  public class ActiveMqReceiverRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          from("activemq:my-activemq-queue")
+              .to("log:received-message-from-active-mq");
+      }
+  }
+#+end_src
+
+** Unmarshalling JSON Message to Java Bean in ActiveMQ Camel Route
+
+*** Send the files added to the files folder in microservice a to the queue
+
+#+begin_src java
+  @Component
+  public class ActiveMqSenderRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {          
+          from("file:files/json")
+              .log("${body}")
+              .to("activemq:my-activemq-queue");
+      }
+  }
+#+end_src
+
+Send a file with the following format
+#+begin_src json
+  {
+    "id": 1000,
+    "from": "USD",
+    "to": "INR",
+    "conversionMultiple": 70
+  }
+#+end_src
+
+*** Update microservice b to handle incoming json file
+
+Add the =jackson= library to =pom.xml=
+#+begin_src xml
+  <dependency>
+    <groupId>org.apache.camel.springboot</groupId>
+    <artifactId>camel-jackson-starter</artifactId>
+    <version>${camel.version}</version>
+  </dependency>
+#+end_src
+
+Create the POJO =CurrencyExchange.java= (with constructors, getters, setters and toString)
+#+begin_src java
+  public class CurrencyExchange {
+      private Long id;
+      private String from;
+      private String to;
+      private BigDecimal conversionMultiple;
+  }
+#+end_src
+
+Unmarshall the json file and map it to the =CurrencyExchange= object
+#+begin_src java
+  @Component
+  public class ActiveMqReceiverRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          from("activemq:my-activemq-queue")
+              .unmarshal().json(JsonLibrary.Jackson, CurrencyExchange.class)
+              .to("log:received-message-from-active-mq");
+      }
+  }
+#+end_src
+
+** Transformation and Processing after Unmarshalling in Camel Route
+
+Create components for processing and transforming the message and add add them to the route
+
+#+begin_src java
+  @Component
+  public class ActiveMqReceiverRouter extends RouteBuilder {
+      @Autowired
+      private MyCurrencyExchangeProcessor myCurrencyExchangeProcessor;
+      @Autowired
+      private MyCurrencyExchangeTransformer myCurrencyExchangeTransformer;
+
+      @Override
+      public void configure() throws Exception {
+
+          from("activemq:my-activemq-queue")
+              .unmarshal().json(JsonLibrary.Jackson, CurrencyExchange.class)
+              .bean(myCurrencyExchangeProcessor)
+              .bean(myCurrencyExchangeTransformer)
+              .to("log:received-message-from-active-mq");
+      }
+  }
+
+  @Component
+  class MyCurrencyExchangeProcessor {
+      Logger logger = LoggerFactory.getLogger(MyCurrencyExchangeProcessor.class);
+
+      public void processMessage(CurrencyExchange currencyExchange) {
+          logger.info("Do some processing with currencyExchange.getConversionMultiple() value which is {}",
+                      currencyExchange.getConversionMultiple());
+      }
+  }
+
+  @Component
+  class MyCurrencyExchangeTransformer {
+      Logger logger = LoggerFactory.getLogger(MyCurrencyExchangeTransformer.class);
+
+      public CurrencyExchange processMessage(CurrencyExchange currencyExchange) {
+          currencyExchange.setConversionMultiple(
+              currencyExchange.getConversionMultiple().multiply(BigDecimal.TEN)
+          );
+          return currencyExchange;
+      }
+  }
+#+end_src
