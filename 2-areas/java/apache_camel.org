@@ -403,3 +403,185 @@ Create components for processing and transforming the message and add add them t
       }
   }
 #+end_src
+
+** Send and receive messages on Kafka with Camel
+
+*** Start Kafka with the following docker command
+
+Start the services in docker compose
+#+begin_src sh
+  docker run -p 9092:9092 apache/kafka:4.1.1
+#+end_src
+
+*** Update project dependencies
+
+Update the =pom.xml= file in microservice-a and microservice-b
+#+begin_src xml
+  <dependency>
+    <groupId>org.apache.camel.springboot</groupId>
+    <artifactId>camel-kafka-starter</artifactId>
+    <version>${camel.version}</version>
+  </dependency>
+#+end_src
+
+Update the =application.properties= file in microservice-a and microservice-b
+#+begin_src conf
+  camel.component.kafka.brokers=localhost:9092
+#+end_src
+
+Create the file =routes/KafkaSenderRouter.java= in microservice-a for the sender route of Kafka queue
+#+begin_src java
+  @Component
+  public class KafkaSenderRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+
+          from("file:files/json")
+                  .log("${body}")
+                  .to("kafka:myKafkaTopic");
+      }
+  }
+#+end_src
+
+Create the file =routes/KafkaReceiverRouter.java= in microservice-b for the sender route of Kafka queue
+#+begin_src java
+  @Component
+  public class KafkaReceiverRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+
+          from("kafka:myKafkaTopic")
+                .to("log:received-message-from-kafka");
+      }
+  }
+#+end_src
+
+* Making HTTP Rest API calls from a Camel Route
+
+** Create a REST API in microservice-b
+
+Create the file =CurrencyExchangeController.java= for the REST API
+#+begin_src java
+  @RestController
+  public class CurrencyExchangeController {
+
+      @GetMapping("/currency-exchange/from/{from}/to/{to}")
+      public CurrencyExchange findConversionValue(
+              @PathVariable String from,
+              @PathVariable String to
+      ) {
+          return new CurrencyExchange(10001L, from, to, BigDecimal.TEN);
+      }
+  }
+#+end_src
+
+Test the endpoint
+#+begin_src sh
+  http://localhost:8000/currency-exchange/from/USD/to/INR
+#+end_src
+
+** Create a route in microservice-a to call the REST API from microservice-b using Camel
+
+Update the =pom.xml= file to include the dependency for =camel-http=
+#+begin_src xml
+  <dependency>
+    <groupId>org.apache.camel.springboot</groupId>
+    <artifactId>camel-http-starter</artifactId>
+    <version>${camel.version}</version>
+  </dependency>
+#+end_src
+
+Create the route =RestApiConsumerRouter= in microservice-a
+#+begin_src java
+  @Component
+  public class RestApiConsumerRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+
+          restConfiguration().host("localhost").port(8000);
+
+          from("timer:rest-api-consumer?period=10000")
+              .log("${body}")
+              .to("rest:get:/currency-exchange/from/USD/to/INR")
+              .log("${body}");
+      }
+  }
+#+end_src
+
+Use =Headers= for dynamic parameter values
+#+begin_src java
+  @Component
+  public class RestApiConsumerRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+
+          restConfiguration().host("localhost").port(8000);
+
+          from("timer:rest-api-consumer?period=10000")
+              .setHeader("from", () -> "EUR")
+              .setHeader("to", () -> "INR")
+              .log("${body}")
+              .to("rest:get:/currency-exchange/from/{from}/to/{to}")
+              .log("${body}");
+      }
+  } 
+#+end_src
+
+* Using Choice and Simple Language in Camel Routes
+
+#+begin_src java
+  @Component
+  public class MyFileRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          from("file:files/input")
+              .routeId("Files-Input-Route")
+              .transform().body(String.class)
+              .choice()
+                  .when(simple("${file:ext} ends with 'xml'"))
+                      .log("XML FILE")
+                  .when(simple("${body} contains 'USD'"))
+                      .log("Not an XML FILE BUT contains USD")
+                  .otherwise()
+                      .log("Not an XML FILE")
+              .end()
+              .log("${messageHistory} ${headers.CamelFileAbsolute}")
+              .to("file:files/output");
+      }
+  }
+#+end_src
+
+View more about camel simple language here https://camel.apache.org/components/4.10.x/languages/simple-language.html
+
+* Creating Reusable Endpoints in Camel Routes
+
+You can make reusable components by using =direct= keyword
+
+#+begin_src java
+  @Component
+  public class MyFileRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          from("file:files/input")
+              .routeId("Files-Input-Route")
+              .transform().body(String.class)
+              .choice()
+              .when(simple("${file:ext} ends with 'xml'"))
+              .log("XML FILE")
+              .when(simple("${body} contains 'USD'"))
+              .log("Not an XML FILE BUT contains USD")
+              .otherwise()
+              .log("Not an XML FILE")
+              .end()
+              .to("direct://log-file-values")
+              .to("file:files/output");
+
+          from("direct:log-file-values")
+              .log("${messageHistory} ${file:absolute.path}")
+              .log("${file:name} ${file:name.ext} ${file:name.noext} ${file:onlyname}")
+              .log("${file:onlyname.noext} ${file:parent} ${file:path} ${file:absolute}")
+              .log("${file:size} ${file:modified}")
+              .log("${routeId} ${camelId} ${body}");
+      }
+  }
+#+end_src
