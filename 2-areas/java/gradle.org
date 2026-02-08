@@ -11,13 +11,311 @@ Move to https://sdkman.io/sdks/gradle/ to see installation instructions
   sdk install gradle
 #+end_src
 
-* Example file
+* Initialize a project with gradle
+
+#+begin_src sh
+  # Create a new directory called tutorial and cd into it
+  mkdir tutorial
+  cd tutorial
+
+  # Run gradle init with the following parameters to generate a Java application:
+  gradle init --type java-application  --dsl groovy
+  gradle init --type java-application  --dsl kotlin
+#+end_src
+
+** =build.gradle= file in app subproject
 
 #+begin_src groovy
-  task 'hello' {
-  doLast {
-  println "Hello Gradle"
-}
-}
+  plugins {   
+      // Apply the application plugin to add support for building a CLI application in Java.
+      id 'application'
+  }
 
+  repositories {
+      // Use Maven Central for resolving dependencies.
+      mavenCentral()
+  }
+
+  dependencies {  
+      // Use JUnit Jupiter for testing.
+      testImplementation libs.junit.jupiter
+
+      testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+      // This dependency is used by the application.
+      implementation libs.guava
+  }
+
+  // Apply a specific Java toolchain to ease working on different environments.
+  java {
+      toolchain {
+          languageVersion = JavaLanguageVersion.of(21)
+      }
+  }
+
+  application {   
+      // Define the main class for the application.
+      mainClass = 'org.example.App'
+  }
+
+  tasks.named('test') {
+      // Use JUnit Platform for unit tests.
+      useJUnitPlatform()
+  }
+#+end_src
+
+* Running Tasks
+
+#+begin_src sh
+  # list all the available tasks in the project
+  ./gradlew tasks
+
+  # list the tasks available in a specific subproject
+  ./gradlew :app:tasks
+
+  # view more tasks by adding the --all option
+  ./gradlew tasks --all
+  ./gradlew :app:tasks --all
+#+end_src
+
+** Register a custom task that copies all .war files from a source directory to a target directory
+
+#+begin_src groovy
+  tasks.register("copyTask", Copy) {
+      from("source")
+      into("target")
+      include("*.war")
+  }
+#+end_src
+
+Run the task
+#+begin_src sh
+  ./gradlew :app:copyTask
+#+end_src
+
+Popular built-in tasks include:
+
+- Copy - Copy is useful to copy files around.
+- Delete - Delete is useful to delete files and directories.
+- Exec - Exec is useful to execute arbitrary O/S commands.
+- Zip - Zip is useful to bundle files.
+
+** Understanding Dependencies Between Tasks
+
+There are two kinds of task dependencies:
+1. Explicit dependencies: One task directly declares that it depends on another.
+2. Implicit dependencies: Gradle figures out the order automatically because one task uses the output of another (like compiled class files).
+
+Here is an example of explicit task dependency:
+#+begin_src groovy
+  tasks.register("hello") {
+      doLast {
+          println('Hello!')
+      }
+  }
+
+  tasks.register("greet") {
+      doLast {
+          println('How are you?')
+      }
+      dependsOn("hello")
+  }
+#+end_src
+
+** Running Tasks in the Terminal
+
+#+begin_src sh
+  # the build task compiles, assembles, tests, and checks the code.
+  ./gradlew build
+
+  # the jar task creates an executable JAR file of the app
+  ./gradlew jar
+
+  # The run task executes the code in tutorial/app/src/main/java/com.gradle.tutorial/App.java.
+  ./gradlew run
+#+end_src
+
+* Dependency Management
+
+Each line inside this block tells Gradle two things:
+1. What the dependency is (a library like Guava or JUnit, a file, or a project)
+2. How and where it’s used (for production code, test code, an API, etc.)
+
+#+begin_src groovy
+  dependencies {
+      implementation("com.google.guava:guava:32.1.2-jre")             
+      implementation(project(":utils"))                               
+      runtimeOnly(files("some.jar"))                                  
+      testImplementation("org.junit.jupiter:junit-jupiter:5.10.1")    
+  }
+#+end_src
+
+- *External dependency* — Gradle resolves =com.google.guava:guava:32.1.2-jre= from your declared repositories and adds it to this project’s compile and runtime classpaths.
+- *Project dependency* — The project depends on the sibling project =:utils=. Gradle wires task dependencies so =:utils= is built first and puts its main outputs on this project’s compile and runtime classpaths.
+- *Local file dependency* — Adds a local JAR only to the runtime classpath (not available at compile time).
+- *External dependency* — =testImplementation= is available only to the test source set (compile + runtime). It is not on the production runtime classpath.
+
+** Define library versions and aliases you can use throughout your build
+
+The version catalog is located at =gradle/libs.versions.toml=
+  #+begin_src toml
+    [versions]
+    guava = "33.3.1-jre"
+    junit-jupiter = "5.11.3"
+
+    [libraries]
+    guava = { module = "com.google.guava:guava", version.ref = "guava" }
+    junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
+  #+end_src
+
+Once defined, you can reference these libraries in your build.gradle(.kts) files using the libs accessor.
+#+begin_src groovy
+  dependencies {  
+      // Use JUnit Jupiter for testing.
+      testImplementation libs.junit.jupiter
+
+      testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+      // This dependency is used by the application.
+      implementation libs.guava
+  }
+#+end_src
+
+#+begin_comment
+The libs.junit.jupiter syntax is used because the key contains a hyphen which is a special character.
+#+end_comment
+
+** Understanding Project Dependencies
+
+#+begin_src groovy
+  repositories {
+      // Use Maven Central for resolving dependencies.
+      mavenCentral()
+  }
+
+  dependencies {  
+      // Use JUnit Jupiter for testing.
+      testImplementation libs.junit.jupiter
+
+      testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+      // This dependency is used by the application.
+      implementation libs.guava
+  }
+#+end_src
+
+*Repositories*
+The source of dependencies → mavenCentral() in our app.
+
+*Dependencies*
+Dependencies declared via configuration types → libs.junit.jupiter and libs.guava in our app.
+
+*** Viewing Project Dependencies
+
+#+begin_src sh
+  ./gradlew :app:dependencies
+#+end_src
+
+*** Viewing Dependencies in a Build Scan
+
+To view dependencies using a Build Scan, run the build task with an optional =--scan= flag.
+#+begin_src sh
+  ./gradlew build --scan
+#+end_src
+
+A [[https://scans.gradle.com/][Build Scan]] is a shareable and centralized record of a build and is available as a free service from Gradle.
+
+** Applying Gradle Plugins
+
+Plugins are the primary method to organize build logic and reuse build logic within a project.
+Plugins are also used to distribute custom tasks as packaged code.
+
+Plugins can:
+
+- Add tasks to the project (e.g. compile, test).
+- Extend the basic Gradle model (e.g. add new DSL elements that can be configured).
+- Configure the project, according to conventions (e.g. add new tasks or configure sensible defaults).
+- Apply specific configuration (e.g. add organizational repositories or enforce standards).
+- Add new properties and methods to existing types via extensions.
+
+*** Applying a Plugin
+
+Our project currently applies a single plugin, the Application Plugin which is bundled with Gradle:
+#+begin_src groovy
+  plugins {   
+      // Apply the application plugin to add support for building a CLI application in Java.
+      id 'application'
+  }
+#+end_src
+
+Let’s apply a plugin to our project that is maintained and distributed by Gradle called the [[https://docs.gradle.org/current/userguide/publishing_maven.html#publishing_maven][Maven Publish Plugin]]. The Maven Publish Plugin provides the ability to publish build artifacts to an [[https://maven.apache.org/][Apache Maven repository]]. It can also publish to Maven local which is a repository located on your machine.
+
+The default location for Maven local repository may vary but is typically:
+- Mac: /Users/\[username]/.m2
+- Linux: /home/\[username]/.m2
+- Windows: C:\Users\[username]\.m2
+
+A publication destined for a Maven repository normally includes:
+- One or more artifacts
+- The Gradle Module Metadata
+- The Maven POM file
+
+Apply the plugin by adding =maven-publish= to the plugins block in =build.gradle(.kts)=
+#+begin_src groovy
+  plugins {   
+      // Apply the application plugin to add support for building a CLI application in Java.
+      id 'application'
+      // Apply the maven publish plugin
+      id('maven-publish')
+  }
+#+end_src
+
+*** Configuring the Plugin
+
+Add the publishing information to your =build.gradle(.kts)= file:
+#+begin_src groovy
+  publishing {
+      publications {
+          maven(MavenPublication) {
+              groupId = 'com.gradle.tutorial'
+              artifactId = 'tutorial'
+              version = '1.0'
+
+              from components.java
+          }
+      }
+  }
+#+end_src
+
+Run =./gradlew :app:tasks= in your command line to see additional tasks now that we have given the plugin additional information about our app
+
+*** Using the Plugin
+
+To use the plugin, run the =publishToMavenLocal= task by running =./gradlew :app:publishToMavenLocal=:
+#+begin_src sh
+  ./gradlew :app:publishToMavenLocal
+
+  > Task :app:compileJava FROM-CACHE
+  > Task :app:processResources NO-SOURCE
+  > Task :app:classes UP-TO-DATE
+  > Task :app:jar
+  > Task :app:generateMetadataFileForMavenPublication
+  > Task :app:generatePomFileForMavenPublication
+  > Task :app:publishMavenPublicationToMavenLocal
+  > Task :app:publishToMavenLocal
+#+end_src
+
+The =publishToMavenLocal= task builds the POM file and the artifacts to be published. It then /installs/ them into the local Maven repository.
+
+You can also view the files in your Maven Local directory: =~/.m2/repository/com/gradle/tutorial/tutorial/1.0=.
+#+begin_src xml
+  <?xml version="1.0" encoding="UTF-8"?>
+  <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.gradle.tutorial</groupId>
+    <artifactId>tutorial</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+  </project>
 #+end_src

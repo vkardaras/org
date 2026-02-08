@@ -1,0 +1,587 @@
+#+title: Apache Camel
+
+* Apache Camel and Spring Boot
+
+** Create demo application
+
+Project Metadata
+- Group: com.vasiliskardaras.microservices
+- Artifact: camel-microservice-a
+- Name: camel-microservice-a
+- Description: Demo project for Camel
+
+Dependencies
+- Spring Boot DevTools
+- Spring Web
+- Spring Boot Actuator
+- Apache Camel
+
+Create a second project with Artifact and Name =camel-microservice-b=
+
+** Create a first =route=
+
+Create the file =/routes/a/MyFirstTimerRouter.java=
+
+#+begin_src java
+  @Component
+  public class MyFirstTimerRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          // timer
+          // transformation
+          // log
+          // Exchange[ExchangePattern: InOnly, BodyType: null, Body: [Body is null]]
+          from("timer:first-timer") // null
+              .to("log:first-timer"); //database
+      }
+  }
+  #+end_src
+
+** Add a transformation
+
+#+begin_src java
+  @Component
+  public class MyFirstTimerRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          // timer
+          // transformation
+          // log
+          // Exchange[ExchangePattern: InOnly, BodyType: String, Body: My Constant Message]
+          from("timer:first-timer") // null
+              .transform().constant("My Constant Message")
+              .to("log:first-timer"); //database
+      }
+  }
+#+end_src
+
+** Create dynamic transformations using Beans
+
+#+begin_src java
+  @Component
+  public class MyFirstTimerRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          from("timer:first-timer") // null
+              .bean("getCurrentTimeBean")
+              .to("log:first-timer"); //database
+      }
+  }
+
+  @Component
+  class GetCurrentTimeBean {
+      public String getCurrentTime() {
+          return "Time now is " + LocalDateTime.now();
+      }
+  }
+#+end_src
+
+** Type safety for Bean transformation using injection
+
+#+begin_src java
+  @Component
+  public class MyFirstTimerRouter extends RouteBuilder {
+
+      @Autowired
+      private GetCurrentTimeBean getCurrentTimeBean;
+      
+      @Override
+      public void configure() throws Exception {
+          from("timer:first-timer")
+              .bean(getCurrentTimeBean)
+              .to("log:first-timer");
+      }
+  }
+#+end_src
+
+Specify the method of a Bean if there are more than one methods in it
+
+#+begin_src java
+  @Component
+  public class MyFirstTimerRouter extends RouteBuilder {
+
+      @Autowired
+      private GetCurrentTimeBean getCurrentTimeBean;
+      
+      @Override
+      public void configure() throws Exception {
+          from("timer:first-timer")
+              .bean(getCurrentTimeBean, "getCurrentTime")
+              .to("log:first-timer");
+      }
+  }
+#+end_src
+
+** Types of operations in camel
+
+- Processing: Does not make a change at the body of the message
+- Transformation: Makes a change at the body of the message
+
+*** Log the body of the message after transformation
+
+#+begin_src java
+  @Component
+  public class MyFirstTimerRouter extends RouteBuilder {
+
+      @Autowired
+      private GetCurrentTimeBean getCurrentTimeBean;
+
+      @Override
+      public void configure() throws Exception {
+          from("timer:first-timer") // null
+              .log("${body}") // null
+              .transform().constant("My Constant Message")
+              .log("${body}") // My Constant Message
+              .bean(getCurrentTimeBean)
+              .log("${body}") // Time now is 2026-02-01T00:13:11.583366222
+              .to("log:first-timer");
+      }
+  }
+#+end_src
+
+*** Process the body of the message without any transformation
+
+#+begin_src java
+  @Component
+  public class MyFirstTimerRouter extends RouteBuilder {
+
+      @Autowired
+      private GetCurrentTimeBean getCurrentTimeBean;
+      @Autowired
+      private SimpleLoggingProcessingComponent loggingComponent;
+
+      @Override
+      public void configure() throws Exception {
+          from("timer:first-timer") // null
+                  .log("${body}") // null
+                  .bean(getCurrentTimeBean)
+                  .log("${body}") // Time now is 2026-02-01T00:13:11.583366222
+                  .bean(loggingComponent)
+                  .log("${body}") // Time now is 2026-02-01T00:13:11.583366222
+                  .to("log:first-timer");
+      }
+  }
+
+  @Component
+  class SimpleLoggingProcessingComponent {
+
+      private Logger logger = LoggerFactory.getLogger(SimpleLoggingProcessingComponent.class);
+
+      public void process(String message) {
+          logger.info("SimpleLoggingProcessingComponent {}", message);
+      }
+  }
+#+end_src
+
+*** Processing using Camel Processors in Camel Routes
+
+#+begin_src java
+    @Component
+  public class MyFirstTimerRouter extends RouteBuilder {
+
+      @Override
+      public void configure() throws Exception {
+          from("timer:first-timer") // null
+                  .log("${body}") // null
+                  .transform().constant("My Constant Message")
+                  .process(new SimpleLoggingProcessor())
+                  .to("log:first-timer"); //database
+      }
+  }
+
+  class SimpleLoggingProcessor implements Processor {
+
+      private Logger logger = LoggerFactory.getLogger(SimpleLoggingProcessor.class);
+
+      @Override
+      public void process(Exchange exchange) throws Exception {
+          logger.info("SimpleLoggingProcessor {}", exchange.getMessage().getBody());
+      }
+  }
+#+end_src
+
+** Creating a Camel Route to play with Files
+
+Create the file =/routes/b/MyFileRouter.java=
+
+#+begin_src java
+  @Component
+  public class MyFileRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          from("file:files/input")
+                  .log("${body}")
+                  .to("file:files/output");
+      }
+  }
+#+end_src
+
+The program will do the following
+
+- Take each file in =folders/input= and put it in =folders/output=
+- Print the contents of each file
+
+* Integrate Apache Camel with ActiveMQ and Kafka
+
+** Launch ActiveMQ as docker container
+
+#+begin_src sh
+  # download and run ActiveMQ
+  docker run -p 61616:61616 -p 8161:8161 rmohr/activemq
+
+  # select Manage ActiveMQ broker (admin/admin)
+#+end_src
+
+** Create Sender Camel Route for ActiveMQ in Microservice A
+
+Add the dependency for ActiveMQ in =pom.xml=
+#+begin_src xml
+  <dependency>
+  	<groupId>org.apache.camel.springboot</groupId>
+  	<artifactId>camel-activemq-starter</artifactId>
+  	<version>${camel.version}</version>
+  </dependency>
+#+end_src
+
+Create the file =/routes/c/ActiveMqSenderRouter.java=
+#+begin_src java
+  @Component
+  public class ActiveMqSenderRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          //timer
+          from("timer:active-mq-timer?period=10000")
+              .transform().constant("My message fo ActiveMQ")
+              .log("${body}")
+              .to("activemq:my-activemq-queue");
+      }
+  }
+#+end_src
+
+Update =application.properties= file
+#+begin_src sh
+  # add the following to 'application.properties'
+  spring.activemq.broker-url=tcp://localhost:61616
+#+end_src
+
+Go to the =Queues= at the ActiveMQ board and check the created queue
+
+** Create Receiver Camel Route for ActiveMQ in Microservice B
+
+Add the dependency for ActiveMQ in =pom.xml=
+#+begin_src xml
+  <dependency>
+  	<groupId>org.apache.camel.springboot</groupId>
+  	<artifactId>camel-activemq-starter</artifactId>
+  	<version>${camel.version}</version>
+  </dependency>
+#+end_src
+
+Update =application.properties= file
+#+begin_src sh
+  # change the server port
+  server.port=8000
+  
+  # add the following to 'application.properties'
+  spring.activemq.broker-url=tcp://localhost:61616
+#+end_src
+
+Create the file =routes/ActiveMqReceiverRouter.java=
+#+begin_src java
+  @Component
+  public class ActiveMqReceiverRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          from("activemq:my-activemq-queue")
+              .to("log:received-message-from-active-mq");
+      }
+  }
+#+end_src
+
+** Unmarshalling JSON Message to Java Bean in ActiveMQ Camel Route
+
+*** Send the files added to the files folder in microservice a to the queue
+
+#+begin_src java
+  @Component
+  public class ActiveMqSenderRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {          
+          from("file:files/json")
+              .log("${body}")
+              .to("activemq:my-activemq-queue");
+      }
+  }
+#+end_src
+
+Send a file with the following format
+#+begin_src json
+  {
+    "id": 1000,
+    "from": "USD",
+    "to": "INR",
+    "conversionMultiple": 70
+  }
+#+end_src
+
+*** Update microservice b to handle incoming json file
+
+Add the =jackson= library to =pom.xml=
+#+begin_src xml
+  <dependency>
+    <groupId>org.apache.camel.springboot</groupId>
+    <artifactId>camel-jackson-starter</artifactId>
+    <version>${camel.version}</version>
+  </dependency>
+#+end_src
+
+Create the POJO =CurrencyExchange.java= (with constructors, getters, setters and toString)
+#+begin_src java
+  public class CurrencyExchange {
+      private Long id;
+      private String from;
+      private String to;
+      private BigDecimal conversionMultiple;
+  }
+#+end_src
+
+Unmarshall the json file and map it to the =CurrencyExchange= object
+#+begin_src java
+  @Component
+  public class ActiveMqReceiverRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          from("activemq:my-activemq-queue")
+              .unmarshal().json(JsonLibrary.Jackson, CurrencyExchange.class)
+              .to("log:received-message-from-active-mq");
+      }
+  }
+#+end_src
+
+** Transformation and Processing after Unmarshalling in Camel Route
+
+Create components for processing and transforming the message and add add them to the route
+
+#+begin_src java
+  @Component
+  public class ActiveMqReceiverRouter extends RouteBuilder {
+      @Autowired
+      private MyCurrencyExchangeProcessor myCurrencyExchangeProcessor;
+      @Autowired
+      private MyCurrencyExchangeTransformer myCurrencyExchangeTransformer;
+
+      @Override
+      public void configure() throws Exception {
+
+          from("activemq:my-activemq-queue")
+              .unmarshal().json(JsonLibrary.Jackson, CurrencyExchange.class)
+              .bean(myCurrencyExchangeProcessor)
+              .bean(myCurrencyExchangeTransformer)
+              .to("log:received-message-from-active-mq");
+      }
+  }
+
+  @Component
+  class MyCurrencyExchangeProcessor {
+      Logger logger = LoggerFactory.getLogger(MyCurrencyExchangeProcessor.class);
+
+      public void processMessage(CurrencyExchange currencyExchange) {
+          logger.info("Do some processing with currencyExchange.getConversionMultiple() value which is {}",
+                      currencyExchange.getConversionMultiple());
+      }
+  }
+
+  @Component
+  class MyCurrencyExchangeTransformer {
+      Logger logger = LoggerFactory.getLogger(MyCurrencyExchangeTransformer.class);
+
+      public CurrencyExchange processMessage(CurrencyExchange currencyExchange) {
+          currencyExchange.setConversionMultiple(
+              currencyExchange.getConversionMultiple().multiply(BigDecimal.TEN)
+          );
+          return currencyExchange;
+      }
+  }
+#+end_src
+
+** Send and receive messages on Kafka with Camel
+
+*** Start Kafka with the following docker command
+
+Start the services in docker compose
+#+begin_src sh
+  docker run -p 9092:9092 apache/kafka:4.1.1
+#+end_src
+
+*** Update project dependencies
+
+Update the =pom.xml= file in microservice-a and microservice-b
+#+begin_src xml
+  <dependency>
+    <groupId>org.apache.camel.springboot</groupId>
+    <artifactId>camel-kafka-starter</artifactId>
+    <version>${camel.version}</version>
+  </dependency>
+#+end_src
+
+Update the =application.properties= file in microservice-a and microservice-b
+#+begin_src conf
+  camel.component.kafka.brokers=localhost:9092
+#+end_src
+
+Create the file =routes/KafkaSenderRouter.java= in microservice-a for the sender route of Kafka queue
+#+begin_src java
+  @Component
+  public class KafkaSenderRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+
+          from("file:files/json")
+                  .log("${body}")
+                  .to("kafka:myKafkaTopic");
+      }
+  }
+#+end_src
+
+Create the file =routes/KafkaReceiverRouter.java= in microservice-b for the sender route of Kafka queue
+#+begin_src java
+  @Component
+  public class KafkaReceiverRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+
+          from("kafka:myKafkaTopic")
+                .to("log:received-message-from-kafka");
+      }
+  }
+#+end_src
+
+* Making HTTP Rest API calls from a Camel Route
+
+** Create a REST API in microservice-b
+
+Create the file =CurrencyExchangeController.java= for the REST API
+#+begin_src java
+  @RestController
+  public class CurrencyExchangeController {
+
+      @GetMapping("/currency-exchange/from/{from}/to/{to}")
+      public CurrencyExchange findConversionValue(
+              @PathVariable String from,
+              @PathVariable String to
+      ) {
+          return new CurrencyExchange(10001L, from, to, BigDecimal.TEN);
+      }
+  }
+#+end_src
+
+Test the endpoint
+#+begin_src sh
+  http://localhost:8000/currency-exchange/from/USD/to/INR
+#+end_src
+
+** Create a route in microservice-a to call the REST API from microservice-b using Camel
+
+Update the =pom.xml= file to include the dependency for =camel-http=
+#+begin_src xml
+  <dependency>
+    <groupId>org.apache.camel.springboot</groupId>
+    <artifactId>camel-http-starter</artifactId>
+    <version>${camel.version}</version>
+  </dependency>
+#+end_src
+
+Create the route =RestApiConsumerRouter= in microservice-a
+#+begin_src java
+  @Component
+  public class RestApiConsumerRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+
+          restConfiguration().host("localhost").port(8000);
+
+          from("timer:rest-api-consumer?period=10000")
+              .log("${body}")
+              .to("rest:get:/currency-exchange/from/USD/to/INR")
+              .log("${body}");
+      }
+  }
+#+end_src
+
+Use =Headers= for dynamic parameter values
+#+begin_src java
+  @Component
+  public class RestApiConsumerRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+
+          restConfiguration().host("localhost").port(8000);
+
+          from("timer:rest-api-consumer?period=10000")
+              .setHeader("from", () -> "EUR")
+              .setHeader("to", () -> "INR")
+              .log("${body}")
+              .to("rest:get:/currency-exchange/from/{from}/to/{to}")
+              .log("${body}");
+      }
+  } 
+#+end_src
+
+* Using Choice and Simple Language in Camel Routes
+
+#+begin_src java
+  @Component
+  public class MyFileRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          from("file:files/input")
+              .routeId("Files-Input-Route")
+              .transform().body(String.class)
+              .choice()
+                  .when(simple("${file:ext} ends with 'xml'"))
+                      .log("XML FILE")
+                  .when(simple("${body} contains 'USD'"))
+                      .log("Not an XML FILE BUT contains USD")
+                  .otherwise()
+                      .log("Not an XML FILE")
+              .end()
+              .log("${messageHistory} ${headers.CamelFileAbsolute}")
+              .to("file:files/output");
+      }
+  }
+#+end_src
+
+View more about camel simple language here https://camel.apache.org/components/4.10.x/languages/simple-language.html
+
+* Creating Reusable Endpoints in Camel Routes
+
+You can make reusable components by using =direct= keyword
+
+#+begin_src java
+  @Component
+  public class MyFileRouter extends RouteBuilder {
+      @Override
+      public void configure() throws Exception {
+          from("file:files/input")
+              .routeId("Files-Input-Route")
+              .transform().body(String.class)
+              .choice()
+              .when(simple("${file:ext} ends with 'xml'"))
+              .log("XML FILE")
+              .when(simple("${body} contains 'USD'"))
+              .log("Not an XML FILE BUT contains USD")
+              .otherwise()
+              .log("Not an XML FILE")
+,              .end()
+              .to("direct://log-file-values")
+              .to("file:files/output");
+
+          from("direct:log-file-values")
+              .log("${messageHistory} ${file:absolute.path}")
+              .log("${file:name} ${file:name.ext} ${file:name.noext} ${file:onlyname}")
+              .log("${file:onlyname.noext} ${file:parent} ${file:path} ${file:absolute}")
+              .log("${file:size} ${file:modified}")
+              .log("${routeId} ${camelId} ${body}");
+      }
+  }
+#+end_src
