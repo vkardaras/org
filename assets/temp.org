@@ -1,0 +1,5 @@
+#+title: Temp
+
+- https://simplebackups.com/blog/remote-mysql-database-backup-via-ssh-tunneling
+- https://stackoverflow.com/questions/2989724/how-to-mysqldump-remote-db-from-local-machine
+- https://stackoverflow.com/questions/22907231/how-can-i-copy-files-from-a-host-to-a-docker-container
