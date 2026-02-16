@@ -3,7 +3,7 @@
 * Connect to the database
 
 #+begin_src sql
-psql -d postgres -U postgres
+  psql -d postgres -U postgres
 #+end_src
 
 - =-d= specifies the database to connect
@@ -12,25 +12,25 @@ psql -d postgres -U postgres
 Check postgres version
 
 #+begin_src sql
-SELECT VERSION();
+  SELECT VERSION();
 #+end_src
 
 List all databases
 
 #+begin_src sql
-\l
+  \l
 #+end_src
 
 Access/switch a database
 
 #+begin_src sql
-\c postgres_db
+  \c postgres_db
 #+end_src
 
 List all available tables
 
 #+begin_src sql
-\dt;
+  \dt;
 #+end_src
 
 Describe all tables
@@ -42,24 +42,24 @@ Describe all tables
 Describe a specific table
 
 #+begin_src sql
-\d product
+  \d product
 #+end_src
 
 * Create a new database
 
 #+begin_src sql
-CREATE DATABASE postgres_db;
+  CREATE DATABASE postgres_db;
 #+end_src
 
 * Create a table
 
 #+begin_src sql
-CREATE TABLE [IF NOT EXISTS] table_name (
- column1 data_type col_contraint,
- column2 data_type col_contraint,
- …
- table_constraints
- );
+  CREATE TABLE [IF NOT EXISTS] table_name (
+  column1 data_type col_contraint,
+  column2 data_type col_contraint,
+  …
+  table_constraints
+  );
 #+end_src
 
 - =CREATE TABLE= creates a new table.
@@ -75,21 +75,21 @@ CREATE TABLE [IF NOT EXISTS] table_name (
   PRIMARY KEY, FOREIGN KEY, etc.
 
 #+begin_src sql
-CREATE TABLE IF NOT EXISTS product(
- id INT PRIMARY KEY,
- name TEXT,
- weight SMALLINT,
- product_type TEXT
- );
+  CREATE TABLE IF NOT EXISTS product(
+  id INT PRIMARY KEY,
+  name TEXT,
+  weight SMALLINT,
+  product_type TEXT
+  );
 #+end_src
 
 * Create a table with auto-increment id
 
 #+begin_src sql
-CREATE TABLE IF NOT EXISTS product(
- id SERIAL NOT NULL PRIMARY KEY,
- name TEXT,
- weight SMALLINT,
- product_type TEXT
- );
+  CREATE TABLE IF NOT EXISTS product(
+  id SERIAL NOT NULL PRIMARY KEY,
+  name TEXT,
+  weight SMALLINT,
+  product_type TEXT
+  );
 #+end_src

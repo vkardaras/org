@@ -1,8 +1,8 @@
-* docker postgres
+#+title: docker postgres
 
-** example file
+* example file
 
-#+begin_src yml
+#+begin_src yaml
 services:
   postgres:
     container_name: postgres

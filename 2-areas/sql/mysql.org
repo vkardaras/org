@@ -1,0 +1,162 @@
+#+title: MySQL
+
+* Installation of MySQL client
+
+#+begin_src sh
+  # install on debian/ubuntu
+  sudo apt install mysql-client
+  # install specific version
+  sudo apt install mysql-client-core-8.0
+
+  # install on arch (provides the mysql amd mysqldump command-line client and libraries that work with both MariaDB and Oracle MySQL servers)
+  sudo pacman -S mariadb-clients
+  # install mysql workbench
+  sudo pacman -S mysql-workbench
+#+end_src
+
+* MySQL on docker
+
+** Docker command
+
+#+begin_src sh
+  # start a MySQL instance
+  docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+
+  # starts another mysql container instance and runs the mysql command line client against your original mysql container, allowing you to execute
+  # some-mysql is the name of your original mysql container (connected to the some-network Docker network)
+  docker run -it --network some-network --rm mysql mysql -hsome-mysql -uexample-user -p
+
+  # connect to a non-Docker or remote instance
+  docker run -it --rm mysql mysql -hsome.mysql.host -usome-mysql-user -p
+#+end_src
+
+** Docker compose
+
+#+begin_src yaml
+    services:
+      db:
+        image: mysql
+        restart: always
+        environment:
+          MYSQL_ROOT_PASSWORD: example
+          # (this is just an example, not intended to be a production configuration)
+#+end_src
+
+** Container shell access and viewing MySQL logs
+
+#+begin_src sh
+  # run commands inside a docker container
+  docker exec -it some-mysql bash
+
+  # connect to mysql
+  mysql -u root -p
+
+  # view logs available through Docker's container log
+  docker logs some-mysql
+#+end_src
+
+** Data Storage
+
+*** With docker run
+
+Create a data directory on a suitable volume on your host system, e.g. =/my/own/datadir=.
+
+#+begin_src sh
+  # start mysql in docker with volume
+  docker run --name some-mysql -v /my/own/datadir:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+#+end_src
+
+*** With docker compose
+
+#+begin_src yaml
+  services:
+    db:
+      container_name: my_db
+      image: mysql
+      restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+      volumes:
+        - mysql-data:/var/lib/mysql
+      ports:
+        - "3306:3306"
+    
+  volumes:
+    mysql-data:
+#+end_src
+
+* MySQL commands
+
+#+begin_src sh
+  # connect to MySQL client
+  mysql -u username -p
+  # connect to specific database
+  mysql -u root -p database_name
+  
+  # list all databases
+  SHOW DATABASES;
+
+  # create a new database
+  CREATE DATABASE dbname;
+
+  # select a database to work with
+  USE dbname;
+
+  # list tables in the current database
+  SHOW TABLES;
+
+  # exit the client
+  EXIT;
+#+end_src
+
+* mysqldump commands
+
+#+begin_src sh
+  #  fundamental syntax for mysqldump
+  mysqldump [options] db_name [tbl_name ...] > output_file.sql
+
+  # Backup a single database:
+  mysqldump -u username -p database_name > backup.sql
+
+  # Backup multiple databases:
+  mysqldump -u username -p --databases db1 db2 > multiple_dbs.sql
+
+  # Backup all databases:
+  mysqldump -u username -p --all-databases > all_databases.sql
+
+  # Backup only table structure (no data):
+  mysqldump -u username -p -d database_name > structure_only.sql
+
+  # Backup only data (no structure):
+  mysqldump -u username -p -t database_name > data_only.sql
+
+  # Include stored routines (procedures/functions)
+  mysqldump -u username -p -R database_name > backup_with_routines.sql
+
+  # Compress backup output:
+  mysqldump -u username -p database_name | gzip > backup.sql.gz
+
+  # Add DROP statements before CREATE
+  mysqldump -u username -p --add-drop-database --add-drop-table database_name > backup.sql   
+#+end_src
+
+** Restore a backup
+
+#+begin_src sh
+  # Use the mysql client to restore:
+  mysql -u username -p database_name < backup.sql
+
+  # Ensure the target database exists before restoring. If not, create it first:
+  mysql -u username -p -e "CREATE DATABASE database_name;"
+  mysql -u username -p database_name < backup.sql   
+#+end_src
+
+Key Options
+- =-u=, =--user=: Specify the MySQL user.
+- =-p=, =--password=: Prompt for password.
+- =-B=, =--databases=: Treat arguments as database names.
+- =--all-databases=: Dump all databases.
+- =--no-data=, =-d=: Exclude data (only structure).
+- =--no-create-info=, =-t=: Exclude CREATE TABLE statements.
+- =--routines=, =-R=: Include stored procedures and functions.
+- =--result-file=, =-r=: Output to a specified file. 
