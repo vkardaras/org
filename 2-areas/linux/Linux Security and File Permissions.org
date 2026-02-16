@@ -4,30 +4,29 @@
 
 #+begin_src shell
 
-# check if a user exists
-getent passed tux
-> tux:x:1000:1000:tux:/home/tux:/bin/bash
+  # check if a user exists
+  getent passed tux
+  > tux:x:1000:1000:tux:/home/tux:/bin/bash
 
-# get details of users
-cat /etc/passwd
-# get details of a specific user
-grep -i ^bob /etc/passwd
+  # get details of users
+  cat /etc/passwd
+  # get details of a specific user
+  grep -i ^bob /etc/passwd
 
-# get the groups of a system
-cat /etc/group
+  # get the groups of a system
+  cat /etc/group
 
-# review detailed information about a specific user account and its group memberships
-id michael
+  # review detailed information about a specific user account and its group memberships
+  id michael
 
-# get details of the users currently loggedin to the system
-who
+  # get details of the users currently loggedin to the system
+  who
 
-# display the record of all loggedin users
-last
+  # display the record of all loggedin users
+  last
 
-# get the detault configuration of sudo
-cat /etc/sudoers
-
+  # get the detault configuration of sudo
+  cat /etc/sudoers
 #+end_src
 
 * Access Control Files
@@ -82,18 +81,17 @@ The format of /etc/group is:
 
 #+begin_src shell
 
-# add user to the system
-useradd bob
+  # add user to the system
+  useradd bob
 
-# set password for user
-passwd bob
+  # set password for user
+  passwd bob
 
-# change password for loggedin user
-passwd
+  # change password for loggedin user
+  passwd
 
-# delete user from the system
-userdel bob
-
+  # delete user from the system
+  userdel bob
 #+end_src
 
 ** Using Options with useradd
@@ -108,21 +106,19 @@ userdel bob
 
 #+begin_src shell
 
-# create Bob with a custom UID, GID, home directory, shell, and an account comment
-useradd -u 1009 -g 1009 -d /home/robert -s /bin/bash -c "Mercury Project member" bob
-
+  # create Bob with a custom UID, GID, home directory, shell, and an account comment
+  useradd -u 1009 -g 1009 -d /home/robert -s /bin/bash -c "Mercury Project member" bob
 #+end_src
 
 ** Group management
 
 #+begin_src shell
 
-# add a group with specific id
-groupadd -g 1010 newgroup
+  # add a group with specific id
+  groupadd -g 1010 newgroup
 
-# delete a group
-groupdel newgroup
-
+  # delete a group
+  groupdel newgroup
 #+end_src
 
 * File Permissions and Ownership
@@ -156,41 +152,39 @@ Examples
 Symbolic Mode
 
 #+begin_src shell
-chmod u+rwX test-file
-chmod ugo+r test-file
-chmod o-rwx test-file
-chmod u+rwx,g+r-x,o-rwx test-file
+  chmod u+rwX test-file
+  chmod ugo+r test-file
+  chmod o-rwx test-file
+  chmod u+rwx,g+r-x,o-rwx test-file
 #+end_src
 
 Numeric Mode
 
 #+begin_src shell
 
-# grants read, write, and execute for everyone.
-chmod 777 test-file
-# grants read and execute permissions for everyone.
-chmod 555 test-file
-# grants read and write permissions to the owner and group, but no permissions for others.
-chmod 660 test-file
-# grants complete access to the owner, read and execute access to the group, and no permissions for others.
-chmod 750 test-file
-
+  # grants read, write, and execute for everyone.
+  chmod 777 test-file
+  # grants read and execute permissions for everyone.
+  chmod 555 test-file
+  # grants read and write permissions to the owner and group, but no permissions for others.
+  chmod 660 test-file
+  # grants complete access to the owner, read and execute access to the group, and no permissions for others.
+  chmod 750 test-file
 #+end_src
 
 ** Changing Ownership with chown and chgrp
 
 #+begin_src shell
 
-# change both the owner and group of a file
-chown owner:group file
-chown bob:developer test-file
+  # change both the owner and group of a file
+  chown owner:group file
+  chown bob:developer test-file
 
-# change only the owner
-chown bob andoid.apk
+  # change only the owner
+  chown bob andoid.apk
 
-# change only the group
-chgrp android test-file
-
+  # change only the group
+  chgrp android test-file
 #+end_src
 
 * SSH and SCP
@@ -204,9 +198,8 @@ To connect to a server with the hostname "devapp01", you can use any of the foll
 
 #+begin_src shell
 
-# connect to a server with the hostname "devapp01"
-ssh devapp01
-
+  # connect to a server with the hostname "devapp01"
+  ssh devapp01
 #+end_src
 
 ** Passwordless SSH with Key Pairs
@@ -219,11 +212,11 @@ A key pair consists of:
 
 #+begin_src shell
 
-# generate the Key Pair
-ssh-keygen -t rsa
+  # generate the Key Pair
+  ssh-keygen -t rsa
 
-# copying the Public Key to the Remote Server
-ssh-copy-id bob@devapp01
+  # copying the Public Key to the Remote Server
+  ssh-copy-id bob@devapp01
 #+end_src
 
 Public key is now installed in the authorized_keys file within the .ssh directory on the remote server.
@@ -234,9 +227,11 @@ SCP transfers files and directories securely over SSH.
 
 #+begin_src shell
 
-# copy a file using SCP
-scp /home/bob/caleston-code.tar.gz devapp01:/home/bob
+  # copy a file using from local to remote
+  scp /home/bob/caleston-code.tar.gz devapp01:/home/bob
 
+  # copy a file from remote to local
+  scp user@devapp01:/home/bob/remote_file.tar.gz /local/folder
 #+end_src
 
 * IPTABLES
@@ -245,12 +240,11 @@ scp /home/bob/caleston-code.tar.gz devapp01:/home/bob
 
 #+begin_src shell
 
-# install iptables
-sudo apt install iptables
+  # install iptables
+  sudo apt install iptables
 
-# list tghe default iptables rules
-sudo iptables -L
-
+  # list tghe default iptables rules
+  sudo iptables -L
 #+end_src
 
 Iptables uses three main chains, each serving a distinct purpose:
@@ -265,28 +259,28 @@ Iptables uses three main chains, each serving a distinct purpose:
 
 #+begin_src shell
 
-# add an incoming rule on the development server that permits SSH connections solely from the designated client.
-iptables -A INPUT -p tcp -s 172.16.238.187 --dport 22 -j ACCEPT
+  # add an incoming rule on the development server that permits SSH connections solely from the designated client.
+  iptables -A INPUT -p tcp -s 172.16.238.187 --dport 22 -j ACCEPT
 
-# block unauthorized SSH attempts
-iptables -A INPUT -p tcp --dport 22 -j DROP
-# drop incoming connections from any source on any destination port for any protocol (TCP/UDP).
-sudo iptables -A INPUT -j DROP
+  # block unauthorized SSH attempts
+  iptables -A INPUT -p tcp --dport 22 -j DROP
+  # drop incoming connections from any source on any destination port for any protocol (TCP/UDP).
+  sudo iptables -A INPUT -j DROP
 
-# list the iptables rouls
-[bob@devapp01 ~]$ iptables -L
-Chain INPUT (policy ACCEPT)
-target     prot opt source               destination
-ACCEPT     tcp  --  172.16.238.187      anywhere             tcp dpt:ssh
-DROP       tcp  --  anywhere             anywhere             tcp dpt:ssh
-
-
-Chain FORWARD (policy ACCEPT)
-target     prot opt source               destination
+  # list the iptables rouls
+  [bob@devapp01 ~]$ iptables -L
+  Chain INPUT (policy ACCEPT)
+  target     prot opt source               destination
+  ACCEPT     tcp  --  172.16.238.187      anywhere             tcp dpt:ssh
+  DROP       tcp  --  anywhere             anywhere             tcp dpt:ssh
 
 
-Chain OUTPUT (policy ACCEPT)
-target     prot opt source               destination
+  Chain FORWARD (policy ACCEPT)
+  target     prot opt source               destination
+
+
+  Chain OUTPUT (policy ACCEPT)
+  target     prot opt source               destination
 #+end_src
 
 Command parameters
@@ -301,46 +295,43 @@ Command parameters
 
 #+begin_src shell
 
-# add the following OUTPUT rules:
-[bob@devapp01 ~]$ iptables -A OUTPUT -p tcp -d 172.16.238.11 --dport 5432 -j ACCEPT
-[bob@devapp01 ~]$ iptables -A OUTPUT -p tcp -d 172.16.238.15 --dport 80 -j ACCEPT
-[bob@devapp01 ~]$ iptables -A OUTPUT -p tcp --dport 443 -j DROP
-[bob@devapp01 ~]$ iptables -A OUTPUT -p tcp --dport 80 -j DROP
+  # add the following OUTPUT rules:
+  [bob@devapp01 ~]$ iptables -A OUTPUT -p tcp -d 172.16.238.11 --dport 5432 -j ACCEPT
+  [bob@devapp01 ~]$ iptables -A OUTPUT -p tcp -d 172.16.238.15 --dport 80 -j ACCEPT
+  [bob@devapp01 ~]$ iptables -A OUTPUT -p tcp --dport 443 -j DROP
+  [bob@devapp01 ~]$ iptables -A OUTPUT -p tcp --dport 80 -j DROP
 
-# insert a rule at the top of the chain
-[bob@devapp01 ~]$ iptables -I OUTPUT -p tcp -d 172.16.238.100 --dport 443 -j ACCEPT
-
+  # insert a rule at the top of the chain
+  [bob@devapp01 ~]$ iptables -I OUTPUT -p tcp -d 172.16.238.100 --dport 443 -j ACCEPT
 #+end_src
 
 *** Deleting a Rule
 
 #+begin_src shell
 
-[bob@devapp01 ~]$ iptables -D OUTPUT 5
-
+  [bob@devapp01 ~]$ iptables -D OUTPUT 5
 #+end_src
 
 *** Securing the Database Server
 
 #+begin_src shell
 
-# ensure that only the development application server can access the PostgreSQL service on the database server (port 5432)
-[bob@devdb01 ~]$ iptables -A INPUT -p tcp -s 172.16.238.10 --dport 5432 -j ACCEPT
-[bob@devdb01 ~]$ iptables -A INPUT -p tcp --dport 5432 -j DROP
+  # ensure that only the development application server can access the PostgreSQL service on the database server (port 5432)
+  [bob@devdb01 ~]$ iptables -A INPUT -p tcp -s 172.16.238.10 --dport 5432 -j ACCEPT
+  [bob@devdb01 ~]$ iptables -A INPUT -p tcp --dport 5432 -j DROP
 
-# list the iptables rules on the DB server
-[bob@devdb01 ~]$ iptables -L
-Chain INPUT (policy ACCEPT)
-target     prot opt source               destination
-ACCEPT     tcp  --  172.16.238.10       anywhere             tcp dpt:5432
-DROP       tcp  --  anywhere             anywhere             tcp dpt:5432
-
-
-Chain FORWARD (policy ACCEPT)
-target     prot opt source               destination
+  # list the iptables rules on the DB server
+  [bob@devdb01 ~]$ iptables -L
+  Chain INPUT (policy ACCEPT)
+  target     prot opt source               destination
+  ACCEPT     tcp  --  172.16.238.10       anywhere             tcp dpt:5432
+  DROP       tcp  --  anywhere             anywhere             tcp dpt:5432
 
 
-Chain OUTPUT (policy ACCEPT)
-target     prot opt source               destination
+  Chain FORWARD (policy ACCEPT)
+  target     prot opt source               destination
 
+
+  Chain OUTPUT (policy ACCEPT)
+  target     prot opt source               destination
 #+end_src

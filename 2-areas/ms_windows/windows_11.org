@@ -1,0 +1,24 @@
+#+title: Windows 11
+
+* Window management shortcuts
+
+** Snapping and Moving Windows
+- Win + Left/Right Arrow: Snap active window to the left/right side.
+- Win + Up Arrow: Maximize active window.
+- Win + Down Arrow: Minimize or restore window.
+- Win + Alt + Up/Down Arrow: Snap active window to the top/bottom half.
+- Win + Shift + Left/Right Arrow: Move active window to another monitor. 
+
+** Layouts, Views, and Desktops 
+- Win + Z: Open Snap Layouts menu (new in Windows 11).
+- Win + Tab: Open Task View (Virtual Desktops).
+- Win + Ctrl + D: Create a new virtual desktop.
+- Win + Ctrl + Left/Right Arrow: Switch between virtual desktops.
+- Win + Ctrl + F4: Close current virtual desktop. 
+
+** Desktop and Taskbar Management 
+- Win + D: Show or hide the desktop.
+- Win + Home: Minimize all non-active windows (shake active window to undo).
+- Alt + Tab: Switch between open apps.
+- Alt + F4: Close the active app.
+- Win + E: Open File Explorer
