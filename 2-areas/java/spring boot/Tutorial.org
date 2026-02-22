@@ -1,12 +1,12 @@
-* Tutorial
+#+title: Tutorial
 
-** Connect to a database in a container
+* Connect to a database in a container
 
 #+begin_src sh
 docker exec -it postgres bash
 #+end_src
 
-** Connect to the database.
+* Connect to the database.
 
 #+begin_src sh
 psql -d postgres -U user
@@ -24,7 +24,7 @@ Select database
 \c demo
 #+end_src
 
-** application.properties
+* application.properties
 
 #+begin_src sh
 spring.datasource.url=jdbc:postgresql://localhost:5432/demo
@@ -32,7 +32,7 @@ spring.datasource.username=user
 spring.datasource.password=password
 #+end_src
 
-** Create a docker file
+* Create a docker file
 
 #+begin_src yml
 services:
@@ -46,7 +46,7 @@ services:
       - "5432:5432"
 #+end_src
 
-** Create the users table
+* Create the users table
 
 #+begin_src sql
 CREATE TABLE IF NOT EXISTS users(
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS users(
  );
 #+end_src
 
-** Insert a record into the users table.
+* Insert a record into the users table.
 
 #+begin_src sql
 INSERT INTO users (username, password)

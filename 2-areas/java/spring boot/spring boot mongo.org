@@ -1,12 +1,12 @@
-* spring boot mongo
+#+title: spring boot mongo
 
-** Create a project with the following dependencies
+* Create a project with the following dependencies
 
 - Spring Web
 - Spring Data MongoDB
 - Lombok
 
-** Run mongo in docker with docker compose
+* Run mongo in docker with docker compose
 
 #+begin_src yml
 services:
@@ -21,7 +21,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: admin
 #+end_src
 
-** Configure connection in properties
+* Configure connection in properties
 
 #+begin_src sh
 # define variables directly
@@ -35,7 +35,7 @@ spring.data.mongodb.password=admin (optional)
 spring.data.mongodb.uri=mongodb://admin:admin@localhost:27017/demo
 #+end_src
 
-** Create a document class
+* Create a document class
 
 #+begin_src java
 @Document
@@ -68,7 +68,7 @@ public class User {
 }
 #+end_src
 
-** Create the repository interface
+* Create the repository interface
 
 #+begin_src java
 public interface UserRepository extends MongoRepository<User,String>{
@@ -76,4 +76,4 @@ public interface UserRepository extends MongoRepository<User,String>{
 }
 #+end_src
 
-** Create a controller class
+* Create a controller class

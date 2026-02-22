@@ -1,4 +1,21 @@
-* springboot cli
+#+title: springboot cli
 
-** [[file:install spring boot cli.org][install spring boot cli]]
-** [[file:spring boot cli encodepassword.org][spring boot cli encodepassword]]
+* [[file:install spring boot cli.org][install spring boot cli]]
+** Install sdkman
+
+[[file:~/Documents/org/2-areas/java/sdkman.org][sdkman]]
+
+** Install springboot cli
+
+Paste and run the following in a terminal
+
+#+begin_src sh
+sdk install springboot
+#+end_src
+
+* [[file:spring boot cli encodepassword.org][spring boot cli encodepassword]]
+
+#+begin_src sh
+spring encodepassword secret
+#+end_src
+

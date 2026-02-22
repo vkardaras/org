@@ -1,5 +1,25 @@
-* spring boot testing
-:PROPERTIES:
-:CUSTOM_ID: spring-boot-testing
-:END:
-** [[file:~/Documents/org/2-areas/testing/spring/spring testing demo.org][spring testing demo]]
+#+title: spring boot testing
+
+* [[file:~/Documents/org/2-areas/testing/spring/spring testing demo.org][spring testing demo]]
+
+** Download the repo
+
+#+begin_src sh
+https://github.com/rieckpil/testing-spring-boot-applications-masterclass
+#+end_src
+
+** Run docker compose
+
+#+begin_src sh
+docker compose up -d
+#+end_src
+
+** Start the application
+
+#+begin_src sh
+mvn clean spring-boot:run
+#+end_src
+
+** View the demo application
+
+Go to =localhost:8080=
