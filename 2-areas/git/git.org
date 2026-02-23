@@ -1,30 +1,215 @@
 #+title: Git
 
+* Git File Management
+
+- Untracked: Not added or committed. Stays in directory
+- Staged: Added and ready for commit. Stays in staged state
+- Committed: Belongs to branch. Changes not visible when switching to a different branch
+
+* Common git commands
+
+** Git basics
+#+begin_src sh
+  # Create a new .git repository and begin tracking
+  git init
+
+  # Move modified files into the staging area
+  git add
+
+  # show the status of your files
+  git status
+
+  # create a snapshot and commit to .git
+  git commit
+
+  # set and read specific Git configurations
+  git config
+
+  #show the committed snapshot history
+  git log
+
+  # show changes between your working directory and staging area
+  git diff
+#+end_src
+
+** Git branches
+#+begin_src sh
+  # list, create, or delete branches
+  git branch
+
+  # switch between branches
+  git checkout
+
+  # bring changes from one branch into another
+  git merge
+#+end_src
+
+** Remote Repositories
+#+begin_src sh
+  # copy an entire repository into a new local .git directory
+  git clone
+
+  # create and show linked repositories
+  git remote
+
+  # send updates to associate repositories
+  git push
+
+  # retrieve and integrate changes from other repositories
+  git pull
+
+  # retrieve but doesn't integrate changes from other repositories
+  git fetch
+#+end_src
+
+** Undoing changes
+#+begin_src sh
+  # create a new commit that undoes a previous commit
+  git revert
+
+  # remove files from the staging area
+  git reset
+#+end_src
+
 * basic git commands
 
 #+begin_src sh
-# add global name and email
-git config --global user.name "Mona Lisa"
-git config --global user.email test@email.com
+  # add global name and email
+  git config --global user.name "Mona Lisa"
+  git config --global user.email test@email.com
 
-# verify the connection details
-git remote -v
-# View existing remotes
-# origin  https://github.com/user/repo.git (fetch)
-# origin  https://github.com/user/repo.git (push)
+  # verify the connection details
+  git remote -v
+  # View existing remotes
+  # origin  https://github.com/user/repo.git (fetch)
+  # origin  https://github.com/user/repo.git (push)
 
-# Add the 'origin' remote's URL
-git remote add origin https://github.com/user/repo2.git
+  # Add the 'origin' remote's URL
+  git remote add origin https://github.com/user/repo2.git
 
-# Change the 'origin' remote's URL
-git remote set-url origin https://github.com/user/repo2.git
+  # Change the 'origin' remote's URL
+  git remote set-url origin https://github.com/user/repo2.git
 
-git remote -v
-# Verify new remote URL
-# origin  https://github.com/user/repo2.git (fetch)
-# origin  https://github.com/user/repo2.git (push)
+  git remote -v
+  # Verify new remote URL
+  # origin  https://github.com/user/repo2.git (fetch)
+  # origin  https://github.com/user/repo2.git (push)
 #+end_src
 
+* Git branches
+
+#+begin_src sh
+  # list your branches
+  git branch
+  # switch to work in a different branch
+  git checkout <branch-name>
+  git switch <branch-name>
+
+  # create a branch called 'quickfix' and move to that branch
+  git checkout -b quickfix
+  git switch -c quickfix
+
+  # stage tghe changes
+  git add *
+
+  # commit the changes in the 'quickfix' branch
+  git commit -m "start of changes of quickfix"
+
+  # 'main' is now clean and changes are saved in 'quickfix' branch
+#+end_src
+
+* Git rename and delete
+
+#+begin_src sh
+  # rename a branch
+  git branch -m <current name> <new name>
+  git branch -m quickfix longfix
+
+  # rename the current branch
+  git branch -m <new name for current branch>
+  git branch -m hotfix1
+
+  # delete a branch
+  git branch -d <branchname>
+  git branch -d longfix
+
+  # force delete if you have error messages or unmerged commits
+  git branch -D longfix
+#+end_src
+
+* Git merge
+
+Merge Branches
+#+begin_src sh
+  # switch to target branch
+  git checkout <target-branch>
+
+  # merge source branch
+  git merge <source-branch>
+
+  # example: merge ticket1 branch to main
+  git checkout main
+  git merge ticket1
+#+end_src
+
+Compare Branches
+#+begin_src sh
+  # show changes between tips of branches, does not change anything
+  git diff <branch1> <branch2>
+  git diff main ticket1
+
+  # git hashes of file before and after
+  git show <hash> to see file
+
+  # changed and not staged for commit
+  git diff
+
+  # changed and staged for commit (git commit)
+  git diff --cached
+
+  # changed since last commit (git commit -a)
+  git diff HEAD
+
+  # ignore whitespace differences
+  git diff -w
+
+  # specific commit and current
+  git diff <commit hash>
+
+  # specific commit and staged
+  git diff --cached <commit hash>
+
+  # differences between two commits
+  git diff <commit hash> <commit hast>
+
+  # differences between tips of branches
+  git diff feature main
+
+  # changed in main since feature was started off of it
+  git diff feature..main
+
+  # difference in file.txt on two branches
+  git diff feature main file.txt
+
+  # show history in one line
+  git log --oneline
+#+end_src
+
+Result of diff
+#+begin_src sh
+  # label a and b for files being compared
+  diff --git a/example.txt b/example.txt
+
+  # a file marker (---), b file marker (+++), /dev/null if new or deleted file
+  --- a/example.txt
+  +++ b/example.txt
+
+  # @@ are just markers for chunk header
+  # starting at line 3,6 lines of file a
+  # starting 3,7 lines of file b
+  # lines with no file marker are the same in both a and b
+  @@ -3,6 +3,7 @@
+  #+end_src
 * Resetting and Reverting
 
 #+begin_src sh
