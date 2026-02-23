@@ -85,6 +85,57 @@ Create a data directory on a suitable volume on your host system, e.g. =/my/own/
     mysql-data:
 #+end_src
 
+*** With docker compose =.env= file and init script
+
+Create an =.env= file
+#+begin_src conf
+  MYSQL_ROOT_PASSWORD=rootpassword
+  MYSQL_DATABASE=appdb
+  MYSQL_USER=appuser
+  MYSQL_PASSWORD=apppassword
+#+end_src
+
+Create the docker compose file
+#+begin_src yaml
+  services:
+    mysql:
+      image: mysql:8.0
+      container_name: mysql_db
+      restart: unless-stopped
+      environment:
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      volumes:
+        - mysql_data:/var/lib/mysql
+        - ./mysql/init:/docker-entrypoint-initdb.d
+      ports:
+        - "3306:3306"
+  
+  volumes:
+    mysql_data:      
+#+end_src
+
+Create the file =mysql/init/01-schema.sql=
+#+begin_src sql
+  CREATE TABLE users (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL
+  );
+#+end_src
+
+** Copy from and to container
+
+#+begin_src sh
+  # copy a file to a docker container
+  docker cp test.sql <docker_id>:
+  # copy a directory to a docker container
+  docker cp test_db <docker_id:test_db
+
+  # copy a file from a docker container to current directory
+  docker cp <docker_id>:test.sql .
+#+end_src
+
 * MySQL commands
 
 #+begin_src sh
