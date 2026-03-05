@@ -5,3 +5,4 @@
 - https://stackoverflow.com/questions/22907231/how-can-i-copy-files-from-a-host-to-a-docker-container
 - https://wezterm.org/config/default-keys.html
 - https://www.w3schools.com/sql/sql_ref_mysql.asp
+- https://www.youtube.com/watch?v=exqfB1WaqIw
