@@ -1,0 +1,27 @@
+#+title: Rofi
+
+* Installation
+#+begin_src sh
+  # debian
+  apt install rofi
+
+  # arch
+  pacman -S rofi
+#+end_src
+
+* Rofi commands
+#+begin_src sh
+  # show installed programs
+  rofi -show drun
+
+  # show opened windows
+  rofi -show window
+
+  # show files
+  rofi -show filebrowser
+  # show files including hidden
+  rofi -show filebrowser -show-hidden
+
+  # show installed programs with opened windows
+  rofi -show combi -modes combi -combi-modes "window,drun"
+#+end_src

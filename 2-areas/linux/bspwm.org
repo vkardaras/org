@@ -1,0 +1,28 @@
+#+title: BSPWM
+
+* Installation
+ #+begin_src sh
+   # arch
+   sudo pacman -S bspwm sxhkd polybar picom dmenu dunst nitrogen thunar xfce4-power-manager blueman brightnessctl arandr amixer
+   
+   # debian
+   sudo apt install bspwm sxhkd
+ #+end_src
+
+* Create configuration files
+#+begin_src sh
+  # create directories
+  cd ~/.config
+  mkdir bspwm sxhkd polybar picom dunst flameshot
+
+  # copy example configuration files
+  cp /usr/share/doc/bspwm/examples/bspwmrc ~/.config/bspwm/
+  cp /usr/share/doc/bspwm/examples/sxhkdrc ~/.config/sxhkd/
+  cp /etc/xdg/picom.conf ~/.config/picom/
+  cp /etc/polybar/config.ini ~/.config/polybar/
+  cp /etc/dunst/dunstrc ~/.config/dunst/
+
+  # make bspwm executable
+  cd ~/.config/bspwm/
+  chmod +x bspwmrc
+#+end_src

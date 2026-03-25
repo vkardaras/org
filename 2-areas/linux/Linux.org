@@ -17,5 +17,5 @@
 * [[file:linux graphics.org][linux graphics]]
 * [[file:linux processes.org][linux processes]]
 * [[file:qemu-kvm.org][qemu-kvm]]
-* [[file:qtile.org][qtile]]
+* [[file:linux_wm_launcher.org][Linux Window Manager and Launcher]]
 * [[file:vial.org][vial]]
