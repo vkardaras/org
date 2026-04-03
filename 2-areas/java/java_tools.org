@@ -1,0 +1,25 @@
+#+title: Java Tools
+
+* Intellij
+
+** Invalidate cache from command line
+
+#+begin_src sh
+  rm -rf ~/.cache/JetBrains/IntelliJIdea2025.3/caches
+#+end_src
+
+** Open intellij from command line
+
+#+begin_src sh
+  # Open from location of installation
+  /opt/idea-IU-253.32098.37/bin/idea /project/path
+
+  # OR Add idea to $PATH in fish shell
+  fish_add_path /opt/idea-IU-253.32098.37/bin
+
+  # Add from terminal
+  idea /project/path
+
+  # Add project in new window
+  idea -n /project/path
+#+end_src
