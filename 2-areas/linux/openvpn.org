@@ -1,0 +1,43 @@
+#+title: OpenVPN
+
+* 1. Install required packages
+
+#+begin_src sh
+  sudo apt update
+  sudo apt install network-manager network-manager-openvpn
+#+end_src
+
+* 2. Enable & start NetworkManager
+
+#+begin_src sh
+  sudo systemctl enable NetworkManager
+  sudo systemctl start NetworkManager
+
+  # (Optional: disable old networking if needed)
+  sudo systemctl disable networking
+#+end_src
+
+* 3. Import your .ovpn file
+
+#+begin_src sh
+  nmcli connection import type openvpn file ~/vpn/myvpn.ovpn
+#+end_src
+
+
+* 4. List connections
+
+#+begin_src sh
+  nmcli connection show
+#+end_src
+
+* 5. Connect to VPN
+
+#+begin_src sh
+  nmcli connection up myvpn
+#+end_src
+
+* 6. Disconnect
+
+#+begin_src sh
+  nmcli connection down myvpn
+#+end_src
