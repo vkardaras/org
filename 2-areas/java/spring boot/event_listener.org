@@ -1,0 +1,169 @@
+#+title: Event Listeners
+
+* Create custom event
+
+#+begin_src java
+  public class UserRegistrationEvent extends ApplicationEvent {
+      private String username;
+
+      public UserRegistrationEvent(Object source, String username) {
+          super(source);
+          this.username = username;
+      }
+
+      public String getUsername() {
+          return username;
+      }
+  }
+#+end_src
+
+* Publish the event using =ApplicationEventPublisher=
+
+#+begin_src java
+  @Service
+  public class UserRegistrationService {
+      @Autowired
+      private ApplicationEventPublisher eventPublisher;
+
+      public void registerUser(String username) {
+          // ... registration logic ...
+
+          eventPublisher.publishEvent(new UserRegistrationEvent(this, username));
+      }
+  }
+#+end_src
+
+* Listen for the event
+
+** Using =ApplicationListener=
+
+#+begin_src java
+  @Component
+  public class UserRegistrationListener implements ApplicationListener<UserRegistrationEvent> {
+      @Override
+      public void onApplicationEvent(UserRegistrationEvent event) {
+          // ... handle event ...
+      }
+  }
+#+end_src
+
+** Using Annotations
+
+#+begin_src java
+  @Component
+  public class UserRegistrationListener {
+      @EventListener
+      public void handleUserRegistrationEvent(UserRegistrationEvent event) {
+          // ... handle event ...
+      }
+  }
+#+end_src
+
+* Asynchronous Events
+
+First, enable asynchronous event listeners in your application configuration:
+
+#+begin_src java
+  @Configuration
+  @EnableAsync
+  public class SpringAsyncConfig {}
+#+end_src
+
+Then, simply add the @Async annotation to your listener:
+
+#+begin_src java
+  @Component
+  public class UserRegistrationListener {
+      @Async
+      @EventListener
+      public void handleUserRegistrationEvent(UserRegistrationEvent event) {
+          // ... handle event ...
+      }
+  }
+#+end_src
+
+* Conditional Events in Spring Boot
+
+You can make use of the @EventListener's condition attribute to define a SpEL expression that evaluates whether or not the event should be handled:
+
+#+begin_src java
+  @Component
+  public class UserRegistrationListener {
+      @EventListener(condition = "#event.username.startsWith('admin')")
+      public void handleAdminRegistrationEvent(UserRegistrationEvent event) {
+          // ... handle event ...
+      }
+  }
+#+end_src
+
+
+* Transactional Events
+
+ransactional events are only published after the successful completion of a transaction.
+
+To publish a transactional event, you need to use the TransactionalApplicationEventPublisher:
+
+#+begin_src java
+  @Service
+  public class UserRegistrationService {
+      @Autowired
+      private TransactionalApplicationEventPublisher eventPublisher;
+
+      @Transactional
+      public void registerUser(String username) {
+          // ... registration logic ...
+
+          eventPublisher.publishEvent(new UserRegistrationEvent(this, username));
+      }
+  }
+#+end_src
+
+
+* Order of Event Execution
+
+To control the order implement the =Ordered= interface or use the =@Order= annotation:
+
+#+begin_src java
+  @Component
+  @Order(1)
+  public class FirstUserRegistrationListener implements ApplicationListener<UserRegistrationEvent> {
+      @Override
+      public void onApplicationEvent(UserRegistrationEvent event) {
+          // ... handle event ...
+      }
+  }
+
+  @Component
+  @Order(2)
+  public class SecondUserRegistrationListener implements ApplicationListener<UserRegistrationEvent> {
+      @Override
+      public void onApplicationEvent(UserRegistrationEvent event) {
+          // ... handle event ...
+      }
+  }
+#+end_src
+
+* Testing Event Listeners
+
+To test event listeners in Spring Boot, you can use the ApplicationEventPublisher:
+
+#+begin_src java
+  @RunWith(SpringRunner.class)
+  @SpringBootTest
+  public class UserRegistrationListenerTest {
+      @Autowired
+      private ApplicationEventPublisher eventPublisher;
+
+      @Autowired
+      private UserRegistrationListener userRegistrationListener;
+
+      @Test
+      public void testHandleUserRegistrationEvent() {
+          UserRegistrationEvent event = new UserRegistrationEvent(this, "testUser");
+
+          eventPublisher.publishEvent(event);
+
+          // ... verify listener behavior ...
+      }
+  }
+#+end_src

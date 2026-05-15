@@ -1,3 +1,5 @@
+#+title: Create a shell script
+
 * Creating a first script
 
 #+begin_src sh
