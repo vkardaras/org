@@ -1,4 +1,6 @@
-[[java version|Check java version]]
+#+title: Java installation - removal
+
+* Install or Remove Java
 
 ** ubuntu
 
@@ -30,3 +32,11 @@ Available Java environments:
 # change default java version
 archlinux-java set java-21-openjdk
 #+end_src
+
+* Find Java path
+
+Find the actual Java installation directory and executable path, with one of the following methods:
+
+- *Follow the symlinks*: Run ~readlink -f $(which java)~ to resolve all symbolic links and show the final target path. 
+- *Check the alternatives*: On Debian/Ubuntu systems, use ~sudo update-alternatives --config java~ to see and select the active Java version. 
+- *Inspect the link*: Run ~ls -l $(which java)~ to see where the ~/usr/bin/java~ symlink currently points. 

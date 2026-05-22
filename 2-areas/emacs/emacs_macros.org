@@ -1,12 +1,12 @@
 #+title: Emacs Macros
 
 #+begin_src shell
-  # start a macro recordint
+  # start a macro recording
   F3
 
   # end a macro definition
   F4
 
-  # fun the macro
+  # run the macro
   F4
 #+end_src

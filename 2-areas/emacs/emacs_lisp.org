@@ -12,7 +12,7 @@ Define a function witn the =defun= keyword
   (forward-line 15))
 
 (defun my-previous-15-lines ()
-  "Move to the next 15 lines."
+  "Move to the previous 15 lines."
   (interactive)
   (forward-line -15))
 
