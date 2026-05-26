@@ -11,7 +11,7 @@ python3 -m venv venv
 ** Activate the virtual environment
 
 #+begin_src sh
-sourc venv/bin/activate
+source venv/bin/activate
 #+end_src
 
 ** Install any python library
