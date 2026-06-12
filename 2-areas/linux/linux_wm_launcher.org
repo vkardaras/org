@@ -26,3 +26,26 @@ For intel based graphics
 
   EndSection
 #+end_src
+
+* Sway
+
+#+begin_src shell
+  # install applications
+  sudo apt install -y sway swaybg swaylock swayidle xdg-desktop-portal-wlr waybar wofi pavucontrol grimp slurp wl-clipboard xdg-user-dirs nautilus mousepad
+
+  # run the following
+  xdg-user-dirs-update
+
+  # default config files
+  # sway
+  /etc/sway/config
+  # waybar
+  /etc/xdg/waybar/
+
+  # copy default config to .config
+  cp /etc/sway/config ~/.config/sway/
+  cp /etc/xdg/waybar/* ~/.config/waybar/
+
+  # change Permissions
+  sudo chown vasilis config
+#+end_src
