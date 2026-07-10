@@ -41,3 +41,10 @@ print("Hello", "future", "Python", "programmer!", sep="-")
 > Hello-future-Python-programmer!
 #+end_src
 * Input
+#+begin_src mermaid :file test.png
+sequenceDiagram
+ A-->B: Works!
+#+end_src
+
+#+RESULTS:
+[[file:test.png]]

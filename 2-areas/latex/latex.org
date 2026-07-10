@@ -1,0 +1,10 @@
+#+title: Latex
+
+* Installation
+#+begin_src sh
+  # install in arch
+  sudo pacman -S texlive
+
+  # install extra tools
+  sudo pacman -S texstudio
+#+end_src

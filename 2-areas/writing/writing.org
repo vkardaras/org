@@ -1,11 +1,12 @@
 #+title: Writing
 
-* [[file:blog_ideas.org][Blog ideas]]
+* Types of Writing
 
-* [[file:technical_article_types.org][Types of Technical Articles]]
+|                   | Goal                                        | Audience                          | Length | Tonality                                   | Context                 |
+|-------------------+---------------------------------------------+-----------------------------------+--------+--------------------------------------------+-------------------------|
+| Technical Writing | helps to understand and use technology      | users, team members, stakeholders | long   | neutral                                    | wikis, style guides etc |
+| UX Writing        | helps users to use a product                | users                             | short  | brand-driven                               | in product              |
+| Copywriting       | grabs attention, engages, persuades         | potential customers               | short  | provocative, amusing, humorous, convincing | ads, marketing channels |
+| Content Writing   | informs, creates awareness, grabs attention | interested readers                | long   | neutral (+ personal voice of author)       | blogs, media outlets    |
 
-* [[file:article_title.org][Crafting the Perfect Article Title]]
-
-* [[file:article_structure.org][How to Structure Your Article]]
-
-* [[file:feature_image.org][The Power of Feature Images]]
+[[file:technical_writing.org][Technical Writing]]

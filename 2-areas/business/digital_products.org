@@ -1,0 +1,17 @@
+#+title: How to create digital products
+
+* Find real problems
+
+*Reddit*. Go to any subreddit related to a topic you care about. Sort by “Top this week.” Read the comments. Look for the posts where people are asking the same question over and over. Look for the posts where someone wrote a 500-word rant about how frustrating something is. Those are gold.
+
+*X (Twitter)*. Search trending topics. Look at the replies. People complain in replies. They ask questions in replies. They share what isn’t working for them in replies.
+
+You’re not looking for ideas. You’re looking for pain. /The more specific the pain, the better./
+
+* Steps (the order matters)
+
+1. Find a trending topic with real frustration
+2. Identify the specific problem inside that topic
+3. Use AI to help you solve it
+4. Share the solution publicly (article, thread, video)
+5. Package the solution into a digital product

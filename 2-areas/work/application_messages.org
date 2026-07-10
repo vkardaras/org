@@ -1,0 +1,14 @@
+#+title: Application messages
+
+* Resend
+** English
+#+begin_example
+Hi Melina,
+
+I am available for a Senior Software Engineer/Architect position. I would like to know if you have any open roles at the moment.
+
+I sent you my updated resume for review. I really appreciate any help you can provide.
+
+Kind regards
+Vasilis
+#+end_example

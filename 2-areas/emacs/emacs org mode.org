@@ -77,3 +77,60 @@
   # visit link
   C-c C-o
 #+end_src
+
+* Tables
+
+- create a table with TAB, RET and |
+- create a table separator with |-
+#+begin_src shell
+  # create a table
+  use TAB, RET and |
+  # create a table separator
+  |-
+  # add horizontal line below current row
+  C-c -, C-c Ret
+  # exit table editing
+  C-c C-c
+  # create an empty table or create from ragion by selecting the text
+  C-c |
+  # use prefix C-u one time to select comma separator
+  C-u C-c |
+  # use prefix C-u two times to select tab separator
+  C-u C-u C-c |
+  # use prefix C-u three times to select separator from regex
+  C-u C-u C-u C-c |
+  # move a field
+  S-Left S-Right
+  # move a column
+  M-Left M-Right
+  # move a row
+  M-Down M-Up
+  # delete a row
+  S-M-Up
+  # add a row
+  S-M-Down
+  # kill the current column
+  M-S-Left
+  # insert a new column at point
+  M-S-Right
+  # move cell up
+  S-Up
+  # move cell down
+  S-Down
+  # move cell left
+  S-Left
+  # move cell right
+  S-Right
+  # sort lines
+  C-c ^
+#+end_src
+
+| expense | price |
+|---------+-------|
+| bar     |    12 |
+| food    |    21 |
+| drink   |    33 |
+
+name:tags
+jack:tall,blondκδδην
+kim:small,brown
