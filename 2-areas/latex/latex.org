@@ -8,3 +8,50 @@
   # install extra tools
   sudo pacman -S texstudio
 #+end_src
+
+* The Skeleton of a LaTeX Document[]
+- [[file:examples/basic.tex][Basic structure]]
+- [[file:examples/sections.tex][Sections and TOC]]
+- [[file:examples/paragraph_text_formating.tex][Paragraphs and text formatting]]
+- [[file:examples/comments.tex][Comments]]
+
+* Lists and Tables
+- [[file:examples/lists.tex][Lists]]
+- [[file:examples/tables.tex][Tables]]
+
+* Including images
+- [[file:examples/images.tex][Including images]]
+- [[file:examples/figures.tex][Figure Environment]]
+
+* References and Links
+- [[file:examples/references_links.tex][References and Links]]
+
+* Styling with Fonts and Colors
+- [[file:examples/managing_text.tex][Managing text]]
+  - [[https://www.overleaf.com/learn/latex/Font_sizes%2C_families%2C_and_styles][Font sizes, families, and styles]]
+- [[file:examples/fonts_from_package.tex][Fonts from packages]]
+  - [[https://tug.org/FontCatalogue/][LaTeX font catalogue]]
+- [[file:examples/colors.tex][Colors]]
+  - [[https://www.overleaf.com/learn/latex/Using_colors_in_LaTeX][Color Documentation]]
+  - [[https://coolors.co/][Color picker site]]
+
+* Classes and Templates
+- [[file:examples/documentclass_arguments.tex][Optional arguments in the Documentclass]]
+- [[file:examples/letter.tex][Letter]]
+- [[https://no.overleaf.com/latex/templates][Overleaf templates]]
+
+* Presenting with Beamer
+- [[file:examples/][Beamer]]
+  - [[https://no.overleaf.com/latex/templates/tagged/presentation][LaTeX templates - Presentations]]
+
+* Further topics
+- [[file:examples/code.tex][Displaying Code with Verbatim]]
+  - [[https://www.overleaf.com/learn/latex/Code_listing][Code Listing]]
+- [[file:examples/multiple_files.tex][Multiple files]]
+- [[file:examples/custom_commands.tex][Custom Commands]]
+  - [[https://www.overleaf.com/learn/latex/Commands][Commands Documentation]]
+
+* Resources
+- [[https://no.overleaf.com/learn][Overleaf Documentation]]
+- [[https://en.wikibooks.org/wiki/LaTeX][LaTeX on wikibooks]]
+- [[https://tex.stackexchange.com/][LaTeX on stackexchange]]

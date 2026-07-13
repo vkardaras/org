@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{graphicx}
+\graphicspath{{./pictures/}}
+
+\title{Including Images}
+\author{Vasilis}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Include image}
+\includegraphics{example_graph.png}
+
+\section{Resize using scale}
+\includegraphics[scale=0.5]{example_graph.png}
+
+\section{Resize using width}
+\includegraphics[width=12cm]{example_graph.png}
+
+\includegraphics[width=2in]{example_graph.png}
+
+\section{Resize using height}
+\includegraphics[height=2in]{example_graph.png}
+
+\section{Resize relatively}
+\includegraphics[width=0.5\textwidth]{example_graph.png}
+
+\end{document}

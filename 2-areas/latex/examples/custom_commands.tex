@@ -1,0 +1,30 @@
+\documentclass{article}
+
+\newcommand{\intinf}{\int_{1}^{\infty}}
+% command with arguments
+\newcommand{\intinfarg}[2]{\int_{#1}^{#2}}
+\newcommand{\eg}{e.g.\ }
+
+\title{Skeleton of Latex Document}
+\author{Vasilis}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Example math}
+\[\int_{1}^{\infty} \frac{1}{x^2} \, dx\]
+
+\section{Example math using command}
+\[\intinf \frac{1}{x^2} \, dx\]
+
+\subsection{Command with arguments}
+\[\intinfarg{2}{\infty} \frac{1}{x^2} \, dx\]
+
+\[\intinfarg{2}{3} \frac{1}{x^2} \, dx\]
+
+\section{More examples}
+Fruits I like are \eg apples, bananas, and oranges.
+
+\end{document}

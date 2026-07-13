@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{enumerate} % specify numeric type for lists
+
+\title{Skeleton of Latex Document}
+\author{Vasilis}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Unordered Lists}
+
+\begin{itemize}
+	\item Bread
+	\item Pasta
+	\begin{itemize}
+		\item Flour
+		\item Eggs
+	\end{itemize}
+\end{itemize}
+
+\subsection{Specify bullet type}
+\begin{itemize}
+	\item[-] One
+	\item Two
+	\item Three
+\end{itemize}
+
+\section{Orderd Lists}
+
+\begin{enumerate}
+	\item Pizza
+	\item Pasta
+	\item Taco
+\end{enumerate}
+
+\subsection{Specify order type}
+
+\begin{enumerate}[i)]
+	\item One
+	\item Two
+\end{enumerate}
+
+\begin{enumerate}[I.]
+	\item One
+	\item Two
+\end{enumerate}
+
+\begin{enumerate}[A.]
+\item One
+\item Two
+\end{enumerate}
+
+\end{document}

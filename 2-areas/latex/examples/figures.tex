@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{wrapfig} % for figure wraping
+\graphicspath{{./pictures/}}
+
+\title{The Figure Environment}
+\author{Vasilis}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Image without figure}
+Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. 
+\includegraphics[width=0.5\textwidth]{example_graph.png}
+Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text.
+
+\section{Image with figure}
+Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. 
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{example_graph.png}
+\caption{Here is a caption}
+\end{figure}
+Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text.
+
+\section{Align figure to the right}
+Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. 
+\begin{figure}[h]
+	\raggedleft
+	\includegraphics[width=0.5\textwidth]{example_graph.png}
+	\caption{Here is a caption}
+\end{figure}
+Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text.
+
+\section{Wrap figure with text}
+Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text.
+
+% l for figure left, r for figure right 
+\begin{wrapfigure}{l}{0.5\textwidth}
+	\raggedleft
+	\includegraphics[width=0.5\textwidth]{example_graph.png}
+	\caption{Here is a caption}
+\end{wrapfigure}
+
+Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text. Here is a lot of text.
+
+\end{document}

@@ -1,0 +1,40 @@
+\documentclass{article}
+
+\title{Tables}
+\author{Vasilis}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Alignment and Lines}
+Some text above
+\begin{tabular}{|r|c|l|}
+	First column & Second column & Third column \\ \hline\hline
+	Second row & Second row & Second row
+\end{tabular}
+Some text below
+
+\section{Table placement}
+Some text above
+\begin{table}[h]
+\centering
+\begin{tabular}{|r|c|l|}
+	First column & Second column & Third column \\ \hline\hline
+	Second row & Second row & Second row
+\end{tabular}
+\caption{Here is my table}
+\end{table}
+
+Some text below
+
+\subsection{Table placement options}
+
+\begin{itemize}
+	\item h: place here
+	\item t!: place on top
+	\item b!: place on bottom
+\end{itemize}
+
+\end{document}
