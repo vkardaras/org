@@ -1,0 +1,61 @@
+\documentclass{article}
+
+\usepackage[a5paper]{geometry}
+\usepackage{xspace} % use space in commands when needed
+\usepackage{xcolor}
+\usepackage{myhighlighter} % custom package
+
+\newcommand{\universityname}{University of LaTeX\xspace}
+
+% command with arguments
+% \bfred{<text>}
+\newcommand{\bfred}[1]{\textbf{\color{red} #1}}
+% \bfcolor{<color>}{<text>}
+\newcommand{\bfcolor}[2]{\textbf{\color{#1} #2}}
+
+\begin{document}
+	
+\section{Custom Commands}
+
+Our university is \universityname it is the best university in the world.
+
+\bfred{This is some red bold text} \\
+
+\bfcolor{blue}{This is some blue text.}
+
+\section{Using xparse with custom commands}
+
+\colorbox{red!20}{This is some red highlighted text.} \\
+
+\highlight{This is some more red highlighted text.} \\
+
+\highlight[blue]{This is some more red highlighted text.} \\
+
+\highlight*[blue]{This is some more red highlighted text.} \\
+
+\section{Custom Environments}
+
+% use environments defined in custom package
+\begin{boldtext}
+This is some bold text.
+\end{boldtext}
+
+This is some regular text \\
+
+\begin{highlightbox}
+This is some more content.
+\end{highlightbox}
+
+\begin{highlightbox}[red]
+This is some more content.
+\end{highlightbox}
+
+\begin{highlightbox}[purple]
+This is some more content.
+\end{highlightbox}
+
+\begin{highlightbox}[blue]
+This is some more content.
+\end{highlightbox}
+
+\end{document}

@@ -1,0 +1,38 @@
+% Identification
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{myhighlighter}[20/07/2025 My Custom Highlighting Package]
+
+% Preliminary declarations
+\RequirePackage[table]{xcolor}
+\RequirePackage{xparse}
+
+% Additional Declaration
+\setlength{\parindent}{0pt}
+
+% Define the following commands
+% \highlight*[<color>]{<text>}
+\NewDocumentCommand{\highlight}{s O{red} m}
+{\IfBooleanTF{#1}
+{\colorbox{#2!20}{\bfseries #3}}
+{\colorbox{#2!20}{#3}}}
+
+% Define new environments
+\newenvironment{boldtext}
+{\bfseries}
+{}
+
+% Define a custom environment
+% Desired syntax \begin<{highlightbox}[<color>]
+\NewDocumentEnvironment{highlightbox}
+% args-specifiers
+{O{yellow}}
+% Before code
+{\renewcommand{\arrayrulewidth}{1pt}
+\arrayrulecolor{#1!50!black}
+\begin{tabular}{|c|}
+\hline
+\cellcolor{#1!25}}
+% After code
+{\\
+\hline
+\end{tabular}}

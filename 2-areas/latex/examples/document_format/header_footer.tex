@@ -1,0 +1,42 @@
+\documentclass[12pt, twocolumn]{article}
+
+\usepackage{lipsum}
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+
+\setlength{\parindent}{2em}
+\setlength{\parskip}{2\baselineskip}
+\setlength{\columnsep}{1.5em}
+
+\pagestyle{fancy}
+\pagenumbering{roman}
+
+\fancyhf{} % remove header and footer text
+
+\renewcommand{\headrulewidth}{2pt} % modify/remove header line from fancy
+
+\renewcommand{\footrulewidth}{2pt} % modify/remove footer line from fancy
+
+\fancyhead[R]{Company Name}
+\fancyfoot[R]{\thepage}
+\fancyhead[L]{\textbf{Section~\thesection}}
+
+\renewcommand{\thepage}{Page~\arabic{page}} % redefine \thepage command
+
+\renewcommand{\thesection}{\roman{section}} % redefine \thesection command
+
+\begin{document}
+
+\section{Introduction}	
+This is page \thepage.
+This is page \thesection.
+
+\lipsum[1-5]
+
+\section{The Next Section}	
+This is page \thepage.
+This is page \thesection.
+
+\lipsum[1-5]
+	
+\end{document}

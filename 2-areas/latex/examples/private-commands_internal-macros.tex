@@ -1,0 +1,39 @@
+\documentclass{article}
+
+\usepackage[a6paper]{geometry}
+\usepackage{lipsum}
+
+\title{This is my Title}
+
+% modify \maketitle
+\makeatletter
+\renewcommand{\maketitle}
+{\begin{center}
+\bfseries\Large \@title
+\makeatother
+
+\end{center}}
+
+% make a new command similar to \maketitle
+% \definemytitle{<title>}
+% Store <title> -> \mytitlename
+\newcommand{\definemytitle}[1]{\newcommand{\mytitlename}{#1}}
+
+\definemytitle{My other title}
+
+% Define a command \makemytitle
+\newcommand{\makemytitle}
+{\begin{center}
+\itshape\Large \mytitlename
+\end{center}}
+
+
+\begin{document}
+
+%\maketitle
+\makemytitle
+My title is \mytitlename
+
+\lipsum[1-2]
+
+\end{document}

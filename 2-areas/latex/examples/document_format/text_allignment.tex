@@ -1,0 +1,29 @@
+\documentclass[12pt]{article}
+
+\usepackage{lipsum}
+\usepackage[margin=1in]{geometry}
+\usepackage{ragged2e} % to use justify
+
+\setlength{\parskip}{2\baselineskip}
+
+\begin{document}
+
+\section{Spacing commands}
+\lipsum[1]
+	
+\vspace{2cm}
+%\vspace{\fill}
+\lipsum[2]
+
+This \hspace{2cm} is some text.
+\pagebreak
+\section{Spacing and Alignment}
+\lipsum[1]
+
+\raggedright
+\lipsum[3]
+
+\justifying
+
+\lipsum[4]
+\end{document}

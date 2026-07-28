@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{xcolor}
+\usepackage{xparse}
+
+% Define custom highlight commnands
+\NewDocumentCommand{\highlight}{m}
+{\colorbox{red!20}{#1}}
+
+% optional argument
+\NewDocumentCommand{\highlightOptional}{o m}
+{\IfValueTF{#1}
+{\colorbox{#1!20}{#2}}
+{\colorbox{red!20}{#2}}
+}
+
+% star argument
+\NewDocumentCommand{\highlightStar}{s O{cyan} m}
+{\IfBooleanTF{#1}
+{\colorbox{#2!50}{#3}}
+{\colorbox{#2!20}{#3}}
+}
+
+
+\begin{document}
+
+\section{Required Argument}
+\highlightOptional{This is some red highlightd text.}
+
+\section{Optional Argument}
+\highlightOptional[blue]{This is some red highlightd text.}
+
+\section{Star Argument}
+\highlightStar[blue]{This is some red highlightd text.}
+
+
+\highlightStar*[blue]{This is some red highlightd text.}
+
+\end{document}

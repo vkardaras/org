@@ -1,7 +1,7 @@
 #+title: Application messages
 
 * Resend
-** English
+** Reconnect with recruiter
 #+begin_example
 Hi Melina,
 
@@ -11,4 +11,16 @@ I sent you my updated resume for review. I really appreciate any help you can pr
 
 Kind regards
 Vasilis
+#+end_example
+
+** Positive response
+#+begin_example
+Hi Rosa,
+
+Thank you for your message. I want to learn more about this job opportunity. Could we arrange a call to discuss this job position further?
+
+My email address is vasiliskardaras@gmail.com, and my mobile number is +30 6973833646. I have also attached my CV for your reference.
+
+Kind regards,
+Vasilis Kardaras
 #+end_example

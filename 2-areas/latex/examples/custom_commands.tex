@@ -1,7 +1,12 @@
 \documentclass{article}
+\usepackage{xspace} % use space in a comman if needed
+\usepackage{xcolor}
+
+\newcommand{\universityname}{University of LaTeX\xspace}
 
 \newcommand{\intinf}{\int_{1}^{\infty}}
 % command with arguments
+\newcommand{\bfred}[1]{\textbf{\color{red} #1}}
 \newcommand{\intinfarg}[2]{\int_{#1}^{#2}}
 \newcommand{\eg}{e.g.\ }
 
@@ -20,11 +25,17 @@
 \[\intinf \frac{1}{x^2} \, dx\]
 
 \subsection{Command with arguments}
+
+\bfred{This is some red bold text.}
+
 \[\intinfarg{2}{\infty} \frac{1}{x^2} \, dx\]
 
 \[\intinfarg{2}{3} \frac{1}{x^2} \, dx\]
 
 \section{More examples}
 Fruits I like are \eg apples, bananas, and oranges.
+
+\section{Command with space}
+Our university is \universityname it is the best university in the world.
 
 \end{document}

@@ -1,0 +1,221 @@
+ #+title: CV Tips
+
+* Getting through the Applicant Tracking System (ATS)
+
+1. Use Relevant Keywords
+   - Incorporate *keywords* and *phrases* directly from the *job description* into your resume.
+   - ATS systems scan for *specific terms related to job requirements*
+2. Optimize Formatting
+   - Stick to a clean and simple format with standard fonts like Arial, Calibri or Times New Roman
+   - Use a logical structure with *clear headings, bullet points*, and *consistent spacing*
+   - Avoid using graphics, images or elaborate designs
+3. Include a *skills section*
+   - Create a *dedicated skills section* listing relevant *hard* and *soft skills*
+   - Use *industry-specific terminology* and include a *diverse range of skills* mentioned in the *job description*
+4. Tailor your Resume
+   - *Customize your resume* for each job application, emphasizing *experiences* and *achievements* that directly relate to the *job requirements*
+5. Use standard headings
+   - Label your sections with *standard headings* such as *WORK EXPERIENCE*, *EDUCATION* and *SKILLS*
+   - This helps ATS systems *categorize* and *check your information accurately*
+6. Avoid *unusual characters*
+   - Stick to *standard characters* and formatting like bullets and dashes
+   - Avoid *special characters*, *symbols*, or *fancy formatting* that might *confuse* the ATS
+7. Include relevant details
+   - Provide *specific details* about your *work experience*, *education*, and *achievements*
+   - *Quantify your accomplishments* with numbers, percentages, and metrics wherever possible
+   - This not only makes your resume *more impactful* for the *ATS* but also for *human reviewers*
+8. Check *file compatibility*
+   - Submit your resume in a *compatible file format*, such as .docs or pdf
+   - Avoid using formats that might *not be compatible with the ATS*, like image files or unconventional document types
+9. Proofread carefully
+   - Make sure your resume is *free of spelling mistakes*, *grammatical errors*, and *formatting issues*
+   - ATS systems can be *sensitive to errors*, and even minor mistakes could cause your resume to be *overlooked*
+10. Test your Resume
+    - Before submitting your resume, use ATS-friendly tools or software to test *how well it fares against common ATS algorithms*
+    - Use tools like [[https://www.jobscan.co/][jobscan]]
+
+* Creating an Engaging Resume
+
+1. Tailor your *Resume* to *Each Job*
+   - Tailoring your resume to each job isn't just a suggestion - *it's a must-do*
+     Candidates who customize their resumes for specific job descriptions are 50% more likely to receive an interview invitation.
+     54% of job applicants do not update their resumes to each position.
+   - Always keep your resume *up-to-date* with any new *role change*, *qualification*, or any other *relevant information*.
+2. Use *Action-Packed* Verbs
+   - Let your *achievements* do the talking with *action-packed verbs that command attention*.
+     Action verbs boost your chance of being offered an interview by 140%
+     e.g. instead of "Managed a team..." use "Led a high-performing team to surpass quarterly targets."
+3. Speak with *Confidence* in the *Active voice*
+   - Your resume is your chance to *showcase your confidence and expertise*.
+     Writing in the active voice not only exudes confidence but also makes your resume easier to read and digest
+     e.g. Responsibilities included overseeing project timelines -> I oversaw project timelines to ensure timely completion and delivery.
+4. Embrace *White Space* for *Readability*
+   - Not only does it enhance readability, but it also draws the reader in and keeps them engaged.
+     Recruiters will be reading many resumes and if your is *clearly laid out* with white space it gives the reader a *sense of ease in the sifting process*
+5. Showcase your *Unique Skill Set*
+   - *Your skills are what set you apart from the competition*, so don't be shy about showing them off.
+     48% of recruiters use skills data to help fill their roles.
+6. Address *Potential Concerns* head-on
+   - Anticipate any potential *concerns* or *questions* that hiring managers may have and *address them head-on in your resume*.
+     Whether it's explaining a career gap or showcasing remote working skills, proactive transparency can go a long way in building trust and credibility.
+     *Whatever you do, do not lie!*
+7. Mirror the *Company Culture*
+   - Showcasing your *understanding of* and *alignment with the company culture* can *significantly boost* your chances of success
+     84% of recruiters believe that culture fit is crucial when evaluating candidates.
+     So, mirror the company's values and language in your resume to demonstrate your compatibility and commitment. You should have an understanding of what the company culture is from your research.
+8. Polish your resume to *perfection*
+   - A single typo could be the *difference* between *landing and interview* and *being passed over*
+     Attention to detail speaks volumes about your professionalism and dedication.
+     51% of documents have grammatical errors
+
+ 
+* Making a master Resume or CV - Working through the different sections
+
+** Master Resume/CV
+This comprehensive document serves as a place to keep all your *skills*, *experiences*, and *accomplishments*, making it *easier to tailor specific resumes for different job applications*
+
+** Guide on how to create an effective master resume
+
+This document serves as a *source* from which you can extract the *most relevant details* to create a *targeted resume* for each job your apply for
+
+** Benefits of having a master resume
+1. Give a Comprehensive Overview
+   - Professional Experiences:
+     List all your *roles*, including *part-time jobs*, *internships*, and *volunteer work*
+   - Education
+     Include all *degrees*, *certifications*, *workshops*, and *training programs*
+   - Skills
+     Catalog all your *technical* and *soft skills*, including *languages*, *software proficiency*, project management*, and *leadership abilities*
+2. Put everything in *chronological order*
+   - Arrange your experiences in *reverse chronological order*
+     This helps recruiters see your *most recent* and *relevant experiences first*
+3. Detailed Descriptions
+   - Provide detailed *descriptions* for each *role*, highlighting your *responsibilities*, *accomplishments*, and *contributions*
+   - Use *action verbs* and *quantify your achievements* whenever possible
+     e.g. Instead of *Manages a team* use *Led a team of 10, improving project completion times by 20%*
+4. Create a skills inventory
+   - Create a *dedicated section* for listing your *skills*. This should include both *technical skills* and *soft skills*
+5. Put together all education and training
+   - List all your *educational qualifications* and *professional development* initiatives
+   - Include the *institution's name*, *degree* or *certification earned*, and *graduation date*
+6. Include any *professional developments*
+   - Include any professional development activities such as *workshops*, *seminars*, *conferences*, or *online courses*
+   - You can also include a section with *hyperlinks* for your *portfolio* if this is something *relevant* to you
+
+This document not only helps you *stay organized* but also ensures that *you are always ready to present your most relevant* and *impressive qualifications* to potential employers
+
+** Master Resume/CV sections
+
+*** Professional Summary
+
+- A professional summary is a *concise*, *impactful statement that highlights your career goals*, *key skills*, and *what you bring to the table.
+- Think of it as a "hook" to get the *attention of the reader* and make them want to *read the rest of your resume*
+
+**** Tips for a professional summary
+
+1. Conciseness
+   - Keep your summary brief
+     This ensures that hiring managers *quickly grasp your strengths* and *qualification* without wading through unnecessary details
+   - Example: 
+   #+begin_example
+   I am an experienced financial anlyst with a strong background in investment strategies and portfolio management. Adept at risk assessment and frinancial forecasting to optimize investment returns.
+   #+end_example
+
+2. Writing to the *job roles
+   
+   - Always *tailor* your resume to the *job description*
+   - Align your summary with the *specific job role* you're applying for
+   - Highlight relevant *skills* and *experiences* to show that *you're not just a fit, but a perfect fit for the position*
+   - Example: 
+   #+begin_example
+   I am a dynamic marketing manager with over 7 years of experience in digital marketing, SEO, and content strategy. Proven track record of increasing online engegement and driving brand growth.
+   #+end_example
+     
+3. Introduction
+   
+   - Begin with a *strong opening statement* that sums up your *overall career objective* or *professional expertise*
+   - Example:
+   #+begin_example
+   I am a seasoned marketing proffessional with over a decade of experience in digital strategy and brand managemenht
+   #+end_example
+
+4. Skills and Expertise
+   
+   - Highlight your *core skills* and *areas of expertise*
+   - Use *action verbs* to convey your *capabilities* effectively
+   - Example: 
+   #+begin_example
+   Proficient in leveraging data analytics to drive strategic marketing decisions
+   #+end_example
+
+5. Experience
+
+   - Provide a *glimpse of your relevant work experience*, mentioning *key accomplishments* or *roles*
+   - Example: 
+   #+begin_example
+   I successfully led a team of 15 in the development of a high-impact social media campaign than increased brand engagement by 45% at XYZ Corporation.
+   #+end_example
+
+6. Adaptability
+
+   - Show your *ability to adapt to different environments* or *industries*
+   - This demonstrates *versatility* and a *willingness to learn*
+   - Example: 
+   #+begin_example
+   By combining my creative vision with a data-driven approach, I excel at transforming insights into compelling marketing campaigns.
+   #+end_example
+
+7. Professional Tone
+
+   - Maintain a *professional tone* throughout the summary
+   - Avoid *informal language* or *unnecessary jargon* to ensure *clarity* and professionalism*
+   - Write in *first person*
+   - Example: 
+   #+begin_example
+   I am a dedicated marketing professional with experience supporting digital and offline campaings, conducting market research, and managing social media. I thrive in fast-paced environments and am passionate about driving brand awareness and engagement. I look forward to leveraging my skills and enthusiasm to contribute effvectively to your team.
+   #+end_example
+
+8. Proofreading
+
+   - Carefully *proofread* the summary for any *grammatical errors* or *typos*
+   - *Clarity* and *professionalism* in your summary are key. These are the *first things* the recruiter will *read*
+   - 59% of recruiters will *reject a candidate* because of *poor grammar* or a *spelling error*
+
+*** Key Achievements
+
+1. Use *bullet points* to list your achievements
+   - Example: 
+     Achievements
+     * Increased Efficiency: Improved perational efficiency by 35% by implementing Lean Six Sigma methodologies at XYZ Corp.
+     * Market Expansion: Expanded market reach by 20% through targeted international marketing campaigns, resulting in $1.5 million in additional revenue.
+     * Cost Reduction: Achieved a 15% reduction in annual operating costs by streamlining supply chain processes at ABC Logistics.
+     * Innovation Award: Won the 2022 Innovation Award at DEF Tech for developing a new software solution that reduced customer service response times by 50%.
+     * High-impact Training: Designed and conducted a training program that increased team productivity by 25% and was adopted company-wide at GHI Enterprises.
+   - These examples demonstrate not only *soft skills* but also *result delivered*
+   - This makes the results *tangible* and *relatable*
+2. Make your achievements *easy for the recruiter to review*
+   - Keeping it concise: Use brief, impactful *bullet points*
+   - Highlighting Key Metrics: Use *numerical results* for quick visibility and further emphasis on your achievements
+   - Using Strong Action Verbs: Start each bullet point with a *strong action verb*
+   - Being Specific: Avoid *vague statements*. Specific details make your achievements *more compelling*
+3. *Tailor this section* for different job applications
+   Customize this section in important because *it shows the imployer what value you can add to their organization*
+   - Analyze the job description: Identify the *key skills* and *experiences* the employer is looking for.
+   - Select Relevant Achievements: Choose achievements that *best match the requirements* and *responsibilities* outlined in the job description.
+   - Use Job-specific Keyword: *Integrate specific keywords from the job posting into your achievements* to align with the employer's needs. This will also *help you pass the ATS*
+
+
+Example:
+Achievements
++ *System Optimization*: Enhanced system performance by *40%* by refactoring legacy code and implementing efficient algorithms at Tech Innovation Inc.
++ *Feature Development*: Successfully led the development and deployment of over *20* new features, increasing user engagement by *35%* at NextGen Solutions.
++ *Bug Reduction*: Reduced critical bugs by *50%* through rigorous testing and implementation of automated QA processes at Digital Dynamics.
++ *Team Leadership*: Mentored and led a team of *15* junior developers, resulting in a *30%* improvement in overall team productivity at CodeCraft Ltd.
++ *Innovation Award*: Received the 2023 Innovation Award for developing a cutting-edge AI-powered tool that streamlined data processing tasks, saving *20%* of project time at SmartTech Enterprises.
+   
+
+*** EDUCATION
+
+*** Work Experience
+
+*** Key Skills

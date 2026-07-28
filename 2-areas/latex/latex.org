@@ -12,7 +12,7 @@
 * The Skeleton of a LaTeX Document[]
 - [[file:examples/basic.tex][Basic structure]]
 - [[file:examples/sections.tex][Sections and TOC]]
-- [[file:examples/paragraph_text_formating.tex][Paragraphs and text formatting]]
+- [[file:examples/document_format/paragraph_text_formating.tex][Paragraphs and text formatting]]
 - [[file:examples/comments.tex][Comments]]
 
 * Lists and Tables
@@ -27,18 +27,337 @@
 - [[file:examples/references_links.tex][References and Links]]
 
 * Styling with Fonts and Colors
-- [[file:examples/managing_text.tex][Managing text]]
+- [[file:examples/document_format/managing_text.tex][Managing text]]
   - [[https://www.overleaf.com/learn/latex/Font_sizes%2C_families%2C_and_styles][Font sizes, families, and styles]]
-- [[file:examples/fonts_from_package.tex][Fonts from packages]]
+- [[file:examples/document_format/fonts_from_package.tex][Fonts from packages]]
   - [[https://tug.org/FontCatalogue/][LaTeX font catalogue]]
-- [[file:examples/colors.tex][Colors]]
+- [[file:examples/document_format/colors.tex][Colors]]
   - [[https://www.overleaf.com/learn/latex/Using_colors_in_LaTeX][Color Documentation]]
   - [[https://coolors.co/][Color picker site]]
 
 * Classes and Templates
-- [[file:examples/documentclass_arguments.tex][Optional arguments in the Documentclass]]
+- [[file:examples/document_format/documentclass_arguments.tex][Optional arguments in the Documentclass]]
 - [[file:examples/letter.tex][Letter]]
 - [[https://no.overleaf.com/latex/templates][Overleaf templates]]
+
+** DocumentClass
+~\documentclass[<options>]{<class>}~
+
+Some key options to remember
+| Document Class | Font Size | Page Size   | Print Style | Column Style |
+|----------------+-----------+-------------+-------------+--------------|
+| arricle        | 8pt       | a4paper     | onesided    | onecolumn    |
+| report         | 9pt       | a3paper     | twosided    | twocolumn    |
+| boot           | 10pt      | a2paper     |             |              |
+| letter         | 11pt      | letterpaper |             |              |
+| beamer         | 12pt      | b5paper     |             |              |
+
+** Specifying Length
+~\setlength{<length>}{<value>}~
+
+- [[file:examples/document_format/document_lengths.tex][Specifying Length]]
+
+*** Length types
+- \textwidth
+- \textheight
+- \parindent
+- \parskip
+- \baselineskip
+- \locumnsep
+- \columnwidth
+
+*** Length units
+| Length Unit | Description                                                                                     |
+|-------------+-------------------------------------------------------------------------------------------------|
+| pt          | Short for point. This is the default unit in LaTeX. 1 pt is approximately equal to 1/72.27 inch |
+| in          | Used to specify length in inches.                                                               |
+| mm          | Used to specify length in millimeters.                                                          |
+| cm          | Used to specify length in centimeters.                                                          |
+| ex          | The height of the letter 'x' in the current font.                                               |
+| em          | The width of the letter 'M' in the current font.                                                |
+| en          | The width of the letter 'n' in the current font.                                                |
+| px          | The pixel unit, typically used in digital formats.                                              |
+
+** Page margins
+- [[file:examples/document_format/page_margins.tex][Page Margins]]
+- [[file:examples/document_format/different_margins.tex][Specify different page margins in a document]]
+
+** Header and footer
+*** \pagestyle
+The command ~\pagestyle{<style>}~ sets the page style we want to apply.
+
+Predefined styles
+- *plain*: This is the default style for many document classes. It typically includes a page number centered in the footer. Headers are left blank.
+- *headings*: Automatically fills the header with the chapter name, section name, and/or subsection name, along with the page number. The footer is left empty.
+- *empty*: Both the header and footer are left completely empty, meaning no page numbers are included.
+- *fancy*: The headers and footers are set to the custom styles we defined elsewhere using the *fancy HDR* package and related commands.
+
+#+begin_example
+\pagestyle{headings}
+#+end_example
+
+*** \pagenumbering
+The command ~\pagenumbering{<style>}~ defines the page numbering style.
+
+Numbering styles
+- arabic: Arabic numerals (1, 2, 3, ...)
+- roman: Lowercase Roman numerals (i, ii, iii, ...)
+- Roman: Uppercase Roman numerals (I, II, III, ...)
+- alph: Lowercase letters (a, b, c, ...)
+- Alph: Uppercase letters (A, B, C, ...)
+
+#+begin_example
+\pagenumbering{roman}
+#+end_example
+
+*** fancy
+#+begin_src latex
+  \usepackage[<options>]{fancyhdr}
+
+  \fancyhf{} % clears default header/footer
+  \fancyhead[<options>]{<text>}
+  \fancyfoot[<options>]{<text>}
+
+  \fancyhead[L]{<text>} % Sets left header, R for right, C for centre
+#+end_src
+
+*** Example file
+[[file:examples/document_format/header_footer.tex][Header and Footer]]
+
+** Text alignment
+*** Spacing commands
+Options
+- ~vspace{<length>}~: This command inserts vertical space in our document. Positive values add space, while negative values can be used to remove space if possible.
+- ~hspace{<length>}~: Similar to ~\vspace~, this command inserts horizontal space within a line, it is useful to create indentations or to adjust the positioning of elements within a line.
+- ~\fill~: This command can be used with ~\vspace~ or ~\hspace~ to create flexible spaces by replacing ~<length>~ with ~\fill~. The command then fills the available space, making it useful for pushing content to the bottom or side of a page.
+- ~\setstretch{<value>}~: This command sets the line spacing for our document or a block of text. It requires the ~setspace~ package. The ~<value>~ is a decimal number representing the spacing factor, where ~1~ is single spacing, ~1.5~ is one-and-a-half spacing, and ~2~ is double spacing etc.
+
+*** Spacing and alignment
+- ~\centering~: center-align text
+- ~\raggedright~: left-align text
+- ~\raggedleft~: right-align text
+- ~\raggedbottom~: stops LaTeX from equally distributing contents vertically
+
+*** Example
+[[file:examples/document_format/text_allignment.tex][Text Alignment]]
+
+* Custom commands
+- ~\newcommand{<cmd>}{<def>}~: creates a new command
+- ~\renewcommand{<cmd>}{<def>}~: redefine an existing command
+- ~\providecommand{<cmd>}{<def>}~: creates a new command if not exists
+
+** Example
+[[file:examples/custom_commands.tex][Custom Commands]]
+ref: [[https://www.overleaf.com/learn/latex/Commands][Commands Documentation]]
+
+** xparse
+Commands:
+- ~\NewDocumentCommand{<cmd>}{<argument-specifiers>}{<def>}~: creates a new command
+- ~\RenewDocumentCommand{<cmd>}{<def>}~: redefine an existing command
+- ~\ProvideDocumentCommand{<cmd>}{<def>}~: creates a new command if not exists
+
+Argument Specifiers in =xparse=
+
+| Code       | Description                            |
+|------------+----------------------------------------|
+| m          | Mandatory  (required) Argument         |
+| o          | Optional argument (in square brackets) |
+| O{default} | Optional with default value            |
+| s          | Star(*): sets ~\IfBooleanTF~ flag      |
+|            |                                        |
+
+*** Command with required arguments
+Example
+#+begin_src latex
+  % define custom command
+  \NewDocumentCommand{\highlight}{m}{\colorbox{red!10}{#1}}
+
+  % example use
+  % Syntax: \highlight{<text>}
+  \highlight{Some highlighted text}
+#+end_src
+
+*** Command with optional and star(*) arguments
+xparse options for optional arguments
+- ~\IfValueTF{<arg>}{<ValueCode}{<NoValue-Code>}~
+- ~\IfValueT{<arg>}{<ValueCode}~
+- ~\IfValueF{<arg>}{<NoValue-Code>}~
+
+Example with optional parameters
+#+begin_src latex
+  % general syntax we want: \highlight[<color>]{<text>}
+  \NewDocumentCommand{\highlight}{o m}
+  {\IfValueTF{#1}
+  {\colorbox{#1!20}{#2}} % if an option is set
+  {\colorbox{red!20}{#2}}} % if no option is set
+
+  % example use
+  \highlight{Some highlighted text.}
+  % example use
+  \highlight[blue]{Some more highlighted text.}
+#+end_src
+
+Example with star arguments
+#+begin_src latex
+  % general syntax we want:
+  % \highlight[<color>]{<text>}
+  % \highlight*[<color>]{<text>} ... also makes the text bold
+  \NewDocumentCommand{\highlight}{s O{red} m}
+  {\IfValueTF{#1}
+  {\colorbox{#2!20}{\bfseries #3}}
+  {\colorbox{#2!20}{#3}}}
+
+  % example use
+  \highlight{Some highlighted text.} % red text
+  % example use
+  \highlight[blue]{Some more highlighted text.}  % blue text
+  % example use
+  \highlight*[blue]{Some more highlighted text.} % blue and bold text
+#+end_src
+
+Example file: [[file:examples/xparse_commands.tex][Xparse Commands]]
+
+* Custom package
+
+We use a custom package when we want to group:
+- Custom commands
+- Custom environments/floats
+- Define custom colors
+- Require additional packages
+
+** Example
+#+begin_src latex
+  % IDENTIFICATION
+  \NeedsTeXFormat{LaTeX2e}
+  \ProvidesPackage{myhighlight}
+  [2025/20/07 My Custom Highlighting Package]
+
+  % PRELIMINARY DECLARATIONS
+  \RequirePackage{xcolor}
+  \RequirePackage{xparse}
+
+  % ADDITIONAL DECLARATIONS
+  % Define the following commands:
+  % \highlight[<color>]{<text>}
+  % \highlight*[<color>]{<text>} ... also makes the text bold
+  \NewDocumentCommand{\highlight}{s O{red} m}
+  {\IfBooleanTF{#1}
+  {\colorbox{#2!20}{\bfseries #3}}
+  {\colorbox{#2!20}{#3}}}
+#+end_src
+
+Example files: [[file:examples/custom_package/myhighlighter.sty][Highlighter]], [[file:examples/custom_package/main.tex][Main]]
+Custom Packages Site: [[https://ctan.org/?lang=en][The Comprehensive TeX Archive Network (CTAN)]]
+
+* Custom Environment
+Ways to create a custom environment
+- ~\newenvironment{<name>}{<before-code>}{<after-code>}~: custom environment without arguments
+- ~\NewDocumentEnvironment{<name>}{<arg-spec>}{<before-code>}{<after-code>}~: custom environment with arguments
+
+** Example
+#+begin_src latex
+  % Define custom environments
+  \newenvironment{yellowbox}
+  % Before Code
+  {\centering
+  \renewcommand{\arrayrulewidth}{1pt}
+  \begin{tabular}{|c|}
+  \hline
+  \cellcolor{yellow!10}\bfseries}
+  % After Code
+  { \\
+  \hline
+  \end{tabular}}
+
+  \begin{yellowbox}
+  The content of my environment
+  \end{yellowbox}
+#+end_src
+
+Example files: [[file:examples/custom_package/myhighlighter.sty][Highlighter]], [[file:examples/custom_package/main.tex][Main]]
+
+* Private Commands / Internal Macros
+
+#+begin_src latex
+  % Example private command
+  \@mytitle
+
+  % These are TeX commands which allows access to pribate commands, ie the \@ commands
+  \makeatletter % Set @ to act as a 'letter'
+  \makeatother % Reset @ to act as a 'other'
+#+end_src
+
+** Example
+
+#+begin_src latex
+  % Define a private command
+  \makeatletter
+  \renewcommanhd{\maketitle}{
+  \begin{center}
+  \bfseries\Large\@title
+  \end{center}}
+  \makeatother
+
+  % Initialize \@title value
+  \title{This is my Title}
+
+  \begin{document}
+  \maketitle
+  \lipsum[1]
+  \end{document}
+#+end_src
+
+Example file: [[file:examples/private-commands_internal-macros.tex][Private Commands/Internal Macros]]
+
+* Custom Document Class
+Create a =.cls= file and use the declaration ~\LoadClass[<options>]{class}~
+
+#+begin_src latex
+  % IDENTIFICATION
+  \NeedsTeXFormat{LaTeX2e}
+  \ProvidesClass{myarticle}
+  [2025/20/07 My Custom Article class]
+
+  % PRELIMINARY DECLARATIONS
+  \LoadClass{article}
+  \RequirePackage{fontspec}
+  \RequirePackage{titlesec}
+  \RequirePackage[table]{xcolor}
+  \RequirePackage{array}
+
+  % DECLARATIONS
+  \setmainfont{Times New Roman}
+  \titleforman*{\section}
+  {\bfseries\Large\color{red!80!black}}
+
+  % Define the title command
+  \makeatletter
+  \renewcommand{\maketitle}{
+  \begin{center}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{>{\centering}m{\textwidth}}
+  \tiny ~ \\
+  \cellcolor{red!10}{\Large\bfseies\scshape
+  \color{red!75!black}\@title}\\
+  \color{red!75!black}\large \@author \\
+  \tiny ~ \\
+  \end{tabular}
+  \end{center}}
+  \makeatother
+#+end_src
+
+** Option Handling
+
+#+begin_src latex
+  % The <code> is executed if the option is declared in the \documentclass[<options>]{class} command
+  \DeclareOption{<option-name>}{<code>}
+
+  % The <code> in is executed for every unexecuted option
+  \DeclareOption*{<code>}
+
+  % The <code> in is executed for every unexecuted option
+  \ProcessOptions\relax
+#+end_src
 
 * Presenting with Beamer
 - [[file:examples/][Beamer]]
@@ -48,8 +367,6 @@
 - [[file:examples/code.tex][Displaying Code with Verbatim]]
   - [[https://www.overleaf.com/learn/latex/Code_listing][Code Listing]]
 - [[file:examples/multiple_files.tex][Multiple files]]
-- [[file:examples/custom_commands.tex][Custom Commands]]
-  - [[https://www.overleaf.com/learn/latex/Commands][Commands Documentation]]
 
 * Resources
 - [[https://no.overleaf.com/learn][Overleaf Documentation]]
