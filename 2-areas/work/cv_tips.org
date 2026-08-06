@@ -212,10 +212,466 @@ Achievements
 + *Bug Reduction*: Reduced critical bugs by *50%* through rigorous testing and implementation of automated QA processes at Digital Dynamics.
 + *Team Leadership*: Mentored and led a team of *15* junior developers, resulting in a *30%* improvement in overall team productivity at CodeCraft Ltd.
 + *Innovation Award*: Received the 2023 Innovation Award for developing a cutting-edge AI-powered tool that streamlined data processing tasks, saving *20%* of project time at SmartTech Enterprises.
-   
+
+**** Complete example of how this section might look on a resume
+
+_JOB DESCRIPTION_
+
+*Position Title*: Senior Project Manager - Construction
+*Location*: New York, NY
+*Company* Prime Construction Inc.
+*About Us*:
+Prime Construction Inc. is a leading construction firm renowned for its commitment to excellence and innovation in the construction industry. We specialize in high-profile projects that require meticulous planning and flawless execution. Our team is dedicated to delivering projects that exceed client expectations while maintaining the highest standards of safety and efficiency.
+*Job Summary*:
+We are seeking a detail-oriented Senior Project Manager with over 10 years of experience in the construction industry to join our dynamic team. The ideal candidate will excel at delivering projects on time and within budget by effectively coordinating cross-functional teams and managing complex schedules. This role requires advanced project management methodologies, risk mitigation skills, and the ability to maintain strong client and vendor relationships.
+*Key Responsibilities*:
+- *Project Planning and Execution*: Lead the planning, execution, and closing phases of high-profile construction project, ensuring they are completed on time and within budget.
+- *Team Coordination*: Effectively coordinate cross-functional teams, including architects, engineers, subcontractors, and clients, to ensure project milestones are met.
+- *Schedule Management*: Develop and manage complex project schedules, ensuring timely delivery of all project phases.
+
+_ACHIEVEMENTS_
+
+*PROFESSIONAL SUMMARY*
+I am a detail-oriented project manager with over 10 years of experienced in the construction industry, specializing  in high-profile projects. I excel at delivering projects on time and within budget by effectively coordinating cross-functional teams and managing complex schedules. My skills include advanced project management methodologies, risk mitigation, and maintaining strong client and vendor relationships.
+
+*ACHIEVEMENTS*
+- *Timely Project Delivery*: Completed a $10 million construction project *3 months ahead of schedule* at XYZ Construction, *saving $500,000 in labor costs.*
+- *Safety Improvements*: Implemented new safety protocols that *reduced workplace accidents by 40%* at ABC Builders.
+- *Client Satisfaction*: Achieved a *98% client satisfaction rate* by ensuring clear communication and timely project updates at DEF Engineering.
+- *Budget Management*: Successfully managed project budgets exceeding $50 million, maintaining strict cost controls and preventing overruns.
+- *Process Optimization*: Streamlined project management processes, *reducing project cycle times by 20%* at GHI Developments.
+
+**** Summary
+- Highlighting *key metrics* and being *specific* in your descriptions further ensures that *your achievements are noticed*
+- *Tailor this section* for each job application
+- *Aligning your accomplishments with the employer's needs* and *integrating relevant keywords* improves your chances with applicant tracking systems (ATS)
+
 
 *** EDUCATION
 
+- List your educational background in *reverse chronological order*, starting with your most recent degree or certification
+- This approach ensures that your highest level of education is *immediately visible to potential employer*
+- Key Elements to include
+  - Institution/School Name: Always include the *full name of the institution* where you earned your degree
+  - Location: Mention the *city* and *country* where the institution is located
+  - Degree/Diploma/Certification: Clearly state the *type of degree*, *diploma*, or *certification* you earned
+  - Major/Field of Study: Specify your *area of specialization* or *major*
+  - Graduation Date: Include the *month* and *year you graduated* or *expect to graduate*
+  - Honors/Awards: Highlight any *academic honors*, *scholarships*, or *awards* you received
+  - Relevant Coursework: If you're a recent graduate or your coursework is particularly *relevant to the job*, *list some key courses*
+  - Thesis/Dissertation: Briefly mention the *topic of your thesis* or *dissertation* if applicable
+  - Study Abroad/Exchange Programs: Include details of any *study abroad* or *exchange programs*, such as duration and institutions involved
+    
+**** Example
+
+_EDUCATION_
+
+*Master of Business Administration (MBA)*
+- Institution: Harvard Business School
+- Location: Cambridge, MA, USA
+- Graduation Date: May 2020
+- Honors/Awards: Graduated with High Distinction, Dean's List
+- Relevant Coursework: Strategic Management, Financial Accounting, Marketing Analytics
+- Thesis: "The Impact of Digital Transformation on Business Strategy"
+  
+*Bachelor of Science in Computer Science*
+- Institution: University of California, Berkeley
+- Location: Berkeley, CA, USA
+- Graduation Date: May 2016
+- Honors/Awards: Cum Laude, Merit Scholarship
+- Relevant Coursework: Data Structures, Algorithms, Machine Learning, Artificial Intelligence
+- Study Abroad Program: Exchange Program at University College London, Oct 2015
+
+
+Like in all other areas of your resume, *you need to adapt your education section for different job applications*.
+/Relevance/
+- Emphasize the aspects of your education that are *most relevant to the job you're applying for*.
+- Only include lower level education *if the job requires these details*
+/Highlight Specific Achievements/
+- if a job requires certain skills or knowledge areas, highlight *coursework*, *projects*, or *honors that demonstrate your proficiency in those areas*
+
+  
+_EDUCATION_
+
+*Master of Business Administration (MBA)*
+Harvard Business School, Cambridge, MA, USA
+Graduation Date: May 2020
+- *Relevant Coursework:* Strategic Management, Financial Accounting, Marketing Analytics
+- *Thesis:* "The Impact of Digital Transformation on Business Strategy"
+- *Honors/Awards:* Graduated with High Distinction, Dean's List
+  
+*Bachelor of Science in Computer Science*
+University of California, Berkeley, Berkeley, CA, USA
+Graduation Date: May 2016
+- *Relevant Coursework:* Data Structures, Algorithms, Machine Learning, Artificial Intelligence
+- *Study Abroad Program:* Exchange Program at University College London, Oct 2015
+- *Honors/Awards:* Cum Laude, Merit Scholarship
+
+**** Final tips
+- Keep it Brief: While details are important, *keep the section brief and to the point*
+- Be Honest: Only include *truthful information* about your education
+- Proofread: Check there are *no spelling* or *grammatical errors*
+  
 *** Work Experience
 
+- Start with the *Job Title*: The cornerstone of your work experience narrative, *your job title serves as the beacon guiding the reader through your professional trajectory*
+- The Company: A testament to your *journey through the corporate landscape*, the mention of known companies such as google, IBM or airbnb lends *credibility* and *context* to your accomplishments
+- Location: Situating your professional endeavors within a specific place adds *a layer of context*. facilitating a *deeper understanding* of your professional footprint
+- Dates of Employment: A chronological breakdown within each role shows the *evolution of your career*, anchoring your *achievements* within a framework. This can get a little complex if you've on a secondment, as I have done in the past. I found the best way to illustrate this is to *split the positions* into a new bullet point or paragraph in chronological order
+- Key Responsibilities: Choose which *duties* to highlight. This will depend on *what you want to show for this specific application* and *job role* you are applying for
+- Your Achievements/Contributions: Here lies teh crux of your professional narrative - *the outcomes of your efforts*. *Quantifiable metrics* reign supreme here
+- The *skills* you have developed: Each professional role *serves as a way to gain new skills*. *Highlighting the skills cultivated* during each role, underscoring your *adaptability* and *capacity for growth*
+- *Projects* you have been *heavily involved in*: Beyond routine Responsibilities, *dive into specific projects* - the key to *innovation* and *collaboration*
+- Your *Leadership Experience*: Leadership is not merely a title but a *display of influence and impact*. *Describe your leadership style*, highlighting instances where *your guidance helped team bonding* or *focus on a particular goal*. *Different leadership styles* are required in *different situations* and *roles*
+- Any *relevant training/professional* development within a role: Lifelong learning shows a recruiter your *genuine passion to do well* and *keep on top of your game!* Detail relevant *training programs*, *certifications*, or *workshops attended*, showing your *commitment to continuous improvement* and *staying informed* of industry trends
+- Promotions: Climbing the corporate ladder is a testament to your *proficiency* and *potential*. If you have received *promotions* it shows *your employers had confidence in you*
+
+**** How to incorporate side hustles into your work experience
+
+- While tempting to use every entrepreneurial endeavor, *choosing the right ones is key*
+- Focus on the *most relevant side hustles*
+- Those that not only *showcase your skill* but also *align with the job* you're hoping to land
+  - Describe the *role* you played
+  - The *challenges* you encountered
+  - The *outcomes* you achieved
+- The risk you want to avoid when including side hustles is *appearing like you have other distractions* which may *affect your work* with the company you are applying to!
+  - They want to hire someone *fully committed* to the role
+  - They *don't want someone burnt out* working night and day and *not bringing their A-game to the job* every day
+
 *** Key Skills
+
+**** Hard Skills (Technical Skills)
+- Are *essential for the job* you're applying for
+- List them *clearly* and, where possible, *quantify your ability* or *provide context*
+- These are *specific*, *teachable abilities* or *knowledge* sets that are often Job-specific
+- They can be *quantified* and *measured*, and typically you acquire them through *education*, *training*, or *on-the-job experience*
+- Examples include ability in a *foreign language*, *programming skills*, *operating machinery*, or using specific *software skills*
+
+_Hard Skills_:
+- *Programming Languages*: Python, R
+- *Data Analysis Tools*: SQL, Excel, Tableau
+- *Machine Learning*: Scikit-learn, TensorFlow
+- *Databases*: MySQL, PostgreSQL
+- *Visualization Tools*: Tableau, Power BE
+
+**** Soft Skills (Interpersonal Skills)
+- These soft skills demonstrate *how well you work with others* and *manage situations*
+- These are more *abstract*, *interpersonal skills* that are *harder to measure* but are *key for effective collaboration* and *management*
+- They include traits like
+  - Leadership
+  - Communication
+  - Problem-solving
+  - Teamwork
+- Unlike hard skills, soft skills are more about *how you interact with others* and *handle various situations*
+
+_Soft Skills_
+- Strong analytical and problem-solving abilities
+- Excellent communication and collaboration skills
+- Ability to adapt to new technologies and methodologies quickly
+- Familiarity with Agile principles and practices
+
+**** Example
+
+_Technical Skills_:
+- *Programming Languages*:
+  - Proficient in Python, Java, and C++. For example, at XYZ Tech, I developed a customer service chatbot in Python that reduced response time by 30%.
+- *Software Tools*:
+  - Experienced with Adobe Creative Suite and AutoCAD. At ABC Design, I utilized Adobe Illustrator to create marketing materials that increased client engagement by 40%.
+- *Data Analysis*:
+  - Skilled in using Excel, SQL, and Tableau. At DEF Corp, I analyzed sales data using SQL, leading to insights that boosted quarterly sales by 15%.
+
+_Interpersonal Skills_:
+- *Communication*:
+  - Excellent verbal and written skills. At my last job, I led weekly team meetings that streamlined project updates and reduced misunderstandings leading to quicker task completion by 25%.
+- *Teamwork*:
+  - Proven ability to work effectively in teams. At Collaborative Solutions, I was part of a cross-functional team that successfully launched a new product line.
+- *Problem-Solving*:
+  - Strong analytical and problem-solving skills. At Innovative Enterprises, I identified and resolved a critical workflow bottleneck, increasing overall efficiency by 20%
+
+**** Transferable Skills
+
+- These skills are *valuable* across various jobs and industries, showing your *versatility* and *adaptability*
+- Use keywords from the *job description* to highlight them
+
+_Transferable Skills_:
+- Leadership:
+  - Demonstrated through leading a team of 10 in a high-pressure environment at Dynamic Industries, where we exceeded project deadlines by 15%.
+- *Project Management*:
+  - Managed multiple projects simultaneously at Precision Planning, ensuring all were completed on time and within budget
+- *Critical Thinking*:
+  - Utilized critical thinking to troubleshoot and improve existing processes at Efficiency Experts, resulting in a 10% cost reduction.
+
+
+*** Key Skills on the Cover Letter
+
+Your cover letter is the perfect place to *expand on the skills listed in your resume*
+
+1. Introduction
+   - Briefly *introduce yourself* and *mention the job you're applying for*
+   - *Choose a key skill* from your resume and *expand on it with a specific example*
+   #+begin_example
+   Dear Hiring Manager,
+   ...
+   ...
+   At 123 Marketing, I utilized my project management skills to lead a team in developing a comprehensive marketing strategy. This involved coordinating between departments, setting clear goals, and monitoring progress. As a result, we increased our client base by 25% over six months.
+   ...
+   ...
+   #+end_example
+2. Connecting Skills to Job Requirements
+   - Relate your *skills* directly to the *job description*
+   #+begin_example
+   Dear Hiring Manager,
+   ...
+   ...
+   The job description mentions a need for innovative Problem-solving skills. In my previous role at GGG Tech, I led a project to develop a customer service chatbot that ereduced response times by 30%, demonstraqting my ability to apply cdreative solutions to complex problems.
+   ...
+   ...
+   #+end_example
+3. Conclusion
+   - Reiterate your *interest* in the position and express your *enthusiasm* for bringing your skills to the role
+
+**** Tips
+- *Specificity* and *Relevance* are key
+- *Write your skills in line with the job* and make sure to *back up your claims with concrete examples*f
+
+*** Certifications and Portfolios
+
+**** Certifications
+
+- Including *certifications* on your resume is helpful as in demonstrates your *commitment* to professional development
+- Validates your *expertise* in specific areas
+
+***** How to effectively present this information
+
+- List any *certifications*, or *professional training programs* that are *relevant to the position* you're applying for
+- Each entry should include:
+  - Name of the Certification/Training
+  - Issuing Organization
+  - Date of Completion
+- Example
+#+begin_example
+Certifications:
+- Certified Project Management Professional (PMP)
+  - Issued by: Project Management Institute (PMI)
+  - Date of Completion: May 2022
+- Google Analytics Certification
+  - Issued by: Google
+  - Date of Completion: July 2021
+#+end_example
+- If you have numerous certifications, *prioritize the most relevant* and *recent ones* to avoid cluttering your resume
+- Include free or generic courses only *if they are highly relevant to the job AND recognized in the industry*
+
+**** Portfolios
+
+- This will usually come in the form of a *hyperlink* that the recruiter can click and is basically a piece of *supporting material* for your resume
+- These could be:
+  - Case Study
+  - White paper
+  - Published Work
+- Using hyperlinks for material like this is great as it gives the recruiter *the option to look at your previous work in more detail* and also *does not take up room on your resume!*
+
+
+* Cover Letter - Networking
+
+** Cover Letter/Email
+
+1. Opening Paragraph
+
+   - Begin by *introducing yourself* and mentioning the *role you're applying for*. Include *where you found the job listing*
+
+2. Body Paragraphs
+
+   _Second Paragraph_:
+   - Show your *enthusiasm for the company* and the *role*
+   - Mention something *specific about the company that attracted you*
+
+   _Third Paragraph_
+   - Highlight your *relevant skills* and *experience with concrete examples*
+   - Explain how these *align with the job requirements*
+
+3. Closing Paragraph
+
+   - Reiterate you *enthusiasm for the role*
+   - Invite them to *contact you for further discussion*
+   - Provide you *contact details*
+
+*** Example
+
+#+begin_example
+Title: Excited to Bring Data-Driven Marketing Expertise to XYZ Company
+
+Dear Hiring Manager,
+
+I am writting to express myh interest in the Marketing Specialist position at XYZ Company, which I found advertised on LinkedIn. With my background in digital marketing and a passion for data-driven strategies, I am eager to contribute to your team.
+
+I am particularly impressed by XYZ Company's innovative use of AI in you recent marketing campaign. Your commitment to leveraging cutting-edge technology aligns perfectly with my professional interests, and I am  excited about the possibility of being part of such an innovative team.
+
+In my previous role at ABC Ltd, I led a social media campaign that boosted engagement by 40% in just six months and developed an email marketing strategy that increased lead generation by 25%. These experiences have refined my skills and make me a strong candidate for this position.
+
+Thank youy for considering my aplication, I look forward to the opportunity to discuss hou my skill and experince align with your needs. Please feel free to contact me at (020) 7946 0958 or via email at yourname@example.com.
+
+Kind regards,
+Your Name
+#+end_example
+
+** Adapt the Cover Letter for email outreach
+
+1. Create a clear Subject Line
+   - Create a subject line that is *engaging* and *directly related to your application*
+   - Example: Enthusiastic Marketing Specialist Interested in Joining XYZ Company
+2. Start with a Personalized Greeting
+   - If you know the *recipient's name*, use it
+   - If not, a *polite general greeting* is fine
+   - Example: Hi [Recipient's Name],
+3. Open with a Strong Introduction
+   - State the *purpose of your email* and mention the *role you're interested in*
+   - Example:
+   #+begin_example
+   I hope this email finds your well. I am writing to apply for the Marketing Specialist position at XYZ Company, which I came across on LinkedIn. With my expertise in digital marketing, I am excited about the opportunity to contribute to your team
+   #+end_example
+4. Show Enthusiasm
+   - Express *why you're interested* in the company and *mention something specific* about them
+   - Example:
+   #+begin_example
+   I am particularly drawn to XYZ Company's recent AI-driven marketing campaign. This innovative approach aligns with my career goals and excites me about the possibility of contributing to your team.
+   #+end_example
+5. Highlight your Skills and Experience
+   - Summarize your *key qualifications* and *achievements* concisely
+   - Example:
+   #+begin_example
+   At ABC Ltd, I led a campaign that increased social media engagement by 40% and developed an email strategy that improved lead generation by 25%. I believe my background makes me a strong fit for your team.
+   #+end_example
+6. Include a Call to Action
+   - Invite them to *discuss further* and provide your *contact details*
+   - Example:
+   #+begin_example
+   I would be delighted to discuss how my skills align with XYZ Company's needs. Please let me know a convenient time for a chat. I am available at (020) 7946 0958 or via email at yourname@example.com
+   #+end_example
+7. Close with a professional Sign-Off
+   - Finish with a *polite* and *professional sigh-off*
+   - Example:
+   #+begin_example
+   Thank you for your time and consideration. I look forward to hearing from you soon.
+
+   Kind regards,
+   Your Name
+   #+end_example
+
+*** Example
+#+begin_example
+Title: Excited to Bring Data-Driven Marketing Expertise to XYZ Company
+
+Dear Hiring Manager,
+
+I hope this email finds your well. I am writing to apply for the Marketing Specialist position at XYZ Company, which I came across on LinkedIn. With my expertise in digital marketing, I am excited about the opportunity to contribute to your team
+
+I am particularly drawn to XYZ Company's recent AI-driven marketing campaign. This innovative approach aligns with my career goals and excites me about the possibility of contributing to your team.
+
+At ABC Ltd, I led a campaign that increased social media engagement by 40% and developed an email strategy that improved lead generation by 25%. I believe my background makes me a strong fit for your team.
+
+I would be delighted to discuss how my skills align with XYZ Company's needs. Please let me know a convenient time for a chat. I am available at (020) 7946 0958 or via email at yourname@example.com
+
+Thank you for your time and consideration. I look forward to hearing from you soon.
+
+Kind regards,
+Your Name
+#+end_example
+
+** Researching the Company
+
+*** 1. Get to know the *company's history*
+   - When was it *founded*?
+   - What are its *major milestones* and *notable achievements*
+
+**** Example for Apple (innovation driven culture)
+
+ _Professional Summary_
+ Enthusiastic software developer with a keen interest in contributing to Apple's legacy of innovation, inspired by its transformation from a startup to a leading tech company.
+
+ _Cover Letter_
+ I am particularly drawn to Apple because of its remarkable journey from a modest garage startup in 1976 to a global leader in technology. This history of Innovation and resilience resonates with my own professional path in software development, where I have consistently sought to push boundaries and deliver cutting-edge solutions
+
+*** 2. Look into the company culture and values
+- Check *employee reviews* on sites like *Glassdoor*, explore the *company's social media profiles*, and visit its *website*
+
+**** Example for Google (emphasis on collaboration and inclusively matches)
+
+_Skills_
+- Team collaboration and diversity advocacy, aligning with Google's inclusive work culture.
+
+_Cover Letter_
+Google's commitment to fostering an inclusive and collaborative work environment is one of the main reasons I am excited about this opportunity. My passion for teamwork and diversity has driven my career choices and is reflected in my successful track of leading diverse, cross-functional teams to achieve common goals.
+
+*** 3. Familiarize yourself with the company's products or services and its market position
+- Understand who their *competitors* are and their *market share*
+
+**** Example for Tesla
+
+_Work Experience_
+Contributed to the development of innovative renewable energy solutions, paralleling Tesla's mission to advance sustainable energy.
+
+_Cover Letter_
+Tesla's pioneering efforts in electric vehicles and sustainable energy are truly inspiring. My background in renewable energy technologies positions me to contribute effectively to Tesla's mission of accelerating the world's transition to sustainable energy. My project on improving solar panel efficiency align directly with Tesla's ongoing innovations in solar energy solutions.
+
+*** 4. Stay updated on recent news about the company
+- Have there been any *mergers*, *acquisitions*, or *changes in leadership*?
+
+**** Example for Disney (recent acquisition from 21st Century fox)
+
+_Projects_
+Developed multimedia content strategies during industry mergers, enhancing adaptability skills relevant to Disney's recent acquisition of 21st Century Fox.
+
+_Cover Letter_
+Disney's recent acquisition of 21st Century Fox has opened up exciting new avenues for content creation and storytelling. This strategic move aligns with my professional experience in multimedia production, and I am eager to bring my expertise to help Disney leverage these new assets to create compelling and diverse content.
+
+*** 5. Review the company's financial health
+- Review the *company's financial health* by examining their *financial statements* and *annual reports*
+- This is particularly important for *assessing the company's stability*
+
+**** Example for Amazon (consistent revenue growth and profitability)
+
+_Achievements_
+Enhanced financial efficiency in previous roles, contributing to stable revenue growth, which is in line with Amazon's robust financial health.
+
+_Cover Letter_
+Amazon's consistent revenue growth and profitability over the years give me confidence in its strategic direction and financial health. This stability and forward-thinking approach are what I seek in my next career move, where I aim to contribute to maintaining and enhancing operational efficiencies.
+
+You can *leverage* your research to show *how you can add value to a company*
+- You can *address this in your application* and offer a *solution based on your past experience*
+
+_Achievements_
+Led financial restructuring initiatives in previous roles, reversing revenue declines and aligning with the strategic needs of companies in distress.
+
+_Cover Letter_
+The recent financial challenges faced by your company, as seen in the latest financial reports, present a unique opportunity for impactful readership. Your leadership team's commitment to revitalising the business aligns with my experience in financial restructuring and operational optimization. I am confident that my background in driving turnaround strategies can contribute significantly to ere storing financial stability and growth 
+
+#+begin_quote
+By demonstrating an understanding of the company's current struggles and showcasing your relevant experience, you can position yourself as a valuable asset for their recovery efforts
+#+end_quote
+
+*** 6. Research the *leadership team*
+- Researching the *leadership team* can offer *valuable insights* into the *company's culture*, *values*, and *strategic direction*
+- Understanding the *leadership team* is essential for *aligning your experience* and *vision* with their *expectations* and *the company's goals*
+- This involves *examining* their
+  - Background
+  - Leadership Style
+  - Key Achievements
+- To assess *how you might fit into their strategic framework*
+- This research helps you *understand* the *company's ethos* and *operational dynamics*
+- As the *leaders' public profiles* and *statements* often reflect the *organization's priorities* and *work environment*
+- It is always worth trying to *gain insights* into *whet employers are looking for*
+
+*** 7. Research the *company's CSR initiative*
+- Sustainability Efforts
+- Community Engagement
+- Diversity Policies
+
+**** Example for Unilever (Commitment to sustainability living plans)
+
+_Volunteer Work_
+I led sustainability initiatives in community projects, reflecting Unilever's CSR focus on sustainable living
+
+_Cover Letter_
+Unilever's dedication to sustainability and social responsibility is truly commendable. My personal commitment to sustainable living and my professional experience in developing eco-friendly packaging solutions align perfectly with Unilever's mission. I am enthusiastic about the opportunity to contribute to such meaningful initiatives.
+
+This not only makes your resume *more authentic* but also shows that *you've done your homework* and are *genuinely interested* in the company
