@@ -1,0 +1,27 @@
+#+title: React Native
+
+* Expo
+
+#+begin_src shell
+  # create a react native project with blank template
+  npx create-expo-app --template blank RNCourse
+
+  # start the project
+  npm start
+#+end_src
+
+* Create styles
+
+#+begin_src typescript
+  interface User {
+  id: number;
+  name: string;
+}
+
+const user: User = {
+  id: 1,
+  name: "Vasilis"
+};
+
+console.log(user.name);
+#+end_src

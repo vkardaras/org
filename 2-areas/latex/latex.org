@@ -372,3 +372,14 @@ Create a =.cls= file and use the declaration ~\LoadClass[<options>]{class}~
 - [[https://no.overleaf.com/learn][Overleaf Documentation]]
 - [[https://en.wikibooks.org/wiki/LaTeX][LaTeX on wikibooks]]
 - [[https://tex.stackexchange.com/][LaTeX on stackexchange]]
+
+* Emacs LaTeX
+
+#+begin_src shell
+  # add environment
+  C-c C-e
+
+  # compile and view document
+  C-c C-c
+#+end_src
+  

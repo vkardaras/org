@@ -675,3 +675,54 @@ _Cover Letter_
 Unilever's dedication to sustainability and social responsibility is truly commendable. My personal commitment to sustainable living and my professional experience in developing eco-friendly packaging solutions align perfectly with Unilever's mission. I am enthusiastic about the opportunity to contribute to such meaningful initiatives.
 
 This not only makes your resume *more authentic* but also shows that *you've done your homework* and are *genuinely interested* in the company
+
+** Networking
+
+*** LinkedIn
+- LinkedIn is *more than just an online resume*
+- It's a dynamic platform where you can *engage with industry leaders*, *join professional group*, and *stay updated on industry trends*
+- You should start by creating a *comprehensive LinkedIn profile* that *mirrors your master resume*
+- Your LinkedIn profile should include *all the key elements of your resume*:
+  - Professional Summary
+  - Work Experience
+  - Education
+  - Skills
+  - Accomplishments
+- The good thing about LinkedIn is, unlike a resume, *it does not matter how long it is*
+- You can use LinkedIn as an *addition to your resume*
+- *Check out the LinkedIn profiles of current employees in similar roles* at your target companies
+- This can give you a *clearer idea* of *how to position yourself* and highlight *relevant experiences* in your resume
+- The other *benefit* of using LinkedIn is *your don't need to wait for job postings to appear*
+- If there's a company you're particularly interested in, *reach out directly to the hiring manager on LinkedIn*
+
+/Example of connecting with a hiring manager to LinkedIn/a
+
+#+begin_example
+Hi Kuhi Angs, I've been following Tesla's innovative work in renewable energy and am impressed by your commitment to sustainability. With my background in renewable energy technologies and project management, I believe I could make a significant contribution to your team. Attached is my resume for your consideration. I look forward to the possibility of discussing how I can contribute to your ongoing projects.
+#+end_example
+
+- More then likely, the hiring manager will *click onto your LinkedIn profile*, so make sure it is *complete* before reaching out!*
+- Being proactive like this shows initiative and desire to work for that company, but if they aren't hiring you might be wasting your time
+- If they aren't hiring but are *impressed with your resume* they might reply and *keep you in mind for future openings*
+- Or even *mention someone* within their network that *might have an opportunity* for you
+- Having an *excellent resume* is even more important when *reaching out to a company that doesn't currently have any vacancies*
+- 87% of recruiters find LinkedIn to be the *most effective tool for vetting candidates during the hiring process*
+- A *well-optimized LinkedIn profile* can increase your *visibility to recruiters* by up to *27%*
+
+**** Some real company examples
+- IBM often looks for candidates with *specific technical skills* and a *strong professional online presence*
+  - You can identify *key skills* and *certifications* to highlight on your LinkedIn profile and resume
+- Salesforce values *community engagement* and *thought leadership*
+  - *Following their employees* and *engaging with their content* can help you *understand what the company values in its team members*
+  - Craft your LinkedIn profile and resume to *reflect similar attributes and experiences*
+
+**** Conclusion
+- Networking on LinkedIn is a *powerful strategy to enhance your job search*
+  - By populating your LinkedIn profile with *information from your master resume*
+  - Analyzing the profiles of *current employees in your desired roles*
+  - *Proactively reaching out* to *potential employers* with a *tailored resume*
+- You can *significantly improve your chances* of landing your dream job*
+- It's about presenting a *strong idea* of *
+  - Who you are
+  - What you've accomplished
+  - How you can add value
