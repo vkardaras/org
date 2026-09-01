@@ -34,6 +34,46 @@
     - Before submitting your resume, use ATS-friendly tools or software to test *how well it fares against common ATS algorithms*
     - Use tools like [[https://www.jobscan.co/][jobscan]]
 
+** Use ChatGPT to check if an ATS understands your resume
+
+Upload the resume and the job description and use the following prompt
+
+#+begin_example
+Act as an ATS scanner. Review this resume and create a short report that lists each of my job titles with the associated companies, locations, and dates. Also provide a list of my training and a list of my formal education
+#+end_example
+
+** Use ChatGPT to check the keywords of a job description
+
+Open ChatGPT and add the job description with following prompt
+
+#+begin_example
+Based on the jobs I provided you; can you please provide a list of the 25 most important skills required to do these jobs well. Please make each skill 1-3 words lolng and focus more on hard skills over soft skills.
+#+end_example
+
+** Prompt to create a resume in latex
+
+Open ChatGPT and use the following prompt to create a resume in LaTeX
+
+#+begin_example
+Create a modern, ATS-friendly resume using LaTeX.
+Rewrite, improve, and expand the resume content while keeping it concise and professional.
+
+Candidate Information: Name: Vasilis Kardaras | Role: Senior Software Engineer
+Contact Information: Phone: +30 6973833646 | Email: vasiliskardaras@gmail.com | LinkedIn: linkedin.com/in/vasiliskardaras
+Experience: 
+TechCorp: Role: Software Developer | Dates: 2019–Present
+Codebase: Role: Backend Intern | Dates: 2018–2019
+Education: Degree: BSc in Computer Science | University: Stanford University | Year: 2018
+Skills: Python, JavaScript, React, SQL, Git, REST APIs
+Projects: Portfolio website | Task tracker application
+
+Formatting Requirements
+Page size: A4
+Add a thin horizontal rule under each section heading
+Define one LaTeX color variable named "sectioncolor" with a hex value for all section headings.
+Rewrite and expand the resume content.
+#+end_example
+
 * Creating an Engaging Resume
 
 1. Tailor your *Resume* to *Each Job*
@@ -51,7 +91,7 @@
      e.g. Responsibilities included overseeing project timelines -> I oversaw project timelines to ensure timely completion and delivery.
 4. Embrace *White Space* for *Readability*
    - Not only does it enhance readability, but it also draws the reader in and keeps them engaged.
-     Recruiters will be reading many resumes and if your is *clearly laid out* with white space it gives the reader a *sense of ease in the sifting process*
+     Recruiters will be reading many resumes and if yours is *clearly laid out* with white space it gives the reader a *sense of ease in the sifting process*
 5. Showcase your *Unique Skill Set*
    - *Your skills are what set you apart from the competition*, so don't be shy about showing them off.
      48% of recruiters use skills data to help fill their roles.
@@ -108,7 +148,7 @@ This document not only helps you *stay organized* but also ensures that *you are
 
 *** Professional Summary
 
-- A professional summary is a *concise*, *impactful statement that highlights your career goals*, *key skills*, and *what you bring to the table.
+- A professional summary is a *concise*, *impactful statement that highlights your career goals*, *key skills*, and *what you bring to the table*.
 - Think of it as a "hook" to get the *attention of the reader* and make them want to *read the rest of your resume*
 
 **** Tips for a professional summary
@@ -121,7 +161,7 @@ This document not only helps you *stay organized* but also ensures that *you are
    I am an experienced financial anlyst with a strong background in investment strategies and portfolio management. Adept at risk assessment and frinancial forecasting to optimize investment returns.
    #+end_example
 
-2. Writing to the *job roles
+2. Writing to the *job roles*
    
    - Always *tailor* your resume to the *job description*
    - Align your summary with the *specific job role* you're applying for
@@ -726,3 +766,7 @@ Hi Kuhi Angs, I've been following Tesla's innovative work in renewable energy an
   - Who you are
   - What you've accomplished
   - How you can add value
+
+* Resume in LaTeX format
+
+[[file:cv.tex][Resume Example in LaTeX]]

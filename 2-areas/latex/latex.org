@@ -46,7 +46,7 @@
 Some key options to remember
 | Document Class | Font Size | Page Size   | Print Style | Column Style |
 |----------------+-----------+-------------+-------------+--------------|
-| arricle        | 8pt       | a4paper     | onesided    | onecolumn    |
+| article        | 8pt       | a4paper     | onesided    | onecolumn    |
 | report         | 9pt       | a3paper     | twosided    | twocolumn    |
 | boot           | 10pt      | a2paper     |             |              |
 | letter         | 11pt      | letterpaper |             |              |
@@ -358,6 +358,11 @@ Create a =.cls= file and use the declaration ~\LoadClass[<options>]{class}~
   % The <code> in is executed for every unexecuted option
   \ProcessOptions\relax
 #+end_src
+
+** Example files
+
+- [[file:~/Documents/org/2-areas/work/mycv.cls][Custom class file]]
+- [[file:~/Documents/org/2-areas/work/cv.tex][Document using custom class file]]
 
 * Presenting with Beamer
 - [[file:examples/][Beamer]]
