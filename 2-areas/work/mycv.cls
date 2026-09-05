@@ -13,6 +13,9 @@
 \RequirePackage{enumitem}
 \RequirePackage{titlesec}
 \RequirePackage{multicol}
+\RequirePackage{comment}
+\RequirePackage{microtype}
+\RequirePackage{xurl}
 
 % Set default color
 \definecolor{defaultcolor}{HTML}{1F4E79}
@@ -33,6 +36,10 @@
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
+
+\setlength{\emergencystretch}{3em}
+\hyphenpenalty=5000
+\exhyphenpenalty=5000
 
 \hypersetup{
     colorlinks=true,

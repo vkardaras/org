@@ -6,7 +6,7 @@
    (TeX-add-to-alist 'LaTeX-provided-class-options
                      '(("article" "")))
    (TeX-add-to-alist 'LaTeX-provided-package-options
-                     '(("carlito" "sfdefault" "lf") ("fontenc" "T1") ("geometry" "a4paper" "margin=1.6cm") ("hyperref" "hidelinks") ("xcolor" "") ("enumitem" "") ("titlesec" "") ("multicol" "")))
+                     '(("hyphenat" "none") ("carlito" "sfdefault" "lf") ("fontenc" "T1") ("geometry" "a4paper" "margin=1.6cm") ("hyperref" "hidelinks") ("xcolor" "") ("enumitem" "") ("titlesec" "") ("multicol" "") ("comment" "") ("microtype" "") ("xurl" "")))
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "path")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "url")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "nolinkurl")
@@ -25,7 +25,10 @@
     "xcolor"
     "enumitem"
     "titlesec"
-    "multicol")
+    "multicol"
+    "comment"
+    "microtype"
+    "xurl")
    (TeX-add-symbols
     '("projectEntry" 2)
     '("eduEntry" 4)

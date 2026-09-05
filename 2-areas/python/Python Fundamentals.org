@@ -1,50 +1,175 @@
 #+title: Python Fundamentals
 
+* Run python in terminal
+
+#+begin_src shell
+  python3
+  >>> 
+#+end_src
+
 * Python Virtual Environment
 
-** Move to python project and add a virtual environment
-
 #+begin_src sh
-python3 -m venv venv
+  # Move to python project and add a virtual environment
+  python3 -m venv venv
+
+  # Activate the virtual environment
+  source venv/bin/activate
+
+  # Install any python library
+  pip3 install requests
+
+  # Deactivate virtual environment
+  pip3 install requests
 #+end_src
 
-** Activate the virtual environment
-
-#+begin_src sh
-source venv/bin/activate
-#+end_src
-
-** Install any python library
-
-#+begin_src sh
-pip3 install requests
-#+end_src
-
-** Deactivate virtual environment
-
-#+begin_src sh
-deactivate
-#+end_src
 * Print function
 
-** Controll end of print
-
 #+begin_src python
-print("Hello World", end="!")
-> Hello World!
+  # control end of print
+  print("Hello World", end="!")
+  > Hello World!
+
+  # control separator
+  print("Hello", "future", "Python", "programmer!", sep="-")
+  > Hello-future-Python-programmer!
+
+  # combine ~sep~ and ~end~
+  print("So", "enjoying Python", sep=", ", end="?")
+  > So, enjoying Python?
 #+end_src
 
-** Control seperator
+* Run python program from file
+
+Create a file =myfile.py=
 
 #+begin_src python
-print("Hello", "future", "Python", "programmer!", sep="-")
-> Hello-future-Python-programmer!
+  print("Hello future Python programmer")
 #+end_src
+
+Execute the file
+
+#+begin_src shell
+  python3 myfile.py
+#+end_src
+
+* Literals
+
+- Integers: 200, 1298901, -90, 1_000_000
+  - Octal numbers: 0o123
+  - Hexadecimal numbers: 0x123
+- Floating point numbers: 45.50, 12.1 -90.0, 89.394
+- Strings: "Hello", 'Hello', 'Hello! "Python" is cool', "Hello, 'Python' is cool", "Hello! \"Python\" is cool"
+- Booleans: True, False, 1, 0
+
+* Operators
+
+** Arithmetic Operators
+
+- Add =+=
+- Subtract =-=
+- Multiply =*=
+- Divide =/=
+- Floor Divide =//=
+- Modulo =%=
+- Exponential =**=
+
+#+begin_src python
+  # Exponential
+  print(2 ** 3)
+  > 8
+  print(2. ** 3)
+  > 8.0
+#+end_src
+
+* Variables
+
+#+begin_src python
+  amount_of_apples = 2
+  cost_of_apple = 5
+
+  print(amount_of_apples * cost_of_apple)
+  > 10
+#+end_src
+
+- Variables allow you to store values
+- A variable has a valid name(letters, digits, underscore, not a reserved keyword)
+- Python is dynamically typed: variables can be redeclared
+- We can use shortcut operations in order to cleanly redeclare a variable
+
 * Input
-#+begin_src mermaid :file test.png
-sequenceDiagram
- A-->B: Works!
+
+#+begin_src python
+  >>> age = input("How old are you? ")
+  How old are you? 22
 #+end_src
 
-#+RESULTS:
-[[file:test.png]]
+~input()~
+- Prompts the user to input some data from the console
+- It accepts an optional parameter that can be used in order to write a message before the user input
+- Always returns a string
+- A program that doesn't use any input function, is called a *deaf program*
+
+** Type casting
+
+- Integers: ~int()~
+- Floating point: ~float()~
+
+#+begin_src python
+  >>> age = input("How old are you? ")
+  How old are you? 22
+  >>> print(int(age) - 10)
+  12
+
+  >>> age = int(input("How old are you? "))
+  How old are you? 22
+  >>> print(age - 10)
+  12
+#+end_src
+
+* String methods
+
+#+begin_src python
+  >>> print("ha" * 10)
+  "hahahahahahahahahaha"
+
+  >>> print("ha" * 2)
+  "haha"
+
+  >>> print("ha" * 0)
+  ""
+
+  >>> print("ha" * -1)
+  ""
+#+end_src
+
+Casting
+
+#+begin_src python
+  >>> print(int("22"))
+  22
+
+  >>> print(str(22))
+  "22"
+
+  >>> cost_of_apple = 2
+  >>> amount_of_apples = input("How many apples do you want? ")
+  How many apples do you want? 10
+  >>> total_sum = cost_of_apple * int(amount_of_apples)
+  >>> print("You have to pay: " + str(total_sum))
+  You have to pay: 20
+#+end_src
+
+*String Operations*
+- You can use =+= in order to concatenate two strings
+- You can use =*= in order to repeat a string a several amount of times
+- With the ~str~ function, you can type-cast a number into a string
+
+* Comparison Operators
+
+- Equal: ====
+- Not Equal: =!==
+- Greater than: =>=
+- Greater than or equal to =>==
+- Smaller than: =<=
+- Smaller than or equal to =<==

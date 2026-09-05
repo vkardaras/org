@@ -1,0 +1,34 @@
+#+title: Control Flow
+
+* Conditional Statements
+** =if= condition
+
+#+begin_src python
+  >>> age = int(input("How old are you? "))
+  How old are you? 22
+  >>> if age >= 18:
+        print("You are an adult!")
+  You are an adult!
+#+end_src
+
+** =if else=
+
+#+begin_src python
+  if condition:
+      print("The condition is true!")
+  else:
+      print("The condition is false")
+#+end_src
+
+** =if elif else=
+
+#+begin_src python
+  if condition:
+      print("The condition is true!")
+  elif second_condition:
+      print("Only the second condition is true!")
+  else:
+      print("Both conditions are false")
+#+end_src
+
+* Loops - while
