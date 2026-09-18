@@ -11,14 +11,27 @@
   You are an adult!
 #+end_src
 
+
+#+begin_src python
+  age = 22
+
+  if age >= 18:
+    print("You are an adult!")
+#+end_src
+
+#+RESULTS:
+: You are an adult!
+
 ** =if else=
 
 #+begin_src python
   if condition:
-      print("The condition is true!")
+    print("The condition is true!")
   else:
-      print("The condition is false")
-#+end_src
+    print("The condition is false")
+  #+end_src
+
+#+RESULTS:
 
 ** =if elif else=
 
@@ -32,3 +45,74 @@
 #+end_src
 
 * Loops - while
+
+** while
+
+#+begin_src python
+  >>> secret_number = 3
+  >>> guess = int(input("Guess a number: "))
+  >>> while guess != secret_number:
+  guess = int(input("Guess a numger: "))
+  Guess a number: 0
+  Guess a number: 4
+  Guess a number: 3
+  >>>
+#+end_src
+
+** while - else
+
+#+begin_src python
+  >>> secret_number = 3
+  >>> guess = int(input("Guess a number: "))
+  >>> while guess != secret_number:
+  guess = int(input("Guess a numger: "))
+      else:
+        print("Congratulations, you got it!")
+        Guess a number: 0
+        Guess a number: 4
+        Guess a number: 3
+        Congratulations, you got it!
+        >>>
+#+end_src
+
+** loops
+
+#+begin_src python
+  for i in range(5):
+    print("i is:", i)
+#+end_src
+
+#+RESULTS:
+: i is: 0
+: i is: 1
+: i is: 2
+: i is: 3
+: i is: 4
+
+*** Brake =for= with =if=
+
+#+begin_src python
+  for i in range(5):
+    if(i == 2):
+      break
+    print("i is:", i)
+#+end_src
+
+#+RESULTS:
+: i is: 0
+: i is: 1
+
+*** Skip iteration
+
+#+begin_src python
+  for i in range(5):
+    if(i == 2):
+      continue
+    print("i is:", i)
+#+end_src
+
+#+RESULTS:
+: i is: 0
+: i is: 1
+: i is: 3
+: i is: 4

@@ -1,0 +1,96 @@
+#+title: Logic and Bit Operations
+
+* Operators
+
+- =and=
+- =or=
+- =not=
+
+#+begin_src python
+  age1 = 24
+  age2 = 16
+  if (age1 >= 18 and age2 >= 18):
+    print("You are both adults")
+  elif(age1 >= 18 or age2 >= 18):
+    print("One of you is an adult")
+  else:
+    print("You are both children")
+#+end_src
+
+#+RESULTS:
+: One of you is an adult
+
+#+begin_src python
+  is_hungry = False
+  if(not is_hungry):
+    print("You are not hungry")
+#+end_src
+
+#+RESULTS:
+: You are not hungry
+
+* Bitwise Operators
+
+- Conjunction =&=
+- Disjunction =|=
+- Negation =~=
+- Exclusive =^=
+
+#+begin_src python
+  print(bin(15))
+  print(bin(22))
+#+end_src
+
+#+RESULTS:
+: 0b1111
+: 0b10110
+
+#+begin_src python
+  result = 15 & 22
+  print(result)
+  print(bin(result))
+#+end_src
+
+#+RESULTS:
+: 6
+: 0b110
+
+#+begin_src python
+  result = 15 | 22
+  print(result)
+  print(bin(result))
+#+end_src
+
+#+RESULTS:
+: 31
+: 0b11111
+
+#+begin_src python
+  result = 15 ^ 22
+  print(result)
+  print(bin(result))
+#+end_src
+
+#+RESULTS:
+: 25
+: 0b11001
+
+** Bit Shifting
+
+- Bit Shift Right =>>=
+- Bit Shift Left =>>=
+
+#+begin_src python
+  print(22 >> 1)
+  print(22 << 1)
+#+end_src
+
+#+RESULTS:
+: 11
+: 44
+
+- ~print(22 // 2)~ -> ~print(22 >> 1)~
+- ~print(22 // 4)~ -> ~print(22 >> 2)~
+- ~print(22 * 2~) -> ~print(22 << 1)~
+- ~print(22 * 4)~ -> ~print(22 << 2)~
+  

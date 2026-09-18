@@ -3,3 +3,9 @@
 * [[file:Python Fundamentals.org][Python Fundamentals]]
 
 * [[file:control_flow.org][Control Flow]]
+
+* [[file:logic_bit_operations.org][Logic and Bit Operations]]
+
+* [[file:lists.org][Lists]]
+
+* [[file:functions.org][Functions]]

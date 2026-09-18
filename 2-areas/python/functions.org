@@ -1,0 +1,94 @@
+#+title: Functions
+
+* Functions
+
+#+begin_src python
+  def input_number():
+    return int(input("Enter a number: "))
+
+  # call the function
+  input1 = input_number()
+  input2 = input_number()
+  input3 = input_number()
+  input4 = input_number()
+  input5 = input_number()
+#+end_src
+
+* Arguments
+
+#+begin_src python
+  def input_number(num):
+    return int(input("Enter a number: ")) * num
+  input1 = input_number(10)
+#+end_src
+
+** Multiple parameters
+
+#+begin_src python
+  def input_number(num1, num2):
+    return int(input("Enter a number: ")) * num1 - num2
+  input1 = input_number(10, 20)
+#+end_src
+
+** Named Parameters
+
+#+begin_src python
+  def input_number(num1, num2):
+    return int(input("Enter a number: ")) * num1 - num2
+  input1 = input_number(num2 = 10, num1 =20)
+#+end_src
+
+** Default values for parameters
+
+
+#+begin_src python
+  def input_number(num = 10):
+    return int(input("Enter a number: ")) * num
+  input1 = input_number()
+#+end_src
+
+* Return Statement
+
+#+begin_src python
+  def print_sum(num1, num2):
+    sum = num1 + num2
+    if(sum == 0):
+      return
+    print("The sum is: ", str(sum))
+
+  print_sum(4, 2)
+  print_sum(-1, 1)
+#+end_src
+
+* List Argument
+
+#+begin_src python
+  def multiply_values(list):
+    multiply_values = []
+    for item in list:
+      multiply_values.append(item*2)
+    return multiply_values
+
+  print(multiply_values([1,2,3]))
+  print(multiply_values([-4,-8,-10]))
+  print(multiply_values(1))
+#+end_src
+
+#+RESULTS:
+: [2, 4, 6]
+: [-8, -16, -20]
+
+* Scopes
+
+#+begin_src python
+  num = 100
+  def input_number():
+    # make the variable of the function global
+    global own_num
+    own_num = 50
+    result = int(input("Enter a number: ")) * own_num
+    return result
+
+  input_number()
+  print(own_num)
+#+end_src

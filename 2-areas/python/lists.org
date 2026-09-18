@@ -1,0 +1,247 @@
+#+title: Lists
+
+* Lists
+
+#+begin_src python
+  countries = ["USA", "Canada", "India"]
+  print(countries[0])
+  print(countries[1])
+  print(countries[2])
+  print(countries[-1])
+#+end_src
+
+#+RESULTS:
+: USA
+: Canada
+: India
+: India
+
+** Change value of index
+
+#+begin_src python
+  countries = ["USA", "Canada", "India"]
+  countries[0] = "UK"
+  print(countries[0])
+  print(countries[1])
+  print(countries[2])
+#+end_src
+
+#+RESULTS:
+: UK
+: Canada
+: India
+
+** ~len()~
+
+#+begin_src python
+  countries = ["USA", "Canada", "India"]
+  size = len(countries)
+  print(size)
+#+end_src
+
+#+RESULTS:
+: 3
+
+** Delete list item
+
+#+begin_src python
+  countries = ["USA", "Canada", "India"]
+  del countries[1]
+  print(countries)
+#+end_src
+
+#+RESULTS:
+: ['USA', 'India']
+
+* List Methods
+
+- ~list.append()~
+- ~list.insert()~
+
+#+begin_src python
+  countries = ["USA", "Canada", "India"]
+  # add an item to the end of the list
+  countries.append("Spain")
+  # insert an item to a specific position of the list
+  countries.insert(2, "Italy")
+  print(countries)
+#+end_src
+
+#+RESULTS:
+: ['USA', 'Canada', 'Italy', 'India', 'Spain']
+
+** Swap values inside a list
+
+#+begin_src python
+  countries = ["USA", "Canada", "India"]
+  temp = countries[0]
+  countries[0] = countries[1]
+  countries[1] = temp
+  print(countries)
+#+end_src
+
+#+RESULTS:
+: ['Canada', 'USA', 'India']
+
+Easier way to swap values
+
+#+begin_src python
+  countries = ["USA", "Canada", "India"]
+  countries[0], countries[1] = countries[1], countries[0]
+  print(countries)
+#+end_src
+
+#+RESULTS:
+: ['Canada', 'USA', 'India']
+
+** sort
+
+#+begin_src python
+  ages = [56,72,24,46]
+  ages.sort()
+  print(ages)
+#+end_src
+
+#+RESULTS:
+: [24, 46, 56, 72]
+
+** reverse
+
+#+begin_src python
+  ages = [56,72,24,46]
+  ages.reverse()
+  print(ages)
+#+end_src
+
+#+RESULTS:
+: [46, 24, 72, 56]
+
+* Iterating Lists
+
+#+begin_src python
+  ages = [56,72,24,46]
+  total = 0
+  for age in ages:
+    total += age
+  average = total / len(ages)
+  print(average)
+#+end_src
+
+#+RESULTS:
+: 49.5
+
+* Slicing Lists
+
+~list[start:end]~
+
+#+begin_src python
+  letters = ["A","B","C","D","E"]
+  firstTwo = letters[0:2]
+  print(firstTwo)
+  print(letters[1:])
+  print(letters[:3])
+  print(letters[1:-1])
+  print(letters[:])
+  # print every second element
+  print(letters[::2])
+  # reverse a list
+  print(letters[::-1])
+  # delete from 1 until 3 (3 not included)
+  del letters[1:3]
+  print(letters)
+  # delete all elements in an array
+  del letters[:]
+#+end_src
+
+#+RESULTS:
+: ['A', 'B']
+: ['B', 'C', 'D', 'E']
+: ['A', 'B', 'C']
+: ['B', 'C', 'D']
+: ['A', 'B', 'C', 'D', 'E']
+: ['A', 'C', 'E']
+: ['E', 'D', 'C', 'B', 'A']
+: ['A', 'D', 'E']
+
+* Finding in Lists
+
+- element ~in~ list
+- element ~not in~ list
+
+#+begin_src python
+  letters = ["A","B","C","D","E"]
+  print("B" in letters)
+  print("C" not in letters)
+#+end_src
+
+#+RESULTS:
+: True
+: False
+
+* Nested Lists - 2D
+
+#+begin_src python
+  classroom = [
+    ["Sam","Max","Joe","Anne"],
+    ["Sofie","Lisa","Tim","Sasha"],
+    ["Claire","Sara","Leo","Kim"],
+    ["Zoe","Guy","Anna","Eva"],
+  ]
+  # get Sara
+  student = classroom[2][1]
+  print(student)
+#+end_src
+
+#+RESULTS:
+: Sara
+
+#+begin_src python
+  matrix = [[j for j in range(3)] for i in range(3)]
+  print(matrix[2][1])
+
+  print([j for j in range(3)])
+  print([[j for j in range(3)] for i in range(3)])
+#+end_src
+
+#+RESULTS:
+: 1
+: [0, 1, 2]
+: [[0, 1, 2], [0, 1, 2], [0, 1, 2]]
+
+* Nested Lists - 3D
+
+#+begin_src python
+  school = [
+    [
+      ["Sara","Kim","Anne","Eva"],
+      ["Johan","Collin","Sam","Alex"],
+      ["Luke","Sara","Haley","Jennifer"],
+      ["Katy","Mara","Max","Roy"],
+    ],
+    [
+      ["Anne","Leo","Sasha","Tim"],
+      ["Claire","Guy","Eva","Zoe"],
+      ["Lisa","Max","Evan","Chloe"],
+      ["Brent","Sam","Sarah","Anne"],
+    ],
+    [
+      ["Maria","Julian","Chris","Tom"],
+      ["Zoe","Anna","Kim","Leo"],
+      ["Vera","Pim","Leo","Guy"],
+      ["Anne","Sofie","Max","Joe"],
+    ],
+    [
+      ["Sam","Max","Joe","Anne"],
+      ["Sofie","Lisa","Tim","Sasha"],
+      ["Claire","Sara","Leo","Kim"],
+      ["Zoe","Guy","Anna","Eva"],
+    ]
+  ]
+
+  # get Max
+  student = school[1][2][1]
+  print(student)
+#+end_src
+
+#+RESULTS:
+: Max
