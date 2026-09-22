@@ -9,3 +9,7 @@
 * [[file:lists.org][Lists]]
 
 * [[file:functions.org][Functions]]
+
+* [[file:dictionaries.org][Dictionaries]]
+
+* [[file:exceptions.org][Exceptions]]

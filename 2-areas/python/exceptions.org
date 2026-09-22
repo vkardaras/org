@@ -1,0 +1,192 @@
+#+title: Exceptions
+
+* Errors and Exceptions
+
+*Unhanded Exceptions*
+
+#+begin_src python
+  name = 'Lydia'
+
+  print('My name is ' + naem)
+  print('All done!')
+#+end_src
+
+#+RESULTS: NameError: name 'naem' is not defined
+
+*Handled Exceptions*
+
+#+begin_src python
+  try:
+    name = 'Lydia'
+    print('My name is ' + naem)
+  except:
+    print('Something went wrong')
+
+  print('All done!')
+#+end_src
+
+#+RESULTS:
+: Something went wrong
+: All done!
+
+** Create Exceptions for specific type Errors
+
+#+begin_src python
+  try:
+    x = int(input("Enter a number: "))
+    y = 1 / x
+    print(y)
+  except ZeroDivisionError:
+    print("You cannot devide by zero.")
+  except ValueError:
+    print("Please enter an integer:")
+  except:
+    print("Something else went wrong")
+
+  print("All done!")
+#+end_src
+
+* Hierarchy of Exceptions
+
+- BaseException
+  - SystemExit
+  - Exception
+    - ValueError
+    - LookupError
+      - IndexError
+      - KeyError
+    - ArithmeticError
+      - ZeroDivisionError
+  - keyboardinterrupt
+
+#+begin_src python
+  try:
+    x = int(input("Enter a number: "))
+    y = 1 / x
+    print(y)
+  except ZeroDivisionError:
+    print("You cannot devide by zero.")
+  except:
+    print("Something else went wrong")
+
+  print("All done!")
+#+end_src
+
+*More general Exception Handling*
+
+#+begin_src python
+  try:
+    x = int(input("Enter a number: "))
+    y = 1 / x
+    print(y)
+  except ArithmeticError:
+    print("Calculation failed.")
+  except:
+    print("Something else went wrong")
+
+  print("All done!")
+#+end_src
+
+*Specify both Exceptions*
+
+#+begin_src python
+  try:
+    x = int(input("Enter a number: "))
+    y = 1 / x
+    print(y)
+  except ZeroDivisionError:
+    print("You cannot devide by zero.")
+  except ArithmeticError:
+    print("Calculation failed.")
+  except:
+    print("Something else went wrong")
+
+  print("All done!")
+#+end_src
+
+*Specify more than one exception in =except= branch*
+
+#+begin_src python
+  try:
+    x = int(input("Enter a number: "))
+    y = 1 / x
+    print(y)
+  except (ZeroDivisionError, ValueError):
+    print("Invalid input value")
+  except ArithmeticError:
+    print("Calculation failed.")
+  except:
+    print("Something else went wrong")
+
+  print("All done!")
+#+end_src
+
+** Handle Exception inside a function
+
+#+begin_src python
+  def calculate_use_input():
+    try:
+      x = int(input("Enter a number:"))
+      y = 1 / x
+      print(y)
+    except ZeroDivisionError:
+      print("You cannot divide by zero.")
+    except:
+      print("Something else went wrong")
+
+    return None
+
+  calculate_use_input()
+#+end_src
+
+** Handle Exception outsice a function
+
+#+begin_src python
+  def calculate_use_input():
+    x = int(input("Enter a number:"))
+    y = 1 / x
+    print(y)
+
+    return None
+
+  try:
+    calculate_use_input()
+  except ZeroDivisionError:
+    print("You cannot divide by zero.")
+  except:
+     print("Something else went wrong")
+#+end_src
+
+** Manually raise an exception
+
+#+begin_src python
+  def calculate_use_input():
+    raise ZeroDivisionError
+
+  try:
+    calculate_use_input()
+  except ZeroDivisionError:
+    print("You cannot devide by zero.")
+  except:
+    print("Something else went wrong")
+#+end_src
+
+#+RESULTS:
+: You cannot devide by zero.
+
+*** assert
+
+Raises an =AssertionError= if the exception evaluates to a falsy value
+
+#+begin_src python
+  import math
+
+  x = 4 # int(input("Enter a number: "))
+  assert x >= 0
+
+  x = math.sqrt(x)
+  print("Result:", x)
+#+end_src
+
+#+RESULTS:
+: Result: 2.0

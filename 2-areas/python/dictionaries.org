@@ -1,0 +1,190 @@
+#+title: Dictionaries
+
+* Tuples
+
+Tuples are immutable
+
+#+begin_src python
+  tuple1 = (1, 2, 3)
+  print(tuple1)
+
+  tuple2 = 3, 4, 5
+  print(tuple2)
+#+end_src
+
+#+RESULTS:
+: (1, 2, 3)
+: (3, 4, 5)
+
+** Read data from tuple
+
+#+begin_src python
+  tuple1 = (1, 2, 3)
+  for item in tuple1:
+    print(item)
+
+  print(tuple1[0:1])
+#+end_src
+
+#+RESULTS:
+: 1
+: 2
+: 3
+: (1,)
+
+* Dictionaries
+
+A dictionary is a =key: value= pair
+
+#+begin_src python
+  usernames = {
+    "lydia": "lidiahallie",
+    "sarah": "sarah123",
+    "max": "max_",
+    "joe": "joejoe"
+  }
+
+  print(usernames["sarah"])
+#+end_src
+
+#+RESULTS:
+: sarah123
+
+** Dictionary methods
+
+- =dictionary.keys()=
+- =dictionary.values()=
+- =dictionary.items()=
+
+#+begin_src python
+  usernames = {
+    "lydia": "lidiahallie",
+    "sarah": "sarah123",
+    "max": "max_",
+    "joe": "joejoe"
+  }
+
+  print(usernames.keys())
+  print(usernames.values())
+  print(usernames.items())
+#+end_src
+
+#+RESULTS:
+: dict_keys(['lydia', 'sarah', 'max', 'joe'])
+: dict_values(['lidiahallie', 'sarah123', 'max_', 'joejoe'])
+: dict_items([('lydia', 'lidiahallie'), ('sarah', 'sarah123'), ('max', 'max_'), ('joe', 'joejoe')])
+
+*Iterate Dictionaries*
+
+#+begin_src python
+  usernames = {
+    "lydia": "lidiahallie",
+    "sarah": "sarah123",
+    "max": "max_",
+    "joe": "joejoe"
+  }
+
+  for key in usernames.keys():
+    print(key + " - " + usernames[key])
+#+end_src
+
+#+RESULTS:
+: lydia - lidiahallie
+: sarah - sarah123
+: max - max_
+: joe - joejoe
+
+** Modify a dictionary
+
+*Modify a value*
+#+begin_src python
+  usernames = {
+    "lydia": "lidiahallie",
+    "sarah": "sarah123",
+    "max": "max_",
+    "joe": "joejoe"
+  }
+
+  usernames["max"] = "max123"
+  print(usernames["max"])
+#+end_src
+
+#+RESULTS:
+: max123
+
+*Add a new item*
+#+begin_src python
+  usernames = {
+    "lydia": "lidiahallie",
+    "sarah": "sarah123",
+    "max": "max_",
+    "joe": "joejoe"
+  }
+
+  usernames.update({"chloe": "chloe123"})
+  print(usernames)
+#+end_src
+
+#+RESULTS:
+: {'lydia': 'lidiahallie', 'sarah': 'sarah123', 'max': 'max_', 'joe': 'joejoe', 'chloe': 'chloe123'}
+
+*delete an item*
+#+begin_src python
+  usernames = {
+    "lydia": "lidiahallie",
+    "sarah": "sarah123",
+    "max": "max_",
+    "joe": "joejoe"
+  }
+
+  del usernames["max"]
+  print(usernames)
+#+end_src
+
+#+RESULTS:
+: {'lydia': 'lidiahallie', 'sarah': 'sarah123', 'joe': 'joejoe'}
+
+*Remove all items of an Dictionaries*
+#+begin_src python
+  usernames = {
+    "lydia": "lidiahallie",
+    "sarah": "sarah123",
+    "max": "max_",
+    "joe": "joejoe"
+  }
+  usernames.clear()
+  print(usernames)
+#+end_src
+
+#+RESULTS:
+: {}
+
+Remove the last item of a dictionary
+#+begin_src python
+  usernames = {
+    "lydia": "lidiahallie",
+    "sarah": "sarah123",
+    "max": "max_",
+    "joe": "joejoe"
+  }
+  usernames.popitem()
+  print(usernames)
+#+end_src
+
+#+RESULTS:
+: {'lydia': 'lidiahallie', 'sarah': 'sarah123', 'max': 'max_'}
+
+*Copy a dictionary*
+#+begin_src python
+  usernames = {
+    "lydia": "lidiahallie",
+    "sarah": "sarah123",
+    "max": "max_",
+    "joe": "joejoe"
+  }
+  usernames_copy = usernames.copy()
+  print(usernames_copy)
+#+end_src
+
+#+RESULTS:
+: {'lydia': 'lidiahallie', 'sarah': 'sarah123', 'max': 'max_', 'joe': 'joejoe'}
