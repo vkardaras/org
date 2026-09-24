@@ -1,11 +1,9 @@
 #+title: Content Writing
 
-* [[file:blog_ideas.org][Blog ideas]]
+* [[file:writing_on_medium.org][Writing on Medium]]
 
-* [[file:technical_article_types.org][Types of Technical Articles]]
+* [[file:writing_process_for_better_output.org][Improve your writing process for better output]]
 
-* [[file:article_title.org][Crafting the Perfect Article Title]]
+** [[file:blog_ideas.org][Blog ideas]]
 
-* [[file:article_structure.org][How to Structure Your Article]]
-
-* [[file:feature_image.org][The Power of Feature Images]]
+* [[file:social_media.org][Harness the power of Social Media]]

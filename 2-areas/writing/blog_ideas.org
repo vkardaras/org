@@ -1,10 +1,10 @@
 #+title: Blog Ideas
 
-* Clean code
+* [[file:blog_ideas/clean_code.org][Clean code]]
 
-* Testing
+* [[file:blog_ideas/testing.org][Testing]]
 
-* Design Patterns
+* [[file:blog_ideas/design_patterns.org][Design Patterns]]
 
 * Programming
 
@@ -17,3 +17,5 @@
 * Technical Post based on new skills
 
 * Educational Resources Recommendation
+
+* AI News/Trending Topics
