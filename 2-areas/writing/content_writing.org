@@ -6,4 +6,6 @@
 
 ** [[file:blog_ideas.org][Blog ideas]]
 
-* [[file:social_media.org][Harness the power of Social Media]]
+* [[file:social_media.org][Harness the power of Social Media]] 
+
+* [[file:building_your_newsletter.org][Building your Newsletter]]

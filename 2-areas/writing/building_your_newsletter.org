@@ -1,0 +1,67 @@
+#+title: Building your Newsletter
+
+* Why you should start a newsletter?
+
+** Build a loyal audience
+
+*** Direct communication
+
+**** Unfiltered access
+
+- *Bypass algorithms:* Social media platforms often control who sees your posts, with algorithms that can limit your reach. Newsletters provide a direct line to your audience, ensuring your message is delivered to everyone who has subscribed.
+- *Guaranteed deliver:* Unlike social media posts that can get lost in the feed, emails land directly in your subscriber's inbox, increasing the likelihood that your content will be seen.
+
+**** Personalized interaction
+
+- *Tailored content:* With email marketing tools, you can segment your audience based on their interests and behaviours, allowing your to send personalized content that resonates more effectively.
+- *Targeted messaging:* Use data and insights to send highly relevant messages to specific segments of your audience, making your communication more impactful and angaging.
+
+**** Control over communication
+
+- *Frequency and timing:* Decide when and how often to send your newsletters, ensuring your audience hears from you at optimal times.
+- *Content flexibility:* Include a variety of content formats (text, images, videos, links) to keep your audience engaged and cater to different preferences.
+
+*** Relationship building
+
+**** Consistent engagement
+
+- *Regular updates:* Sending newsletters on a consistent schedule keeps your audience informed and engaged with your brand. This regularity helps establish trust and familiarity.
+- *Anticipation:* When subscribers know to expect valuable content from you, they look forward to receiving your emails, creating a sense of anticipation and excitement.
+
+**** Value-driven content
+
+- *Educational resources:* Provide your audience with valuable information, tips, and resources that help them solve problems or achieve their goals. This positions you as a helpful and trusted resource.
+- *Exclusive offers:* Reward your subscribers with exclusive content, discounts, or early access to products or events. This exclusivity makes them feel valued and appreciated.
+
+**** Two-way communication
+
+- *Feedback loop:* Encourage subscribers to reply to your emails with their thoughts, questions, or feedback. This interaction can provide valuable insights and make your audience feel heard.
+- *Surveys and polls:* Use these tools to gather opinions and preferences from your subscribers, involving them in your decision-making process and fostering a sense of community.
+
+**** Building trust
+
+- *Authenticity:* Share behind-the-scenes stories, personal anecdotes, or insights into your business. Authentic communications helps build a genuine connection with your audience.
+- *Transparency:* Be open about your business practices, goals, and challenges. Transparency fosters trust and loyalty, as subscribers feel more connected to your journey.
+
+**** Nurturing long-term relationships
+
+- *Customer journey:* Use newsletters to guide subscribers through their customer journey, from awareness to consideration to decision-making. Nurturing these stages helps build long-term loyalty.
+- *Milestone celebrations:* Acknowledge and celebrate milestones, such as anniversaries or subscriber milestones, to show appreciation and reinforce the relationship.
+
+** Establish authority and credibility
+
+** Monetization opportunities
+
+** Flexibility and control
+
+** Strengthen brand identity
+
+** Long-term benefits
+
+** Community building
+
+* Getting started with Substack
+
+* How to grow your email list?
+
+* How to manage a blog and a newsletter?
