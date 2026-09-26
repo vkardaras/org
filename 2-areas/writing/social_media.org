@@ -352,6 +352,59 @@ Run contests or giveaways where entry requires subscribing to your blog or newsl
 
 * How to use your tech blogs to grow on different platforms?
 
-** How to use technical blogs to grow on Medium
+Technical blogging offers a unique opportunity to communicate complex concepts comprehensibly, making it an invaluable tool for any aspiring data scientist or tech enthusiast to build their brand and grow on professional social media channels.
 
-** How to use technical blogs to grow on 
+** How to use technical blogs to grow on Medium?
+
+- The first place and the main place to publish the whole blog post as one piece in Medium. Medium is a great place to start blogging as in introduces you to an large audience and allows you to grow without the need to pay attention to hosting your blogs or building the user interface.
+- Make Medium the main platform to write full technical articles/blogs and manage to reach <30k> followers and more than <2M> views and reads and become one of the top writers in the software development topic.
+- The main key to success is to be consistent in writing and try to have a feedback loop on the topics you write and see what people like and enjoy reading and write more about it.
+
+** How to use technical blogs to grow on Twitter?
+
+- Twitter is a very important platform and has a strong tech community, therefore it is important to stay active on it. The strategy is to grow on Twitter (follow a similar strategy on LinkedIn) is to at least for each blog to publish two tweets and one thread although this might increase depending on the article itself.
+- The first tweet is usually an announcement post about the blog itself with a summary and what this article covers. Then depending on the context of the article I write a thread summarizing the article and finally, write a final tweet with an important idea from the article.
+- If there are more important ideas, you can extract from the article you will publish more that one tweet. In all of the published tweets you put the link to the original blog so if one wants to get read more, he can go to the article itself. It happens a lot that one of these tweets goes viral this will drive a log of traffic to the article.
+
+** How to use technical blogs to grow on LinkedIn?
+
+- LinkedIn is one of the most important platforms for data scientists and machine learning practitioners and it acts as your online resume. Be quite active on LinkedIn and follow a similar strategy as the one you used to grow on Twitter.
+- For every article, publish at least two posts from each written and published blog on Medium.
+  - The first one is the announcement post about the article with a summary of it and what it covers
+  - The second post is usually a long post that summarizes the most important ideas of the article.
+- However, sometimes you can break down each idea in a separate post so you might end up publishing five or six posts extracted from a single article.
+- You should include the link to the article from where you extracted the post, and it happens a log that the post will go viral getting 100k impressions and will drive thousands to the article.
+- Also, you can collect articles related to one subject or topic and publish them in the order you should read them to learn a certain topic.
+- For example, you can publish six posts periodically that usually get thousands of impressions and it helps to grow your blog and also on social media channels. Examples:
+  - Practical time series analysis articles
+  - Efficient Python articles
+  - Practical machine learning articles
+  - Docker for data science
+  - Data science study plan
+  - Getting started with Generative AI
+
+** How to use technical blogs to grow on GitHub?
+
+- GitHub is a great place to build your brand and show your work. I found that I can use my technical blogs to grow tremendously and in just one year I gained around 2.5k followers and around 7.5k stars which put me in the top 1% of GitHub users. Example: https://github.com/youssefHosni
+- To reach these number follow the following strategy:
+  - First, classify your articles into several categories, and for each category, make a GitHub repository and start clustering each group of articles into subcategories.
+  - For example, the following repository is the Practical Machine Learning repository in which I put all the articles related to practical machine learning as you can see there are subcategories after that into several categories.
+  - If the article is a technical tutorial or is a project explanation, I will make sure to convert this article into an interactive notebook and will also upload it to the related GitHub repository. This is also beneficial as I will use it after that to grow on Kaggle as explained later.
+
+** How to use technical blogs to grow on Newsletter?
+
+- If you are consistent in writing, it is essential to have your own newsletter, as it will give you more freedom to write what you would like without being controlled by a recommendation algorithm and also to have direct contact with your audience.
+- When you already have written many articles and have a routine, start publishing your articles on both Medium and Substack in addition to specific articles that are written to only paid subscribers.
+- Youssef: After six months of writing on Substack and creating my newsletter, I managed to get around 6k subscribers and hundreds of paid subscribers and became a top seller on Substack.
+
+** How to use technical blogs to grow on Kaggle?
+
+- Kaggle is one of the most important platforms for data scientists to be active on. Although the competitions section is the most important section and the most difficult section to get ranked in, there are still other sections that are highly ranked in them is also very important.
+- I started publishing my viral posts in Kaggle discussions and my technical articles as notebooks and published them on Kaggle as notebooks.
+- After only six months I became both a discussion and notebook expert and was highly ranked in both sections.
+
+** How to use technical blogs to grow on YouTube?
+
+- Finally having a large number of articles written can be very helpful to start and grow a YouTube channel. Since you can use them instead of writing a script or preparing the material you can focus more on creating better videos and become more consistent without putting too much effort and time.
+- I have started a YouTube channel last year and managed to publish at least one video per week and now I have around 4k subscribers with only minimal effort.
+
