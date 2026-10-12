@@ -6,13 +6,13 @@
 
 * [[file:blog_ideas/design_patterns.org][Design Patterns]]
 
-* Programming
+* [[file:blog_ideas/programming.org][Programming]]
 
-* Microservices
+* [[file:blog_ideas/microservices.org][Microservices]]
 
-* Practical Tips
+* [[file:blog_ideas/practical_tips.org][Practical Tips]]
 
-* Career Development
+* [[file:blog_ideas/career_development.org][Career Development]]
 
 * Technical Post based on new skills
 

@@ -1,3 +1,5 @@
 #+title: Business
 
 - [[file:digital_products.org][How to create digital productus]]
+- [[file:business_academy.org][Επιχείρηση από το Μηδέν]]
+- [[file:business_ideas.org][Business Ideas]]
