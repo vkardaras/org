@@ -1,0 +1,319 @@
+#+title: Building a Javascript Development Environment
+
+* Installing an Integrated Development Environment
+
+** Visual Studio Code Hotkeys and Shortcuts
+
+*** Navigating through code quickly
+
+#+begin_src shell
+  # go to definition
+  F12
+
+  # find all references
+  Shift+Alt+F12
+
+  # navigate through open tabs
+  C-Tab
+
+  # search through a file
+  C-f
+
+  # search through all files
+  C-S-f
+
+  # open the command palette
+  C-S-p
+
+  # open the terminal
+  C-backtick
+
+  # split active terminal
+  C-S-5
+
+  # move lines up / down
+  M-UpArrow / M-DownArrow
+
+  # toggle comment
+  C-/
+
+  # format document (with prettier extension)
+  C-S-I
+
+  # format selection (with prettier extension)
+  C-k C-f
+#+end_src
+
+* Installing Node.js
+
+** Introducing Node.js and npm
+
+- *Node.js:* A JavaScript runtime built on Google's open source V8 engine that can execute programs outside a browser ohn Windows, Mac, and Linux.
+- *npm:* Node.js provides a package manager called the Node Package Manager or "npm" to manage third-party code dependencies.
+
+*** How IDEs take advantage of Node.js
+
+- Language tools
+- Debugging tools
+- Package tools
+- Task runners and scripts
+
+*** How different runtimes compare
+
+**** Browser
+
+- Runs on the end-user's machine within their browser.
+- Typically needs to be compiled by tools like Webpack or Vite.
+- Dependencies are managed by =npm=.
+- Client-side (frontend).
+
+**** Node.js
+
+- Runs without a browser using =node= executable.
+- Typically does not need to be compiled.
+- Dependencies are managed by =npm=.
+- Server-side (backend)
+
+** Linux installation
+
+#+begin_src shell
+  # install node.js and npm on linux
+  # Download and install nvm:
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
+  # in lieu of restarting the shell
+  \. "$HOME/.nvm/nvm.sh"
+  # Download and install Node.js:
+  nvm install 24
+  # Verify the Node.js version:
+  node -v # Should print "v24.21.0".
+  # Verify npm version:
+  npm -v # Should print "11.19.0".
+
+  # use node REPL
+  node
+  # example in REPL
+  console.log("Hello World!")
+  # exetute a script directly in REPL
+  node index.js
+  #+end_src
+
+* Managing Packages with npm
+
+** Introducing npm
+
+*** Referencing third-party scripts
+
+For browser-based applications, you can reference third-party scripts
+
+#+begin_src html
+  <script type="text/javascript" src="lib/jquery.min.js"></script>
+  <script type="text/javascript">
+    (function () {
+    const container = $('.contaier);
+    })();
+  </script>
+#+end_src
+
+*** Referencing third-party Packages
+
+For module-based applications, you reference npm packages
+
+#+begin_src javascript
+  const $ = require('jquery');
+  const container = $('.container);
+#+end_src
+
+*** npm commands
+
+#+begin_src shell
+  # install project dependencies
+  npm install
+
+  # install specific package
+  npm install <package>
+
+  # update a package
+  npm update <package>
+
+  # remove a package
+  npm uninstall <package>
+#+end_src
+
+*** How npm works
+
+=package.json --npm install--> npm registry --> node_modules --> package-lock.json=
+
+**** ~package.json~: The heart of a javascript project
+
+The =package.json= file contains metadata about the project, including dependencies.
+
+#+begin_src json
+  {
+      "name": "package-name",
+      "version": "1.0.0",
+      "dependencies": {
+          "express": "5.x"
+      },
+      "devDependencies": {
+          "eslint": "^8.0.0"
+      }
+  }
+#+end_src
+
+- =dependencies= are Runtime dependencies
+- =devDependencies= are Development-time only dependencies
+
+*View the versions of a package*
+
+#+begin_src shell
+  # view the versions of express package
+  npm view express versions
+#+end_src
+
+**** ~package-lock.json~: The nervous system of a javascript project
+
+The =package-lock.json= is a lockfile containing exact dependencies being used
+
+** Initializing a javascript project
+
+#+begin_src shell
+  # initialize a project
+  npm install
+
+  # create a project
+  npm init
+#+end_src
+
+** Adding a package dependency
+
+Add a package for accepting commands during execution. e.g. =node index.js add 5 2=
+
+#+begin_src shell
+  # example for package yargs
+  # install the latest version
+  npm install yargs
+  # force npm to add a dependency entry
+  npm install yargs --save
+  # install a specific version
+  npm install yargs@latest-13
+
+  # install as development deepndency
+  npm install esling --save-dev
+#+end_src
+
+*Why separate development dependencies*
+
+- They won't be installed in a productions Node.js environment.
+- They help teammates know what packages are not used at runtime.
+
+** Updating a package dependency
+
+#+begin_src shell
+  # list outdated dependencies
+  npm outdated
+
+  # print what npm will do before executing the update command
+  npm update --dry-run
+
+  # update to the latest wanted version
+  npm update
+
+  # update to the latest version of a package
+  npm install yargs@latest 
+#+end_src
+
+#+begin_quote
+=npm update= will only update to the highest-supported wanted version, not the latest version
+Transitive dependencies are tracked in the =package-lock.json= by =npm=
+#+end_quote
+
+*** Challenges of updating packages
+
+- Complex to manage many dependencies
+- Newer versions aren't always backwards-compatible
+- Security vulnerabilities can be found downstream
+
+Use automation tools for updates like =renovate= (https://www.mend.io/renovate/)
+
+*** Resources
+
+- About semantic versioning
+  https://docs.npmjs.com/about-semantic-versioning
+- npm SemVer calculator
+  https://semver.npmjs.com/
+
+** Removing a package dependency
+
+Using npm to uninstall a package
+
+#+begin_src shell
+  npm ininstall chalk
+#+end_src
+
+Manually removing a package
+
+- Remove the line with the package to remove from the =package.json=
+- Execute the command =npm install=
+
+** How IDEs Integrate with npm
+
+- Package dependency management
+- Provide code completion for modules
+- Informs language tooling versions and configuration
+- Automatic type acquisition
+- Detect problems and errors
+- Run npm scripts and tasks
+
+** Troubleshooting npm issues
+
+*** Fixing peer dependency errors
+
+*Peer dependency error*
+Some packages require other packages to be at a certain version range, otherwise npm will throw a peer dependency error.
+
+#+begin_example
+ERESOLVE unable to resolve dependency tree
+#+end_example
+
+*Fixing peer dependency errors*
+Ultimately the package maintainers need to update their version range but there are ways to workaround it if you know the packages are compatible.
+
+#+begin_src shell
+  npm install <package> --force
+  npm install <package> --legacy-peer-deps
+#+end_src
+
+*** Random package installation failures
+
+*Error when pulling down a npm package*
+HTTP errors can sometimes happen when packages change in the registry over time
+
+#+begin_example
+code EPROTO
+errno EPROTO
+request to https://registry.npmjs.org/package failed,
+reason: write EPROTO...
+#+end_example
+
+*Reset node modules*
+Sometimes your node_modules folder will get into an inconsistent state. The nuclear option is to completely remove the directory.
+
+#+begin_src shell
+  rm -rf node_modules
+#+end_src
+
+*Clean npm cache*
+For even harder issues, you can try cleaning the npm cache on your system (in addition to removing node_modules).
+
+#+begin_src shell
+  npm cache clean --force
+  npm cache verify
+#+end_src
+
+* Debugging with Visual Studio Code
+
+** Launching the JavaScript Debugger
+
+- From the terminal window select =JavaScript Debug Terminal=
+- Add breakpoints to the application
+- Launch the application. =node index.js=

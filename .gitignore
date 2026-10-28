@@ -6,3 +6,4 @@
 **/*.snm
 **/*.toc
 **/*.gz
+**/node_modules/

@@ -1,0 +1,6580 @@
+#+title: JavaScript Fundamentals
+
+* Syntax, variables, and primitive data types
+
+** Variables
+
+*** Naming best practices
+
+#+begin_src javascript
+  let firstName = "David";
+  let lastName = "Tucker";
+  let numberOfYearsEmployed = 6;
+#+end_src
+
+*** Creating variables
+
+#+begin_src javascript
+  // Using let
+  let numberOfYearsEmployed = 6;
+  numberOfYearsEmployed = 7;
+  // Using const
+  const employeeId = "E-1001";
+  employeeId = "E-1002"; // This would result in an error
+  // Using var for older code
+  var department = "Engineering";
+#+end_src
+
+*** Dynamic typing
+
+#+begin_src javascript
+  // Variables are dynamically typed
+  let firstName = "David";
+  let numberOfYearsEmployed = 6;
+  let isActive = true;
+  // Variables can change type
+  let value = "David";
+  value = 42;
+  value = true;
+#+end_src
+
+** Data types
+
+JavaScript value categories
+
+- Primitive values
+- Objects
+
+*** Primitive types
+
+- String
+- Number
+- Bigint
+- Boolean
+- Symbol
+- Undefined
+- Null
+
+*** Primitive type examples
+
+#+begin_src javascript
+  let firstName = "David";
+  let numberOfYearsEmployed = 6;
+  let hourlyRate = 42.5;
+  let hugeNumber = 9007199254740993n;
+  let isActive = true;
+  let id = Symbol("id");
+  let manager;
+  let manager = null;
+#+end_src
+
+*** Primitive type behavior
+
+#+begin_src javascript
+  // Immutability
+  let firstName = "David";
+  firstName = "Sarah";
+  // Primitive wrappers
+  let name = "David";
+  let uppercaseName = name.toUpperCase();
+#+end_src
+
+*** Objects
+
+#+begin_src javascript
+  let employee = {
+      firstName: "David",
+      lastName: "Tucker"
+  };
+  let departments = ["Engineering", "Marketing", "HR"];
+  let employeesById = new Map();
+  let uniqueDepartments = new Set();
+  function sayHello() {
+      console.log("Hello");
+  }
+  let startDate = new Date();
+  let error = new Error("Something went wrong");
+  let result = Promise.resolve("Done");
+  let pattern = /JavaScript/;
+  let bytes = new Uint8Array([1, 2, 3]);
+#+end_src
+
+*** Object mutability
+
+#+begin_src javascript
+  let employee = {
+      firstName: "David",
+      lastName: "Tucker"
+  };
+  employee.lastName = "Smith";
+#+end_src
+
+*** Object types
+
+#+begin_src javascript
+  console.log(typeof "David");    // string
+  console.log(typeof 42);         // number
+  console.log(typeof true);       // boolean
+  console.log(typeof undefined);  // undefined
+#+end_src
+
+** Creating and using strings
+
+*** Quotes
+
+In javascript you can use double strings, single quotes, and backticks
+
+#+begin_src javascript
+  let firstName = "John";
+  console.log(firstName);
+  let lastName = 'Doe';
+  console.log(lastName);
+  let department = `Engineering`;
+  console.log(department);
+#+end_src
+
+*** String concatenation
+
+#+begin_src javascript
+  let firstName = "John";
+  console.log(firstName);
+  let lastName = "Doe";
+
+  let fullName = fitstName + " " + lastName;
+
+  let numberOfYearsEmployed = 6;
+
+  // string concatenation in backticks
+  let message = `${firstName} has workded here for ${numberOfYearsEmployed + 1} years after their next anniversary.`;
+  consolo.log(message);
+#+end_src
+
+*** Multiline strings
+
+#+begin_src javascript
+  let formatedMessage = `Line 1
+  Line2
+  Line3`;
+  console.log(formatedMessage);
+#+end_src
+
+*** String functions
+
+#+begin_src javascript
+  // get the length of a string
+  let courseName = "JavaScript Fundamentals";
+  console.log(courseName.length);
+
+  // access a specific character in a string
+  console.log(courseName[0]); // J
+  console.log(courseName[1]); // a
+  console.log(courseName.at(0)); // J
+  console.log(courseName.at(1)); // a
+  console.log(courseName.at(-1)); // t
+
+  // uppercase and lowercase
+  let name = "John Doe";
+  console.log(name.toUpperCase());
+  console.log(name.toLowerCase());
+
+  // search for substring inside a string
+  console.log(name.indexOf("Jo")); // 0
+  console.log(name.indexOf("Doe")); // 5
+  console.log(name.indexOf("Smith")); // -1
+  console.log(name.includes("John")); // true
+  console.log(name.includes("Smith")); // false
+
+  // replace a substring
+  let departments = "Engineer, Engineer, Engineer";
+  console.log(departments.replace("Engineer", "Product")); // Product, Engineer, Engineer
+  console.log(departments.replaceAll("Engineer", "Product")); // Product, Product, Product
+#+end_src
+
+**  Storing numeric values
+
+#+begin_src javascript
+  // all of the below are of type number
+  let numberOne = 6;
+  let numberTwo = -3;
+  let numberThree = 1.234567;
+#+end_src
+
+* Objects, type conversions, and modern syntax
+
+** JavaScript objects
+
+#+begin_src javascript
+  // create object
+  const employee = {
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering",
+      title: "Principal Engineer",
+      isActive: true,
+      numberOfYearsEmployed: 6,
+      startDate: new Date("2019-03-15")
+  };
+
+  // access object properties
+  console.log(employee.firstName);
+  console.log(employee.lastName);
+  // access object properties through bracket notation
+  console.log(employee["firstName"]);
+  console.log(employee["lastName"]);
+
+  // with bracket notation you can access properties you cannot access with field properties
+  const employeeBadge = {
+      "badge color": "yellow"
+  };
+
+  console.log(employeeBadge["badge color"]);
+
+  // you can assign a property to a variable with bracket notation
+  const propertyName = "department";
+  console.log(employee[propertyName]);
+
+  // objects are mutable
+  // add fields to employee object
+  employee.location = "Atlanta";
+  employee["manager"] = "Sarah Smith";
+  console.log(employee);
+
+  // delete a property from an object
+  delete employee.location;
+
+  // check if a property exists in an object
+  console.log(Object.hasOwn(employee, "department"));
+  console.log(Object.hasOwn(employee, "middleName"));
+
+  // objects can contain other objects
+  const employeeWithContact = {
+      firstName: "David",
+      lastName: "Tucker",
+      contact: {
+          email: "david@example.com",
+          phone: "555-0100"
+      }
+  };
+
+  // access property of inner object
+  console.log(employeeWithContact.contact.email);
+
+  // objects are passed by reference
+  const employeeOne = {
+      firstName: "David",
+      lastName: "Tucker"
+  };
+
+  const employeeTwo = employeeOne;
+
+  employeeTwo.lastName = "Smith";
+
+  console.log(employeeOne.lastName); // Smith
+  console.log(employeeTwo.lastName); // Smith
+#+end_src
+
+** JSON basics
+
+*** Convert a javascript object to Jason
+
+#+begin_src js
+  const employee = {
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering",
+      title: "Principal Engineer",
+      isActive: true,
+      numberOfYearsEmployed: 6
+  };
+
+  const jsonValue = JSON.stringify(employee);
+
+  console.log(jsonValue);
+  console.log(typeof jsonValue);
+
+  // format the json string
+  const formattedJson = JSON.stringify(employee, null, 2);
+  console.log(formattedJson);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+{"firstName":"David","lastName":"Tucker","department":"Engineering","title":"Principal Engineer","isActive":true,"numberOfYearsEmployed":6}
+string
+{
+  "firstName": "David",
+  "lastName": "Tucker",
+  "department": "Engineering",
+  "title": "Principal Engineer",
+  "isActive": true,
+  "numberOfYearsEmployed": 6
+}
+#+end_example
+
+*** Javascript object with date property
+
+#+begin_src js
+  const employeeWithDate = {
+      firstName: "David",
+      lastName: "Tucker",
+      startDate: new Date("2019-03-15")
+  };
+  const jsonWithDate = JSON.stringify(employeeWithDate, null, 2);
+  console.log(jsonWithDate);
+#+end_src
+
+#+RESULTS:
+: {
+:   "firstName": "David",
+:   "lastName": "Tucker",
+:   "startDate": "2019-03-15T00:00:00.000Z"
+: }
+
+*** Convert json to javascript object
+
+#+begin_src js
+  const jsonText = `{
+    "firstName": "Sarah",
+    "lastName": "Smith",
+    "department": "Product",
+    "isActive": true
+  }`;
+  const parsedEmployee = JSON.parse(jsonText);
+  console.log(parsedEmployee);
+  console.log(parsedEmployee.firstName);
+#+end_src
+
+#+RESULTS:
+: {
+:   firstName: 'Sarah',
+:   lastName: 'Smith',
+:   department: 'Product',
+:   isActive: true
+: }
+: Sarah
+
+** Working with dates and times
+
+*What makes time complicated*
+- Time zones
+- Daylight saving time
+- Different calendar systems
+- Different regional formats
+- Different expectations on how dates are displayed
+
+*Date*
+In JavaScript, the built-in Date object represents a specific point in time. That means it’s not
+only a calendar date. It also includes time information.
+
+*** Create a date
+
+#+begin_src js
+  // create a date from current date and time
+  const now = new Date();
+  console.log(now);
+
+  // create a date from a string
+  const startDate = new Date("2019-03-15");
+  console.log(startDate);
+
+  // create a date by passing individual parts on the date constructor
+  // the month part is zero based
+  const employeeStartDate = new Date(2019, 2, 15);
+  console.log(employeeStartDate);
+#+end_src
+
+#+RESULTS:
+: 2026-10-15T19:34:39.393Z
+: 2019-03-15T00:00:00.000Z
+: 2019-03-14T22:00:00.000Z
+
+*** Access parts of a date
+
+#+begin_src js
+  const employeeStartDate = new Date(2019, 2, 15);
+
+  console.log(employeeStartDate);
+
+  console.log(employeeStartDate.getFullYear());
+  console.log(employeeStartDate.getMonth());
+  console.log(employeeStartDate.getDate());
+  console.log(employeeStartDate.getHours());
+  console.log(employeeStartDate.getMinutes());
+  console.log(employeeStartDate.getTime());
+#+end_src
+
+#+RESULTS:
+: 2019-03-14T22:00:00.000Z
+: 2019
+: 2
+: 15
+: 0
+: 0
+: 1552600800000
+
+*** Display a date in different formats
+
+#+begin_src js
+  const employeeStartDate = new Date(2019, 2, 15);
+
+  console.log(employeeStartDate.toString());
+  console.log(employeeStartDate.toDateString());
+
+  console.log(employeeStartDate.toLocaleDateString("en-US"));
+  console.log(employeeStartDate.toLocaleDateString("en-GB"));
+  console.log(employeeStartDate.toLocaleDateString("ja-JP"));
+#+end_src
+
+#+RESULTS:
+: Fri Mar 15 2019 00:00:00 GMT+0200 (Eastern European Standard Time)
+: Fri Mar 15 2019
+: 3/15/2019
+: 15/03/2019
+: 2019/3/15
+
+**** Pass options to customize the output
+
+#+begin_src js
+  const now = new Date();
+  const options = {
+      dateStyle: "medium",
+      timeStyle: "short"
+  };
+  console.log(now.toLocaleString("en-US", options));
+#+end_src
+
+#+RESULTS:
+: Oct 15, 2026, 10:43 PM
+
+** Understanding null, undefined, and nullish values
+
+*Understanding empty values*
+- *Undefined:* Identifies when a values has not been assigned to a variable
+- *Null:* Identifies when a values has been intentionally set to empty for a variable
+
+#+begin_src js
+  let manager = "Sarah Smith";
+
+  const employee = {
+      firstName: "David",
+      lastName: "Tucker"
+  };
+  console.log(employee.middleName);
+
+  // check for undefined variable
+  if (employee.middleName === undefined) {
+      console.log("Middle name is missing.");
+  }
+
+  // check for null or undefined variable
+  if (manager === null || manager === undefined) {
+      console.log("Manager is missing.");
+  }
+#+end_src
+
+*** Nullish and falsy values
+
+*Nullish values*
+- null
+- undefined
+  
+*Falsy but not nullish*
+- 0
+- ""
+- false
+
+*** Optional chaining
+
+Use the =?= to check for null/undefined objects or variables
+
+#+begin_src js
+  const employeeWithContact = {
+      firstName: "David",
+      contact: {
+          email: "david@example.com"
+      }
+  };
+  console.log(employeeWithContact.contact.email);
+
+  const employeeWithoutContact = {
+      firstName: "Sarah"
+  };
+  // This would cause an error:
+  // console.log(employeeWithoutContact.contact.email);
+
+  console.log(employeeWithoutContact.contact?.email);
+  console.log(employeeWithoutContact.contact?.address?.city);
+  #+end_src
+
+#+RESULTS:
+: david@example.com
+: undefined
+: undefined
+
+*** The nullish coalescing operator
+
+In JavaScript, the =??= symbol is the nullish coalescing operator.  It is a logical operator that returns its left-hand operand if that operand is not null or undefined; otherwise, it returns the right-hand operand. 
+
+This operator is primarily used for setting default values in a way that distinguishes between "missing" data (null/undefined) and valid "falsy" data (like 0, false, or empty strings ""). Unlike the logical OR operator (||), which treats all falsy values as triggers for the default, ?? only triggers the default for nullish values.
+
+#+begin_src js
+  const employee = {
+      firstName: "David",
+      lastName: "Tucker"
+  };
+  const displayName = employee.middleName ?? "No middle name";
+  console.log(displayName);
+
+  const yearsEmployed = 0;
+
+  const valueWithOr = yearsEmployed || "Unknown";
+  const valueWithNullish = yearsEmployed ?? "Unknown";
+
+  console.log(valueWithOr);
+  console.log(valueWithNullish);
+#+end_src
+
+#+RESULTS:
+: No middle name
+: Unknown
+: 0
+
+** Classes
+
+A class is a template for creating objects. It lets us define the data and behavior that a certain
+kind of object should have. JavaScript classes are built on top of JavaScript’s prototype
+system.
+
+*** Create a class
+
+#+begin_src js
+  class Employee {
+      constructor(firstName, lastName, department) {
+          this.firstName = firstName;
+          this.lastName = lastName;
+          this.department = department;
+      }
+  }
+
+  const employee = new Employee("John", "Doe", "Engineering");
+  console.log(employee);
+#+end_src
+
+#+RESULTS:
+: Employee {
+:   firstName: 'John',
+:   lastName: 'Doe',
+:   department: 'Engineering'
+: }
+
+*** Create a method in a class
+
+#+begin_src js
+  class Employee {
+      constructor(firstName, lastName, department) {
+          this.firstName = firstName;
+          this.lastName = lastName;
+          this.department = department;
+      }
+      
+      getDisplayName() {
+          return `${this.firstName} ${this.lastName}`;
+      }
+  }
+
+  const employee = new Employee("John", "Doe", "Engineering");
+  console.log(employee.getDisplayName());
+#+end_src
+
+#+RESULTS:
+: John Doe
+
+*** Add a public field to a class
+
+#+begin_src js
+  class Employee {
+      isActive = true;
+      
+      constructor(firstName, lastName, department) {
+          this.firstName = firstName;
+          this.lastName = lastName;
+          this.department = department;
+      }
+      
+      getDisplayName() {
+          return `${this.firstName} ${this.lastName}`;
+      }
+  }
+
+  const employee = new Employee("John", "Doe", "Engineering");
+  console.log(employee.isActive);
+#+end_src
+
+#+RESULTS:
+: true
+
+*** Add a private field to a class
+
+#+begin_src js
+  class Employee {
+      #employeeId;
+      
+      constructor(employeeId, firstName, lastName) {
+          this.#employeeId = employeeId;
+          this.firstName = firstName;
+          this.lastName = lastName;
+      }
+      
+      getEmployeeId() {
+          return this.#employeeId;
+      }
+  }
+
+  const employee = new Employee("E-1001", "Engineering", "Doe");
+  console.log(employee.getEmployeeId());
+#+end_src
+
+#+RESULTS:
+: E-1001
+
+*** Static fields and methods
+
+A static method belongs to class itself, not its instance.
+
+#+begin_src js
+  class Employee {
+      static companyName = "Example Corp";
+
+      static createGuestEmployee(firstName, lastName) {
+          return new Employee("GUEST", firstName, lastName);
+      }
+
+      constructor(department, firstName, lastName) {
+          this.department = department;
+          this.firstName = firstName;
+          this.lastName = lastName;
+      }
+  }
+
+  console.log(Employee.companyName);
+
+  const guest = Employee.createGuestEmployee("Sarah", "Smith");
+
+  console.log(guest);
+
+  Object.hasOwn(employee, "firstName");
+  Number.isSafeInteger(42);
+  JSON.stringify(employee);
+
+  class Manager extends Employee {
+      constructor(department, firstName, lastName, teamSize) {
+          super(department, firstName, lastName);
+          this.teamSize = teamSize;
+      }
+  }
+#+end_src
+
+*** Common static methods in javascript
+
+
+#+begin_src js
+  class Employee {
+      constructor(firstName, lastName, department) {
+          this.firstName = firstName;
+          this.lastName = lastName;
+          this.department = department;
+      }
+  }
+
+  const employee = new Employee("John", "Doe", "Engineering");
+  console.log(Object.hasOwn(employee, "firstName"));
+  console.log(Number.isSafeInteger(42));
+  console.log(JSON.stringify(employee));
+#+end_src
+
+#+RESULTS:
+: true
+: true
+: {"firstName":"John","lastName":"Doe","department":"Engineering"}
+
+*** Class inheritance
+
+#+begin_src js
+  class Employee {
+      
+      constructor(department, firstName, lastName) {
+          this.department = department;
+          this.firstName = firstName;
+          this.lastName = lastName;
+      }
+  }
+
+  class Manager extends Employee {
+      constructor(department, firstName, lastName, teamSize) {
+          super(department, firstName, lastName);
+          this.teamSize = teamSize;
+      }
+  }
+#+end_src
+
+** Type conversions
+
+*** Convert number to string
+
+#+begin_src js
+  const age = 41;
+  const ageAsString = String(age);
+  console.log(ageAsString);
+  console.log(typeof ageAsString);
+#+end_src
+
+#+RESULTS:
+: 41
+: string
+
+*** Convert string to number
+
+#+begin_src js
+  const ageText = "41";
+  const age = Number(ageText);
+  console.log(age);
+  console.log(typeof age);
+
+  const invalidAgeText = "forty-one";
+  const invalidAge = Number(invalidAgeText);
+  console.log(invalidAge);
+
+  console.log(Number.isNaN(invalidAge));
+  console.log(Number.isNaN(age));
+#+end_src
+
+#+RESULTS:
+: 41
+: number
+: NaN
+: true
+: false
+
+*** Explicit conversation vs. wrapper constructors
+
+*Explicit type conversation*
+This the method for type conversion
+that you should use.
+
+#+begin_src js
+  Number("41")
+  String(41)
+  Boolean(1)
+  BigInt("9007199254740993")
+#+end_src
+
+*Wrapper constructors*
+Avoid using these unless you fully
+understand the behavior.
+
+#+begin_src js
+  new Number()
+  new String()
+  new Boolean()
+#+end_src
+
+*** Implicit conversion
+
+When type matters, exclusive conversion is usually clear
+
+#+begin_src js
+  console.log("5" + 2);
+  console.log("5" - 2);
+#+end_src
+
+#+RESULTS:
+: 52
+: 3
+
+** Modern syntax patterns
+
+- Destructuring
+- Spread syntax
+- Rest syntax
+- Optional chaining
+- Nullish coalescing
+- Logical assignment operators
+
+*** Destructuring
+
+#+begin_src js
+  const employee = {
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering",
+      title: "Principal Engineer"
+  };
+  
+  // Object destructuring
+  const { firstName, lastName } = employee;
+  console.log(firstName);
+  console.log(lastName);
+
+  // Rename while destructuring
+  const { department: employeeDepartment } = employee;
+  console.log(employeeDepartment);
+
+  // Default values in destructuring
+  const { manager = "No manager assigned" } = employee;
+  console.log(manager);
+#+end_src
+
+#+RESULTS:
+: David
+: Tucker
+: Engineering
+: No manager assigned
+
+**** Array destructuring
+
+#+begin_src js
+  // Array destructuring
+  const departments = ["Engineering", "Marketing", "HR"];
+
+  const [firstDepartment, secondDepartment] = departments;
+  console.log(firstDepartment);
+  console.log(secondDepartment);
+
+  // Skipping values in array destructuring
+  const [primaryDepartment, , thirdDepartment] = departments;
+  console.log(primaryDepartment);
+  console.log(thirdDepartment);
+#+end_src
+
+#+RESULTS:
+: Engineering
+: Marketing
+: Engineering
+: HR
+
+*** Rest syntax
+
+#+begin_src js
+  // Rest syntax with objects
+  const employee = {
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering",
+      title: "Principal Engineer"
+  };
+  const { title, ...employeeDetails } = employee;
+  console.log(title);
+  console.log(employeeDetails);
+
+
+  // Rest syntax with arrays
+  const departments = ["Engineering", "Marketing", "HR"];
+  const [headDepartment, ...otherDepartments] = departments;
+  console.log(headDepartment);
+  console.log(otherDepartments);
+#+end_src
+
+#+RESULTS:
+: Principal Engineer
+: { firstName: 'David', lastName: 'Tucker', department: 'Engineering' }
+: Engineering
+: [ 'Marketing', 'HR' ]
+
+*** Spread syntax
+
+**** Spread syntax with objects
+
+#+begin_src js
+  const employee = {
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering",
+      title: "Principal Engineer"
+  };
+
+  // Spread syntax with objects
+  const updatedEmployee = {
+      ...employee,
+      title: "Senior Principal Engineer"
+  };
+  console.log(updatedEmployee);
+  console.log(employee);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+{
+  firstName: 'David',
+  lastName: 'Tucker',
+  department: 'Engineering',
+  title: 'Senior Principal Engineer'
+}
+{
+  firstName: 'David',
+  lastName: 'Tucker',
+  department: 'Engineering',
+  title: 'Principal Engineer'
+}
+#+end_example
+
+**** Spread syntax with arrays
+
+#+begin_src js
+  const departments = ["Engineering", "Marketing"];
+  const allDepartments = [...departments, "HR", "Finance"];
+
+  console.log(allDepartments);
+  console.log(departments);
+#+end_src
+
+#+RESULTS:
+: [ 'Engineering', 'Marketing', 'HR', 'Finance' ]
+: [ 'Engineering', 'Marketing' ]
+
+*** Optional chaining
+
+Optional chaining prevents an error if an object is null or undefined
+
+#+begin_src js
+  const employeeWithoutContact = {
+      firstName: "David"
+  };
+  console.log(employeeWithoutContact.contact?.email);
+#+end_src
+
+#+RESULTS:
+: undefined
+
+*** Nullish coalescing
+
+Nullish coalescing gives us fallback values if the value is null or undefined
+
+#+begin_src js
+  const employee = {
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering",
+      title: "Principal Engineer"
+  };
+  const displayDepartment = employee.department ?? "Unknown department";
+  console.log(displayDepartment);
+#+end_src
+
+#+RESULTS:
+: Engineering
+
+*** Logical assignment operators
+
+It assigns a value to a variable only if it is null or undefined
+
+#+begin_src js
+  const settings = {};
+  settings.theme ??= "light";
+  console.log(settings.theme);
+#+end_src
+
+#+RESULTS:
+: light
+
+**** Logical OR assignment
+
+Assigns a value only if the variable has a falsy value.
+
+#+begin_src js
+  let displayName = "";
+  displayName ||= "Anonymous";
+  console.log(displayName);
+#+end_src
+
+#+RESULTS:
+: Anonymous
+
+** Regular expressions in modern JavaScript
+
+Regular expressions, often shortened to regex, give us a way to search for patterns in text.
+
+#+begin_src js
+  const message = "JavaScript Fundamentals 2025";
+
+  // Regex literal
+  const pattern = /JavaScript/;
+  console.log(pattern.test(message));
+
+  // Case-sensitive matching
+  const lowercasePattern = /javascript/;
+  console.log(lowercasePattern.test(message));
+
+  // Case-insensitive flag
+  const caseInsensitivePattern = /javascript/i;
+  console.log(caseInsensitivePattern.test(message));
+
+  // RegExp constructor
+  const searchText = "JavaScript";
+  const constructorPattern = new RegExp(searchText);
+  console.log(constructorPattern.test(message));
+#+end_src
+
+**** Dot is a special character
+
+#+begin_src js
+  // Dot is a special character
+  const fileName = "employee.json";
+  const dotPattern = /./;
+  console.log(dotPattern.test(fileName));
+
+  // Escape a literal dot
+  const literalDotPattern = /\./;
+  console.log(literalDotPattern.test(fileName));
+
+  // RegExp.escape() for safety
+  const userSearch = "employee.json";
+  const safeSearch = RegExp.escape(userSearch);
+  const safePattern = new RegExp(safeSearch);
+  console.log(safePattern.test("Open employee.json"));
+#+end_src
+
+#+RESULTS:
+: true
+: true
+: true
+
+**** Capture groups
+
+#+begin_src js
+  const employeeId = "EMP-1001";
+  const idPattern = /EMP-(\d+)/;
+  const match = employeeId.match(idPattern);
+  console.log(match);
+
+  // Named capture groups
+  const namedIdPattern = /EMP-(?<id>\d+)/;
+  const namedMatch = employeeId.match(namedIdPattern);
+  console.log(namedMatch.groups.id);
+#+end_src
+
+#+RESULTS:
+: [ 'EMP-1001', '1001', index: 0, input: 'EMP-1001', groups: undefined ]
+: 1001
+
+**** Replacing with regex
+
+#+begin_src js
+  const phoneNumber = "555-0100";
+  const digitsOnly = phoneNumber.replace(/\D/g, "");
+  console.log(digitsOnly);
+#+end_src
+
+#+RESULTS:
+: 5550100
+
+* Expressions, operators, and conditional logic
+
+** Understanding expressions, operators, and conditionals
+
+Performing mathematical operations with the included operators
+
+*** Expressions
+
+An expression is a javascript code that produces a value
+
+#+begin_src js
+  2 + 3
+  "Engineering"
+  const department = "Engineering";
+#+end_src
+
+
+*** Operators and operands
+
+Operators are symbols or keywords that perform an operation on one or more values. These values are called operands.
+
+#+begin_src js
+  2 + 3
+  const firstName = "David";
+  const fullName = firstName + " " + lastName;
+  const isNotActive = !isActive;
+  const email = employee.contact?.email;
+  const manager = employee.manager ?? "No manager assigned";
+#+end_src
+
+*** Conditional statements
+
+A conditional statement allows a code to do something only when a condition is met.
+
+#+begin_src js
+  const employee = {
+      firstName: "David",
+      lastName: "Tucker",
+      numberOfYearsEmployed: 7,
+      isActive: true,
+      department: "Engineering"
+  };
+  if (employee.isActive) {
+      console.log("Show employee in directory.");
+  }
+  
+  employee.isActive
+  employee.numberOfYearsEmployed >= 5
+  employee.department === "Engineering"
+#+end_src
+
+#+RESULTS:
+: Show employee in directory.
+
+** Mathematical operators
+
+*** Basic operators
+
+#+begin_src js
+  // Addition
+  const value = 3 + 2;
+  console.log(value);
+
+  // String concatenation with +
+  console.log("Hello, " + "JavaScript");
+
+  // Subtraction
+  const resultOne = 3 - 1;
+  const resultTwo = 1 - -1;
+  console.log(resultOne);
+  console.log(resultTwo);
+
+  // Multiplication and division
+  const multiplication = 3 * 2;
+  const division = 21 / 9;
+  console.log(multiplication);
+  console.log(division);
+#+end_src
+
+#+RESULTS:
+: 5
+: Hello, JavaScript
+: 2
+: 2
+: 6
+: 2.3333333333333335
+
+*** Remainder
+
+#+begin_src js
+  // Remainder
+  const remainder = 9 % 2;
+  console.log(remainder);
+
+  // Even-number check using the remainder
+  const employeeNumber = 42;
+  const isEven = employeeNumber % 2 === 0;
+  console.log(isEven);
+#+end_src
+
+#+RESULTS:
+: 1
+: true
+
+*** Exponentiation
+
+#+begin_src js
+  const squared = 3 ** 2;
+  const cubed = 2 ** 3;
+  console.log(squared);
+  console.log(cubed);
+#+end_src
+
+#+RESULTS:
+: 9
+: 8
+
+*** Increment/Decrement
+
+#+begin_src js
+  // Increment
+  let count = 1;
+  count++;
+  console.log(count);
+
+  // Decrement
+  let remainingAttempts = 3;
+  remainingAttempts--;
+  console.log(remainingAttempts);
+#+end_src
+
+#+RESULTS:
+: 2
+: 2
+
+*** Postfix/Prefix
+
+#+begin_src js
+  // Postfix increment returns the old value, then increments
+  let valueOne = 10;
+  let valueTwo = valueOne++;
+  console.log(valueOne);
+  console.log(valueTwo);
+
+  // Prefix increment increments first, then returns the new value
+  let valueThree = 10;
+  let valueFour = ++valueThree;
+  console.log(valueThree);
+  console.log(valueFour);
+
+#+end_src
+
+#+RESULTS:
+: 11
+: 10
+: 11
+: 11
+
+*** Operator precedence
+
+#+begin_src js
+  // Operator precedence: multiplication runs before addition
+  const result = 2 + 3 * 4;
+  console.log(result);
+
+  // Parentheses force the order you intend
+  const resultWithParentheses = (2 + 3) * 4;
+  console.log(resultWithParentheses);
+#+end_src
+
+#+RESULTS:
+: 14
+: 20
+
+** Assignment operators
+
+Assigning values to variables using the included operators
+
+*** Common operators
+
+#+begin_src js
+  // Basic assignment
+  let department = "Engineering";
+  let numberOfEmployees = 12;
+  let isActive = true;
+
+  // Addition assignment (equivalent to numberOfEmployees = numberOfEmployees + 3)
+  numberOfEmployees += 3;
+  console.log(numberOfEmployees);
+
+  // Addition assignment with strings (concatenates)
+  let message = "Hello";
+  message += ", JavaScript";
+  console.log(message);
+
+  // Subtraction assignment (equivalent to remainingSeats = remainingSeats - 2)
+  let remainingSeats = 10;
+  remainingSeats -= 2;
+  console.log(remainingSeats);
+
+  // Multiplication assignment
+  let weeklyHours = 40;
+  weeklyHours *= 4;
+  console.log(weeklyHours);
+
+  // Division assignment
+  let annualBudget = 120000;
+  annualBudget /= 12;
+  console.log(annualBudget);
+#+end_src
+
+#+RESULTS:
+: 15
+: Hello, JavaScript
+: 8
+: 160
+: 10000
+
+*** Remainder and Exponentiation
+
+#+begin_src js
+  // Remainder assignment
+  let value = 21;
+  value %= 8;
+  console.log(value);
+
+  // Exponentiation assignment (equivalent to power = power ** 3)
+  let power = 2;
+  power **= 3;
+  console.log(power);
+#+end_src
+
+#+RESULTS:
+: 5
+: 8
+
+*** Logical OR assignment
+
+#+begin_src js
+  // Logical OR assignment (||=) — assigns when current value is falsy
+  let displayName = "";
+  displayName ||= "Anonymous";
+  console.log(displayName);
+#+end_src
+
+#+RESULTS:
+: Anonymous
+
+*** Nullish assignment
+
+#+begin_src js
+  // Nullish assignment (??=) — keeps 0 because 0 is not nullish
+  let vacationDays = 0;
+  vacationDays ??= 10;
+  console.log(vacationDays);
+
+  // Nullish assignment (??=) — undefined gets the fallback
+  let manager;
+  manager ??= "No manager assigned";
+  console.log(manager);
+#+end_src
+
+#+RESULTS:
+: 0
+: No manager assigned
+
+*** Logical AND assignment
+
+#+begin_src js
+  // Logical AND assignment (&&=) — assigns only when current value is truthy
+  let employee = {
+      firstName: "David",
+      isActive: true
+  };
+  employee.isActive &&= false;
+  console.log(employee.isActive);
+#+end_src
+
+#+RESULTS:
+: false
+
+** Comparison operators and equality
+
+Using comparison operators to compare variable values
+
+*** Greater/Less
+
+#+begin_src js
+  // Greater than and less than
+  const hasEnoughYears = 7 > 5;
+  const isNewEmployee = 7 < 1;
+
+  console.log(hasEnoughYears);
+  console.log(isNewEmployee);
+
+  // Greater or equal and less or equal
+  console.log(5 >= 5);
+  console.log(4 <= 3);
+#+end_src
+
+#+RESULTS:
+: true
+: false
+: true
+: false
+
+*** Loose/Strict equality
+
+#+begin_src js
+  // Loose equality (== and !=) — coerces types before comparing
+  console.log("42" == 42);
+  console.log("42" != 42);
+
+  // Strict equality (=== and !==) — requires value and type to match
+  console.log("42" === 42);
+  console.log("42" !== 42);
+
+  // Strict inequality with strings
+  const department = "Engineering";
+  console.log(department !== "Marketing");
+  console.log(department !== "Engineering");
+#+end_src
+
+#+RESULTS:
+: true
+: false
+: false
+: true
+: true
+: false
+
+*** Primitive/Object equality
+
+#+begin_src js
+  // Primitive equality compares values
+  const nameOne = "David";
+  const nameTwo = "David";
+  console.log(nameOne === nameTwo);
+
+  // Object equality compares references, not contents
+  const employeeOne = {
+      firstName: "David"
+  };
+  const employeeTwo = {
+      firstName: "David"
+  };
+  console.log(employeeOne === employeeTwo);
+
+  // Same reference is equal
+  const employeeThree = employeeOne;
+  console.log(employeeOne === employeeThree);
+#+end_src
+
+#+RESULTS:
+: true
+: false
+: true
+
+*** Object is
+
+#+begin_src js
+  // Object.is() — behaves like === for most values
+  console.log(Object.is(42, 42));
+  console.log(Object.is("David", "David"));
+
+  // Object.is() handles NaN differently than ===
+  console.log(NaN === NaN);
+  console.log(Object.is(NaN, NaN));
+#+end_src
+
+#+RESULTS:
+: true
+: true
+: false
+: true
+
+*** Booleans for conditional logic
+
+#+begin_src js
+  const employee = {
+      firstName: "David",
+      department: "Engineering",
+      numberOfYearsEmployed: 7,
+      isActive: true
+  };
+
+  const isEngineering = employee.department === "Engineering";
+  const isLongTerm = employee.numberOfYearsEmployed >= 5;
+  const canShowInDirectory = employee.isActive === true;
+
+  console.log(isEngineering);
+  console.log(isLongTerm);
+  console.log(canShowInDirectory);
+#+end_src
+
+#+RESULTS:
+: true
+: true
+: true
+
+** Boolean logic and truthy/falsy values
+
+Understanding how boolean logic works with non-boolean values
+
+*** Logical AND, OR and NOT
+
+#+begin_src js
+  // Logical AND (&&) — both sides must be true
+  const employee = {
+      department: "Engineering",
+      numberOfYearsEmployed: 7,
+      isActive: true
+  };
+  const shouldInvite = employee.department === "Engineering" && employee.numberOfYearsEmployed >= 5;
+  console.log(shouldInvite);
+
+  // Logical OR (||) — at least one side must be true
+  const shouldInviteLeadership = employee.department === "Executive" || employee.numberOfYearsEmployed >= 5;
+  console.log(shouldInviteLeadership);
+
+  // Logical NOT (!) — inverts a boolean
+  const isInactive = !employee.isActive;
+  console.log(isInactive);
+#+end_src
+
+#+RESULTS:
+: true
+: true
+: false
+
+*** Falsy values
+
+#+begin_src js
+  // Common falsy values: false, 0, "", null, undefined, NaN, 0n
+  // Boolean() of falsy values — every line logs false
+  console.log(Boolean(false));
+  console.log(Boolean(0));
+  console.log(Boolean(""));
+  console.log(Boolean(null));
+  console.log(Boolean(undefined));
+  console.log(Boolean(NaN));
+#+end_src
+
+#+RESULTS:
+: false
+: false
+: false
+: false
+: false
+: false
+
+*** Truthy values
+
+#+begin_src js
+  // Boolean() of truthy values — note that "false", {}, and [] are truthy
+  console.log(Boolean(true));
+  console.log(Boolean(1));
+  console.log(Boolean(-1));
+  console.log(Boolean("hello"));
+  console.log(Boolean("false"));
+  console.log(Boolean({}));
+  console.log(Boolean([]));
+#+end_src
+
+#+RESULTS:
+: true
+: true
+: true
+: true
+: true
+: true
+: true
+
+*** Tips
+
+#+begin_src js
+  const employee = {
+      department: "Engineering",
+      numberOfYearsEmployed: 7,
+      isActive: true
+  };
+  
+  // Common beginner mistake: the string "false" is truthy
+  const userInput = "false";
+  if (userInput) {
+      console.log("This value is truthy.");
+  }
+
+  // Falsy default with || — replaces 0 with the fallback
+  const vacationDays = 0;
+  const displayValue = vacationDays || "Unknown";
+  console.log(displayValue);
+
+  // Nullish default with ?? — preserves 0, only replaces null/undefined
+  const betterDisplayValue = vacationDays ?? "Unknown";
+  console.log(betterDisplayValue);
+
+  // Combining boolean logic
+  const hasRequiredData = employee.department && employee.numberOfYearsEmployed !== undefined;
+  const isEligible = employee.isActive && employee.numberOfYearsEmployed >= 5;
+  console.log(hasRequiredData);
+  console.log(isEligible);
+#+end_src
+
+#+RESULTS:
+: This value is truthy.
+: Unknown
+: 0
+: true
+: true
+
+** Conditional logic with if/else
+
+Leveraging conditionals to enable our code to make decisions
+
+#+begin_src js
+  const employee = {
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering",
+      numberOfYearsEmployed: 7,
+      isActive: true
+  };
+
+  // Basic if statement
+  if (employee.isActive) {
+      console.log("Employee should appear in the directory.");
+  } 
+
+  // if/else
+  if (employee.isActive) {
+      console.log("Employee should appear in the directory.");
+  } else {
+      console.log("Employee should be hidden from the default directory view.");
+  }
+
+  // else if chain — assign a badge color based on years of service
+  let badgeColor;
+
+  if (employee.numberOfYearsEmployed < 5) {
+      badgeColor = "blue";
+  } else if (employee.numberOfYearsEmployed < 10) {
+      badgeColor = "yellow";
+  } else if (employee.numberOfYearsEmployed < 15) {
+      badgeColor = "red";
+  } else if (employee.numberOfYearsEmployed < 20) {
+      badgeColor = "purple";
+  } else {
+      badgeColor = "silver";
+  }
+  console.log(badgeColor);
+#+end_src
+
+#+RESULTS:
+: Employee should appear in the directory.
+: Employee should appear in the directory.
+: yellow
+
+*** Compound condition
+
+#+begin_src js
+  const employee = {
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering",
+      numberOfYearsEmployed: 7,
+      isActive: true
+  };
+
+  if (
+      employee.isActive &&
+          employee.department === "Engineering" &&
+          employee.numberOfYearsEmployed >= 5
+  ) {
+      console.log("Employee meets the engineering recognition criteria.");
+  }
+#+end_src
+
+#+RESULTS:
+: Employee meets the engineering recognition criteria.
+
+*** Guard condition
+
+#+begin_src js
+  const employee = {
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering",
+      numberOfYearsEmployed: 7,
+      isActive: true
+  };
+
+  // Guard clause — exit early so the main branch reads top to bottom
+  function printEmployeeBadge(employee) {
+      if (!employee.isActive) {
+          console.log("Inactive employees do not receive active badges.");
+          return;
+      }
+      console.log(`${employee.firstName} receives an active employee badge.`);
+  }
+  printEmployeeBadge(employee);
+#+end_src
+
+#+RESULTS:
+: David receives an active employee badge.
+
+*** Refactor complex conditions
+
+#+begin_src js
+  const employee = {
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering",
+      numberOfYearsEmployed: 7,
+      isActive: true
+  };
+
+  // Nested conditional (harder to read)
+  if (employee.isActive) {
+      if (employee.department === "Engineering") {
+          if (employee.numberOfYearsEmployed >= 5) {
+              console.log("Employee qualifies (nested check).");
+          }
+      }
+  }
+
+  // Refactored to a single compound condition (same result as the nested version)
+  if (
+      employee.isActive &&
+          employee.department === "Engineering" &&
+          employee.numberOfYearsEmployed >= 5
+  ) {
+      console.log("Employee qualifies (compound check).");
+  }
+#+end_src
+
+#+RESULTS:
+: Employee qualifies (nested check).
+: Employee qualifies (compound check).
+
+* Branching, loops, and input validation
+
+** Ternary operators
+
+Using this operator to simplify a common conditional
+
+#+begin_src js
+  const employee = {
+      firstName: "David",
+      numberOfYearsEmployed: 7,
+      isActive: true
+  };
+
+  // Bonus amount with a ternary
+  const bonusAmount = employee.numberOfYearsEmployed > 10 ? 1000 : 500;
+  console.log(bonusAmount);
+
+  // Ternary expressions return a value
+  const statusMessage = employee.isActive ? "Active employee" : "Inactive employee";
+  console.log(statusMessage);
+#+end_src
+
+#+RESULTS:
+: 500
+: Active employee
+
+** Switch statements
+
+Choosing based on a variable that has multiple possibilities
+
+#+begin_src js
+  const employee = {
+      firstName: "David",
+      department: "Engineering"
+  };
+
+  // Basic switch with case, break, and default
+  switch (employee.department) {
+  case "Engineering":
+      console.log("Meet in Building 1.");
+      break;
+  case "Marketing":
+      console.log("Meet in Building 2.");
+      break;
+  case "HR":
+      console.log("Meet in Building 1.");
+      break;
+  default:
+      console.log("Meet in Building 3.");
+  }
+
+  // Intentional fall-through — Engineering and HR share the same block
+  switch (employee.department) {
+  case "Engineering":
+  case "HR":
+      console.log("Meet in Building 1.");
+      break;
+  case "Marketing":
+      console.log("Meet in Building 2.");
+      break;
+  default:
+      console.log("Meet in Building 3.");
+  }
+#+end_src
+
+#+RESULTS:
+: Meet in Building 1.
+: Meet in Building 1.
+
+** Loop foundations
+
+*** For loop
+#+begin_src js
+  for (let index = 0; index < 5; index++) {
+      console.log(index);
+  }
+#+end_src
+
+#+RESULTS:
+: 0
+: 1
+: 2
+: 3
+: 4
+
+*** While loop
+#+begin_src js
+  let attempts = 0;
+  while (attempts < 3) {
+      console.log("Trying again...");
+      attempts++;
+  }
+#+end_src
+
+#+RESULTS:
+: Trying again...
+: Trying again...
+: Trying again...
+
+*** Do while loop
+#+begin_src js
+  let attempts = 0;
+  do {
+      console.log("Trying at least once...");
+      attempts++;
+  } while (attempts < 3);
+#+end_src
+
+#+RESULTS:
+: Trying at least once...
+: Trying at least once...
+: Trying at least once...
+
+*** For of loop
+#+begin_src js
+  const departments = ["Engineering", "Marketing", "HR"];
+  for (const department of departments) {
+      console.log(department);
+  }
+#+end_src
+
+#+RESULTS:
+: Engineering
+: Marketing
+: HR
+
+*** For in loop
+#+begin_src js
+  const employee = {
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering"
+  };
+  for (const key in employee) {
+      console.log(key);
+  }
+#+end_src
+
+#+RESULTS:
+: firstName
+: lastName
+: department
+
+** Loop control flow
+
+Using break and continue to control loop execution
+
+*** break
+
+#+begin_src js
+  // break — exit the loop as soon as we find what we want
+  const employees = ["David", "Sarah", "Mina", "Andre"];
+
+  for (const employee of employees) {
+      if (employee === "Mina") {
+          console.log("Found Mina.");
+          break;
+      }
+
+      console.log(`Checked ${employee}.`);
+  }
+#+end_src
+
+#+RESULTS:
+: Checked David.
+: Checked Sarah.
+: Found Mina.
+
+*** continue
+
+#+begin_src js
+  // continue — skip the current iteration and keep going
+  const departments = ["Engineering", "", "Marketing", "HR"];
+
+  for (const department of departments) {
+      if (department === "") {
+          continue;
+      }
+
+      console.log(department);
+  }
+#+end_src
+
+#+RESULTS:
+: Engineering
+: Marketing
+: HR
+
+*** Labeled break
+
+#+begin_src js
+  // Labeled break — exit a specific outer loop from inside an inner loop
+  outerLoop:
+  for (const department of ["Engineering", "Marketing"]) {
+      for (const name of ["David", "Sarah"]) {
+          if (department === "Marketing" && name === "Sarah") {
+              break outerLoop;
+          }
+
+          console.log(`${name} in ${department}`);
+      }
+  }
+#+end_src
+
+#+RESULTS:
+: David in Engineering
+: Sarah in Engineering
+: David in Marketing
+
+** Implementing user input validation
+Combining the concepts in this module for a common use case
+
+* Arrays, objects, maps, and sets
+
+** Collection types
+
+*** Arrays
+
+An array is an ordered collection of values.
+
+#+begin_src js
+  const departments = ["Engineering", "Marketing", "HR"];
+  const employees = [employeeOne, employeeTwo, employeeThree];  
+#+end_src
+
+*** Objects
+
+Objects are useful when you need named fields.
+
+#+begin_src js
+  const employee = {
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering"
+  };  
+#+end_src
+
+*** Map
+
+A map is a key:value collection.
+
+#+begin_src js
+  const employeesById = new Map();
+  employeesById.set("E-1001", employee);  
+#+end_src
+
+*** Set
+
+A set is a collection of unique values.
+
+#+begin_src js
+  const departments = new Set(["Engineering", "Marketing", "Engineering"]);  
+#+end_src
+
+*** Collection terms
+
+- *Iterable:* Any value that JavaScript can loop over.
+- *Iterator:* An object that knows how to produce the next value in a sequence
+
+** Arrays
+
+Matching and extracting array elements with included methods
+
+*** Create an array
+
+#+begin_src js
+  // Create arrays with square brackets
+  const departments = ["Engineering", "Marketing", "HR"];
+  const employees = [];
+
+  console.log(departments);
+  console.log(employees);
+#+end_src
+
+#+RESULTS:
+: [ 'Engineering', 'Marketing', 'HR' ]
+: []
+
+*** Check if an object is an array
+
+#+begin_src js
+  const departments = ["Engineering", "Marketing", "HR"];
+  // Array.isArray() — the correct way to check for an array
+  console.log(Array.isArray(departments));
+  console.log(Array.isArray({ department: "Engineering" }));
+
+  // typeof returns "object" — that is why we use Array.isArray() instead
+  console.log(typeof departments);
+#+end_src
+
+#+RESULTS:
+: true
+: false
+: object
+
+*** Access values in array
+
+#+begin_src js
+  const departments = ["Engineering", "Marketing", "HR"];
+  // Access values by zero-based index — missing indexes return undefined
+  console.log(departments[0]);
+  console.log(departments[1]);
+  console.log(departments[2]);
+  console.log(departments[10]);
+
+  // length tells us how many items are in the array
+  console.log("");
+
+  // .at() works like bracket access but also supports negative indexes
+  console.log(departments.at(0));
+  console.log(departments.at(1));
+  console.log(departments.at(-1));
+#+end_src
+
+#+RESULTS:
+: Engineering
+: Marketing
+: HR
+: undefined
+: 
+: Engineering
+: Marketing
+: HR
+
+*** Modify array
+
+#+begin_src js
+  const departments = ["Engineering", "Marketing", "HR"];  
+  // push() adds to the end; unshift() adds to the beginning (both mutate)
+  departments.push("Finance");
+  console.log(departments);
+
+  departments.unshift("Executive");
+  console.log(departments);
+
+  // pop() removes from the end; shift() removes from the beginning (both mutate)
+  const lastDepartment = departments.pop();
+  console.log(lastDepartment);
+  console.log(departments);
+
+  const firstDepartment = departments.shift();
+  console.log(firstDepartment);
+  console.log(departments);
+
+  // Mutation — push() changes the original array in place
+  const skills = ["JavaScript", "HTML"];
+  skills.push("CSS");
+  console.log(skills);
+#+end_src
+
+#+RESULTS:
+: [ 'Engineering', 'Marketing', 'HR', 'Finance' ]
+: [ 'Executive', 'Engineering', 'Marketing', 'HR', 'Finance' ]
+: Finance
+: [ 'Executive', 'Engineering', 'Marketing', 'HR' ]
+: Executive
+: [ 'Engineering', 'Marketing', 'HR' ]
+: [ 'JavaScript', 'HTML', 'CSS' ]
+
+** Finding and copying array data
+
+Managing nested structured data with JavaScript objects
+
+*** find - findIndex
+
+#+begin_src js
+  const employees = [
+      { id: "E-1001", firstName: "David", department: "Engineering", years: 7 },
+      { id: "E-1002", firstName: "Sarah", department: "Product", years: 3 },
+      { id: "E-1003", firstName: "Mina", department: "Engineering", years: 11 },
+      { id: "E-1004", firstName: "Andre", department: "Marketing", years: 2 }
+  ];
+
+  // find() — return the first item matching a condition
+  const engineeringEmployee = employees.find((employee) => {
+      return employee.department === "Engineering";
+  });
+
+  console.log(engineeringEmployee);
+
+  // findIndex() — return the index of the first matching item, or -1 if none
+  const productIndex = employees.findIndex((employee) => {
+      return employee.department === "Product";
+  });
+  
+  console.log(productIndex);
+#+end_src
+
+#+RESULTS:
+: {
+:   id: 'E-1001',
+:   firstName: 'David',
+:   department: 'Engineering',
+:   years: 7
+: }
+: 1
+
+*** findLast - findLastIndex
+
+#+begin_src js
+  const employees = [
+      { id: "E-1001", firstName: "David", department: "Engineering", years: 7 },
+      { id: "E-1002", firstName: "Sarah", department: "Product", years: 3 },
+      { id: "E-1003", firstName: "Mina", department: "Engineering", years: 11 },
+      { id: "E-1004", firstName: "Andre", department: "Marketing", years: 2 }
+  ];
+  
+  // findLast() — search from the end of the array
+  const lastEngineeringEmployee = employees.findLast((employee) => {
+      return employee.department === "Engineering";
+  });
+
+  console.log(lastEngineeringEmployee);
+
+  // findLastIndex() — index of the last matching item
+  const lastEngineeringIndex = employees.findLastIndex((employee) => {
+      return employee.department === "Engineering";
+  });
+
+  console.log(lastEngineeringIndex);
+#+end_src
+
+#+RESULTS:
+: {
+:   id: 'E-1003',
+:   firstName: 'Mina',
+:   department: 'Engineering',
+:   years: 11
+: }
+: 2
+
+*** Sort list
+
+#+begin_src js
+  const employees = [
+      { id: "E-1001", firstName: "David", department: "Engineering", years: 7 },
+      { id: "E-1002", firstName: "Sarah", department: "Product", years: 3 },
+      { id: "E-1003", firstName: "Mina", department: "Engineering", years: 11 },
+      { id: "E-1004", firstName: "Andre", department: "Marketing", years: 2 }
+  ];
+  
+  // toSorted() — non-mutating sort; the original array stays unchanged
+  const sortedByYears = employees.toSorted((a, b) => {
+      return a.years - b.years;
+  });
+
+  console.log(sortedByYears);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[
+  {
+    id: 'E-1004',
+    firstName: 'Andre',
+    department: 'Marketing',
+    years: 2
+  },
+  { id: 'E-1002', firstName: 'Sarah', department: 'Product', years: 3 },
+  {
+    id: 'E-1001',
+    firstName: 'David',
+    department: 'Engineering',
+    years: 7
+  },
+  {
+    id: 'E-1003',
+    firstName: 'Mina',
+    department: 'Engineering',
+    years: 11
+  }
+]
+#+end_example
+
+*** Reverse list
+
+#+begin_src js
+  const employees = [
+      { id: "E-1001", firstName: "David", department: "Engineering", years: 7 },
+      { id: "E-1002", firstName: "Sarah", department: "Product", years: 3 },
+      { id: "E-1003", firstName: "Mina", department: "Engineering", years: 11 },
+      { id: "E-1004", firstName: "Andre", department: "Marketing", years: 2 }
+  ];
+
+  // toReversed() — non-mutating reverse
+  const reversedEmployees = employees.toReversed();
+
+  console.log(reversedEmployees);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[
+  {
+    id: 'E-1004',
+    firstName: 'Andre',
+    department: 'Marketing',
+    years: 2
+  },
+  {
+    id: 'E-1003',
+    firstName: 'Mina',
+    department: 'Engineering',
+    years: 11
+  },
+  { id: 'E-1002', firstName: 'Sarah', department: 'Product', years: 3 },
+  {
+    id: 'E-1001',
+    firstName: 'David',
+    department: 'Engineering',
+    years: 7
+  }
+]
+#+end_example
+
+*** Split list
+
+#+begin_src js
+  const employees = [
+      { id: "E-1001", firstName: "David", department: "Engineering", years: 7 },
+      { id: "E-1002", firstName: "Sarah", department: "Product", years: 3 },
+      { id: "E-1003", firstName: "Mina", department: "Engineering", years: 11 },
+      { id: "E-1004", firstName: "Andre", department: "Marketing", years: 2 }
+  ];
+
+  // toSpliced(start, deleteCount) — non-mutating splice
+  const withoutSecondEmployee = employees.toSpliced(1, 1);
+
+  console.log(withoutSecondEmployee);
+  console.log(employees);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[
+  {
+    id: 'E-1001',
+    firstName: 'David',
+    department: 'Engineering',
+    years: 7
+  },
+  {
+    id: 'E-1003',
+    firstName: 'Mina',
+    department: 'Engineering',
+    years: 11
+  },
+  {
+    id: 'E-1004',
+    firstName: 'Andre',
+    department: 'Marketing',
+    years: 2
+  }
+]
+[
+  {
+    id: 'E-1001',
+    firstName: 'David',
+    department: 'Engineering',
+    years: 7
+  },
+  { id: 'E-1002', firstName: 'Sarah', department: 'Product', years: 3 },
+  {
+    id: 'E-1003',
+    firstName: 'Mina',
+    department: 'Engineering',
+    years: 11
+  },
+  {
+    id: 'E-1004',
+    firstName: 'Andre',
+    department: 'Marketing',
+    years: 2
+  }
+]
+#+end_example
+
+*** Replace at index
+
+#+begin_src js
+  const employees = [
+      { id: "E-1001", firstName: "David", department: "Engineering", years: 7 },
+      { id: "E-1002", firstName: "Sarah", department: "Product", years: 3 },
+      { id: "E-1003", firstName: "Mina", department: "Engineering", years: 11 },
+      { id: "E-1004", firstName: "Andre", department: "Marketing", years: 2 }
+  ];
+
+  // with(index, value) — non-mutating replacement at one index
+  const updatedEmployees = employees.with(0, {
+      ...employees[0],
+      department: "Platform Engineering"
+  });
+
+  console.log(updatedEmployees);
+  console.log(employees);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[
+  {
+    id: 'E-1001',
+    firstName: 'David',
+    department: 'Platform Engineering',
+    years: 7
+  },
+  { id: 'E-1002', firstName: 'Sarah', department: 'Product', years: 3 },
+  {
+    id: 'E-1003',
+    firstName: 'Mina',
+    department: 'Engineering',
+    years: 11
+  },
+  {
+    id: 'E-1004',
+    firstName: 'Andre',
+    department: 'Marketing',
+    years: 2
+  }
+]
+[
+  {
+    id: 'E-1001',
+    firstName: 'David',
+    department: 'Engineering',
+    years: 7
+  },
+  { id: 'E-1002', firstName: 'Sarah', department: 'Product', years: 3 },
+  {
+    id: 'E-1003',
+    firstName: 'Mina',
+    department: 'Engineering',
+    years: 11
+  },
+  {
+    id: 'E-1004',
+    firstName: 'Andre',
+    department: 'Marketing',
+    years: 2
+  }
+]
+#+end_example
+
+
+** Objects as data structures
+
+*** Objects and nested objects
+
+#+begin_src js
+  // Model a record with named fields
+  const employee = {
+      id: "E-1001",
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering",
+      title: "Principal Engineer",
+      isActive: true
+  };
+  console.log(employee);
+
+  // Nested objects — data has structure inside structure
+  const employeeWithContact = {
+      id: "E-1001",
+      firstName: "David",
+      lastName: "Tucker",
+      contact: {
+          email: "david@example.com",
+          phone: "555-0100"
+      },
+      location: {
+          city: "Atlanta",
+          state: "GA"
+      }
+  };
+  console.log(employeeWithContact.contact.email);
+  console.log(employeeWithContact.location.city);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+{
+  id: 'E-1001',
+  firstName: 'David',
+  lastName: 'Tucker',
+  department: 'Engineering',
+  title: 'Principal Engineer',
+  isActive: true
+}
+david@example.com
+Atlanta
+#+end_example
+
+*** Optional chaining
+
+#+begin_src js
+  // Optional chaining (?.) — safely access nested values that may be missing
+  const employeeWithoutContact = {
+      id: "E-1002",
+      firstName: "Sarah",
+      lastName: "Smith"
+  };
+
+  // Uncommenting the next line would throw TypeError: Cannot read property 'email' of undefined.
+  // console.log(employeeWithoutContact.contact.email);
+  console.log(employeeWithoutContact.contact?.email);
+
+  // Optional chaining + nullish coalescing — supply a fallback for missing data
+  const email = employeeWithoutContact.contact?.email ?? "No email on file";
+  console.log(email);
+#+end_src
+
+#+RESULTS:
+: undefined
+: No email on file
+
+*** Copy object
+
+#+begin_src js
+  const employee = {
+      id: "E-1001",
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering",
+      title: "Principal Engineer",
+      isActive: true
+  };
+  const employeeWithContact = {
+      id: "E-1001",
+      firstName: "David",
+      lastName: "Tucker",
+      contact: {
+          email: "david@example.com",
+          phone: "555-0100"
+      },
+      location: {
+          city: "Atlanta",
+          state: "GA"
+      }
+  };
+  // Plain assignment shares the same reference — it is not a copy
+  const employeeCopy = employee;
+  console.log(employeeCopy === employee);
+
+  // Shallow copy with spread — new top-level object, same nested references
+  const updatedEmployee = {
+      ...employee,
+      title: "Senior Principal Engineer"
+  };
+  console.log(updatedEmployee);
+  console.log(employee);
+
+  // Shallow copy gotcha — mutating the nested contact also changes the original
+  const copiedEmployee = {
+      ...employeeWithContact
+  };
+  copiedEmployee.contact.email = "new-email@example.com";
+  console.log(employeeWithContact.contact.email);
+
+  // Safely update nested data — also spread the nested object
+  const safelyUpdatedEmployee = {
+      ...employeeWithContact,
+      contact: {
+          ...employeeWithContact.contact,
+          email: "safe-update@example.com"
+      }
+  };
+  console.log(safelyUpdatedEmployee.contact.email);
+  console.log(employeeWithContact.contact.email);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+true
+{
+  id: 'E-1001',
+  firstName: 'David',
+  lastName: 'Tucker',
+  department: 'Engineering',
+  title: 'Senior Principal Engineer',
+  isActive: true
+}
+{
+  id: 'E-1001',
+  firstName: 'David',
+  lastName: 'Tucker',
+  department: 'Engineering',
+  title: 'Principal Engineer',
+  isActive: true
+}
+new-email@example.com
+safe-update@example.com
+new-email@example.com
+#+end_example
+
+** Map and set
+
+Using each collection type for its ideal use case
+
+*** Create a map
+
+#+begin_src js
+  // Create a Map and add key/value entries with set()
+  const employeesById = new Map();
+  employeesById.set("E-1001", {
+      firstName: "David",
+      department: "Engineering"
+  });
+  employeesById.set("E-1002", {
+      firstName: "Sarah",
+      department: "Product"
+  });
+  console.log(employeesById);
+#+end_src
+
+#+RESULTS:
+: Map(2) {
+:   'E-1001' => { firstName: 'David', department: 'Engineering' },
+:   'E-1002' => { firstName: 'Sarah', department: 'Product' }
+: }
+
+*** Get map and check map by key
+
+#+begin_src js
+  // Create a Map and add key/value entries with set()
+  const employeesById = new Map();
+  employeesById.set("E-1001", {
+      firstName: "David",
+      department: "Engineering"
+  });
+  employeesById.set("E-1002", {
+      firstName: "Sarah",
+      department: "Product"
+  });
+
+  // Read with get(), check with has(), count with size
+  const employee = employeesById.get("E-1001");
+  console.log(employee);
+
+  console.log(employeesById.has("E-1002"));
+  console.log(employeesById.has("E-9999"));
+  console.log(employeesById.size);
+#+end_src
+
+#+RESULTS:
+: { firstName: 'David', department: 'Engineering' }
+: true
+: false
+: 2
+
+*** Update and delete map entry
+
+#+begin_src js
+  // Create a Map and add key/value entries with set()
+  const employeesById = new Map();
+  employeesById.set("E-1001", {
+      firstName: "David",
+      department: "Engineering"
+  });
+  employeesById.set("E-1002", {
+      firstName: "Sarah",
+      department: "Product"
+  });
+
+  // Update by calling set() with an existing key
+  employeesById.set("E-1001", {
+      firstName: "David",
+      department: "Platform Engineering"
+  });
+  console.log(employeesById.get("E-1001"));
+
+  // Delete an entry by key
+  employeesById.delete("E-1002");
+  console.log(employeesById.has("E-1002"));
+#+end_src
+
+#+RESULTS:
+: { firstName: 'David', department: 'Platform Engineering' }
+: false
+
+*** Iterate a map
+
+#+begin_src js
+  // Create a Map and add key/value entries with set()
+  const employeesById = new Map();
+  employeesById.set("E-1001", {
+      firstName: "David",
+      department: "Engineering"
+  });
+  employeesById.set("E-1002", {
+      firstName: "Sarah",
+      department: "Product"
+  });
+
+  // Iterate a Map — each item is a [key, value] pair
+  for (const [employeeId, employeeRecord] of employeesById) {
+      console.log(`${employeeId}: ${employeeRecord.firstName}`);
+  }
+#+end_src
+
+#+RESULTS:
+: E-1001: David
+: E-1002: Sarah
+
+*** Create, update, and delete a set
+
+#+begin_src js
+  // Create a Set — stores unique values, duplicates are ignored
+  const departments = new Set();
+  departments.add("Engineering");
+  departments.add("Marketing");
+  departments.add("Engineering");
+  console.log(departments);
+  console.log(departments.size);
+
+  // has() checks for a value; delete() removes it
+  console.log(departments.has("Engineering"));
+  console.log(departments.has("Finance"));
+  departments.delete("Marketing");
+  console.log(departments);
+#+end_src
+
+#+RESULTS:
+: Set(2) { 'Engineering', 'Marketing' }
+: 2
+: true
+: false
+: Set(1) { 'Engineering' }
+
+*** Iterate a set
+
+#+begin_src js
+  const departments = new Set();
+  departments.add("Engineering");
+  departments.add("Marketing");
+
+  // Sets are iterable with for...of
+  for (const department of departments) {
+      console.log(department);
+  }
+#+end_src
+
+#+RESULTS:
+: Engineering
+: Marketing
+
+*** Create a set from list
+
+#+begin_src js
+  // Build a Set of unique departments from a list
+  const employees = [
+      { firstName: "David", department: "Engineering" },
+      { firstName: "Sarah", department: "Product" },
+      { firstName: "Mina", department: "Engineering" }
+  ];
+
+  const uniqueDepartments = new Set();
+  for (const employee of employees) {
+      uniqueDepartments.add(employee.department);
+  }
+  console.log(uniqueDepartments);
+#+end_src
+
+#+RESULTS:
+: Set(2) { 'Engineering', 'Product' }
+
+** Set operations
+
+Exploring modern JavaScript's enhancements to set
+
+*** Union
+
+#+begin_src js
+  // Two Sets of employee skills used by every example below
+  const davidSkills = new Set(["JavaScript", "Node.js", "Testing", "SQL"]);
+  const sarahSkills = new Set(["JavaScript", "Design", "Product", "Testing"]);
+
+  // union() — every unique value from both Sets
+  const combinedSkills = davidSkills.union(sarahSkills);
+  console.log(combinedSkills);
+#+end_src
+
+#+RESULTS:
+: Set(6) {
+:   'JavaScript',
+:   'Node.js',
+:   'Testing',
+:   'SQL',
+:   'Design',
+:   'Product'
+: }
+
+*** Intersection
+
+#+begin_src js
+  // Two Sets of employee skills used by every example below
+  const davidSkills = new Set(["JavaScript", "Node.js", "Testing", "SQL"]);
+  const sarahSkills = new Set(["JavaScript", "Design", "Product", "Testing"]);
+
+  // intersection() — values present in both Sets
+  const sharedSkills = davidSkills.intersection(sarahSkills);
+  console.log(sharedSkills);
+#+end_src
+
+#+RESULTS:
+: Set(2) { 'JavaScript', 'Testing' }
+
+*** Difference
+
+#+begin_src js
+  // Two Sets of employee skills used by every example below
+  const davidSkills = new Set(["JavaScript", "Node.js", "Testing", "SQL"]);
+  const sarahSkills = new Set(["JavaScript", "Design", "Product", "Testing"]);
+
+  // difference() — values in the first Set but not the second
+  const davidOnlySkills = davidSkills.difference(sarahSkills);
+  console.log(davidOnlySkills);
+  const sarahOnlySkills = sarahSkills.difference(davidSkills);
+  console.log(sarahOnlySkills);
+
+  // symmetricDifference() — values in one Set or the other, but not both
+  const uniqueToEitherEmployee = davidSkills.symmetricDifference(sarahSkills);
+  console.log(uniqueToEitherEmployee);
+#+end_src
+
+#+RESULTS:
+: Set(2) { 'Node.js', 'SQL' }
+: Set(2) { 'Design', 'Product' }
+: Set(4) { 'Node.js', 'SQL', 'Design', 'Product' }
+
+*** Subset - Superset
+
+#+begin_src js
+  // Two Sets of employee skills used by every example below
+  const davidSkills = new Set(["JavaScript", "Node.js", "Testing", "SQL"]);
+  const sarahSkills = new Set(["JavaScript", "Design", "Product", "Testing"]);
+
+  // isSubsetOf() / isSupersetOf() — every value in one Set appears in the other
+  const requiredBackendSkills = new Set(["JavaScript", "Node.js"]);
+
+  console.log(requiredBackendSkills.isSubsetOf(davidSkills));
+  console.log(davidSkills.isSupersetOf(requiredBackendSkills));
+#+end_src
+
+#+RESULTS:
+: true
+: true
+
+*** Disjoint
+
+#+begin_src js
+  // isDisjointFrom() — true when the two Sets share no values
+  const financePermissions = new Set(["approve-budget", "view-payroll"]);
+  const engineeringPermissions = new Set(["deploy-service", "view-logs"]);
+  console.log(financePermissions.isDisjointFrom(engineeringPermissions));
+#+end_src
+
+#+RESULTS:
+: true
+
+*** Example
+
+#+begin_src js
+  // Practical example — does the user have every required permission?
+  const userPermissions = new Set(["view-directory", "edit-profile", "view-reports"]);
+  const requiredPermissions = new Set(["view-directory", "view-reports"]);
+
+  if (requiredPermissions.isSubsetOf(userPermissions)) {
+      console.log("User can access the report.");
+  } else {
+      console.log("User does not have the required permissions.");
+  }
+#+end_src
+
+#+RESULTS:
+: User can access the report.
+
+* Grouping, iteration, and data flow
+
+** Grouping data
+
+Using Object.groupBy and Map.groupBy to group records by key
+
+*** Object groupBy
+
+#+begin_src js
+  // Sample employee data used by every grouping example below
+  const employees = [
+      { id: "E-1001", firstName: "David", department: "Engineering" },
+      { id: "E-1002", firstName: "Sarah", department: "Product" },
+      { id: "E-1003", firstName: "Mina", department: "Engineering" },
+      { id: "E-1004", firstName: "Andre", department: "Marketing" },
+      { id: "E-1005", firstName: "Priya", department: "Product" }
+  ];
+
+  // Object.groupBy() — group an array by a key function; result is a plain object
+  const employeesByDepartment = Object.groupBy(employees, (employee) => {
+      return employee.department;
+  });
+  console.log(employeesByDepartment);
+
+  // Access groups by property name
+  console.log(employeesByDepartment.Engineering);
+  console.log(employeesByDepartment.Product);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[Object: null prototype] {
+  Engineering: [
+    { id: 'E-1001', firstName: 'David', department: 'Engineering' },
+    { id: 'E-1003', firstName: 'Mina', department: 'Engineering' }
+  ],
+  Product: [
+    { id: 'E-1002', firstName: 'Sarah', department: 'Product' },
+    { id: 'E-1005', firstName: 'Priya', department: 'Product' }
+  ],
+  Marketing: [ { id: 'E-1004', firstName: 'Andre', department: 'Marketing' } ]
+}
+[
+  { id: 'E-1001', firstName: 'David', department: 'Engineering' },
+  { id: 'E-1003', firstName: 'Mina', department: 'Engineering' }
+]
+[
+  { id: 'E-1002', firstName: 'Sarah', department: 'Product' },
+  { id: 'E-1005', firstName: 'Priya', department: 'Product' }
+]
+#+end_example
+
+*** Map groupBy
+
+#+begin_src js
+  // Sample employee data used by every grouping example below
+  const employees = [
+      { id: "E-1001", firstName: "David", department: "Engineering" },
+      { id: "E-1002", firstName: "Sarah", department: "Product" },
+      { id: "E-1003", firstName: "Mina", department: "Engineering" },
+      { id: "E-1004", firstName: "Andre", department: "Marketing" },
+      { id: "E-1005", firstName: "Priya", department: "Product" }
+  ];
+
+  // Map.groupBy() — same grouping idea, but the result is a Map
+  const employeesByDepartmentMap = Map.groupBy(employees, (employee) => {
+      return employee.department;
+  });
+  console.log(employeesByDepartmentMap);
+
+  // Read a group from a Map result with get()
+  console.log(employeesByDepartmentMap.get("Engineering"));
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Map(3) {
+  'Engineering' => [
+    { id: 'E-1001', firstName: 'David', department: 'Engineering' },
+    { id: 'E-1003', firstName: 'Mina', department: 'Engineering' }
+  ],
+  'Product' => [
+    { id: 'E-1002', firstName: 'Sarah', department: 'Product' },
+    { id: 'E-1005', firstName: 'Priya', department: 'Product' }
+  ],
+  'Marketing' => [ { id: 'E-1004', firstName: 'Andre', department: 'Marketing' } ]
+}
+[
+  { id: 'E-1001', firstName: 'David', department: 'Engineering' },
+  { id: 'E-1003', firstName: 'Mina', department: 'Engineering' }
+]
+#+end_example
+
+*** Group by a derived value
+
+#+begin_src js
+  // Group by a derived value — the key function can return any logic-based string
+  const employeesWithStatus = [
+      { id: "E-1001", firstName: "David", isActive: true },
+      { id: "E-1002", firstName: "Sarah", isActive: true },
+      { id: "E-1003", firstName: "Mina", isActive: false }
+  ];
+
+  const employeesByStatus = Object.groupBy(employeesWithStatus, (employee) => {
+      return employee.isActive ? "active" : "inactive";
+  });
+  console.log(employeesByStatus);
+#+end_src
+
+#+RESULTS:
+: [Object: null prototype] {
+:   active: [
+:     { id: 'E-1001', firstName: 'David', isActive: true },
+:     { id: 'E-1002', firstName: 'Sarah', isActive: true }
+:   ],
+:   inactive: [ { id: 'E-1003', firstName: 'Mina', isActive: false } ]
+: }
+
+** Iterating over data structures
+
+Using for, for of, and for in to iterate over collections
+
+*** Traditional loop
+
+#+begin_src js
+  // Traditional for loop — useful when you need the index
+  const departments = ["Engineering", "Product", "Marketing"];
+
+  for (let index = 0; index < departments.length; index++) {
+      console.log(index, departments[index]);
+  }
+#+end_src
+
+#+RESULTS:
+: 0 Engineering
+: 1 Product
+: 2 Marketing
+
+*** for..of
+
+#+begin_src js
+  const departments = ["Engineering", "Product", "Marketing"];
+  // for...of with arrays — iterates values without managing an index
+  for (const department of departments) {
+      console.log(department);
+  }
+
+  // for...of with strings — strings are iterable, character by character
+  const course = "JS";
+  for (const character of course) {
+      console.log(character);
+  }
+  // for...of with Map — destructure each [key, value] pair
+  const employeesById = new Map([
+      ["E-1001", { firstName: "David" }],
+      ["E-1002", { firstName: "Sarah" }]
+  ]);
+  for (const [id, employeeRecord] of employeesById) {
+      console.log(`${id}: ${employeeRecord.firstName}`);
+  }
+
+  // for...of with Set — iterates unique values
+  const uniqueDepartments = new Set(["Engineering", "Product", "Engineering"]);
+  for (const department of uniqueDepartments) {
+      console.log(department);
+  }
+#+end_src
+
+#+RESULTS:
+: Engineering
+: Product
+: Marketing
+: J
+: S
+: E-1001: David
+: E-1002: Sarah
+: Engineering
+: Product
+
+*** for..in
+
+#+begin_src js
+  // for...in — iterates object property keys, not iterable values
+  const employee = {
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering"
+  };
+  for (const key in employee) {
+      console.log(key, employee[key]);
+  }
+#+end_src
+
+#+RESULTS:
+: firstName David
+: lastName Tucker
+: department Engineering
+
+*** while - do..while
+
+#+begin_src js
+  // while loop — runs as long as the condition is true
+  let attempts = 0;
+  while (attempts < 3) {
+      console.log(`Attempt ${attempts + 1}`);
+      attempts++;
+  }
+
+  // do...while — body runs once before the condition is checked
+  let response;
+  let count = 0;
+  do {
+      response = `Generated response ${count + 1}`;
+      console.log(response);
+      count++;
+  } while (count < 1);
+#+end_src
+
+#+RESULTS:
+: Attempt 1
+: Attempt 2
+: Attempt 3
+: Generated response 1
+
+*** Loop recommendations
+
+- Use a =for= loop when you need an index or precise control of the loop.
+- Use =for..of= when you want values from an iterable like an array, string, Map, or Set.
+- Use =for..in= when you want object property keys.
+- Use =while= when the loop depends on a condition that may not be tied directly to a collection.
+- Use =do..while= when the loop must run at least once.
+
+** Iterators and iterator helpers
+
+Using Iterator.from and iterator helpers to build lazy pipelines
+
+Iterators become useful when we want lazy processing.
+
+*** Iterator.from
+
+#+begin_src js
+  // Iterable example — arrays can be iterated with for...of
+  const departments = ["Engineering", "Product", "Marketing"];
+
+  // Iterator.from() — wrap an iterable so iterator helper methods become available
+  const departmentIterator = Iterator.from(departments);
+  console.log(departmentIterator.next());
+#+end_src
+
+#+RESULTS:
+: { value: 'Engineering', done: false }
+
+*** filter, map, collect
+
+#+begin_src js
+  // Employee data used by every iterator helper example below
+  const employees = [
+      { firstName: "David", department: "Engineering", years: 7 },
+      { firstName: "Sarah", department: "Product", years: 3 },
+      { firstName: "Mina", department: "Engineering", years: 11 },
+      { firstName: "Andre", department: "Marketing", years: 2 }
+  ];
+
+  // Iterator helper pipeline — filter, map, then collect into an array
+  const names = Iterator.from(employees)
+        .filter((employee) => employee.department === "Engineering")
+        .map((employee) => employee.firstName)
+        .toArray();
+  console.log(names);
+#+end_src
+
+#+RESULTS:
+: [ 'David', 'Mina' ]
+
+*** take
+
+#+begin_src js
+  const employees = [
+      { firstName: "David", department: "Engineering", years: 7 },
+      { firstName: "Sarah", department: "Product", years: 3 },
+      { firstName: "Mina", department: "Engineering", years: 11 },
+      { firstName: "Andre", department: "Marketing", years: 2 }
+  ];
+
+  // take() — keep the first N values produced by the iterator
+  const firstTwoNames = Iterator.from(employees)
+        .map((employee) => employee.firstName)
+        .take(2)
+        .toArray();
+  console.log(firstTwoNames);
+#+end_src
+
+#+RESULTS:
+: [ 'David', 'Sarah' ]
+
+*** drop
+
+#+begin_src js
+  const employees = [
+      { firstName: "David", department: "Engineering", years: 7 },
+      { firstName: "Sarah", department: "Product", years: 3 },
+      { firstName: "Mina", department: "Engineering", years: 11 },
+      { firstName: "Andre", department: "Marketing", years: 2 }
+  ];
+
+  // drop() — skip the first N values, keep the rest
+  const afterFirstEmployee = Iterator.from(employees)
+        .map((employee) => employee.firstName)
+        .drop(1)
+        .toArray();
+  console.log(afterFirstEmployee);
+#+end_src
+
+#+RESULTS:
+: [ 'Sarah', 'Mina', 'Andre' ]
+
+*** reduce
+
+#+begin_src js
+  const employees = [
+      { firstName: "David", department: "Engineering", years: 7 },
+      { firstName: "Sarah", department: "Product", years: 3 },
+      { firstName: "Mina", department: "Engineering", years: 11 },
+      { firstName: "Andre", department: "Marketing", years: 2 }
+  ];
+
+  // reduce() — combine the values produced by the iterator into one total
+  const totalYears = Iterator.from(employees)
+        .map((employee) => employee.years)
+        .reduce((total, years) => total + years, 0);
+  console.log(totalYears);
+#+end_src
+
+#+RESULTS:
+: 23
+
+*** some
+
+#+begin_src js
+  const employees = [
+      { firstName: "David", department: "Engineering", years: 7 },
+      { firstName: "Sarah", department: "Product", years: 3 },
+      { firstName: "Mina", department: "Engineering", years: 11 },
+      { firstName: "Andre", department: "Marketing", years: 2 }
+  ];
+
+  // some() — true when at least one value matches
+  const hasMarketing = Iterator.from(employees)
+        .some((employee) => employee.department === "Marketing");
+  console.log(hasMarketing);
+#+end_src
+
+#+RESULTS:
+: true
+
+*** every
+
+#+begin_src js
+  const employees = [
+      { firstName: "David", department: "Engineering", years: 7 },
+      { firstName: "Sarah", department: "Product", years: 3 },
+      { firstName: "Mina", department: "Engineering", years: 11 },
+      { firstName: "Andre", department: "Marketing", years: 2 }
+  ];
+
+  // every() — true only when every value matches
+  const allHaveDepartments = Iterator.from(employees)
+        .every((employee) => Boolean(employee.department));
+  console.log(allHaveDepartments);
+#+end_src
+
+#+RESULTS:
+: true
+
+*** find
+
+#+begin_src js
+  const employees = [
+      { firstName: "David", department: "Engineering", years: 7 },
+      { firstName: "Sarah", department: "Product", years: 3 },
+      { firstName: "Mina", department: "Engineering", years: 11 },
+      { firstName: "Andre", department: "Marketing", years: 2 }
+  ];
+
+  // find() — return the first matching value, or undefined
+  const longTermEmployee = Iterator.from(employees)
+        .find((employee) => employee.years >= 10);
+  console.log(longTermEmployee);
+#+end_src
+
+#+RESULTS:
+: { firstName: 'Mina', department: 'Engineering', years: 11 }
+
+** Reading CLI arguments
+Using process.argv and parseArgs to read command-line arguments
+
+** Data transfer and access preview
+
+*** Storage options
+
+- JSON file
+- APIs with JSON
+- Relational database
+
+* Function fundamentals, scope, and closures
+
+** Function declarations
+
+Using function declarations, parameters, and returns to package reusable logic
+
+*** Function with parameters
+
+#+begin_src js
+  function formatEmployeeName(firstName, lastName) {
+      return `${firstName} ${lastName}`;
+  }
+  const displayName = formatEmployeeName("David", "Tucker");
+  console.log(displayName);
+#+end_src
+
+#+RESULTS:
+: David Tucker
+
+*** Default parameters
+
+#+begin_src js
+  // Default parameter value — used when the argument is undefined
+  function greetEmployeeWithDefault(firstName = "there") {
+      console.log(`Hello, ${firstName}.`);
+  }
+  greetEmployeeWithDefault("David");
+  greetEmployeeWithDefault();
+#+end_src
+
+#+RESULTS:
+: Hello, David.
+: Hello, there.
+
+*** Rest parameter
+
+#+begin_src js
+  // Rest parameter — gathers remaining arguments into an array
+  function listSkills(employeeName, ...skills) {
+      console.log(`${employeeName} has these skills:`);
+
+      for (const skill of skills) {
+          console.log(`- ${skill}`);
+      }
+  }
+  listSkills("David", "JavaScript", "Node.js", "Testing");
+#+end_src
+
+#+RESULTS:
+: David has these skills:
+: - JavaScript
+: - Node.js
+: - Testing
+
+*** Return value
+
+#+begin_src js
+  // Return value — caller decides what to do with it
+  function calculateMonthlySalary(annualSalary) {
+      return annualSalary / 12;
+  }
+  const monthlySalary = calculateMonthlySalary(120000);
+  console.log(monthlySalary);
+
+  // Guard-style returns — first matching condition returns and exits
+  function getBadgeColor(yearsOfService) {
+      if (yearsOfService < 5) {
+          return "blue";
+      }
+      if (yearsOfService < 10) {
+          return "yellow";
+      }
+      return "silver";
+  }
+  console.log(getBadgeColor(7));
+#+end_src
+
+#+RESULTS:
+: 10000
+: yellow
+
+** Function expressions
+
+Using function expressions and callbacks to treat functions as values
+
+*** Function expression
+
+#+begin_src js
+  // Function expression — assign an anonymous function to a variable
+  const formatEmployeeName = function (firstName, lastName) {
+      return `${firstName} ${lastName}`;
+  };
+  console.log(formatEmployeeName("John", "Doe"));
+#+end_src
+
+#+RESULTS:
+: John Doe
+
+*** Function as argument
+
+#+begin_src js
+  const formatEmployeeName = function (firstName, lastName) {
+      return `${firstName} ${lastName}`;
+  };
+  // Function as argument — the receiving function calls it with its own values
+  function printEmployee(firstName, lastName, formatName) {
+      const displayName = formatName(firstName, lastName);
+
+      console.log(displayName);
+  }
+  printEmployee("John", "Doe", formatEmployeeName);
+#+end_src
+
+#+RESULTS:
+: John Doe
+
+*** Function callback
+
+#+begin_src js
+  // Callback — function passed to filter() and called for each item
+  const employees = [
+      { firstName: "David", department: "Engineering" },
+      { firstName: "Sarah", department: "Product" }
+  ];
+  const engineeringEmployees = employees.filter(function (employee) {
+      return employee.department === "Engineering";
+  });
+  console.log(engineeringEmployees);
+#+end_src
+
+#+RESULTS:
+: [ { firstName: 'David', department: 'Engineering' } ]
+
+** Arrow functions
+
+Using arrow functions
+
+Arrow functions handle =this= differently. Arrow functions do not create their own =this= binding.
+
+*** Arrow function syntax
+
+#+begin_src js
+  // Function expression — the form we're about to convert to an arrow function
+  const formatEmployeeName = function (firstName, lastName) {
+      return `${firstName} ${lastName}`;
+  };
+
+  // Arrow function — `=>` syntax with curly-brace body and explicit return
+  const formatEmployeeNameArrow = (firstName, lastName) => {
+      return `${firstName} ${lastName}`;
+  };
+  console.log(formatEmployeeNameArrow("John", "Doe"));
+#+end_src
+
+#+RESULTS:
+: John Doe
+
+*** Explicit return
+
+#+begin_src js
+  // Explicit return with a multi-line arrow function body
+  const getBadgeColor = (yearsOfService) => {
+      if (yearsOfService < 5) {
+          return "blue";
+      }
+      if (yearsOfService < 10) {
+          return "yellow";
+      }
+      return "silver";
+  };
+  console.log(getBadgeColor(7));
+#+end_src
+
+#+RESULTS:
+: yellow
+
+*** Implicit return
+
+#+begin_src js
+  // Implicit return — expression after `=>` is returned automatically
+  const formatEmployeeNameShort = (firstName, lastName) => `${firstName} ${lastName}`;
+  console.log(formatEmployeeNameShort("Sarah", "Smith"));
+#+end_src
+
+#+RESULTS:
+: Sarah Smith
+
+*** Parameters
+
+#+begin_src js
+  // Multiple parameters — parentheses required
+  const add = (a, b) => a + b;
+
+  // No parameters — empty parentheses required
+  const getDefaultDepartment = () => "Engineering";
+
+  // Single parameter — parentheses optional
+  const isActive = employee => employee.isActive;
+
+  // Single parameter with parentheses — preferred for consistency
+  const isActiveEmployee = (employee) => employee.isActive;
+#+end_src
+
+*** Arrow function as filter
+
+#+begin_src js
+  // Arrow function as filter() callback — concise inline form
+  const employees = [
+      { firstName: "David", department: "Engineering", isActive: true },
+      { firstName: "Sarah", department: "Product", isActive: false },
+      { firstName: "Mina", department: "Engineering", isActive: true }
+  ];
+  const activeEmployees = employees.filter((employee) => employee.isActive);
+  console.log(activeEmployees);
+#+end_src
+
+#+RESULTS:
+: [
+:   { firstName: 'David', department: 'Engineering', isActive: true },
+:   { firstName: 'Mina', department: 'Engineering', isActive: true }
+: ]
+
+*** Arrow function as map
+
+#+begin_src js
+  const employees = [
+      { firstName: "David", department: "Engineering", isActive: true },
+      { firstName: "Sarah", department: "Product", isActive: false },
+      { firstName: "Mina", department: "Engineering", isActive: true }
+  ];
+  // Arrow function as map() callback — transform each item
+  const names = employees.map((employee) => employee.firstName);
+  console.log(names);
+#+end_src
+
+#+RESULTS:
+: [ 'David', 'Sarah', 'Mina' ]
+
+*** Implicit return of an object literal
+
+#+begin_src js
+  // Implicit return of an object literal — wrap the body in parentheses
+  const createEmployee = (firstName, department) => ({
+      firstName,
+      department,
+      isActive: true
+  });
+  console.log(createEmployee("Andre", "Marketing"));
+#+end_src
+
+#+RESULTS:
+: { firstName: 'Andre', department: 'Marketing', isActive: true }
+
+** Scope and closures
+
+Using function scope, block scope, and closures to capture values
+
+*** Closures
+
+#+begin_src js
+  // Closure — inner function remembers `prefix` after the outer function returns
+  function createEmployeeFormatter(prefix) {
+      return function (employee) {
+          return `${prefix}: ${employee.firstName} ${employee.lastName}`;
+      };
+  }
+  const formatActiveEmployee = createEmployeeFormatter("Active employee");
+  const closureEmployee = {
+      firstName: "John",
+      lastName: "Doe"
+  };
+  console.log(formatActiveEmployee(closureEmployee));
+#+end_src
+
+#+RESULTS:
+: Active employee: John Doe
+
+*** Closure for reusable configuration
+
+#+begin_src js
+  // Closure for reusable configuration — each returned function captures its own minimumYears
+  function createMinimumYearsValidator(minimumYears) {
+      return function (employee) {
+          return employee.numberOfYearsEmployed >= minimumYears;
+      };
+  }
+  const isFiveYearEmployee = createMinimumYearsValidator(5);
+  const isTenYearEmployee = createMinimumYearsValidator(10);
+
+  const employeeWithYears = {
+      firstName: "Mina",
+      numberOfYearsEmployed: 11
+  };
+  console.log(isFiveYearEmployee(employeeWithYears));
+  console.log(isTenYearEmployee(employeeWithYears));
+#+end_src
+
+#+RESULTS:
+: true
+: true
+
+* Functional patterns, recursion, and lazy processing
+
+** Iterating over arrays with functions
+
+Using forEach, map, filter, and reduce to process array data
+
+*** forEach
+
+#+begin_src js
+  // Sample employee data used by every array method example below
+  const employees = [
+      { id: "E-1001", firstName: "David", department: "Engineering", isActive: true, years: 7 },
+      { id: "E-1002", firstName: "Sarah", department: "Product", isActive: false, years: 3 },
+      { id: "E-1003", firstName: "Mina", department: "Engineering", isActive: true, years: 11 },
+      { id: "E-1004", firstName: "Andre", department: "Marketing", isActive: true, years: 2 }
+  ];
+
+  // forEach() — run a callback for each item, no return value
+  employees.forEach((employee) => {
+      console.log(`${employee.firstName} works in ${employee.department}.`);
+  });
+#+end_src
+
+#+RESULTS:
+: David works in Engineering.
+: Sarah works in Product.
+: Mina works in Engineering.
+: Andre works in Marketing.
+
+*** map
+
+#+begin_src js
+  const employees = [
+      { id: "E-1001", firstName: "David", department: "Engineering", isActive: true, years: 7 },
+      { id: "E-1002", firstName: "Sarah", department: "Product", isActive: false, years: 3 },
+      { id: "E-1003", firstName: "Mina", department: "Engineering", isActive: true, years: 11 },
+      { id: "E-1004", firstName: "Andre", department: "Marketing", isActive: true, years: 2 }
+  ];
+  // map() — transform each item, return a new array of the same length
+  const employeeNames = employees.map((employee) => {
+      return employee.firstName;
+  });
+  console.log(employeeNames);
+
+  // map() with an implicit-return arrow function
+  const employeeLabels = employees.map((employee) => `${employee.id}: ${employee.firstName}`);
+  console.log(employeeLabels);
+#+end_src
+
+#+RESULTS:
+: [ 'David', 'Sarah', 'Mina', 'Andre' ]
+: [ 'E-1001: David', 'E-1002: Sarah', 'E-1003: Mina', 'E-1004: Andre' ]
+
+*** filter
+
+#+begin_src js
+  const employees = [
+      { id: "E-1001", firstName: "David", department: "Engineering", isActive: true, years: 7 },
+      { id: "E-1002", firstName: "Sarah", department: "Product", isActive: false, years: 3 },
+      { id: "E-1003", firstName: "Mina", department: "Engineering", isActive: true, years: 11 },
+      { id: "E-1004", firstName: "Andre", department: "Marketing", isActive: true, years: 2 }
+  ];
+  // filter() — keep only items where the callback returns true
+  const activeEmployees = employees.filter((employee) => {
+      return employee.isActive;
+  });
+  console.log(activeEmployees);
+
+  // filter() by a different condition
+  const engineeringEmployees = employees.filter((employee) => {
+      return employee.department === "Engineering";
+  });
+  console.log(engineeringEmployees);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[
+  {
+    id: 'E-1001',
+    firstName: 'David',
+    department: 'Engineering',
+    isActive: true,
+    years: 7
+  },
+  {
+    id: 'E-1003',
+    firstName: 'Mina',
+    department: 'Engineering',
+    isActive: true,
+    years: 11
+  },
+  {
+    id: 'E-1004',
+    firstName: 'Andre',
+    department: 'Marketing',
+    isActive: true,
+    years: 2
+  }
+]
+[
+  {
+    id: 'E-1001',
+    firstName: 'David',
+    department: 'Engineering',
+    isActive: true,
+    years: 7
+  },
+  {
+    id: 'E-1003',
+    firstName: 'Mina',
+    department: 'Engineering',
+    isActive: true,
+    years: 11
+  }
+]
+#+end_example
+
+*** find
+
+#+begin_src js
+  const employees = [
+      { id: "E-1001", firstName: "David", department: "Engineering", isActive: true, years: 7 },
+      { id: "E-1002", firstName: "Sarah", department: "Product", isActive: false, years: 3 },
+      { id: "E-1003", firstName: "Mina", department: "Engineering", isActive: true, years: 11 },
+      { id: "E-1004", firstName: "Andre", department: "Marketing", isActive: true, years: 2 }
+  ];
+  // find() — return the first matching item, or undefined
+  const productEmployee = employees.find((employee) => {
+      return employee.department === "Product";
+  });
+  console.log(productEmployee);
+#+end_src
+
+#+RESULTS:
+: {
+:   id: 'E-1002',
+:   firstName: 'Sarah',
+:   department: 'Product',
+:   isActive: false,
+:   years: 3
+: }
+
+*** some
+
+#+begin_src js
+  const employees = [
+      { id: "E-1001", firstName: "David", department: "Engineering", isActive: true, years: 7 },
+      { id: "E-1002", firstName: "Sarah", department: "Product", isActive: false, years: 3 },
+      { id: "E-1003", firstName: "Mina", department: "Engineering", isActive: true, years: 11 },
+      { id: "E-1004", firstName: "Andre", department: "Marketing", isActive: true, years: 2 }
+  ];
+  // some() — true when at least one item matches
+  const hasInactiveEmployees = employees.some((employee) => {
+      return !employee.isActive;
+  });
+  console.log(hasInactiveEmployees);
+#+end_src
+
+#+RESULTS:
+: true
+
+*** every
+
+#+begin_src js
+  const employees = [
+      { id: "E-1001", firstName: "David", department: "Engineering", isActive: true, years: 7 },
+      { id: "E-1002", firstName: "Sarah", department: "Product", isActive: false, years: 3 },
+      { id: "E-1003", firstName: "Mina", department: "Engineering", isActive: true, years: 11 },
+      { id: "E-1004", firstName: "Andre", department: "Marketing", isActive: true, years: 2 }
+  ];
+
+  // every() — true only when every item matches
+  const allEmployeesHaveDepartments = employees.every((employee) => {
+      return Boolean(employee.department);
+  });
+  console.log(allEmployeesHaveDepartments);
+#+end_src
+
+#+RESULTS:
+: true
+
+*** reduce
+
+#+begin_src js
+  const employees = [
+      { id: "E-1001", firstName: "David", department: "Engineering", isActive: true, years: 7 },
+      { id: "E-1002", firstName: "Sarah", department: "Product", isActive: false, years: 3 },
+      { id: "E-1003", firstName: "Mina", department: "Engineering", isActive: true, years: 11 },
+      { id: "E-1004", firstName: "Andre", department: "Marketing", isActive: true, years: 2 }
+  ];
+  // reduce() — combine all items into a single value (starting from 0)
+  const totalYears = employees.reduce((total, employee) => {
+      return total + employee.years;
+  }, 0);
+  console.log(totalYears);
+#+end_src
+
+#+RESULTS:
+: 23
+
+** Higher-order functions
+
+Passing and returning functions to compose reusable validators and formatters
+
+A higher-order function is a function that accepts another function as an argument, returns another function, or both. Array methods like map, filter, and find accept callback functions, so they are higher-order functions.
+
+*** Higher-order function
+
+#+begin_src js
+  // Higher-order function — accepts a formatter function as a parameter
+  function printEmployeeReport(employees, formatter) {
+      for (const employee of employees) {
+          console.log(formatter(employee));
+      }
+  }
+  const employees = [
+      { firstName: "David", lastName: "Tucker", department: "Engineering" },
+      { firstName: "Sarah", lastName: "Smith", department: "Product" }
+  ];
+  function formatBasicEmployee(employee) {
+      return `${employee.firstName} ${employee.lastName}`;
+  }
+  printEmployeeReport(employees, formatBasicEmployee);
+
+  // Swap the callback — same higher-order function, different formatting behavior
+  function formatDetailedEmployee(employee) {
+      return `${employee.firstName} ${employee.lastName} - ${employee.department}`;
+  }
+  printEmployeeReport(employees, formatDetailedEmployee);
+#+end_src
+
+#+RESULTS:
+: David Tucker
+: Sarah Smith
+: David Tucker - Engineering
+: Sarah Smith - Product
+
+*** Reusable validators
+
+#+begin_src js
+  // Reusable validators — small named predicates make pipelines easier to read
+  function isActiveEmployee(employee) {
+      return employee.isActive;
+  }
+
+  function isEngineeringEmployee(employee) {
+      return employee.department === "Engineering";
+  }
+
+  // Search by validator — pass in different predicates to change the search
+  function findMatchingEmployees(employees, validator) {
+      return employees.filter((employee) => validator(employee));
+  }
+
+  const employeeRecords = [
+      { firstName: "David", department: "Engineering", isActive: true },
+      { firstName: "Sarah", department: "Product", isActive: false },
+      { firstName: "Mina", department: "Engineering", isActive: true }
+  ];
+  console.log(findMatchingEmployees(employeeRecords, isActiveEmployee));
+  console.log(findMatchingEmployees(employeeRecords, isEngineeringEmployee));
+#+end_src
+
+#+RESULTS:
+: [
+:   { firstName: 'David', department: 'Engineering', isActive: true },
+:   { firstName: 'Mina', department: 'Engineering', isActive: true }
+: ]
+: [
+:   { firstName: 'David', department: 'Engineering', isActive: true },
+:   { firstName: 'Mina', department: 'Engineering', isActive: true }
+: ]
+
+*** Functions with closures
+
+#+begin_src js
+  const employeeRecords = [
+      { firstName: "David", department: "Engineering", isActive: true },
+      { firstName: "Sarah", department: "Product", isActive: false },
+      { firstName: "Mina", department: "Engineering", isActive: true }
+  ];
+
+  // Function that returns a function — captures `department` in a closure
+  function createDepartmentValidator(department) {
+      return function (employee) {
+          return employee.department === department;
+      };
+  }
+  const isProductEmployee = createDepartmentValidator("Product");
+  console.log(employeeRecords.filter(isProductEmployee));
+
+  // Returned function builds a custom formatter — flag captured in the closure
+  function createEmployeeFormatter(includeDepartment) {
+      return function (employee) {
+          const name = `${employee.firstName} ${employee.lastName ?? ""}`.trim();
+
+          if (includeDepartment) {
+              return `${name} - ${employee.department}`;
+          }
+
+          return name;
+      };
+  }
+  const simpleFormatter = createEmployeeFormatter(false);
+  const detailedFormatter = createEmployeeFormatter(true);
+
+  console.log(simpleFormatter({ firstName: "David", lastName: "Tucker", department: "Engineering" }));
+  console.log(detailedFormatter({ firstName: "David", lastName: "Tucker", department: "Engineering" }));
+#+end_src
+
+#+RESULTS:
+: [ { firstName: 'Sarah', department: 'Product', isActive: false } ]
+: David Tucker
+: David Tucker - Engineering
+
+** Recursion
+
+Using base cases and recursive calls to process nested data
+
+*** Basic recursion
+
+#+begin_src js
+  // Basic recursion — function calls itself with a smaller number
+  function countdown(number) {
+      console.log(number);
+      if (number === 0) {
+          return;
+      }
+      countdown(number - 1);
+  }
+  countdown(3);
+#+end_src
+
+#+RESULTS:
+: 3
+: 2
+: 1
+: 0
+
+*** Recursion with nested data
+
+#+begin_src js
+  // Nested data — each team can contain more teams
+  const organization = {
+      name: "Company",
+      teams: [
+          {
+              name: "Engineering",
+              teams: [
+                  { name: "Platform", teams: [] },
+                  { name: "Developer Experience", teams: [] }
+              ]
+          },
+          {
+              name: "Product",
+              teams: []
+          }
+      ]
+  };
+
+  // Recursion over nested data — base case is reached when teams array is empty
+  function printTeamNames(team, indentation = "") {
+      console.log(`${indentation}${team.name}`);
+      for (const childTeam of team.teams) {
+          printTeamNames(childTeam, `${indentation}. `);
+      }
+  }
+  printTeamNames(organization);
+#+end_src
+
+#+RESULTS:
+: Company
+: . Engineering
+: . . Platform
+: . . Developer Experience
+: . Product
+
+**** Recursion use cases
+
+- Nested folders
+- Nested comments
+- Nested departments
+- Tree structures
+- Menu hierarchies
+
+** Functions, iterators, and lazy pipelines
+
+Combining named functions and iterator helpers to build lazy pipelines
+
+*** Lazy processing
+
+Lazy processing can be useful when you are working with large data sources or generated sequences. With lazy processing, JavaScript can stop once it has enough values, but with eager array methods, intermediate arrays may be created along the way.
+
+*** Array method chain
+
+#+begin_src js
+  // Sample employee data used by every pipeline below
+  const employees = [
+      { firstName: "David", department: "Engineering", isActive: true, years: 7 },
+      { firstName: "Sarah", department: "Product", isActive: false, years: 3 },
+      { firstName: "Mina", department: "Engineering", isActive: true, years: 11 },
+      { firstName: "Andre", department: "Marketing", isActive: true, years: 2 },
+      { firstName: "Priya", department: "Engineering", isActive: true, years: 5 }
+  ];
+
+  // Reusable predicates and transforms — small named functions clarify intent
+  const isActive = (employee) => employee.isActive;
+  const isEngineering = (employee) => employee.department === "Engineering";
+  const getFirstName = (employee) => employee.firstName;
+
+  // Array method chain — eager processing, each step builds an intermediate array
+  const engineeringNames = employees
+        .filter(isActive)
+        .filter(isEngineering)
+        .map(getFirstName);
+  console.log(engineeringNames);
+#+end_src
+
+#+RESULTS:
+: [ 'David', 'Mina', 'Priya' ]
+
+*** Iterator helper chain
+
+#+begin_src js
+  const employees = [
+      { firstName: "David", department: "Engineering", isActive: true, years: 7 },
+      { firstName: "Sarah", department: "Product", isActive: false, years: 3 },
+      { firstName: "Mina", department: "Engineering", isActive: true, years: 11 },
+      { firstName: "Andre", department: "Marketing", isActive: true, years: 2 },
+      { firstName: "Priya", department: "Engineering", isActive: true, years: 5 }
+  ];
+
+  // Reusable predicates and transforms — small named functions clarify intent
+  const isActive = (employee) => employee.isActive;
+  const isEngineering = (employee) => employee.department === "Engineering";
+  const getFirstName = (employee) => employee.firstName;
+  // Iterator helper chain — lazy processing, take(2) stops once two values are produced
+  const firstTwoEngineeringNames = Iterator.from(employees)
+        .filter(isActive)
+        .filter(isEngineering)
+        .map(getFirstName)
+        .take(2)
+        .toArray();
+  console.log(firstTwoEngineeringNames);
+#+end_src
+
+#+RESULTS:
+: [ 'David', 'Mina' ]
+
+*** reduce
+
+#+begin_src js
+  const employees = [
+      { firstName: "David", department: "Engineering", isActive: true, years: 7 },
+      { firstName: "Sarah", department: "Product", isActive: false, years: 3 },
+      { firstName: "Mina", department: "Engineering", isActive: true, years: 11 },
+      { firstName: "Andre", department: "Marketing", isActive: true, years: 2 },
+      { firstName: "Priya", department: "Engineering", isActive: true, years: 5 }
+  ];
+
+  // Reusable predicates and transforms — small named functions clarify intent
+  const isActive = (employee) => employee.isActive;
+  const isEngineering = (employee) => employee.department === "Engineering";
+  const getFirstName = (employee) => employee.firstName;
+
+  // reduce() inside an iterator pipeline — combine values into one total
+  const totalEngineeringYears = Iterator.from(employees)
+        .filter(isEngineering)
+        .map((employee) => employee.years)
+        .reduce((total, years) => total + years, 0);
+  
+  console.log(totalEngineeringYears);
+#+end_src
+
+#+RESULTS:
+: 23
+
+* Problem solving and debugging JavaScript
+
+** A JavaScript problem-solving process
+
+*** Problem solving process
+
+1. Understand the problem
+2. Identify the inputs
+3. Identify the outputs
+4. Identify constraints
+5. Identify edge cases
+6. Break the problem into smaller tasks
+7. Write small steps before writing code
+
+*** Write small steps before writing code
+
+Pseudocode is often used
+
+#+begin_src sh
+  Get the list of employees.
+  Create an empty list for active employees.
+  For each employee:
+    If the employee is active, add them to the active list.
+  Return the active list.  
+#+end_src
+
+** Developing small algorithms
+
+Translating pseudocode into filter and toSorted chains to build algorithms
+
+#+begin_example
+Given a list of employees,
+return a list of active Engineering employees
+with at least five years of service,
+sorted by years of service from highest to lowest.
+#+end_example
+
+*** Problem solving process
+
+*Inputs*
+- Array of employees
+
+*Outputs*
+- Array of employees
+
+*Constraints*
+- Employees must be active
+- Must be in engineering
+- Must have five or more years of service
+- Must be sorted by highest years first
+
+*** Pseudocode steps
+
+#+begin_src sh
+  Create a function that accepts employees.
+  Filter employees to only active employees.
+  Filter employees to only Engineering employees.
+  Filter employees to only employees with at least five years.
+  Sort the remaining employees by years, highest to lowest.
+  Return the result.
+#+end_src
+
+*** Code
+
+#+begin_src js
+  // Sample employee data used for the algorithm below
+  const employees = [
+      { id: "E-1001", firstName: "David", department: "Engineering", isActive: true, years: 7 },
+      { id: "E-1002", firstName: "Sarah", department: "Product", isActive: true, years: 3 },
+      { id: "E-1003", firstName: "Mina", department: "Engineering", isActive: true, years: 11 },
+      { id: "E-1004", firstName: "Andre", department: "Engineering", isActive: false, years: 9 },
+      { id: "E-1005", firstName: "Priya", department: "Engineering", isActive: true, years: 4 }
+  ];
+
+  // First implementation — inline arrow callbacks closely follow the pseudocode
+  function getExperiencedEngineeringEmployees(employees) {
+      return employees
+          .filter((employee) => employee.isActive)
+          .filter((employee) => employee.department === "Engineering")
+          .filter((employee) => employee.years >= 5)
+          .toSorted((a, b) => b.years - a.years);
+  }
+  const results = getExperiencedEngineeringEmployees(employees);
+  console.log(results);
+
+  // Alternative — small named helpers, pipeline reads like the problem statement
+  const isActive = (employee) => employee.isActive;
+  const isEngineering = (employee) => employee.department === "Engineering";
+  const hasAtLeastFiveYears = (employee) => employee.years >= 5;
+  const sortByYearsDescending = (a, b) => b.years - a.years;
+
+  function getExperiencedEngineeringEmployeesV2(employees) {
+      return employees
+          .filter(isActive)
+          .filter(isEngineering)
+          .filter(hasAtLeastFiveYears)
+          .toSorted(sortByYearsDescending);
+  }
+  console.log(getExperiencedEngineeringEmployeesV2(employees));
+
+  // Formatting — a separate function so it can be reused or swapped out
+  function formatEmployeeSummary(employee) {
+      return `${employee.firstName} (${employee.years} years)`;
+  }
+  const summaries = getExperiencedEngineeringEmployeesV2(employees).map(formatEmployeeSummary);
+  console.log(summaries);
+
+  // Edge case — empty input array
+  const noMatches = getExperiencedEngineeringEmployeesV2([]);
+  console.log(noMatches); 
+
+  // Edge case — missing `years` field, undefined >= 5 is false so the record is excluded
+  const incompleteEmployees = [
+      { firstName: "No Years", department: "Engineering", isActive: true }
+  ];
+  console.log(getExperiencedEngineeringEmployeesV2(incompleteEmployees));
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[
+  {
+    id: 'E-1003',
+    firstName: 'Mina',
+    department: 'Engineering',
+    isActive: true,
+    years: 11
+  },
+  {
+    id: 'E-1001',
+    firstName: 'David',
+    department: 'Engineering',
+    isActive: true,
+    years: 7
+  }
+]
+[
+  {
+    id: 'E-1003',
+    firstName: 'Mina',
+    department: 'Engineering',
+    isActive: true,
+    years: 11
+  },
+  {
+    id: 'E-1001',
+    firstName: 'David',
+    department: 'Engineering',
+    isActive: true,
+    years: 7
+  }
+]
+[ 'Mina (11 years)', 'David (7 years)' ]
+[]
+[]
+#+end_example
+
+
+** Debugging with console output and assertions
+
+Using console.log, console.table, and console.assert to inspect program state
+
+*** Intentional console.log() and console.error()
+
+#+begin_src js
+  // Sample employee data used by every debugging example below
+  const employees = [
+      { firstName: "David", department: "Engineering", isActive: true },
+      { firstName: "Sarah", department: "Product", isActive: false },
+      { firstName: "Mina", department: "Engineering", isActive: true }
+  ];
+
+  // Intentional console.log() — temporary, focused logging inside the filter
+  const activeEmployees = employees.filter((employee) => {
+      console.log("Checking employee:", employee.firstName, employee.isActive);
+      return employee.isActive;
+  });
+  console.log(activeEmployees);
+
+  // console.table() — tabular view of an array of objects
+  console.table(employees);
+
+  // console.error() — write to stderr, marks the line as an error in tools
+  function validateEmployee(employee) {
+      if (!employee.firstName) {
+          console.error("Employee is missing a first name.");
+          return false;
+      }
+      return true;
+  }
+  console.log(validateEmployee({ lastName: "Tucker" }));
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Checking employee: David true
+Checking employee: Sarah false
+Checking employee: Mina true
+[
+  { firstName: 'David', department: 'Engineering', isActive: true },
+  { firstName: 'Mina', department: 'Engineering', isActive: true }
+]
+┌─────────┬───────────┬───────────────┬──────────┐
+│ (index) │ firstName │ department    │ isActive │
+├─────────┼───────────┼───────────────┼──────────┤
+│ 0       │ 'David'   │ 'Engineering' │ true     │
+│ 1       │ 'Sarah'   │ 'Product'     │ false    │
+│ 2       │ 'Mina'    │ 'Engineering' │ true     │
+└─────────┴───────────┴───────────────┴──────────┘
+false
+#+end_example
+
+*** console.assert()
+
+#+begin_src js
+  // console.assert() — silent when the condition is true
+  const passingEmployee = {
+      firstName: "David",
+      years: 7
+  };
+  console.assert(passingEmployee.years >= 0, "Years should not be negative.");
+
+  // console.assert() — prints the message when the condition is false
+  const invalidEmployee = {
+      firstName: "Broken",
+      years: -1
+  };
+  console.assert(invalidEmployee.years >= 0, "Years should not be negative.");
+#+end_src
+
+* Testing JavaScript code
+
+** Unit testing concepts
+
+- *Test case:* One specific scenario to test in your application
+- *Test suite:* A group of related test cases in your application
+- *Assertion:* A claim of truth within a test case
+- *Code coverage:* A measure of how much of your code was executed by your tests
+
+** Writing first tests with Jest
+
+Using Jest with test and expect to verify function behavior
+
+*** Project setup
+
+#+begin_src sh
+  # create the folder of the project and move to it
+  mkdir jest-demo && cd jest-demo
+
+  # initialize the project
+  npm init -y
+
+  # install jest as a development dependency
+  npm install --save-dev jest
+
+  # open package.json and add a test script
+  "scripts": {
+    "test": "jest"
+  }
+#+end_src
+
+*** Function to test =badge.js=
+
+#+begin_src js
+  // Function under test — guard-style returns by years of service
+  function getBadgeColor(yearsOfService) {
+      if (yearsOfService < 5) {
+          return "blue";
+      }
+      if (yearsOfService < 10) {
+          return "yellow";
+      }
+      if (yearsOfService < 15) {
+          return "red";
+      }
+      return "silver";
+  }
+  module.exports = { getBadgeColor };
+#+end_src
+
+*** Create the test =badge.test.js=
+
+#+begin_src js
+  // First Jest test — describe one expected behavior with test() and expect()
+  const { getBadgeColor } = require("./badge");
+
+  test("returns blue for employees with fewer than 5 years", () => {
+      const result = getBadgeColor(2);
+
+      expect(result).toBe("blue");
+  });
+
+  // Additional test cases — one expect() per scenario keeps failures specific
+  test("returns yellow for employees with at least 5 but fewer than 10 years", () => {
+      expect(getBadgeColor(7)).toBe("yellow");
+  });
+
+  test("returns red for employees with at least 10 but fewer than 15 years", () => {
+      expect(getBadgeColor(12)).toBe("red");
+  });
+
+  test("returns silver for employees with 15 or more years", () => {
+      expect(getBadgeColor(20)).toBe("silver");
+  });
+
+  // Boundary case test — covers exactly 10 years to catch off-by-one bugs
+  test("returns red for exactly 10 years", () => {
+      expect(getBadgeColor(10)).toBe("red");
+  });
+#+end_src
+
+*** Run the test
+
+#+begin_src sh
+  npm test
+#+end_src
+
+*** Demo
+
+[[file:~/Documents/org/demos/javascript/javascript_fundamentals/jest-demo/][jest-demo]]
+
+** Writing first tests with Vitest
+
+Using Vitest with describe, it, and expect to test functions
+
+*** Project setup
+
+#+begin_src sh
+  # create the folder of the project and move to it
+  mkdir vitest-demo && cd vitest-demo
+
+  # initialize the project
+  npm init -y
+
+  # install jest as a development dependency
+  npm install --save-dev vitest
+
+  # open package.json and make the following changes
+  "scripts": {
+    "test": "jest"
+  },
+  "type": "module"
+#+end_src
+
+*** Function to test =validation.js=
+
+#+begin_src js
+  // Function under test — rejects null, undefined, and empty string
+  export function isRequired(value) {
+      return value !== null && value !== undefined && value !== "";
+  }
+#+end_src
+
+*** Create the test =validation.test.js=
+
+#+begin_src js
+  // First Vitest test — describe() groups, it() defines a case, expect() asserts
+  import { describe, expect, it } from "vitest";
+  import { isRequired } from "./validation.js";
+
+  describe("isRequired", () => {
+      it("returns true when a string has a value", () => {
+          expect(isRequired("David")).toBe(true);
+      });
+  });
+
+  // Full describe block — one it() per scenario, including 0 (truthy/falsy trap)
+  describe("isRequired", () => {
+      it("returns true when a string has a value", () => {
+          expect(isRequired("David")).toBe(true);
+      });
+
+      it("returns false for an empty string", () => {
+          expect(isRequired("")).toBe(false);
+      });
+
+      it("returns false for null", () => {
+          expect(isRequired(null)).toBe(false);
+      });
+
+      it("returns false for undefined", () => {
+          expect(isRequired(undefined)).toBe(false);
+      });
+
+      it("returns true for zero because zero is a real value", () => {
+          expect(isRequired(0)).toBe(true);
+      });
+  });
+#+end_src
+
+*** Run the test
+
+#+begin_src sh
+  npm test
+#+end_src
+
+*** Demo
+
+[[file:~/Documents/org/demos/javascript/javascript_fundamentals/vitest-demo/][vitest-demo]]
+
+** Using tests to find bugs
+
+Reproducing and resolving bugs with failing tests
+
+*** Function to test =formatting.js=
+
+#+begin_src js
+  // Buggy implementation — || treats 0 as falsy and substitutes "Unknown"
+  export function formatYearsOfService(employee) {
+      const years = employee.years ?? "Unknown";
+
+      return `${employee.firstName}: ${years} years`;
+  }
+
+  // Manual reproduction — proves the bug exists before we write a test for it
+  console.log(formatYearsOfService({ firstName: "New Employee", years: 0 })); 
+#+end_src
+
+*** Create the test =formatting.test.js=
+
+#+begin_src js
+  // Failing test — captures the bug so we know when the fix works
+  import { describe, expect, it } from "vitest";
+  import { formatYearsOfService } from "./formatting.js";
+
+  describe("formatYearsOfService", () => {
+      it("formats employees with zero years of service", () => {
+          const employee = { firstName: "New Employee", years: 0 };
+          expect(formatYearsOfService(employee)).toBe("New Employee: 0 years");
+      });
+  });
+
+  // Edge-case tests — protect missing, null, and normal cases
+  it("uses Unknown when years is missing", () => {
+      const employee = { firstName: "Missing Years" };
+      expect(formatYearsOfService(employee)).toBe("Missing Years: Unknown years");
+  });
+
+  it("uses Unknown when years is null", () => {
+      const employee = { firstName: "Null Years", years: null };
+      expect(formatYearsOfService(employee)).toBe("Null Years: Unknown years");
+  });
+
+  it("formats positive years of service", () => {
+      const employee = { firstName: "David", years: 7 };
+      expect(formatYearsOfService(employee)).toBe("David: 7 years");
+  });
+#+end_src
+
+*** Demo
+
+[[file:~/Documents/org/demos/javascript/javascript_fundamentals/vitest-demo/][vitest-demo]]
+
+* Asynchronous JavaScript
+
+** Synchronous vs asynchronous JavaScript
+
+*** Synchronous JavaScript
+
+#+begin_src js
+  console.log("One");    // One
+  console.log("Two");    // Two
+  console.log("Three");  // Three
+#+end_src
+
+*** Asynchronous JavaScript
+
+**** Callbacks
+
+#+begin_src js
+  setTimeout(() => {
+      console.log("This runs later.");
+  }, 1000);
+#+end_src
+
+**** Promises
+
+#+begin_src js
+  fetch("https://example.com")
+      .then((response) => response.text())
+      .then((text) => console.log(text));
+#+end_src
+
+**** Async and await
+
+#+begin_src js
+  const response = await fetch("https://example.com");
+  const text = await response.text();
+  console.log(text);
+#+end_src
+
+** Error handling
+
+*** JavaScript Error object
+
+#+begin_src js
+  // Manually creating a JavaScript Error object
+  const error = new Error("Something went wrong.");
+  console.log(error.message);
+#+end_src
+
+*** Throwing an error
+
+#+begin_src js
+  // Throwing an Error object
+  function validateEmployee(employee) {
+      if (!employee.firstName) {
+          throw new Error("First name is required.");
+      }
+      return true;
+  }
+#+end_src
+
+*** Using try and catch
+
+#+begin_src js
+  // Handling errors with try/catch
+  try {
+      validateEmployee({ lastName: "Tucker" });
+  } catch (error) {
+      console.error(error.message);
+  }
+#+end_src
+
+*** Using try and catch with finally
+
+#+begin_src js
+  // Ensuring code runs with finally
+  try {
+      validateEmployee({ firstName: "David" });
+  } catch (error) {
+      console.error(error.message);
+  } finally {
+      console.log("Validation attempt complete.");
+  }
+#+end_src
+
+*** Errors in synchronous code
+
+#+begin_src js
+  // Handling errors in synchronous code
+  try {
+      const employee = JSON.parse("not valid JSON");
+      console.log(employee);
+  } catch (error) {
+      console.error("Invalid JSON:", error.message);
+  }
+#+end_src
+
+*** Errors with promises
+
+#+begin_src js
+  // Handling errors in asynchronous code (promises)
+  someAsyncOperation()
+      .then((result) => {
+          console.log(result);
+      })
+      .catch((error) => {
+          console.error(error.message);
+      });
+#+end_src
+
+*** Errors with async and await
+
+#+begin_src js
+  // Handling errors in asynchronous code (async/await)
+  try {
+      const result = await someAsyncOperation();
+      console.log(result);
+  } catch (error) {
+      console.error(error.message);
+  }
+#+end_src
+
+** Using callbacks
+
+Using callbacks, setTimeout, and error-first style to handle async work
+
+*** Synchronous callback
+
+#+begin_src js
+  // Synchronous callback — illustrates the pattern; nothing async yet
+  function processEmployee(employee, callback) {
+      callback(employee);
+  }
+
+  processEmployee({ firstName: "John" }, (employee) => {
+      console.log(employee.firstName);
+  });
+#+end_src
+
+#+RESULTS:
+: John
+
+*** Asynchronous callback
+
+#+begin_src js
+  // Asynchronous callback — setTimeout runs the callback after the delay
+  console.log("Before timer.");
+
+  setTimeout(() => {
+      console.log("Timer finished.");
+  }, 1000);
+
+  console.log("After timer.");
+#+end_src
+
+#+RESULTS:
+: Before timer.
+: After timer.
+: Timer finished.
+
+*** Error-first callback style — Node.js legacy pattern
+
+#+begin_src js
+  // Error-first callback style — Node.js legacy pattern, error is first argument
+  function fakeReadEmployeeFile(callback) {
+      const error = null;
+      const data = "Employee data";
+      callback(error, data);
+  }
+
+  fakeReadEmployeeFile((error, data) => {
+      if (error) {
+          console.error(error.message);
+          return;
+      }
+      console.log(data);
+  });
+#+end_src
+
+#+RESULTS:
+: Employee data
+
+** Using promises
+
+Using then, catch, and finally to consume and chain promises
+
+*** Promise - then
+
+#+begin_src js
+  // Create a promise — executor receives resolve and reject callbacks
+  const employeePromise = new Promise((resolve) => {
+      setTimeout(() => {
+          resolve({ firstName: "David", department: "Engineering" });
+      }, 1000);
+  });
+
+  // then() — runs the callback with the resolved value
+  employeePromise.then((employee) => {
+      console.log(employee);
+  });
+#+end_src
+
+#+RESULTS:
+: { firstName: 'David', department: 'Engineering' }
+
+*** Promise rejection
+
+#+begin_src js
+  // Rejection — call reject() to signal failure; catch() handles it
+  const failingPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+          reject(new Error("Failed to load employee."));
+      }, 1000);
+  });
+
+  failingPromise.catch((error) => {
+      console.error(error.message);
+  });
+#+end_src
+
+*** Promise with then-catch-finally
+
+#+begin_src js
+  const employeePromise = new Promise((resolve) => {
+      setTimeout(() => {
+          resolve({ firstName: "John", department: "Engineering" });
+      }, 1000);
+  });
+
+  // finally() — runs whether the promise resolved or rejected
+  employeePromise
+      .then((employee) => {
+          console.log(employee);
+      })
+      .catch((error) => {
+          console.error(error.message);
+      })
+      .finally(() => {
+          console.log("Employee load attempt finished.");
+      });
+#+end_src
+
+#+RESULTS:
+: { firstName: 'John', department: 'Engineering' }
+: Employee load attempt finished.
+
+*** Promise chaining
+
+#+begin_src js
+  // Promise chaining — each then() can return a value or another promise
+  function loadEmployee() {
+      return Promise.resolve({
+          firstName: "John",
+          lastName: "Joe",
+          department: "Engineering"
+      });
+  }
+
+  loadEmployee()
+      .then((employee) => {
+          return `${employee.firstName} ${employee.lastName}`;
+      })
+      .then((displayName) => {
+          console.log(displayName);
+      });
+#+end_src
+
+#+RESULTS:
+: John Joe
+
+*** Rejection in a chain
+
+#+begin_src js
+  function loadEmployee() {
+      return Promise.resolve({
+          firstName: "John",
+          lastName: "Joe",
+          department: "Engineering"
+      });
+  }
+  // Rejection in a chain — thrown error skips later then() handlers, lands in catch()
+  loadEmployee()
+      .then((employee) => {
+          throw new Error("Formatting failed.");
+      })
+      .then((displayName) => {
+          console.log(displayName);
+      })
+      .catch((error) => {
+          console.error(error.message);
+      });  
+#+end_src
+
+** Implementing async and await
+
+Using async, await, and try/catch to write readable asynchronous code.
+
+*** Async function
+
+#+begin_src js
+  // Async function — always returns a Promise, even for a plain return value
+  async function loadEmployee() {
+      return {
+          firstName: "David",
+          department: "Engineering"
+      };
+  }
+
+  // Calling the async function returns the promise wrapper, not the value
+  const result = loadEmployee();
+  console.log(result);
+#+end_src
+
+#+RESULTS:
+: Promise { { firstName: 'David', department: 'Engineering' } }
+
+*** Await function
+
+#+begin_src js
+  async function loadEmployee() {
+      return {
+          firstName: "David",
+          department: "Engineering"
+      };
+  }
+  // await — unwrap the resolved value (top-level await requires an ES module)
+  const employee = await loadEmployee();
+  console.log(employee);  
+#+end_src
+
+#+RESULTS:
+: { firstName: 'David', department: 'Engineering' }
+
+*** Async function that awaits a real promise
+
+#+begin_src js
+  // Async function that awaits a real promise — wait() simulates a slow operation
+  function wait(milliseconds) {
+      return new Promise((resolve) => {
+          setTimeout(resolve, milliseconds);
+      });
+  }
+
+  async function loadEmployeeSlowly() {
+      await wait(1000);
+
+      return {
+          firstName: "Sarah",
+          department: "Product"
+      };
+  }
+  const slowEmployee = await loadEmployeeSlowly();
+  console.log(slowEmployee);
+#+end_src
+
+#+RESULTS:
+: { firstName: 'Sarah', department: 'Product' }
+
+*** try/catch with awaited promises
+
+#+begin_src js
+  function wait(milliseconds) {
+      return new Promise((resolve) => {
+          setTimeout(resolve, milliseconds);
+      });
+  }
+  // try/catch with awaited promises — rejection behaves like a thrown error
+  async function loadBrokenEmployee() {
+      await wait(500);
+
+      throw new Error("Could not load employee.");
+  }
+
+  try {
+      const brokenEmployee = await loadBrokenEmployee();
+      console.log(brokenEmployee);
+  } catch (error) {
+      console.error(error.message);
+  }
+#+end_src
+
+*** Pass through a promise
+
+#+begin_src js
+  function wait(milliseconds) {
+      return new Promise((resolve) => {
+          setTimeout(resolve, milliseconds);
+      });
+  }
+
+  async function loadEmployeeSlowly() {
+      await wait(1000);
+
+      return {
+          firstName: "Sarah",
+          department: "Product"
+      };
+  }
+  
+  // Pass through a promise — no await needed when the caller will handle it
+  function loadEmployeeDirectly() {
+      return loadEmployeeSlowly();
+  }
+
+  // Unnecessary await — function adds nothing here, await is redundant
+  async function loadEmployeeWithUnnecessaryAwait() {
+      return await loadEmployeeSlowly();
+  }
+
+  // await with try/catch — needed when the function adds its own error handling
+  async function loadEmployeeWithHandling() {
+      try {
+          const employee = await loadEmployeeSlowly();
+          return employee;
+      } catch (error) {
+          throw new Error("Employee loading failed.", { cause: error });
+      }
+  }
+#+end_src
+
+* Promises, HTTP requests, and event handling
+
+** Modern promise helpers and combinators
+
+Using Promise.try, Promise.all, Promise.any, and Promise.race to coordinate concurrent work.
+
+*Promise combinator:* A promise combinator is a method that helps us coordinate multiple promises.
+
+*** Helper
+
+#+begin_src js
+  // Helper — returns a promise that resolves or rejects after a delay
+  function wait(milliseconds, value, shouldReject = false) {
+      return new Promise((resolve, reject) => {
+          setTimeout(() => {
+              if (shouldReject) {
+                  reject(new Error(`Failed: ${value}`));
+                  return;
+              }
+
+              resolve(value);
+          }, milliseconds);
+      });
+  }
+#+end_src
+
+*** Promise.try()
+
+#+begin_src js
+  // Promise.try() — wrap any function (sync, async, or throwing) in a promise
+  const result = await Promise.try(() => {
+      return "Loaded employee data";
+  });
+  console.log(result);
+#+end_src
+
+#+RESULTS:
+: Loaded employee data
+
+#+begin_src js
+  // Promise.try() — a thrown error becomes a promise rejection
+  try {
+      await Promise.try(() => {
+          throw new Error("Invalid employee data.");
+      });
+  } catch (error) {
+      console.error(error.message);
+  }
+#+end_src
+
+*** Promise.withResolvers()
+
+#+begin_src js
+  // Promise.withResolvers() — get a promise plus its resolve/reject controls
+  const { promise, resolve, reject } = Promise.withResolvers();
+  resolve("Done");
+  console.log(await promise);
+#+end_src
+
+#+RESULTS:
+: Done
+
+*** Promise.all()
+
+#+begin_src js
+  function wait(milliseconds, value, shouldReject = false) {
+      return new Promise((resolve, reject) => {
+          setTimeout(() => {
+              if (shouldReject) {
+                  reject(new Error(`Failed: ${value}`));
+                  return;
+              }
+              resolve(value);
+          }, milliseconds);
+      });
+  }
+  // Promise.all() — fail-fast wait for every promise to fulfill
+  const employeePromise = wait(300, "Employee loaded");
+  const departmentPromise = wait(500, "Department loaded");
+  const permissionsPromise = wait(200, "Permissions loaded");
+
+  const allResults = await Promise.all([
+      employeePromise,
+      departmentPromise,
+      permissionsPromise
+  ]);
+
+  console.log(allResults);
+#+end_src
+
+#+RESULTS:
+: [ 'Employee loaded', 'Department loaded', 'Permissions loaded' ]
+
+*** Promise.allSettled()
+
+#+begin_src js
+  function wait(milliseconds, value, shouldReject = false) {
+      return new Promise((resolve, reject) => {
+          setTimeout(() => {
+              if (shouldReject) {
+                  reject(new Error(`Failed: ${value}`));
+                  return;
+              }
+              resolve(value);
+          }, milliseconds);
+      });
+  }
+  // Promise.allSettled() — wait for every promise, capture each outcome
+  const settledResults = await Promise.allSettled([
+      wait(100, "Employee loaded"),
+      wait(200, "Department failed", true),
+      wait(150, "Permissions loaded")
+  ]);
+
+  console.log(settledResults);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[
+  { status: 'fulfilled', value: 'Employee loaded' },
+  {
+    status: 'rejected',
+    reason: Error: Failed: Department failed
+        at Timeout._onTimeout (file:///tmp/babel-iUS1hm/js-script-hpXB0R:5:24)
+        at listOnTimeout (node:internal/timers:685:17)
+        at process.processTimers (node:internal/timers:618:7)
+  },
+  { status: 'fulfilled', value: 'Permissions loaded' }
+]
+#+end_example
+
+*** Promise.any()
+
+#+begin_src js
+  function wait(milliseconds, value, shouldReject = false) {
+      return new Promise((resolve, reject) => {
+          setTimeout(() => {
+              if (shouldReject) {
+                  reject(new Error(`Failed: ${value}`));
+                  return;
+              }
+              resolve(value);
+          }, milliseconds);
+      });
+  }
+  // Promise.any() — first fulfilled wins, rejections ignored unless all reject
+  const firstSuccessful = await Promise.any([
+      wait(200, "Primary failed", true),
+      wait(300, "Backup succeeded"),
+      wait(100, "Cache failed", true)
+  ]);
+
+  console.log(firstSuccessful);
+#+end_src
+
+#+RESULTS:
+: Backup succeeded
+
+*** Promise.race()
+
+#+begin_src js
+  function wait(milliseconds, value, shouldReject = false) {
+      return new Promise((resolve, reject) => {
+          setTimeout(() => {
+              if (shouldReject) {
+                  reject(new Error(`Failed: ${value}`));
+                  return;
+              }
+              resolve(value);
+          }, milliseconds);
+      });
+  }
+  // Promise.race() — first to settle wins, whether fulfilled or rejected
+  const fastest = await Promise.race([
+      wait(300, "Slow result"),
+      wait(100, "Fast result")
+  ]);
+
+  console.log(fastest);
+#+end_src
+
+#+RESULTS:
+: Fast result
+
+*** Using Promise helpers
+
+- *Promise.all* when all tasks must succeed
+- *Promise.allSettled* when you need every outcome
+- *Promise.any* when the first success is enough
+- *Promise.race* when the first settled result matters
+- *Promise.try* when you want to start a promise flow that may return or throw synchronously
+- *Promise.withResolvers* is an advanced helper
+
+** Making HTTP requests
+Using fetch, response.ok, and AbortController to call HTTP APIs reliably
+
+*** fetch()
+
+#+begin_src js
+  // fetch() — basic HTTP GET request, returns a Response object
+  const response = await fetch("https://jsonplaceholder.typicode.com/users");
+
+  console.log(response.status);
+  console.log(response.ok);
+
+  // response.json() — parse the JSON body of the response
+  const users = await response.json();
+  console.log(users[0]);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+200
+true
+{
+  id: 1,
+  name: 'Leanne Graham',
+  username: 'Bret',
+  email: 'Sincere@april.biz',
+  address: {
+    street: 'Kulas Light',
+    suite: 'Apt. 556',
+    city: 'Gwenborough',
+    zipcode: '92998-3874',
+    geo: { lat: '-37.3159', lng: '81.1496' }
+  },
+  phone: '1-770-736-8031 x56442',
+  website: 'hildegard.org',
+  company: {
+    name: 'Romaguera-Crona',
+    catchPhrase: 'Multi-layered client-server neural-net',
+    bs: 'harness real-time e-markets'
+  }
+}
+#+end_example
+
+*** Fetch to throw on non-2xx HTTP status
+
+#+begin_src js
+  // fetchJson() — wrap fetch to throw on non-2xx HTTP status
+  async function fetchJson(url) {
+      const response = await fetch(url);
+      if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+      }
+      return response.json();
+  }
+
+  // try/catch around fetchJson — catches both HTTP errors and network failures
+  try {
+      const users = await fetchJson("https://jsonplaceholder.typicode.com/users");
+      console.log(users.length);
+  } catch (error) {
+      console.error(error.message);
+  }
+#+end_src
+
+#+RESULTS:
+: 10
+
+*** Validate response
+
+#+begin_src js
+  async function fetchJson(url) {
+      const response = await fetch(url);
+      if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+      }
+      return response.json();
+  }
+
+  // Validate response shape — parsed JSON isn't guaranteed to match what we expect
+    const data = await fetchJson("https://jsonplaceholder.typicode.com/users");
+
+    if (!Array.isArray(data)) {
+        throw new Error("Expected an array of users.");
+    }
+#+end_src
+
+*** AbortController
+
+#+begin_src js
+  // AbortController — cancel a fetch (here, after 3 seconds)
+  const controller = new AbortController();
+
+  setTimeout(() => {
+      controller.abort();
+  }, 3000);
+
+  try {
+      const abortableResponse = await fetch("https://jsonplaceholder.typicode.com/users", {
+          signal: controller.signal
+      });
+
+      console.log(abortableResponse.status);
+  } catch (error) {
+      console.error(error.message);
+  }
+#+end_src
+
+#+RESULTS:
+: 200
+
+** Concurrent promises
+
+Using Promise.all and Promise.allSettled to balance fail-fast and partial success
+
+The right choice depends on the user experience and the data requirements.
+
+So always ask: does this step depend on the previous result? If yes, use sequential flow. If no, concurrent flow may be better.
+
+*** Sequential
+
+#+begin_src js
+  // Helper — resolves with `value` after `milliseconds`
+  function wait(milliseconds, value) {
+      return new Promise((resolve) => {
+          setTimeout(() => resolve(value), milliseconds);
+      });
+  }
+
+  // Sequential — each await blocks until the previous step finishes
+  const employee = await wait(500, "Employee loaded");
+  console.log(employee);
+
+  const department = await wait(500, "Department loaded");
+  console.log(department);
+
+  const permissions = await wait(500, "Permissions loaded");
+  console.log(permissions);
+#+end_src
+
+#+RESULTS:
+: Employee loaded
+: Department loaded
+: Permissions loaded
+
+*** Concurrent
+
+#+begin_src js
+  function wait(milliseconds, value) {
+      return new Promise((resolve) => {
+          setTimeout(() => resolve(value), milliseconds);
+      });
+  }
+  // Concurrent — start all promises first, then await them together with Promise.all()
+  const employeePromise = wait(500, "Employee loaded");
+  const departmentPromise = wait(500, "Department loaded");
+  const permissionsPromise = wait(500, "Permissions loaded");
+
+  const results = await Promise.all([
+      employeePromise,
+      departmentPromise,
+      permissionsPromise
+  ]);
+
+  console.log(results);
+#+end_src
+
+#+RESULTS:
+: [ 'Employee loaded', 'Department loaded', 'Permissions loaded' ]
+
+**** failAfter helper + promise.all()
+
+#+begin_src js
+  function wait(milliseconds, value) {
+      return new Promise((resolve) => {
+          setTimeout(() => resolve(value), milliseconds);
+      });
+  }
+  // failAfter helper + Promise.all() fail-fast — one rejection short-circuits the rest
+  function failAfter(milliseconds, message) {
+      return new Promise((resolve, reject) => {
+          setTimeout(() => reject(new Error(message)), milliseconds);
+      });
+  }
+
+  try {
+      await Promise.all([
+          wait(500, "Employee loaded"),
+          failAfter(200, "Department failed"),
+          wait(400, "Permissions loaded")
+      ]);
+  } catch (error) {
+      console.error(error.message);
+  }
+#+end_src
+
+*** Promise.allSettled()
+
+#+begin_src js
+  function wait(milliseconds, value) {
+      return new Promise((resolve) => {
+          setTimeout(() => resolve(value), milliseconds);
+      });
+  }
+  // failAfter helper + Promise.all() fail-fast — one rejection short-circuits the rest
+  function failAfter(milliseconds, message) {
+      return new Promise((resolve, reject) => {
+          setTimeout(() => reject(new Error(message)), milliseconds);
+      });
+  }
+  // Promise.allSettled() — every outcome reported, partial success allowed
+  const settledResults = await Promise.allSettled([
+      wait(500, "Employee loaded"),
+      failAfter(200, "Department failed"),
+      wait(400, "Permissions loaded")
+  ]);
+
+  console.log(settledResults);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[
+  { status: 'fulfilled', value: 'Employee loaded' },
+  {
+    status: 'rejected',
+    reason: Error: Department failed
+        at Timeout._onTimeout (file:///tmp/babel-tnzEWf/js-script-twEjXD:9:33)
+        at listOnTimeout (node:internal/timers:685:17)
+        at process.processTimers (node:internal/timers:618:7)
+  },
+  { status: 'fulfilled', value: 'Permissions loaded' }
+]
+#+end_example
+
+** Asynchronous file operations
+
+Using node:fs/promises and try/catch to read and write JSON files
+
+*** Write file
+
+#+begin_src js
+  // Promise-based file system APIs from Node.js
+  import { readFile, writeFile } from "node:fs/promises";
+
+  // Sample employee data used by every file example below
+  const employee = {
+      id: "E-1001",
+      firstName: "David",
+      department: "Engineering"
+  };
+
+  // writeFile() — serialize and write JSON to disk
+  const json = JSON.stringify(employee, null, 2);
+
+  await writeFile("employee.json", json, "utf8");
+
+  console.log("Employee file written.");
+#+end_src
+
+#+RESULTS:
+: Employee file written.
+
+*** Read file
+
+#+begin_src js
+  import { readFile, writeFile } from "node:fs/promises";
+
+  // readFile() — read file contents as a UTF-8 string
+  const fileContents = await readFile("employee.json", "utf8");
+  console.log(fileContents);
+#+end_src
+
+#+RESULTS:
+: {
+:   "id": "E-1001",
+:   "firstName": "David",
+:   "department": "Engineering"
+: }
+
+*** JSON.parse()
+
+#+begin_src js
+  import { readFile, writeFile } from "node:fs/promises";
+
+  // readFile() — read file contents as a UTF-8 string
+  const fileContents = await readFile("employee.json", "utf8");
+  console.log(fileContents);
+
+  // JSON.parse() — turn the string back into a JavaScript object
+  const parsedEmployee = JSON.parse(fileContents);
+  console.log(parsedEmployee.firstName);
+#+end_src
+
+#+RESULTS:
+: {
+:   "id": "E-1001",
+:   "firstName": "David",
+:   "department": "Engineering"
+: }
+: David
+
+*** Handle missing files
+
+#+begin_src js
+  import { readFile, writeFile } from "node:fs/promises";
+  
+  // Handle missing files — readFile() rejects when the file doesn't exist
+  try {
+      const missingContents = await readFile("missing.json", "utf8");
+      console.log(missingContents);
+  } catch (error) {
+      console.error("Could not read file:", error.message);
+  }
+
+#+end_src
+
+*** Single try/catch
+
+#+begin_src js
+  import { readFile, writeFile } from "node:fs/promises";
+
+  // Single try/catch covers both file-read failures and JSON parse failures
+  try {
+      const contents = await readFile("employee.json", "utf8");
+      const data = JSON.parse(contents);
+
+      console.log(data);
+  } catch (error) {
+      console.error("Could not load employee data:", error.message);
+  }
+#+end_src
+
+#+RESULTS:
+: { id: 'E-1001', firstName: 'David', department: 'Engineering' }
+
+*** Reusable loader
+
+#+begin_src js
+  import { readFile, writeFile } from "node:fs/promises";
+  
+  // Reusable loader — wraps the original error with Error.cause for context
+  async function loadJsonFile(filePath) {
+      try {
+          const contents = await readFile(filePath, "utf8");
+          return JSON.parse(contents);
+      } catch (error) {
+          throw new Error(`Failed to load JSON file: ${filePath}`, { cause: error });
+      }
+  }
+
+  try {
+      const data = await loadJsonFile("employee.json");
+      console.log(data);
+  } catch (error) {
+      console.error(error.message);
+  }
+#+end_src
+
+#+RESULTS:
+: { id: 'E-1001', firstName: 'David', department: 'Engineering' }
+
+** Event handling
+
+*Event-driven programming:*
+Event-driven programming means the program responds to events as they happen. Instead of only running one script from start to finish, an event-driven program registers handlers and waits for events, and when an event occurs, the matching handler runs.
+
+*** Browser events
+
+- Click events
+- Keyboard events
+- Form events
+- Mouse events
+- Page load events
+
+*** Node.js events
+
+- Stream events
+- Server events
+- Process events
+- Custom event emitters
+
+*** Event handler
+
+Understanding the basic pattern
+
+#+begin_src js
+  something.on("eventName", () => {
+      console.log("The event happened.");
+  });
+#+end_src
+
+** Using event handling
+
+Using EventEmitter, on, and emit to react to application events
+
+*** EventEmitter
+
+#+begin_src js
+  // EventEmitter — Node.js's built-in pub/sub primitive
+  import { EventEmitter } from "node:events";
+
+  const employeeEvents = new EventEmitter();
+
+  // on() — register a handler for a named event
+  employeeEvents.on("employee-added", () => {
+      console.log("An employee was added.");
+  });
+
+  // emit() — fire the event, all matching handlers run
+  employeeEvents.emit("employee-added");
+#+end_src
+
+#+RESULTS:
+: An employee was added.
+
+*** Pass data with the event
+
+#+begin_src js
+  import { EventEmitter } from "node:events";
+
+  const employeeEvents = new EventEmitter();
+
+  // Pass data with the event — the emit() arguments become handler arguments
+  employeeEvents.on("employee-created", (employee) => {
+      console.log(`Created employee: ${employee.firstName}`);
+  });
+
+  employeeEvents.emit("employee-created", {
+      id: "E-1001",
+      firstName: "David",
+      department: "Engineering"
+  });f
+#+end_src
+
+#+RESULTS:
+: Created employee: David
+
+*** Multiple handlers
+
+#+begin_src js
+  import { EventEmitter } from "node:events";
+
+  const employeeEvents = new EventEmitter();
+
+  // Multiple handlers — every handler for the event runs in registration order
+  employeeEvents.on("employee-created", (employee) => {
+      console.log(`Audit log: ${employee.id} created.`);
+  });
+
+  employeeEvents.emit("employee-created", {
+      id: "E-1002",
+      firstName: "Sarah",
+      department: "Product"
+  });
+#+end_src
+
+#+RESULTS:
+: Audit log: E-1002 created.
+
+*** Project pattern
+
+#+begin_src js
+  import { EventEmitter } from "node:events";
+
+  const employeeEvents = new EventEmitter();
+
+  employeeEvents.on("employee-created", (employee) => {
+      console.log(`Audit log: ${employee.id} created.`);
+  });
+
+  // Project pattern — addEmployee() emits, handlers decide what to do
+  function addEmployee(employee) {
+      // Save employee somewhere.
+      employeeEvents.emit("employee-created", employee);
+  }
+
+  addEmployee({
+      id: "E-1003",
+      firstName: "Mina",
+      department: "Engineering"
+  });
+#+end_src
+
+#+RESULTS:
+: Audit log: E-1003 created.
+
+* Modules, packages, and project structure
+
+** Understanding modules
+
+*** ES modules
+
+#+begin_src js
+  // We can define a function that we want to use in other files
+  export function formatEmployeeName(employee) {
+      return `${employee.firstName} ${employee.lastName}`;
+  }
+  // We can then import that function when we want to use it in another file
+  import { formatEmployeeName } from "./formatting.js";
+#+end_src
+
+*** CommonJS modules
+
+#+begin_src js
+  // CommonJS modules use require instead of import
+  const fs = require("fs");
+  // CommonJS modules use module.exports instead of the export keyword
+  module.exports = { formatEmployeeName };
+#+end_src
+
+*** Named and default exports
+
+#+begin_src js
+  // Using the export keyword in this manner creates a named export
+  export function validateEmployee(employee) {
+      return Boolean(employee.firstName);
+  }
+  // To import a named export, we use curly braces
+  import { validateEmployee } from "./validation.js";
+  
+  // The default keyword makes this function the default export
+  export default function formatEmployeeName(employee) {
+      return `${employee.firstName} ${employee.lastName}`;
+  }
+  // We don't use curly braces when importing the default export
+  import formatEmployeeName from "./formatting.js";
+#+end_src
+
+*** Importing Node.js built-in modules
+
+#+begin_src js
+  // The node: prefix indicates that it is a built-in Node.js module
+  import { readFile } from "node:fs/promises";
+  import { parseArgs } from "node:util";
+#+end_src
+
+** Exporting values
+
+Using named and default exports to share values across files
+
+*** Project setup
+
+Create a folder =modules-demo= and move to it
+#+begin_src sh 
+  mkdir modules-demo && cd modules-demo
+#+end_src
+
+Create the file =package.json= and add the following, so =node.js= will treat =js= files as =es-modules=
+
+#+begin_src json
+  {
+      "type": "module"
+  }
+#+end_src
+
+*** Named exports
+
+Create the file =formatting.js= and add named exports
+#+begin_src js
+  // Named export — `export` makes the function importable from other modules
+  export function formatEmployeeName(employee) {
+      return `${employee.firstName} ${employee.lastName}`;
+  }
+
+  // Additional named export — multiple exports per module are normal
+  export function formatDepartmentLabel(employee) {
+      return `Department: ${employee.department}`;
+  }
+#+end_src
+
+*** Default export
+
+Create the file =badge.js= and add a default export.
+#+begin_src js
+  // Default export — one main value per module, no curly braces on import
+  export default function getBadgeColor(yearsOfService) {
+      if (yearsOfService < 5) {
+          return "blue";
+      }
+      if (yearsOfService < 10) {
+          return "yellow";
+      }
+      return "silver";
+  }
+#+end_src
+
+*** Import named exports
+
+Create the file index.js and import the modules
+#+begin_src js
+  // Multiple named imports — comma-separated inside the curly braces
+  import { formatEmployeeName, formatDepartmentLabel } from "./formatting.js";
+
+  // Default import — pick any name; no curly braces
+  import getBadgeColor from "./badge.js";
+
+  console.log(getBadgeColor(7));
+
+  const employee = {
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering"
+  };
+
+  console.log(formatEmployeeName(employee));
+  console.log(formatDepartmentLabel(employee));
+#+end_src
+
+*** Demo project
+
+[[file:~/Documents/org/demos/javascript/javascript_fundamentals/modules_packages_project-structure/modules-demo/][modules-demo]]
+
+** Creating a multi-file JavaScript project
+
+Organizing a project into data, utility, and entry-point ES modules
+
+#+begin_quote
+A good project structure helps avoid circular dependencies.
+Keep utility modules focused.
+Keep data separate.
+#+end_quote
+
+*** Project setup
+
+Create a folder =employee-directory= and move to it
+#+begin_src sh 
+  mkdir employee-directory && cd employee-directory
+#+end_src
+
+Create the file =package.json= and add the following, so =node.js= will treat =js= files as =es-modules= and run the project with =npm start=
+
+#+begin_src json
+  {
+      "name": "employee-directory",
+      "type": "module",
+      "scripts": {
+          "start": "node src/index.js"
+      }
+  }
+#+end_src
+
+*** Data file
+
+Create the file =src/data/employee.js= and add some demo employees
+#+begin_src js
+  // Data module — exports a constant the rest of the project can import
+  export const employees = [
+      { id: "E-1001", firstName: "David", lastName: "Tucker", department: "Engineering", years: 7, isActive: true },
+      { id: "E-1002", firstName: "Sarah", lastName: "Smith", department: "Product", years: 3, isActive: false },
+      { id: "E-1003", firstName: "Mina", lastName: "Patel", department: "Engineering", years: 11, isActive: true }
+  ];
+#+end_src
+
+*** Utilities
+
+Add the file =src/utilities/formatting.js=
+#+begin_src js
+  // Formatting module — display-related helpers, one of which composes the other
+  export function formatEmployeeName(employee) {
+      return `${employee.firstName} ${employee.lastName}`;
+  }
+
+  export function formatEmployeeSummary(employee) {
+      return `${formatEmployeeName(employee)} - ${employee.department}`;
+  }
+#+end_src
+
+Add the file =src/utilities/validation.js=
+#+begin_src js
+  // Validation module — small predicates that answer yes/no questions
+  export function isActiveEmployee(employee) {
+      return employee.isActive === true;
+  }
+
+  export function hasRequiredEmployeeFields(employee) {
+      return Boolean(employee.id && employee.firstName && employee.lastName && employee.department);
+  }
+#+end_src
+
+Add the file =src/utilities/badges.js=
+#+begin_src js
+  // Badge module — guard-style returns by years of service
+  export function getBadgeColor(yearsOfService) {
+      if (yearsOfService < 5) {
+          return "blue";
+      }
+
+      if (yearsOfService < 10) {
+          return "yellow";
+      }
+
+      if (yearsOfService < 15) {
+          return "red";
+      }
+
+      return "silver";
+  }
+#+end_src
+
+*** Index file
+
+Add the file =src/index.js= and import the previous files
+#+begin_src js
+  // Entry point — imports from each module and coordinates the flow
+  import { employees } from "./data/employees.js";
+  import { formatEmployeeSummary } from "./utilities/formatting.js";
+  import { isActiveEmployee } from "./utilities/validation.js";
+  import { getBadgeColor } from "./utilities/badges.js";
+
+  const activeEmployees = employees.filter(isActiveEmployee);
+
+  for (const employee of activeEmployees) {
+      const summary = formatEmployeeSummary(employee);
+      const badgeColor = getBadgeColor(employee.years);
+
+      console.log(`${summary} - Badge: ${badgeColor}`);
+  }
+#+end_src
+
+*** Demo project
+
+[[file:~/Documents/org/demos/javascript/javascript_fundamentals/modules_packages_project-structure/employee-directory/][employee-directory]]
+
+** Using third-party modules
+Using npm install to add runtime and development dependencies
+
+*** Third-party package considerations
+
+- Do I actually need it?
+- Is the package well-maintained?
+- Does it have a reasonable number of users?
+- Does it solve a problem big enough to warrant it?
+- Does it have known bugs or security issues?
+
+*** Project setup
+
+
+#+begin_src sh
+  # create a folder =npm-demo= and move to it
+  mkdir npm-demo && cd npm-demo
+
+  # initialize the project
+  npm init -y
+#+end_src
+
+Open the file =package.json= and modify the =type= from =commonjs= to =module=
+
+#+begin_src sh
+  # from
+  "type": "commonjs"
+  # to
+  "type": "module"
+#+end_src
+
+*** Add dependencies
+
+#+begin_src sh
+  # add a depedency
+  npm install nanoid
+
+  # add a dev dependency
+  npm install --save-dev vitest
+#+end_src
+
+*** Demo project
+
+[[file:~/Documents/org/demos/javascript/javascript_fundamentals/modules_packages_project-structure/npm-demo/][npm-demo]]
+
+** JSON modules and import attributes
+Comparing JSON module imports, runtime file reads, and API responses
+
+#+begin_quote
+Static JSON imports are useful when the JSON is part of your project.
+#+end_quote
+
+*** Project setup
+
+Create a folder =json-modules= and move to it
+#+begin_src sh 
+  mkdir json-modules && cd json-modules
+#+end_src
+
+Create the file =package.json= and add the following, so =node.js= will treat =js= files as =es-modules=
+
+#+begin_src json
+  {
+      "type": "module"
+  }
+#+end_src
+
+*** Add a json with data
+
+Add the file =employees.json=
+#+begin_src json
+  [
+      {
+          "id": "E-1001",
+          "firstName": "David",
+          "department": "Engineering"
+      },
+      {
+          "id": "E-1002",
+          "firstName": "Sarah",
+          "department": "Product"
+      }
+  ]
+#+end_src
+
+*** Index file
+
+Create the file =index.js= and import the json file
+#+begin_src js
+  // JSON module import — the `with { type: "json" }` attribute parses on import
+  import employees from "./employees.json" with { type: "json" };
+
+  console.log(employees);
+
+  // Runtime file read — useful when the path is dynamic or error handling matters
+  import { readFile } from "node:fs/promises";
+
+  const contents = await readFile("./employees.json", "utf8");
+  const runtimeEmployees = JSON.parse(contents);
+
+  console.log(runtimeEmployees);
+
+  // API response — data loaded over the network at runtime
+  const response = await fetch("https://example.com/employees");
+  const apiEmployees = await response.json();
+
+  console.log(apiEmployees);
+#+end_src
+
+*** Demo project
+
+json-modules
+
+* File I/O, data transfer, and databases
+
+** Reading and writing files
+
+Using node:fs/promises to read and write text and JSON files
+
+*** Project setup
+
+Create the folder =employee-directory= and move to it
+#+begin_src sh
+  mkdir employee-directory && cd employee-directory
+#+end_src
+
+Add the file =package.json=
+
+#+begin_src json
+  {
+      "type": "module",
+      "scripts": {
+          "start": "node src/index.js"
+      }
+  }
+#+end_src
+
+*** Add the json file
+
+Create the file =data/employees.json=
+#+begin_src json
+  [
+      {
+          "id": "E-1001",
+          "firstName": "David",
+          "lastName": "Tucker",
+          "department": "Engineering",
+          "isActive": true
+      },
+      {
+          "id": "E-1002",
+          "firstName": "Sarah",
+          "lastName": "Smith",
+          "department": "Product",
+          "isActive": true
+      },
+      {
+          "id": "E-1003",
+          "firstName": "Mina",
+          "lastName": "Patel",
+          "department": "Engineering",
+          "isActive": true
+      },
+      {
+          "id": "E-1003",
+          "firstName": "Mina",
+          "lastName": "Patel",
+          "department": "Engineering",
+          "isActive": true
+      }
+  ]
+#+end_src
+
+*** Read and write files
+
+Add the file =src/files.js= to read and write files.
+#+begin_src js
+  // Text-file reader — thin wrapper over fs/promises readFile()
+  import { readFile, writeFile } from "node:fs/promises";
+
+  export async function readTextFile(filePath) {
+      return readFile(filePath, "utf8");
+  }
+
+  // JSON reader — compose on top of readTextFile()
+  export async function readJsonFile(filePath) {
+      const contents = await readTextFile(filePath);
+      return JSON.parse(contents);
+  }
+
+  // Text-file writer — thin wrapper over fs/promises writeFile()
+  export async function writeTextFile(filePath, contents) {
+      await writeFile(filePath, contents, "utf8");
+  }
+
+  // JSON writer — stringify with indentation, then write
+  export async function writeJsonFile(filePath, data) {
+      const contents = JSON.stringify(data, null, 2);
+      await writeTextFile(filePath, contents);
+  }
+#+end_src
+
+*** Index file
+
+Create the =src/index.js= file
+#+begin_src js
+  // Round-trip — read, push, write
+  import { readJsonFile, writeJsonFile } from "./files.js";
+  // path.join() — build cross-platform paths from segments
+  import path from "node:path";
+
+  const employeeFilePath = path.join("data", "employees.json");
+
+
+  const employees = await readJsonFile(employeeFilePath);
+
+  employees.push({
+      id: "E-1003",
+      firstName: "Mina",
+      lastName: "Patel",
+      department: "Engineering",
+      isActive: true
+  });
+
+  await writeJsonFile("./data/employees.json", employees);
+
+  console.log("Employee saved.");
+
+  // import.meta.url — get a path relative to the current module file
+  import { fileURLToPath } from "node:url";
+
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+
+  const moduleRelativePath = path.join(__dirname, "..", "data", "employees.json");
+#+end_src
+
+*** Demo project
+
+[[file:~/Documents/org/demos/javascript/javascript_fundamentals/file-io_data-transfer_db/employee-directory/][employee-directory]]
+
+** Data transfer with JSON and APIs
+
+Using JSON.stringify, JSON.parse, and fetch to move data between systems
+
+*** Turn an object into a JSON string
+
+#+begin_src js
+  // In-memory JavaScript object — the starting point for all data-transfer examples
+  const employee = {
+      id: "E-1001",
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering",
+      isActive: true
+  };
+
+  // JSON.stringify() — turn the object into a compact JSON string
+  const json = JSON.stringify(employee);
+
+  console.log(json);
+  console.log(typeof json);
+
+  // JSON.stringify() with indentation — readable output for files and logs
+  const formattedJson = JSON.stringify(employee, null, 2);
+
+  console.log(formattedJson);
+#+end_src
+
+#+RESULTS:
+: {"id":"E-1001","firstName":"David","lastName":"Tucker","department":"Engineering","isActive":true}
+: string
+: {
+:   "id": "E-1001",
+:   "firstName": "David",
+:   "lastName": "Tucker",
+:   "department": "Engineering",
+:   "isActive": true
+: }
+
+*** Turn a JSON string into a javascript object
+
+#+begin_src js
+  const employee = {
+      id: "E-1001",
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering",
+      isActive: true
+  };
+
+  // JSON.stringify() — turn the object into a compact JSON string
+  const json = JSON.stringify(employee);
+
+  // JSON.parse() — turn the JSON string back into a JavaScript object
+  const parsedEmployee = JSON.parse(json);
+  console.log(parsedEmployee.firstName); 
+#+end_src
+
+#+RESULTS:
+: David
+
+*** Get data from the internet
+
+#+begin_src js
+  // fetchEmployees() — request, status check, JSON parse in one helper
+  async function fetchEmployees() {
+      const response = await fetch("https://jsonplaceholder.typicode.com/users");
+      if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+      }
+      return response.json();
+  }
+  const users = await fetchEmployees();
+  console.log(users[0]);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+{
+  id: 1,
+  name: 'Leanne Graham',
+  username: 'Bret',
+  email: 'Sincere@april.biz',
+  address: {
+    street: 'Kulas Light',
+    suite: 'Apt. 556',
+    city: 'Gwenborough',
+    zipcode: '92998-3874',
+    geo: { lat: '-37.3159', lng: '81.1496' }
+  },
+  phone: '1-770-736-8031 x56442',
+  website: 'hildegard.org',
+  company: {
+    name: 'Romaguera-Crona',
+    catchPhrase: 'Multi-layered client-server neural-net',
+    bs: 'harness real-time e-markets'
+  }
+}
+#+end_example
+
+*** Validate data
+
+#+begin_src js
+  async function fetchEmployees() {
+      const response = await fetch("https://jsonplaceholder.typicode.com/users");
+      if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+      }
+      return response.json();
+  }
+  const users = await fetchEmployees();
+
+  // Validate before using — external data can't be trusted to match what we expect
+  function isValidUser(user) {
+      return Boolean(user.id && user.name && user.email);
+  }
+
+  const validUsers = users.filter(isValidUser);
+  console.log(validUsers.length);
+#+end_src
+
+#+RESULTS:
+: 10
+
+*** Reusable parse
+
+#+begin_src js
+  // In-memory JavaScript object — the starting point for all data-transfer examples
+  const employee = {
+      id: "E-1001",
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering",
+      isActive: true
+  };
+
+  // JSON.stringify() with indentation — readable output for files and logs
+  const formattedJson = JSON.stringify(employee, null, 2);
+
+  // Reusable parse + validate — fails fast on missing required fields
+  function parseEmployeeJson(jsonText) {
+      const parsedValue = JSON.parse(jsonText);
+
+      if (!parsedValue.id || !parsedValue.firstName) {
+          throw new Error("Invalid employee data.");
+      }
+
+      return parsedValue;
+  }
+
+  try {
+      const result = parseEmployeeJson(formattedJson);
+      console.log(result);
+  } catch (error) {
+      console.error(error.message);
+  }
+#+end_src
+
+#+RESULTS:
+: {
+:   id: 'E-1001',
+:   firstName: 'David',
+:   lastName: 'Tucker',
+:   department: 'Engineering',
+:   isActive: true
+: }
+
+** Working with a relational database
+Using better-sqlite3 to insert and query records with parameterized statements
+
+*SQLite*
+SQLite is a lightweight relational database that stores data in a local file.
+
+#+begin_quote
+Validation and parameterized queries work together, where validation helps ensure your application receives meaningful data, and parameterized queries help keep the database operation safe.
+#+end_quote
+
+*** Project setup
+
+Create the folder =sqlite-demo= and move into it
+#+begin_src sh
+  mkdir sqlite-demo && cd sqlite-demo
+#+end_src
+
+Add the file =package.json=
+#+begin_src json
+  {
+      "type": "module",
+      "scripts": {
+          "start": "node src/index.js"
+      },
+      "dependencies": {
+          "better-sqlite3": "^12.11.1"
+      }
+  }
+#+end_src
+
+Install the package for sqlite
+#+begin_src sh
+  npm install better-sqlite3
+#+end_src
+
+*** Database operations
+
+Add the file =src/database.js=
+
+#+begin_src js
+  // Database setup — open the file and define the schema if it doesn't exist
+  import Database from "better-sqlite3";
+
+  const database = new Database("employee-directory.db");
+
+  export function initializeDatabase() {
+      database.exec(`
+      CREATE TABLE IF NOT EXISTS employees (
+        id TEXT PRIMARY KEY,
+        first_name TEXT NOT NULL,
+        last_name TEXT NOT NULL,
+        department TEXT NOT NULL,
+        is_active INTEGER NOT NULL
+      )
+    `);
+  }
+
+  // Parameterized INSERT — `?` placeholders kept separate from user data
+  export function insertEmployee(employee) {
+      const statement = database.prepare(`
+      INSERT INTO employees (id, first_name, last_name, department, is_active)
+      VALUES (?, ?, ?, ?, ?)
+    `);
+
+      statement.run(
+          employee.id,
+          employee.firstName,
+          employee.lastName,
+          employee.department,
+          employee.isActive ? 1 : 0
+      );
+  }
+
+  // SELECT + map — translate snake_case columns into camelCase JavaScript objects
+  export function getEmployees() {
+      const statement = database.prepare(`
+      SELECT id, first_name, last_name, department, is_active
+      FROM employees
+      ORDER BY last_name, first_name
+    `);
+
+      const rows = statement.all();
+
+      return rows.map((row) => ({
+          id: row.id,
+          firstName: row.first_name,
+          lastName: row.last_name,
+          department: row.department,
+          isActive: Boolean(row.is_active)
+      }));
+  }
+
+  // UNSAFE — concatenating user input into the SQL is a SQL-injection vector
+  // const unsafeDepartment = "Engineering";
+  // const sql = `SELECT * FROM employees WHERE department = '${unsafeDepartment}'`;
+
+  // SAFE — parameterized query, driver passes the value as data, not SQL
+  export function getEmployeesByDepartment(department) {
+      const statement = database.prepare(`
+      SELECT id, first_name, last_name, department, is_active
+      FROM employees
+      WHERE department = ?
+    `);
+
+      return statement.all(department);
+  }
+#+end_src
+
+*** Index file
+
+Add the file =src/index.js= and import the functions for the database
+#+begin_src js
+  // Entry point — initialize schema, insert a row, list everyone
+  import { getEmployees, initializeDatabase, insertEmployee } from "./database.js";
+
+  initializeDatabase();
+
+  insertEmployee({
+      id: "E-1001",
+      firstName: "David",
+      lastName: "Tucker",
+      department: "Engineering",
+      isActive: true
+  });
+
+  console.table(getEmployees());
+#+end_src
+
+*** Demo project
+
+[[file:~/Documents/org/demos/javascript/javascript_fundamentals/file-io_data-transfer_db/sqlite-demo/][sqlite-demo]]
+
+** Final project integration
+
+Combining files, validation, formatting, and logic modules into one script
+
+*** Project organization guidelines
+
+- Each file should have one clear responsibility:
+  + File access
+  + Validation
+  + Output formatting
+  + Business logic
+- Code will be in a src directory
+- Data will be in a data directory
+
+*** Demo project
+
+[[file:~/Documents/org/demos/javascript/javascript_fundamentals/file-io_data-transfer_db/directory-app/][directory-app]]
+
+* Clean, maintainable code and reading existing code
+
+** What makes code maintainable?
+
+*** Code readability
+
+Readable code communicates clearly. It uses names that make sense. It avoids unnecessary cleverness. It is formatted consistently. It is organized in a way that helps the reader understand the flow.
+
+*** Consistent naming
+
+#+begin_src js
+  // Variables should describe values
+  const activeEmployees = employees.filter((employee) => employee.isActive);
+
+  // Functions should describe behavior
+  function formatEmployeeSummary(employee) {
+      return `${employee.firstName} ${employee.lastName} - ${employee.department}`;
+  }
+  
+  // Booleans should start with is, has, can, or should
+  const isActive = true;
+  const hasManager = false;
+  const canAccessReports = true;
+#+end_src
+
+*** Small functions
+
+#+begin_src js
+  // A function should have one clear job
+  function isActiveEmployee(employee) {
+      return employee.isActive === true;
+  }
+#+end_src
+
+#+begin_quote
+Duplication makes code harder to maintain. If the same validation rule appears in five places, and the rule changes, you must update all five places. If you miss one, you have a bug.
+
+The goal is not to impress readers. The goal is to help readers.
+#+end_quote
+
+** Reading existing JavaScript code
+
+*** Start with package.json
+
+#+begin_src json
+  {
+      "type": "module",
+      "scripts": {
+          "start": "node src/index.js",
+          "test": "vitest",
+          "lint": "eslint ."
+      },
+      "dependencies": {},
+      "devDependencies": {}
+  }
+#+end_src
+
+*** Follow imports
+
+#+begin_src js
+  // Imports show what this file depends on - start your read here
+  import { readJsonFile } from "./files.js";
+  import { validateEmployee } from "./validation.js";
+  import { formatEmployeeSummary } from "./formatting.js";
+#+end_src
+
+*** Find exported functions
+
+#+begin_src js
+  // Exports define the module's public surface - anything else is internal
+  export function validateEmployee(employee) {
+      // ...
+  }
+#+end_src
+
+*** Trace data flow
+
+#+begin_src js
+  // Read - filter - format - the data-flow story for this script
+  const employees = await readJsonFile("./data/employees.json");
+  const activeEmployees = employees.filter((employee) => employee.isActive);
+  const summaries = activeEmployees.map(formatEmployeeSummary);
+#+end_src
+
+*** Identify older patterns
+
+#+begin_src js
+  // Legacy pattern - `var` variable declaration
+  var firstName = "David";
+
+  // Legacy pattern - CommonJS require() / module.exports
+  const fs = require("fs");
+  module.exports = { loadEmployees };
+  
+  // Legacy pattern - error-first callback (predates promises/async-await)
+  readFile("employees.json", (error, data) => {
+      // ...
+  });
+#+end_src
+
+*** Project clues
+
+- Comments and documentation can explain intent
+- Tests can show expected behavior
+- Linting rules can show team conventions
+
+** Unit testing review and coverage
+
+Using Vitest and coverage to prove meaningful behavior
+
+*** Demo project
+
+[[file:~/Documents/org/demos/javascript/javascript_fundamentals/clean-maintainable-code/coverage-demo/][coverage-demo]]
+
+*** Dependencies and scripts for testing
+
+Check the =package.json= file for dependencies and scripts
+
+#+begin_src json
+  {
+      "name": "coverage-demo",
+      "version": "1.0.0",
+      "type": "module",
+      "scripts": {
+          "test": "vitest",
+          "coverage": "vitest run --coverage"
+      },
+      "devDependencies": {
+          "vitest": "^3.0.0",
+          "@vitest/coverage-v8": "^3.0.0"
+      }
+  }
+#+end_src
+
+*** Test file
+
+Check the test file =src/badges.test.js=
+#+begin_src js
+  import { describe, expect, it } from "vitest";
+  import { getBadgeColor, isEligibleForAward } from "./badges.js";
+
+  describe("getBadgeColor", () => {
+      it("returns blue for fewer than 5 years", () => {
+          expect(getBadgeColor(2)).toBe("blue");
+      });
+
+      it("returns yellow for 5 to 9 years", () => {
+          expect(getBadgeColor(7)).toBe("yellow");
+      });
+
+      // Strong test — asserts the specific return value so a wrong output fails the test
+      it("returns silver for 15 or more years", () => {
+          expect(getBadgeColor(20)).toBe("silver");
+      });
+
+  });
+
+  describe("isEligibleForAward", () => {
+      it("returns false when the employee is inactive", () => {
+          expect(isEligibleForAward({ isActive: false, years: 20 })).toBe(false);
+      });
+  });
+#+end_src
+
+*** Test the coverage
+
+#+begin_src sh
+  # to test the coverage run the following command
+  npm run coverage
+#+end_src
+
+Test the coverage report in file =coverage/index.html=
+
+** Code linting and formatting
+
+*** Linter
+
+A linter is a program that reads your source code and reports issues based on rules.
+
+#+begin_quote
+A linter accepts your code — the syntax is valid — but says: this line looks like a mistake. Fix it now, before it becomes a bug.
+#+end_quote
+
+*** Formatted
+
+A formatter takes your source code and rewrites it in a consistent style.
+
+#+begin_quote
+The point of a formatter is not to catch mistakes. It is to end the conversation about style. That means code reviews stop being about formatting nitpicks and start being about what actually changed.
+#+end_quote
+
+*** Popular tooling
+
+- *ESLint:* Most common JavaScript linter
+- *Prettier:* Most common JavaScript formatter
+
+*** Demo project
+
+[[file:~/Documents/org/demos/javascript/javascript_fundamentals/clean-maintainable-code/lint-demo/][lint-demo]]
+
+*** Dependencies for linting and formatting
+
+Check the file =package.json= for devDependencies and scripts
+
+#+begin_src json
+  {
+      "name": "lint-demo",
+      "version": "1.0.0",
+      "type": "module",
+      "scripts": {
+          "lint": "eslint .",
+          "format": "prettier --write ."
+      },
+      "devDependencies": {
+          "@eslint/js": "^9.0.0",
+          "eslint": "^9.0.0",
+          "prettier": "^3.0.0"
+      }
+  }
+#+end_src
+
+*** Eslint configuration
+
+Check the file =eslint.config.js= for linting configuration
+#+begin_src js
+  import js from "@eslint/js";
+
+  export default [
+      js.configs.recommended,
+      {
+          languageOptions: {
+              ecmaVersion: 2024,
+              sourceType: "module",
+          },
+      },
+  ];
+#+end_src
+
+*** Linting
+
+#+begin_src sh
+  # run the command to run the linter and check the output
+  npm run lint
+#+end_src
+
+*** Formatting
+
+#+begin_src sh
+  # run prettier to fix the formatting
+  npm run format
+#+end_src
+
+#+begin_quote
+Most teams also configure their editor to run ESLint and Prettier automatically. You install the ESLint extension and the Prettier extension in VS Code, then set Prettier as the default formatter and turn on format-on-save.
+#+end_quote
+
+** Modern JavaScript compatibility checklist
+
+*** Compatability checklist
+
+- Check runtime support
+- Understand the standard vs. proposal stage
+- Distinguish between standard and runtime APIs
+- Use documentation
+- Recognize legacy patterns
